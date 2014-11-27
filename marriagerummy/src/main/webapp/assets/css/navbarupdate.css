@@ -1,0 +1,101 @@
+.navbar-default {
+	background-color: #036AAC;
+	border-color: #036AAC;
+}
+
+.navbar-default .navbar-brand {
+	color: #FEFEFC;
+}
+
+.navbar-default .navbar-brand:hover,.navbar-default .navbar-brand:focus
+	{
+	color: #FFFFFF;
+}
+
+.navbar-default .navbar-text {
+	color: #FEFEFC;
+}
+
+.navbar-default .navbar-nav>li>a {
+	color: #FEFEFC;
+}
+
+.navbar-default .navbar-nav>li>a:hover,.navbar-default .navbar-nav>li>a:focus
+	{
+	color: #FFFFFF;
+	font-weight: 400;
+	/* font-weight:bold; */
+}
+
+.navbar-default .navbar-nav>.active>a,.navbar-default .navbar-nav>.active>a:hover,.navbar-default .navbar-nav>.active>a:focus
+	{
+	color: #FAFAFA;
+	background-color: #2D2D62;
+	font-weight: 400;
+	/* font-weight:bold; */
+}
+
+.navbar-default .navbar-nav>.open>a,.navbar-default .navbar-nav>.open>a:hover,.navbar-default .navbar-nav>.open>a:focus
+	{
+	color: #FFFFFF;
+	background-color: #036AAC;
+}
+
+.navbar-default .navbar-toggle {
+	border-color: #036AAC;
+}
+
+.navbar-default .navbar-toggle:hover,.navbar-default .navbar-toggle:focus
+	{
+	background-color: #036AAC;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #FEFEFC;
+}
+
+.navbar-default .navbar-collapse,.navbar-default .navbar-form {
+	border-color: #FEFEFC;
+}
+
+.navbar-default .navbar-link {
+	color: #FEFEFC;
+}
+
+.navbar-default .navbar-link:hover {
+	color: #FFFFFF;
+}
+
+@media ( max-width : 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+		color: #FEFEFC;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>li>a:focus
+		{
+		color: #FFFFFF;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu>.active>a,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:hover,.navbar-default .navbar-nav .open .dropdown-menu>.active>a:focus
+		{
+		color: #FFFFFF;
+		background-color: #036AAC;
+	}
+}
+
+.navbar-fixed-top {
+	min-height: 80px;
+	box-shadow: 1px 1px 10px 3px rgb(133, 147, 127);
+}
+
+.navbar-nav>li>a {
+	padding-top: 0px;
+	padding-bottom: 0px;
+	line-height: 80px;
+}
+
+.navbar-header>a {
+	margin-top: -6px;
+}
+
+.navbar-collapse>form {
+	padding-top: 16px;
+}

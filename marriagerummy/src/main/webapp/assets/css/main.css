@@ -1,0 +1,194 @@
+@CHARSET "ISO-8859-1";
+
+/* Intro related CSS */
+.horizontal-slider {
+	width: 800px;
+	min-height: 500px;
+	position: relative;
+	overflow: hidden;
+	left: 2.5%;
+	top: 40px;
+	padding-bottom: 40px;
+	border-radius:20px;
+}
+
+.horizontal-slider .items {
+	width: 4000px;
+	-webkit-animation: hscroll 10s infinite;
+	-moz-animation: hscroll 10s infinite;
+	-ms-animation: hscroll 10s infinite;
+	animation: hscroll 10s infinite;
+}
+
+.horizontal-slider .item {
+	margin: 0;
+	float: left;
+	width: 800px;
+}
+
+/*
+/* The keyframes calculations are based on assumption of 4 items in the carousel.
+/* You should notice the pattern for your own calculations.
+*/
+@-webkit-keyframes hscroll { 
+   0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -800px;}
+   40%, 59.75% { margin-left : -1600px;}
+   60%, 79.75% { margin-left : -2400px;}
+   80%, 99.75% { margin-left : -3200px;}
+   100% { margin-left : 0 }
+}
+@-moz-keyframes hscroll { 
+	
+	0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -800px;}
+   40%, 59.75% { margin-left : -1600px;}
+   60%, 79.75% { margin-left : -2400px;}
+   80%, 99.75% { margin-left : -3200px;}
+   100% { margin-left : 0 }
+}
+@-ms-keyframes hscroll {
+   0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -800px;}
+   40%, 59.75% { margin-left : -1600px;}
+   60%, 79.75% { margin-left : -2400px;}
+   80%, 99.75% { margin-left : -3200px;}
+   100% { margin-left : 0 }
+}
+@keyframes hscroll { 
+   0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -800px;}
+   40%, 59.75% { margin-left : -1600px;}
+   60%, 79.75% { margin-left : -2400px;}
+   80%, 99.75% { margin-left : -3200px;}
+   100% { margin-left : 0 }
+}
+
+/* Intro related CSS end */
+#games>div>div {
+	/* border: 1px solid rgb(255, 255, 255); */
+	margin-top: 20px;
+	/* box-shadow: 1px 1px 10px 10px rgb(202, 221, 202); */
+	border-radius: 18px;
+	padding: 20px;
+	/* //background: rgb(247, 247, 247); */
+}
+
+#gametype>h3,#gamemode>h3,#victorymode>h3 {
+	text-align: center;
+}
+
+#gametype>ul>li,#gamemode>ul>li,#victorymode>ul>li {
+	font-size: 17px;
+	list-style: none outside none;
+}
+
+#gametype blockquote,#gamemode blockquote,#victorymode blockquote {
+	border-left: 0px solid #036AAC;
+	border-radius: 7px;
+	/* background: rgb(235, 242, 234); */
+	padding-left: 55px;
+	line-height: 2px;
+	padding-bottom: 29px;
+	padding-top: 0px;
+	min-width: 400px;
+}
+
+#gametype blockquote p,#gamemode blockquote p,#victorymode blockquote p
+	{
+	font-size: 16px;
+	color: #036AAC;
+}
+
+#gamedescription button {
+	float: right;
+	margin-top: -4px;
+}
+
+.btn_learnmore {
+	color: #FFFFFF;
+	background-color: #036AAC;
+	border-color: #42474F;
+	float: right;
+	margin-top: -14px;
+}
+
+.btn_learnmore:hover,.btn_learnmore :hover {
+	color: #FFFFFF;
+	background-color: #6EA1EF;
+	border-color: #42474F;
+	/* font-weight: bold; */
+}
+
+.tick {
+	min-width: 32px;
+	min-height: 32px;
+	width: 32px;
+	height: 32px;
+	position: relative;
+	top: 17px;
+	left: -37px;
+	background: url('../images/tick32x32.png') repeat scroll 0% 0%
+		transparent;
+}
+
+.verticalSpacer {
+	height: 25px;
+}
+
+.verticalSpacer-large {
+	height: 100px;
+}
+
+.labelContainer {
+	z-index: 1;
+	position: relative;
+	text-align: center;
+	clear: both;
+	max-width: 1500px;
+	margin: 10px auto 0;
+	padding-top: 17px;
+}
+
+.labelContainer h3 {
+	background-color: #f4f4f5;
+	display: inline;
+	font-size: 2.375em;
+	margin: 0 auto;
+	padding: 0 30px;
+	z-index: 3;
+	box-shadow: 1px 1px 10px 2px #292323;
+	padding-bottom: 12px;
+	border-radius: 12px;
+}
+
+.round-up-inset {
+	border-radius: 30px;
+	background: none repeat scroll 0% 0% #F4F4F4;
+	box-shadow: 1px 1px 10px 1px rgba(4, 6, 3, 1);
+}
+
+.section1 {
+	min-height: 400px;
+	background: url("../images/mainbg.jpg");
+}
+
+.section2 {
+	min-height: 400px;
+}
+
+.section3 {
+	min-height: 400px;
+}
+
+.section4 {
+	min-height: 400px;
+	color: #949494;
+	font-size: 12px;
+	line-height: 18px;
+	background: #222;
+	padding: 35px 0;
+	clear: both;
+	position: relative;
+	z-index: 10;
+}

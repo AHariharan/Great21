@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url('http://themes.googleusercontent.com/static/fonts/opensans/v5/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff') format('woff');
+}
+
+body {
+	padding-top: 80px;
+	background-color: #f4f4f5;
+	color: #49494b;
+	/* font-family: 'Open Sans', arial; */
+	font-size: 16px;
+}
+
+a
+{
+	cursor: pointer;
+}
+
+h1, h2, h3, h4, blockquote, q, .maia-nav ul {
+   font-family: 'open sans',arial,sans-serif;
+   font-weight:300;   
+}
+
+.logo {
+	background: url("../images/Logo.png");
+	width: 100px;
+	height: 40px;
+}
+
