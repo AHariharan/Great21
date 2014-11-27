@@ -7,7 +7,7 @@
 
     
     <mvc:default-servlet-handler />
-	<mvc:annotation-driven />
+	<!-- <mvc:annotation-driven /> -->
 
     <mvc:interceptors>
         <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
