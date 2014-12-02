@@ -24,6 +24,7 @@
 	{
 	color: #FFFFFF;
 	font-weight: 400;
+	background-color: #2D2D62;
 	/* font-weight:bold; */
 }
 
@@ -98,4 +99,29 @@
 
 .navbar-collapse>form {
 	padding-top: 16px;
+}
+
+.carousel a
+{
+	background:transparent;
+	background-image: none !important;
+}
+
+.carousel a span
+{
+	color:#036AAC;
+}
+
+.carousel-indicators
+{
+	bottom: -31px;
+}
+.carousel-indicators li
+{
+	border: 1px solid #036AAC;
+}
+
+.carousel-indicators li.active
+{
+	background-color:#036AAC;
 }

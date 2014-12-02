@@ -25,7 +25,8 @@
 		file="./WEB-INF/includeTemplates/HomePage/Main-Navigation.jsp"%>
 	<div class="container-fluid maincontent">
 		<%@ include
-			file="./WEB-INF/includeTemplates/HomePage/Main-IntroRummy.jsp"%>		
+			file="./WEB-INF/includeTemplates/HomePage/Main-IntroRummy.jsp"%>
+		<div class="verticalSpacer"></div>			
 		<%@ include file="./WEB-INF/includeTemplates/HomePage/Main-Games.jsp"%>
 		<div class="verticalSpacer-large"></div>
 

@@ -2,8 +2,8 @@
 
 /* Intro related CSS */
 .horizontal-slider {
-	width: 800px;
-	min-height: 500px;
+	width: 815px;
+	min-height: 600px;
 	position: relative;
 	overflow: hidden;
 	left: 2.5%;
@@ -14,16 +14,16 @@
 
 .horizontal-slider .items {
 	width: 4000px;
-	-webkit-animation: hscroll 10s infinite;
-	-moz-animation: hscroll 10s infinite;
-	-ms-animation: hscroll 10s infinite;
-	animation: hscroll 10s infinite;
+	-webkit-animation: hscroll 20s infinite;
+	-moz-animation: hscroll 20s infinite;
+	-ms-animation: hscroll 20s infinite;
+	animation: hscroll 20s infinite;
 }
 
 .horizontal-slider .item {
 	margin: 0;
 	float: left;
-	width: 800px;
+	width: 815px;
 }
 
 /*
@@ -31,16 +31,17 @@
 /* You should notice the pattern for your own calculations.
 */
 @-webkit-keyframes hscroll { 
-   0%, 19.75% { margin-left: 0; }
-   20%, 39.75% { margin-left : -800px;}
-   40%, 59.75% { margin-left : -1600px;}
-   60%, 79.75% { margin-left : -2400px;}
-   80%, 99.75% { margin-left : -3200px;}
+  
+    0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -815px;}
+   40%, 59.75% { margin-left : -1630px;}
+   60%, 79.75% { margin-left : -2445px;}
+   80%, 99.75% { margin-left : -3260px;}
    100% { margin-left : 0 }
 }
 @-moz-keyframes hscroll { 
 	
-	0%, 19.75% { margin-left: 0; }
+ 0%, 19.75% { margin-left: 0; }
    20%, 39.75% { margin-left : -800px;}
    40%, 59.75% { margin-left : -1600px;}
    60%, 79.75% { margin-left : -2400px;}
@@ -48,19 +49,19 @@
    100% { margin-left : 0 }
 }
 @-ms-keyframes hscroll {
-   0%, 19.75% { margin-left: 0; }
-   20%, 39.75% { margin-left : -800px;}
-   40%, 59.75% { margin-left : -1600px;}
-   60%, 79.75% { margin-left : -2400px;}
-   80%, 99.75% { margin-left : -3200px;}
+    0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -815px;}
+   40%, 59.75% { margin-left : -1630px;}
+   60%, 79.75% { margin-left : -2445px;}
+   80%, 99.75% { margin-left : -3260px;}
    100% { margin-left : 0 }
 }
 @keyframes hscroll { 
-   0%, 19.75% { margin-left: 0; }
-   20%, 39.75% { margin-left : -800px;}
-   40%, 59.75% { margin-left : -1600px;}
-   60%, 79.75% { margin-left : -2400px;}
-   80%, 99.75% { margin-left : -3200px;}
+    0%, 19.75% { margin-left: 0; }
+   20%, 39.75% { margin-left : -815px;}
+   40%, 59.75% { margin-left : -1630px;}
+   60%, 79.75% { margin-left : -2445px;}
+   80%, 99.75% { margin-left : -3260px;}
    100% { margin-left : 0 }
 }
 
@@ -168,9 +169,27 @@
 	box-shadow: 1px 1px 10px 1px rgba(4, 6, 3, 1);
 }
 
+#signup
+{
+	box-shadow: 0px 0px 10px 2px #CECEDB;
+    padding: 50px;
+    border-radius: 20px;
+    background: rgb(239, 241, 245)
+}
+
+.horizontalsep
+{
+	height:2px;
+	border-bottom: 2px solid gray;
+}
+.horizontalsep>span
+{
+	text-align: center;
+}
+
 .section1 {
 	min-height: 400px;
-	background: url("../images/mainbg.jpg");
+	/* background: url("../images/mainbg.jpg"); */
 }
 
 .section2 {
