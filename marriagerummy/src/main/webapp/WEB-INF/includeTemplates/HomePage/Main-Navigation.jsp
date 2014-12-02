@@ -24,9 +24,9 @@
 					<li><a href="#tips" onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('tips',event);">Tips</a></li>
 					<li><a href="#leaderboards" onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('leaderboards',event);">Points</a></li>
 				</ul>
-				<form class="navbar-form navbar-right" role="form">
+				<!-- <form class="navbar-form navbar-right" role="form">
 					<button type="submit" class="btn btn-success">Sign in</button>
-				</form>
+				</form> -->
 			</div>
 			<!--/.nav-collapse -->
 		</div>

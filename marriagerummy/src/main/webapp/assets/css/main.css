@@ -169,12 +169,16 @@
 	box-shadow: 1px 1px 10px 1px rgba(4, 6, 3, 1);
 }
 
-#signup
+#signup,#signin
 {
-	box-shadow: 0px 0px 10px 2px #CECEDB;
+	
     padding: 50px;
-    border-radius: 20px;
-    background: rgb(239, 241, 245)
+  
+}
+
+#signupsignin .tab-content
+{
+	min-height:300px;
 }
 
 .horizontalsep
