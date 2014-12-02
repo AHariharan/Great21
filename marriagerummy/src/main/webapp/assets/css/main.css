@@ -173,6 +173,7 @@
 {
 	
     padding: 50px;
+    padding-top:20px;
   
 }
 
@@ -189,6 +190,45 @@
 .horizontalsep>span
 {
 	text-align: center;
+}
+
+.errorPanel
+{
+	color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    border-radius:5px;
+    min-height:25px;
+    font-size:14px;
+    margin-bottom: 20px;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+.errorPanel>ul
+{
+	margin-bottom:0px;
+}
+.errorPanel>ul>li
+{
+	min-width: 16px;
+	min-height: 16px;
+	width: 16px;
+	height: 16px;
+	position: relative;
+	top: 17px;
+	left: -37px;
+	background: url('../images/icons/16X16/errorMessage.png') repeat scroll 0% 0%
+		transparent;
+	font-weight:300px;
+	list-style:none;
+}
+
+.required
+{
+	color: rgb(240, 20, 45);
+    font-size: 17px;
+    padding-right: 2px;
 }
 
 .section1 {
