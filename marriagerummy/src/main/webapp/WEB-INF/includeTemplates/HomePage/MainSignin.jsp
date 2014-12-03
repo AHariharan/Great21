@@ -1,8 +1,7 @@
 <div role="tabpanel" class="tab-pane active" id="signin">
-	<div class="errorPanel">
+	<div class="errorPanel" style="display: none">
 		<ul>
-			<li>testMessage</li>
-			<li>testMessage</li>
+
 		</ul>
 	</div>
 	<form class="form-horizontal" role="form">
@@ -41,4 +40,16 @@
 		</div>
 
 	</form>
+	<div class="horizontalsep">
+		<h4 style="background-color: rgb(244, 244, 245);">or</h4>
+	</div>
+	<div id="thirdpartySignin container">
+	  <div class="row">
+		<div class="col-md-offset-2 col-md-3 googlebutton" >		    
+		</div>
+		<div class="col-md-offset-1 col-md-5 facebookbutton">
+		   Login with facebook		    
+		</div>
+	 </div>
+	</div>
 </div>

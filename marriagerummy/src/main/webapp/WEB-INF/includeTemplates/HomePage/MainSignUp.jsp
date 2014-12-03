@@ -1,8 +1,7 @@
 <div role="tabpanel" class="tab-pane" id="signup">
-	<div class="errorPanel">
+	<div class="errorPanel" style="display:none">
 		<ul>
-			<li>testMessage</li>
-			<li>testMessage</li>
+			
 		</ul>
 	</div>
 	<form class="form-horizontal" role="form">

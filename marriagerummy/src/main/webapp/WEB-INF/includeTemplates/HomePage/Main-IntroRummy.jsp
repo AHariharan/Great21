@@ -1,29 +1,5 @@
-<!-- <div class="row">
-	<div id="Intro" class="mycarousel horizontal-slider col-md-7">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="items">
-					<img class="item" src="./assets/images/MainPages/7CardRummy.png" />
-					<img class="item" src="./assets/images/MainPages/13CardRummy.png" />
-					<img class="item" src="./assets/images/MainPages/21CardRummy.png" />
-					<img class="item" src="./assets/images/MainPages/FriendsPlay.png" />
-					<img class="item" src="./assets/images/MainPages/21CardRummy.png" />
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div id="Intro" class="horizontal-slider">
- <div class="row">
-    <div class="col-md-12">
-     <img  src="./assets/images/MainPages/7CardRummy.png" />
-     </div>
- </div>    
-</div> -->
-
 <div class="row">
-	<div class="col-md-7">
+	<div class="col-md-7" >
 		<div id="carouselmainpage" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">

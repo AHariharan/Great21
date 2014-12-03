@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 /* Intro related CSS */
-.horizontal-slider {
+/* .horizontal-slider {
 	width: 815px;
 	min-height: 600px;
 	position: relative;
@@ -24,13 +24,13 @@
 	margin: 0;
 	float: left;
 	width: 815px;
-}
+} */
 
 /*
 /* The keyframes calculations are based on assumption of 4 items in the carousel.
 /* You should notice the pattern for your own calculations.
 */
-@-webkit-keyframes hscroll { 
+/* @-webkit-keyframes hscroll { 
   
     0%, 19.75% { margin-left: 0; }
    20%, 39.75% { margin-left : -815px;}
@@ -64,7 +64,7 @@
    80%, 99.75% { margin-left : -3260px;}
    100% { margin-left : 0 }
 }
-
+ */
 /* Intro related CSS end */
 #games>div>div {
 	/* border: 1px solid rgb(255, 255, 255); */
@@ -158,7 +158,7 @@
 	margin: 0 auto;
 	padding: 0 30px;
 	z-index: 3;
-	box-shadow: 1px 1px 10px 2px #292323;
+	/* box-shadow: 1px 1px 10px 2px #292323; */
 	padding-bottom: 12px;
 	border-radius: 12px;
 }
@@ -169,66 +169,99 @@
 	box-shadow: 1px 1px 10px 1px rgba(4, 6, 3, 1);
 }
 
-#signup,#signin
-{
-	
-    padding: 50px;
-    padding-top:20px;
-  
+#signup,#signin,#invite {
+	padding: 50px;
+	padding-top: 20px;
 }
 
-#signupsignin .tab-content
-{
-	min-height:300px;
+#signupsignin .tab-content {
+	min-height: 300px;
 }
 
-.horizontalsep
+/* .horizontalsep
 {
+	margin-top:10px;
 	height:2px;
 	border-bottom: 2px solid gray;
 }
 .horizontalsep>span
 {
 	text-align: center;
+} */
+.horizontalsep {
+	background-image:
+		url(data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=);
+	background-repeat: repeat-x;
+	background-position: left;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
-.errorPanel
-{
+.horizontalsep h4 {
+	background-color: inherit;
+	margin: 0 auto;
+	padding: 0 10px;
+	display: inline-block;
+}
+
+.errorPanel {
 	color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    border-radius:5px;
-    min-height:25px;
-    font-size:14px;
-    margin-bottom: 20px;
-    padding-top:5px;
-    padding-bottom:5px;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+	border-radius: 5px;
+	min-height: 25px;
+	font-size: 14px;
+	margin-bottom: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
-.errorPanel>ul
-{
-	margin-bottom:0px;
-}
-.errorPanel>ul>li
-{
-	min-width: 16px;
-	min-height: 16px;
-	width: 16px;
-	height: 16px;
-	position: relative;
-	top: 17px;
-	left: -37px;
-	background: url('../images/icons/16X16/errorMessage.png') repeat scroll 0% 0%
-		transparent;
-	font-weight:300px;
-	list-style:none;
+.errorPanel>ul {
+	margin-bottom: 0px;
 }
 
-.required
-{
+.errorPanel>ul>li {
+	list-style: circle;
+}
+
+#thirdpartySignin a {
+	width: 120px;
+	height: 40px;
+}
+
+.googlebutton {
+	min-width: 120px;
+	min-height: 40px;
+	cursor: pointer;
+	background:
+		url("../images/thirdpartyimages/google/Red-signin-Medium-base-44dp.png");
+	background-size: 120px 40px;
+	background-repeat: no-repeat;
+}
+
+.googlebutton:hover {
+	background:
+		url("../images/thirdpartyimages/google/Red-signin-Medium-hover-44dp.png");
+	background-size: 120px 40px;
+	background-repeat: no-repeat;
+}
+
+.facebookbutton {
+	min-width: 120px;
+	min-height: 32px;
+	cursor: pointer;
+	background-color: #496DAD;
+	color: #EDECEC;
+	margin-top: 4px;
+	padding-top: 4px;
+	font-size: 15px;
+	text-align: center;
+}
+
+.required {
 	color: rgb(240, 20, 45);
-    font-size: 17px;
-    padding-right: 2px;
+	font-size: 17px;
+	padding-right: 2px;
 }
 
 .section1 {
