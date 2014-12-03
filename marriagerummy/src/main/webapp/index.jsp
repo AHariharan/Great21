@@ -26,8 +26,10 @@
 	<div class="container-fluid maincontent">
 		<%@ include
 			file="./WEB-INF/includeTemplates/HomePage/Main-IntroRummy.jsp"%>
-		<div class="verticalSpacer"></div>			
+		<div class="verticalSpacer"></div>
+		<div class="container">
 		<%@ include file="./WEB-INF/includeTemplates/HomePage/Main-Games.jsp"%>
+		</div>
 		<div class="verticalSpacer-large"></div>
 
 		<div id="howto" class="section2"></div>
