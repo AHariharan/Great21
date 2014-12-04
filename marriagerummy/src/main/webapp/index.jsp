@@ -20,15 +20,16 @@
 <meta name="description" content="">
 </head>
 <body>
-
+     <div id="profile"></div>
 	<%@ include
 		file="./WEB-INF/includeTemplates/HomePage/Main-Navigation.jsp"%>
 	<div class="container-fluid maincontent">
 		<%@ include
 			file="./WEB-INF/includeTemplates/HomePage/Main-IntroRummy.jsp"%>
 		<div class="verticalSpacer"></div>
+		<hr />
 		<div class="container">
-		<%@ include file="./WEB-INF/includeTemplates/HomePage/Main-Games.jsp"%>
+			<%@ include file="./WEB-INF/includeTemplates/HomePage/Main-Games.jsp"%>
 		</div>
 		<div class="verticalSpacer-large"></div>
 
@@ -43,4 +44,5 @@
 		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
+	<%@ include file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp" %>
 </body>

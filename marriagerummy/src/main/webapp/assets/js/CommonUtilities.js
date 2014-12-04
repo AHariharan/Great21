@@ -46,4 +46,9 @@ var navigationHandler = new MarriageRummy.Utilities.UIUtilities.NavigationHandle
 
 
 
-
+MarriageRummy.Utilities.onLoad = function()
+{
+	$(".googlebutton").click(function(){
+		login();
+	});
+}();
