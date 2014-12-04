@@ -1,5 +1,7 @@
 <div id="signupsignin" role="tabpanel" class="col-md-5">
-
+    <div class="playrummyintro">
+           Playing Rummy is always fun and great way to relax. Play Indian version of Rummy with your friends and family
+    </div>
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
 		

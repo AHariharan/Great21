@@ -44,12 +44,10 @@
 		<h4 style="background-color: rgb(244, 244, 245);">or</h4>
 	</div>
 	<div id="thirdpartySignin container">
-	  <div class="row">
-		<div class="col-md-offset-2 col-md-3 googlebutton" >		    
+		<div class="row">
+			<div class="col-md-offset-2 col-md-3 googlebutton"></div>
+			<div class="fb-login-button col-md-offset-1 col-md-4" style="padding-top:4px;" data-max-rows="3" data-size="large"
+				data-show-faces="true" data-auto-logout-link="true"></div>
 		</div>
-		<div class="col-md-offset-1 col-md-5 facebookbutton">
-		   Login with facebook		    
-		</div>
-	 </div>
 	</div>
 </div>

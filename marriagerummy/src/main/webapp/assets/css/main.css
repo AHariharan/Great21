@@ -264,6 +264,14 @@
 	padding-right: 2px;
 }
 
+.playrummyintro {
+	font-family: 'open sans', arial, sans-serif;
+	font-weight: 300;
+	min-height: 119px;
+	font-size: 25px;
+	color: rgb(3, 106, 172);
+}
+
 .section1 {
 	min-height: 400px;
 	/* background: url("../images/mainbg.jpg"); */

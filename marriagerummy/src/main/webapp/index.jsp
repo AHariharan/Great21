@@ -45,4 +45,5 @@
 		type="text/javascript"></script>
 	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
 	<%@ include file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp" %>
+	<%@ include file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp" %>
 </body>

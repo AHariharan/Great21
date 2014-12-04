@@ -135,8 +135,8 @@
 .tab-content
 {
 border-top: 3px solid #036AAC;
-border-left: 2px solid #036AAC;
-box-shadow: inset 0px 0px 81px -21px rgba(12, 124, 195, 1);
-border-bottom: 2px solid #036AAC;
-border-right: 2px solid #036AAC;
+/* border-left: 2px solid #036AAC; */
+/* box-shadow: inset 0px 0px 81px -21px rgba(12, 124, 195, 1); */
+/* border-bottom: 2px solid #036AAC;
+border-right: 2px solid #036AAC; */
 }

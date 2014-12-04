@@ -15,6 +15,7 @@
 	}
 
 	function loginCallback(result) {
+		console.log(result);
 		if (result['status']['signed_in']) {
 			var request = gapi.client.plus.people.get({
 				'userId' : 'me'

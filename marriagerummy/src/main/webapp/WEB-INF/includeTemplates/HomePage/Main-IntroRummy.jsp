@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-7" display:none>
+	<div class="col-md-7" style="border-right:1px dashed gray; ">
 		<div id="carouselmainpage" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
