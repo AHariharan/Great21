@@ -12,12 +12,15 @@ public class HumanPlayer implements Player{
 	private boolean isTurn,isJokerKnown;
 	private String nickName;
 	private static final String player_type = Player.PLAYER_TYPE_HUMAN;
+	private String status;
 	
 	public HumanPlayer(String nickname)
 	{
 		this.nickName = nickname;
+		status = PLAYER_STATUS_INGAMEROUND;
 	}
 
+	
 
 	public boolean isJokerKnown() {
 			return isJokerKnown;
@@ -118,7 +121,36 @@ public class HumanPlayer implements Player{
 		
 	}
 
-	
+
+
+	public int getCurrentPoints() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	public String getPlayerStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	public String getPlayerRoundStatus() {
+		// TODO Auto-generated method stub
+		return this.status;
+	}
+
+
+
+	public void setPlayerStatus(String Status) {
+		this.status =status;
+		
+	}
+
+
+
 
 
 }
