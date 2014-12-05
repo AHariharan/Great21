@@ -1,3 +1,4 @@
+<!-- This page needs to be moved under views -->
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html class="no-js">
@@ -20,22 +21,10 @@
 <meta name="description" content="">
 </head>
 <body>
-	<div id="profile"></div>
 	<%@ include
-		file="./WEB-INF/includeTemplates/HomePage/Main-Navigation.jsp"%>
+		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
 	<div class="container-fluid maincontent">
-		<%@ include
-			file="./WEB-INF/includeTemplates/HomePage/Main-IntroRummy.jsp"%>
-		<div class="verticalSpacer"></div>
-		<hr />
-		<div class="container">
-			<%@ include file="./WEB-INF/includeTemplates/HomePage/Main-Games.jsp"%>
-		</div>
-		<div class="verticalSpacer-large"></div>
-
-		<div id="howto" class="section2"></div>
-		<div id="rules" class="section3"></div>
-		<div id="footer" class="section4"></div>
+		
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
@@ -44,8 +33,8 @@
 		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
-	<%@ include
+	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
 	<%@ include
-		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%>
+		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%> --%>
 </body>

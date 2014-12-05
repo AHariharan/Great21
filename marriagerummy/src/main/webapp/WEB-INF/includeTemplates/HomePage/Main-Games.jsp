@@ -5,7 +5,7 @@
 	<div class="row">
 		<div id="gamedescription" class="col-md-12">
 			<div class="row">
-				<div id="gametype" class="col-md-4 round-up-inset">
+				<div id="gametype" class="col-md-4 ">
 					<h3>Rummy games</h3>
 
 					<ul>
@@ -23,7 +23,7 @@
 					</ul>
 
 				</div>
-				<div id="victorymode" class="col-md-4 round-up-inset">
+				<div id="victorymode" class="col-md-4 ">
 					<h3>Victory modes</h3>
 					<ul>
 						<li><blockquote>
@@ -38,7 +38,7 @@
 							</blockquote></li>
 					</ul>
 				</div>
-				<div id="gamemode" class="col-md-4 round-up-inset">
+				<div id="gamemode" class="col-md-4 ">
 					<h3>Game modes</h3>
 					<ul>
 						<li><blockquote>
