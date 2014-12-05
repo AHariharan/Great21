@@ -22,11 +22,11 @@
 					<li><a href="#Profile" onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('Profile',event);">Profile</a></li>
 					<li><a href="#Friends" onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('Friends',event);">Friends</a></li>
 				</ul>
+				<ul class="navbar-right">
+				    <li> Welcome User </li>
+				</ul>
 				<form class="navbar-form navbar-right" role="form">
-				    <ul>
-				       <li>Welcome LoggedinUser </li>
-				    </ul>
-					<button type="submit" class="btn btn-success">Logout</button>
+				  	<button type="submit" class="btn btn-success">Logout</button>
 				</form>
 			</div>
 			<!--/.nav-collapse -->

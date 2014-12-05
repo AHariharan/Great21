@@ -16,14 +16,27 @@
 	rel="stylesheet">
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
+<link href="./assets/css/RummyPage.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
+<link href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 <meta name="description" content="">
 </head>
-<body>
-	<%@ include
-		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
+<body style="padding-top:3px;">
+	<%-- <%@ include
+		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
 	<div class="container-fluid maincontent">
+	
+	  <div class="sidebar">
+	     <ul>
+	        <li><i class="fa fa-user"></i> Profile </li>	
+	        <li class="selected"> <i class="fa fa-newspaper-o"></i>My Stats </li>
+	        <li><i class="fa fa-globe"></i> Game Lobby </li>	
+	        <li><i class="fa fa-inbox"></i> Messages </li>	  
+	        <li><i class="fa fa-trophy"></i> Acheivements </li>	 
+	        <li><i class="fa fa-users"></i> Friends </li>	       
+	     </ul>
+	  </div>
 		
 	</div>
 	<!-- /.container -->

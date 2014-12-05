@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+.sidebar {
+	background-color: #036AAC;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0 1px 0 0;
+	width: 180px;
+	float: left;
+	position: static;
+	padding-left: 0;
+	padding-right: 0;
+	min-height: 300px;
+}
+
+.sidebar>ul {
+	/* height: 25px; */
+	padding-left: 0px;
+	padding-top: 50px;
+}
+
+.sidebar>ul>li {
+	color: #ffffff;
+	list-style: none;
+	min-height: 44px;
+	vertical-align: middle;
+	line-height: 25px;
+	padding-top: 6px;
+	padding-left: 20px;
+	border: 1px solid rgb(33, 108, 194);
+	cursor:pointer;
+}
+
+.sidebar>ul>li>i {
+	padding-right: 10px;
+}
+
+.sidebar>ul>li.selected {
+	background: #2C397E;
+	color: #FFFFFF;
+}
+
+.sidebar>ul>li:hover {
+	background: #2C397E;
+	color: #FFFFFF;
+}
