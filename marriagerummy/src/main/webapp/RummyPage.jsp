@@ -18,26 +18,36 @@
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
-<link href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
 
 <meta name="description" content="">
 </head>
-<body style="padding-top:3px;">
+<body style="padding-top: 3px;">
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
 	<div class="container-fluid maincontent">
-	
-	  <div class="sidebar">
-	     <ul>
-	        <li><i class="fa fa-user"></i> Profile </li>	
-	        <li class="selected"> <i class="fa fa-newspaper-o"></i>My Stats </li>
-	        <li><i class="fa fa-globe"></i> Game Lobby </li>	
-	        <li><i class="fa fa-inbox"></i> Messages </li>	  
-	        <li><i class="fa fa-trophy"></i> Acheivements </li>	 
-	        <li><i class="fa fa-users"></i> Friends </li>	       
-	     </ul>
-	  </div>
-		
+
+		<div class="sidebar">
+			<div id="profilepic">
+				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
+				<i class="fa fa-user"></i>
+				<p>Neo Matrix</p>
+			</div>
+			<ul>
+				<li><i class="fa fa-user"></i> Profile</li>
+				<li class="selected"><i class="fa fa-newspaper-o"></i>My Stats
+				</li>
+				<li><i class="fa fa-globe"></i> Game Lobby</li>
+				<li><i class="fa fa-inbox"></i> Messages</li>
+				<li><i class="fa fa-trophy"></i> Acheivements</li>
+				<li><i class="fa fa-users"></i> Friends</li>
+			</ul>
+		</div>
+        <div class="navigation">
+           <%@ include file="../WEB-INF/includeTemplates/PlayPage/navpage.jsp" %>
+        </div>
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"

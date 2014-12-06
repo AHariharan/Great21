@@ -11,16 +11,16 @@
 	padding-left: 0;
 	padding-right: 0;
 	min-height: 300px;
+	font-size: 14px;
 }
 
 .sidebar>ul {
-	/* height: 25px; */
 	padding-left: 0px;
-	padding-top: 50px;
+	/* padding-top: 20px; */
 }
 
 .sidebar>ul>li {
-	color: #ffffff;
+	color: #EAEAEA;
 	list-style: none;
 	min-height: 44px;
 	vertical-align: middle;
@@ -28,7 +28,7 @@
 	padding-top: 6px;
 	padding-left: 20px;
 	border: 1px solid rgb(33, 108, 194);
-	cursor:pointer;
+	cursor: pointer;
 }
 
 .sidebar>ul>li>i {
@@ -43,4 +43,45 @@
 .sidebar>ul>li:hover {
 	background: #2C397E;
 	color: #FFFFFF;
+}
+
+#profilepic {
+	min-width: 64px;
+	min-height: 99px;
+	position: relative;
+	text-align: center;
+	font-size: 75px;
+	color: rgb(244, 244, 245);
+	border-bottom: 3px solid rgb(180, 203, 245);
+}
+
+
+
+#profilepic>img.displayed {
+	display: block;
+	vertical-align: middle;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	left: 15%;
+	margin-right: -70%;
+	background: rgb(244, 244, 245);
+	border-radius: 72px;
+	width: 128px;
+	height: 128px;
+}
+
+#profilepic p {
+	font-size: 13px;
+	font-weight: 300px;
+}
+
+.navigation
+{
+	overflow: hidden;
+}
+
+.navigation .navbar-fixed-top
+{
+	position:relative;
 }
