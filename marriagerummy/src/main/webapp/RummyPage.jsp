@@ -28,7 +28,21 @@
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
 	<div class="container-fluid maincontent">
-
+		<div class="sidebar-shrinked" style="display:none">
+			<div id="profilepic">
+				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
+				<i class="fa fa-user"></i>
+				<p>Neo Matrix test user</p>
+			</div>
+			<ul>
+				<li><i class="fa fa-user"></i></li>
+				<li class="selected"><i class="fa fa-newspaper-o"></i></li>
+				<li><i class="fa fa-globe"></i></li>
+				<li><i class="fa fa-inbox"></i></li>
+				<li><i class="fa fa-trophy"></i></li>
+				<li><i class="fa fa-users"></i></li>
+			</ul>
+		</div>
 		<div class="sidebar">
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
@@ -45,17 +59,22 @@
 				<li><i class="fa fa-users"></i> Friends</li>
 			</ul>
 		</div>
-        <div class="navigation">
-           <%@ include file="../WEB-INF/includeTemplates/PlayPage/navpage.jsp" %>
-        </div>
+		<div class="navigation">
+
+			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
+		</div>
+
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
+		type="text/javascript"></script>
+	<script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
 		type="text/javascript"></script>
 	<script
 		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
+	<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
 	<%@ include

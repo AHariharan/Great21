@@ -51,4 +51,6 @@ MarriageRummy.Utilities.onLoad = function()
 	$(".googlebutton").click(function(){
 		login();
 	});
+	
+
 }();

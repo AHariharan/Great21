@@ -1,5 +1,82 @@
 @CHARSET "ISO-8859-1";
 
+.sidebar-shrinked {
+	background-color: #036AAC;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0 1px 0 0;
+	width: 75px;
+	float: left;
+	position: static;
+	padding-left: 0;
+	padding-right: 0;
+	min-height: 300px;
+	font-size: 14px;
+}
+
+.sidebar-shrinked>ul {
+	padding-left: 0px;
+	/* padding-top: 20px; */
+}
+
+.sidebar-shrinked>ul>li {
+	color: #EAEAEA;
+	list-style: none;
+	min-height: 44px;
+	vertical-align: middle;
+	line-height: 25px;
+	padding-top: 9px;
+	/* 	padding-left: 9px; */
+	border: 1px solid rgb(33, 108, 194);
+	cursor: pointer;
+	font-size: 23px;
+	text-align: center;
+}
+
+.sidebar-shrinked>ul>li>i {
+	padding-right: 10px;
+}
+
+.sidebar-shrinked>ul>li.selected {
+	background: #2C397E;
+	color: #FFFFFF;
+}
+
+.sidebar-shrinked>ul>li:hover {
+	background: #2C397E;
+	color: #FFFFFF;
+}
+
+.sidebar-shrinked #profilepic {
+	min-width: 64px;
+	min-height: 99px;
+	position: relative;
+	text-align: center;
+	font-size: 55px;
+	color: rgb(244, 244, 245);
+	border-bottom: 3px solid rgb(180, 203, 245);
+}
+
+}
+.sidebar-shrinked #profilepic>img.displayed {
+	display: block;
+	vertical-align: middle;
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	left: 15%;
+	margin-right: -70%;
+	background: rgb(244, 244, 245);
+	border-radius: 72px;
+	width: 128px;
+	height: 128px;
+}
+
+.sidebar-shrinked #profilepic p {
+	font-size: 13px;
+	font-weight: 300px;
+}
+
 .sidebar {
 	background-color: #036AAC;
 	border-style: solid;
@@ -45,7 +122,7 @@
 	color: #FFFFFF;
 }
 
-#profilepic {
+.sidebar #profilepic {
 	min-width: 64px;
 	min-height: 99px;
 	position: relative;
@@ -55,9 +132,7 @@
 	border-bottom: 3px solid rgb(180, 203, 245);
 }
 
-
-
-#profilepic>img.displayed {
+.sidebar #profilepic>img.displayed {
 	display: block;
 	vertical-align: middle;
 	position: absolute;
@@ -71,17 +146,50 @@
 	height: 128px;
 }
 
-#profilepic p {
+.sidebar #profilepic p {
 	font-size: 13px;
 	font-weight: 300px;
 }
 
-.navigation
-{
+.navigation {
 	overflow: hidden;
 }
 
-.navigation .navbar-fixed-top
+.navigation .navbar-fixed-top {
+	position: relative;
+}
+
+.shrinker {
+	width: 45px;
+	position: relative;
+	float: left;
+	font-size: 30px;
+	color: whitesmoke;
+	background: rgb(3, 106, 172);
+	text-align: center;
+	cursor: pointer;
+	padding-top: 21px;
+}
+
+.Absolute-Center {
+	margin: auto;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.quicktools
 {
-	position:relative;
+	padding-top: 17px; 
+	color: whitesmoke;
+	/* padding-left: 20px; */ 
+	font-size: 20px !important; 
+	cursor: pointer;"
+}
+
+.quicktools>i:hover
+{
+	color:gray;
 }
