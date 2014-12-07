@@ -63,7 +63,9 @@
 
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
-
+        <div class="page-content">
+           <%@ include file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp" %>
+        </div>
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"

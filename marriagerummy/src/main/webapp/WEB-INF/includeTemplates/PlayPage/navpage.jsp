@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="shrinker">
-		<i class="fa fa-arrow-left"></i>
+		<i class="fa fa-angle-double-left"></i>
 	</div>
 	<div class="container">
 

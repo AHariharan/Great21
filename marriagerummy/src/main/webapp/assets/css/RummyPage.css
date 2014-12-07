@@ -180,16 +180,58 @@
 	right: 0;
 }
 
-.quicktools
-{
-	padding-top: 17px; 
+.quicktools {
+	padding-top: 17px;
 	color: whitesmoke;
-	/* padding-left: 20px; */ 
-	font-size: 20px !important; 
-	cursor: pointer;"
+	/* padding-left: 20px; */
+	font-size: 20px !important;
+	cursor: pointer;
+	"
 }
 
-.quicktools>i:hover
-{
-	color:gray;
+.quicktools>i:hover {
+	color: gray;
+}
+
+.page-content {
+	position: relative;
+	overflow: hidden;
+}
+
+.panel-green {
+	background: rgb(92, 184, 92);
+	border-color: 1px solid rgb(92, 184, 92);
+	color: white;
+}
+
+.panel-darkgreen {
+	background: rgb(72, 153, 73);
+	border: 1px solid rgb(72, 153, 73);
+	color: white;
+	box-shadow: 0px 0px 10px 2px gray;
+}
+
+.panel-purple {
+	background: rgb(44, 57, 126);
+	border: 1px solid rgb(44, 57, 126);
+	color: white;
+	box-shadow: 0px 0px 10px 2px gray;
+}
+
+.panel-red {
+	background: rgb(217, 83, 79);
+	border: 1px solid rgb(217, 83, 79);
+	color: white;
+	box-shadow: 0px 0px 10px 2px gray;
+}
+
+.panel-fanta {
+	background: rgb(208, 106, 32);
+	border: 1px solid rgb(208, 106, 32);
+	color: white;
+	box-shadow: 0px 0px 10px 2px gray;
+}
+
+.huge {
+	font-size: 44px;
 }
