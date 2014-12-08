@@ -1,4 +1,4 @@
-<div id="Dashboard" class="container-fluid" style="display:none">
+<div id="Dashboard" class="container-fluid" style="display:block">
 	<div class="row">
 		<div class="col-lg-12">
 			<h2 >My stats for Rummy</h2>
@@ -80,5 +80,9 @@
               </div>
            </div>
         </div>
-	</div>
+	    <script>
+	        dashboardcharts.startMoneyChart();
+	        dashboardcharts.startWinRatioCharts();
+	    </script>
+	 </div>
 </div>

@@ -37,7 +37,34 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function()
 			}
 		
 	});
-}();
+};
+
+
+MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function()
+{
+	
+	
+	resetNavigation = function()
+	{
+		$(".sidebar ul>li").removeClass("selected");
+		$(".sidebar ul>li").children().filter("div").css("display","none");
+		$(".page-content>div").each(function(index,element){
+			if($(this).css("display") == "block")
+				$(this).slideUp();
+		});
+	};
+	
+	$(".sidebar ul>li").click(function(){
+		resetNavigation();
+		$(this).addClass("selected");
+		$(this).children().filter("div").css("display","block");
+		var divid = $(this).attr("data-divid");
+		if($('#'+divid) != undefined && $('#'+divid) != null)
+		    $('#'+divid).slideDown();
+	});
+	
+};
+
 
 
 //@Class dashboard page
@@ -89,7 +116,7 @@ MarriageRummy.Utilities.UIUtilities.charts = function()
 
 	};
 	
-	startMoneyChart = function(contentdata)	
+	this.startMoneyChart = function(contentdata)	
 	{
 		
 		
@@ -111,9 +138,9 @@ MarriageRummy.Utilities.UIUtilities.charts = function()
 		var context = $("#moneyChart").get(0).getContext("2d");
 		var myLineChart = new Chart(context).Line(data,options);
 		myLineChart.resize();
-	}();
+	};
 	
-	startWinRatioCharts = function()
+	this.startWinRatioCharts = function()
 	{
 		var data = [
 		            {
@@ -149,7 +176,9 @@ MarriageRummy.Utilities.UIUtilities.charts = function()
 		        ];
 		var context = $("#winChart").get(0).getContext("2d");
 		myDoughnutChart = new Chart(context).Doughnut(data,options);
-	}();
-	
+	};
 
-}();
+
+};
+
+var dashboardcharts = new MarriageRummy.Utilities.UIUtilities.charts();
