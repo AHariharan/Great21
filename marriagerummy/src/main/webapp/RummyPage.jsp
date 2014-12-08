@@ -66,6 +66,8 @@
 		<div class="page-content">
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
+			<%@ include
+				file="./WEB-INF/includeTemplates/PlayPage/Profileinfo.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->

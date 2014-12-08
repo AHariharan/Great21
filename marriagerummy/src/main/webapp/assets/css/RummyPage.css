@@ -225,15 +225,29 @@
 	box-shadow: 0px 0px 10px 2px gray;
 }
 
-#charts
-{
-	padding-top:250px;
+#charts {
+	padding-top: 250px;
 }
+
 .panel-fanta {
 	background: rgb(208, 106, 32);
 	border: 1px solid rgb(208, 106, 32);
 	color: white;
 	box-shadow: 0px 0px 10px 2px gray;
+}
+
+#profilepicupdate {
+	border: 2px solid rgb(205, 205, 205);
+	min-height: 201px;
+	box-shadow: 0px 0px 12px 3px rgb(231, 231, 231) inset;
+	text-align: center;
+	border-radius: 20px;
+	color: rgb(79, 79, 79);
+	padding-top: 28px;
+}
+
+#profilepicupdate>i {
+	font-size: 8em;
 }
 
 .huge {
