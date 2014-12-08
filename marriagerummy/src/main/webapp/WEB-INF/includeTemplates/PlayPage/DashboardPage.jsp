@@ -64,6 +64,21 @@
 				</div>
 			</div>
 		</div>
-        
+        <div id="charts" class="container">
+           <div class="row">
+              <div class="col-md-offset-1 col-md-4">
+                  My Game funds.
+                  <canvas id="moneyChart" width="400" height="400" >
+                  
+                  </canvas>
+              </div>
+              <div class="col-md-offset-2 col-md-4">
+                My Wins/Losses
+                  <canvas id="winChart" width="400" height="400" >
+                  
+                  </canvas>
+              </div>
+           </div>
+        </div>
 	</div>
 </div>

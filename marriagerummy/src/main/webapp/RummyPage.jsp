@@ -28,7 +28,7 @@
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
 	<div class="container-fluid maincontent">
-		<div class="sidebar-shrinked" style="display:none">
+		<div class="sidebar-shrinked" style="display: none">
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
@@ -63,14 +63,17 @@
 
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
-        <div class="page-content">
-           <%@ include file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp" %>
-        </div>
+		<div class="page-content">
+			<%@ include
+				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
+		</div>
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
 		type="text/javascript"></script>
 	<script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
+		type="text/javascript"></script>
+	<script src="./assets/ThirdPartyLibs/Chart/Chart.min.js"
 		type="text/javascript"></script>
 	<script
 		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
