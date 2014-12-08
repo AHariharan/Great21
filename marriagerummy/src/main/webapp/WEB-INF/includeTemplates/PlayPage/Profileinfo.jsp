@@ -55,18 +55,20 @@
 					</div>
 				</div>
 				<div class="form-group">
-				<label for="Country" class="col-sm-2 control-label"><span
+					<label for="Country" class="col-sm-2 control-label"><span
 						class="required">*</span>Country</label>
 					<div class="col-sm-5">
-						<%@ include file="./ProfileCountrySelect.jsp" %>
+						<%@ include file="./ProfileCountrySelect.jsp"%>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-2">
-						<button type="submit" class="btn btn-primary">Save changes</button>
+						<button type="submit" class="btn btn-primary">Save
+							changes</button>
 					</div>
 					<div class="col-sm-3">
-						<button type="submit" class="btn btn-danger">Reset Information</button>
+						<button type="submit" class="btn btn-danger">Reset
+							Information</button>
 					</div>
 				</div>
 			</form>
