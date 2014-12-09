@@ -34,7 +34,9 @@
 		<div class="verticalSpacer-large"></div>
 
 		<div id="howto" class="section2"></div>
-		<div id="rules" class="section3"></div>
+		<div class="container">
+		   <%@ include file="./WEB-INF/includeTemplates/HomePage/Rules.jsp" %>
+		</div>
 		<div id="footer" class="section4"></div>
 	</div>
 	<!-- /.container -->

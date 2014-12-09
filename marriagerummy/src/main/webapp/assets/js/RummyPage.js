@@ -182,3 +182,19 @@ MarriageRummy.Utilities.UIUtilities.charts = function()
 };
 
 var dashboardcharts = new MarriageRummy.Utilities.UIUtilities.charts();
+
+// Sample table data
+var data1 = {"json":[
+					{
+					    "id": 0,
+					    "name": "Item 0",
+					    "price": "$0"
+					},
+					{
+					    "id": 1,
+					    "name": "Item 1",
+					    "price": "$1"
+					}
+   		  ]
+};
+

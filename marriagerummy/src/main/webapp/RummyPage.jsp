@@ -14,6 +14,9 @@
 <link
 	href="./assets/ThirdPartyLibs/bootstrap-dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<link
+	href="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">
@@ -22,24 +25,26 @@
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">
 
+
 <meta name="description" content="">
-    <script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
-		type="text/javascript"></script>
-	<script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
-		type="text/javascript"></script>
-	<script src="./assets/ThirdPartyLibs/Chart/Chart.min.js"
-		type="text/javascript"></script>
-	<script
-		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
-		type="text/javascript"></script>
-	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
-	<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
-    <script> 
-  			$( document ).ready(function() {
-                    new MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad();
-                    new MarriageRummy.Utilities.UIUtilities.LoggedinNavigator();
-  			});
-  </script>
+<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
+	type="text/javascript"></script>
+<script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
+	type="text/javascript"></script>
+<script src="./assets/ThirdPartyLibs/Chart/Chart.min.js"
+	type="text/javascript"></script>
+<script src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
+	type="text/javascript"></script>
+
+<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
+<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
+
+<script>
+	$(document).ready(function() {
+		new MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad();
+		new MarriageRummy.Utilities.UIUtilities.LoggedinNavigator();
+	});
+</script>
 </head>
 <body style="padding-top: 3px;">
 	<%-- <%@ include
@@ -67,21 +72,21 @@
 				<p>Neo Matrix</p>
 			</div>
 			<ul>
-				<li data-divid="profileinfo"><div class="sidebar-arrow-left"></div> <i
-					class="fa fa-user"></i> Profile</li>
+				<li data-divid="profileinfo"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-user"></i> Profile</li>
 
 				<li class="selected" data-divid="Dashboard">
-					<div class="sidebar-arrow-left" style="display:block"></div> <i class="fa fa-newspaper-o"></i>My
-					Stats
+					<div class="sidebar-arrow-left" style="display: block"></div> <i
+					class="fa fa-newspaper-o"></i>My Stats
 				</li>
-				<li data-divid="GameBrowser"><div class="sidebar-arrow-left"></div> <i
-					class="fa fa-globe"></i> Game Lobby</li>
-				<li data-divid="MyMessages"><div class="sidebar-arrow-left"></div> <i
-					class="fa fa-inbox"></i> Messages</li>
-				<li data-divid="MyAchievements"><div class="sidebar-arrow-left"></div> <i
-					class="fa fa-trophy"></i> Achievements</li>
-				<li data-divid="Friends"><div class="sidebar-arrow-left"></div> <i
-					class="fa fa-users"></i> Friends</li>
+				<li data-divid="GameBrowser"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-globe"></i> Game Lobby</li>
+				<li data-divid="MyMessages"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-inbox"></i> Messages</li>
+				<li data-divid="MyAchievements"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-trophy"></i> Achievements</li>
+				<li data-divid="Friends"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-users"></i> Friends</li>
 			</ul>
 		</div>
 		<div class="navigation">
@@ -93,14 +98,17 @@
 				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/Profileinfo.jsp"%>
-			<%@ include
-				file="./WEB-INF/includeTemplates/PlayPage/GameLobby.jsp"%>
+			<%@ include file="./WEB-INF/includeTemplates/PlayPage/GameLobby.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->
-	
+
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
 	<%@ include
 		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%> --%>
+	 	
+<script
+	src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.min.js"
+	type="text/javascript"></script>
 </body>
