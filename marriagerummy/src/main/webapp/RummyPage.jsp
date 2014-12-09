@@ -46,7 +46,7 @@
 	});
 </script>
 </head>
-<body style="padding-top: 3px;">
+<body>
 	<%-- <%@ include
 		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
 	<div class="container-fluid maincontent">
@@ -109,6 +109,6 @@
 		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%> --%>
 	 	
 <script
-	src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.min.js"
+	src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.js"
 	type="text/javascript"></script>
 </body>

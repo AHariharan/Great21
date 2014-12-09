@@ -155,9 +155,9 @@
 	overflow: hidden;
 }
 
-.navigation .navbar-fixed-top {
+/* .navigation .navbar-fixed-top {
 	position: relative;
-}
+} */
 
 .shrinker {
 	width: 45px;
@@ -266,16 +266,24 @@
 }
 
 #gametools li i {
-	padding-right: 10px;	
+	padding-right: 10px;
 }
 
-#gametools .nav-pills>li.active>a, #gametools #nav-pills>li.active>a:hover, #gametools .nav-pills>li.active>a:focus
-{
-	background:#2C397E;
+#gametools .nav-pills>li.active>a,#gametools #nav-pills>li.active>a:hover,#gametools .nav-pills>li.active>a:focus
+	{
+	background: #2C397E;
 }
 
-#gametools .nav-pills>li a:hover
-{
-	background:#2C397E;
-	color:white;
+#gametools .nav-pills>li a:hover {
+	background: #2C397E;
+	color: white;
+}
+
+#gamebrowser table>thead {
+	background: rgb(3, 106, 172);
+	color: whitesmoke;
+	font-weight: 300;
+	font-family: 'open sans', arial, sans-serif;
+	font-size: 14px;
+}
 }
