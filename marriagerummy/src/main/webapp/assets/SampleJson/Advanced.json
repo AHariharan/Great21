@@ -2,7 +2,7 @@
     {
         "id": 1,
         "type": "7' Closed Joker",
-        "desc": "Arun's sample game testsetsetset sw sdrsdfsdf etsets ",
+        "desc": "Arun's Advanced game ",
         "host":"Skunk",
         "playedbet": "Points ( 250 )",
         "players" : "6/8",
@@ -12,7 +12,7 @@
     {
         "id": 2,
         "type": "7' Open Joker",
-        "desc": "Deepu's sample game testsetsetset sw sdrsdfsdf etsets ",
+        "desc": "Deepu's Advanced game ",
         "host":"Indus",
         "playedbet": "Points ( 500 )",
         "players" : "3/8",
@@ -23,7 +23,7 @@
         "id": 3,
         "type": "7' Closed Joker",
         "host":"Mariyan",
-        "desc": "Arun's sample game testsetsetset sw sdrsdfsdf etsets ",
+        "desc": "Arun's Advanced game  ",
         "playedbet": "Per card 3 rs.",
         "players" : "6/8",
         "gamestaus": "Open",
@@ -32,7 +32,7 @@
     {
         "id": 4,
         "type": "13' Closed Joker",
-        "desc": "Arun's sample game testsetsetset sw sdrsdfsdf etsets ",
+        "desc": "Arun's Advanced game ",
         "playedbet": "Per card 3 rs.",
         "players" : "6/8",
         "gamestaus": "In Progress",

@@ -46,9 +46,7 @@
 	});
 </script>
 </head>
-<body>
-	<%-- <%@ include
-		file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%> --%>
+<body style="padding-top: 83px;">
 	<div class="container-fluid maincontent">
 		<div class="sidebar-shrinked" style="display: none">
 			<div id="profilepic">
@@ -93,7 +91,7 @@
 
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
-		<div class="page-content">
+		<div class="page-content" style="padding:50px;padding-top: 2px;">
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include

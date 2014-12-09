@@ -1,4 +1,4 @@
-<div id="Dashboard" class="container-fluid" style="display:block">
+<div id="Dashboard"  style="display:block">
 	<div class="row">
 		<div class="col-lg-12">
 			<h2 >My stats for Rummy</h2>
@@ -12,7 +12,7 @@
 							<i class="fa  fa-inr fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">2,60,000</div>
+							<div class="huge">2.6 K</div>
 							<div>My Game Funds</div>
 						</div>
 					</div>
@@ -43,7 +43,7 @@
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge">70%</div>
-							<div>My Wins Percentage</div>
+							<div> Wins Percent </div>
 						</div>
 					</div>
 				</div>
@@ -66,7 +66,7 @@
 		</div>
         <div id="charts" class="container">
            <div class="row">
-              <div class="col-md-offset-1 col-md-4">
+              <div class="col-md-4">
                   My Game funds.
                   <canvas id="moneyChart" width="400" height="400" >
                   

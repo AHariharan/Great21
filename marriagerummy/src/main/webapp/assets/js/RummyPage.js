@@ -25,7 +25,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function()
 			   sidebar.hide();
 			   sidebarshrinked.show("slide", { direction: "left" }, delay);
 			   $(this).empty();
-			   $(this).append('<i class="fa fa-angle-double-right"></i>');
+			   $(this).append('<i class="fa fa-exchange"></i>');
 			   
 			}
 		else
@@ -33,7 +33,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function()
 				sidebarshrinked.hide();
 				sidebar.show("slide", { direction: "left" }, delay);
 				$(this).empty();
-				$(this).append('<i class="fa fa-angle-double-left"></i>');
+				$(this).append('<i class="fa fa-exchange"></i>');
 			}
 		
 	});

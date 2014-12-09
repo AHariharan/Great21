@@ -84,7 +84,7 @@
 
 .navbar-fixed-top {
 	min-height: 80px;
-	box-shadow: 1px 1px 10px 3px rgb(133, 147, 127);
+	box-shadow: 1px 1px 2px 1px rgb(133, 147, 127);
 }
 
 .navbar-nav>li>a {
