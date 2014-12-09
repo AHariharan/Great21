@@ -93,6 +93,8 @@
 				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/Profileinfo.jsp"%>
+			<%@ include
+				file="./WEB-INF/includeTemplates/PlayPage/GameLobby.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->

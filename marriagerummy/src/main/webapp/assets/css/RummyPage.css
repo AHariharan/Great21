@@ -262,5 +262,20 @@
 	border-right: 16px solid rgb(244, 244, 245);
 	position: absolute;
 	left: 185px;
-	display:none;
+	display: none;
+}
+
+#gametools li i {
+	padding-right: 10px;	
+}
+
+#gametools .nav-pills>li.active>a, #gametools #nav-pills>li.active>a:hover, #gametools .nav-pills>li.active>a:focus
+{
+	background:#2C397E;
+}
+
+#gametools .nav-pills>li a:hover
+{
+	background:#2C397E;
+	color:white;
 }
