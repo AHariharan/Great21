@@ -37,16 +37,20 @@
 	type="text/javascript"></script>
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
-<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
+
+
 
 <script>
 	$(document).ready(function() {
-		new MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad();
-		new MarriageRummy.Utilities.UIUtilities.LoggedinNavigator();
+		var loadpage = new MarriageRummy.Utilities.UIUtilities.onLoad();
+		loadpage.initRummyPage();
 	});
 </script>
 </head>
 <body style="padding-top: 83px;">
+	<!--  Required Modals -->
+	<%@ include file="./WEB-INF/includeTemplates/PlayPage/CreateGameModal.jsp" %>
+	<!--  End of Modals -->
 	<div class="container-fluid maincontent">
 		<div class="sidebar-shrinked" style="display: none">
 			<div id="profilepic">
@@ -91,7 +95,7 @@
 
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
-		<div class="page-content" style="padding:50px;padding-top: 2px;">
+		<div class="page-content" style="padding: 50px; padding-top: 2px;">
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include
@@ -101,12 +105,11 @@
 	</div>
 	<!-- /.container -->
 
-	<%-- <%@ include
-		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
-	<%@ include
-		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%> --%>
-	 	
-<script
-	src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.js"
-	type="text/javascript"></script>
+
+	<script
+		src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.js"
+		type="text/javascript"></script>
+	
+	<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
+	
 </body>

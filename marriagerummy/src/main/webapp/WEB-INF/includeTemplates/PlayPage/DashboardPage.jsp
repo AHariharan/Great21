@@ -1,7 +1,7 @@
-<div id="Dashboard"  style="display:block">
+<div id="Dashboard" style="display: block">
 	<div class="row">
 		<div class="col-lg-12">
-			<h2 >My stats for Rummy</h2>
+			<h2>My stats for Rummy</h2>
 			<hr />
 		</div>
 		<div class="col-lg-3 col-md-6">
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-        <div class="col-lg-3 col-md-6">
+		<div class="col-lg-3 col-md-6">
 			<div class="panel panel-purple">
 				<div class="panel-heading">
 					<div class="row">
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		</div>
-        <div class="col-lg-3 col-md-6">
+		<div class="col-lg-3 col-md-6">
 			<div class="panel panel-red">
 				<div class="panel-heading">
 					<div class="row">
@@ -43,13 +43,13 @@
 						</div>
 						<div class="col-xs-9 text-right">
 							<div class="huge">70%</div>
-							<div> Wins Percent </div>
+							<div>Wins Percent</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-        <div class="col-lg-3 col-md-6">
+		<div class="col-lg-3 col-md-6">
 			<div class="panel panel-fanta">
 				<div class="panel-heading">
 					<div class="row">
@@ -64,25 +64,21 @@
 				</div>
 			</div>
 		</div>
-        <div id="charts" class="container">
-           <div class="row">
-              <div class="col-md-4">
-                  My Game funds.
-                  <canvas id="moneyChart" width="400" height="400" >
+		<div id="charts" class="container">
+			<div class="row">
+				<div class="col-md-4">
+					My Game funds.
+					<canvas id="moneyChart" width="400" height="400">
                   
                   </canvas>
-              </div>
-              <div class="col-md-offset-2 col-md-4">
-                My Wins/Losses
-                  <canvas id="winChart" width="400" height="400" >
+				</div>
+				<div class="col-md-offset-2 col-md-4">
+					My Wins/Losses
+					<canvas id="winChart" width="400" height="400">
                   
                   </canvas>
-              </div>
-           </div>
-        </div>
-	    <script>
-	        dashboardcharts.startMoneyChart();
-	        dashboardcharts.startWinRatioCharts();
-	    </script>
-	 </div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

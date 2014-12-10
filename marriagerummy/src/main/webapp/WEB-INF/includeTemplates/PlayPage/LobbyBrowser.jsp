@@ -20,13 +20,13 @@
 					role="button" aria-expanded="false"><i class="fa fa-magic"></i>Create
 						Game <span class="caret"></span> </a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">7 Card Rummy closed Joker</a></li>
-						<li><a href="#">7 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="7CARDCLOSED" >7 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="7CARDOPEN" >7 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">13 Card Rummy closed Joker</a></li>
-						<li><a href="#">13 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="13CARDCLOSED">13 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="13CARDOPEN">13 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">21 Card marriage rummy</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="21CARDMARRIAGE">21 Card marriage rummy</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#"><i
 						class="fa fa-dot-circle-o"></i>Quick Join</a></li>
@@ -92,13 +92,13 @@
 					role="button" aria-expanded="false"><i class="fa fa-magic"></i>Create
 						Game <span class="caret"></span> </a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">7 Card Rummy closed Joker</a></li>
-						<li><a href="#">7 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Intermediate" data-gametype="7CARDCLOSED" >7 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Intermediate" data-gametype="7CARDOPEN" >7 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">13 Card Rummy closed Joker</a></li>
-						<li><a href="#">13 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Intermediate" data-gametype="13CARDCLOSED">13 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Intermediate" data-gametype="13CARDOPEN">13 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">21 Card marriage rummy</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Intermediate" data-gametype="21CARDMARRIAGE">21 Card marriage rummy</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#"><i
 						class="fa fa-dot-circle-o"></i>Quick Join</a></li>
@@ -164,13 +164,13 @@
 					role="button" aria-expanded="false"><i class="fa fa-magic"></i>Create
 						Game <span class="caret"></span> </a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">7 Card Rummy closed Joker</a></li>
-						<li><a href="#">7 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Advanced" data-gametype="7CARDCLOSED" >7 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Advanced" data-gametype="7CARDOPEN" >7 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">13 Card Rummy closed Joker</a></li>
-						<li><a href="#">13 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Advanced" data-gametype="13CARDCLOSED">13 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Advanced" data-gametype="13CARDOPEN">13 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#">21 Card marriage rummy</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Advanced" data-gametype="21CARDMARRIAGE">21 Card marriage rummy</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#"><i
 						class="fa fa-dot-circle-o"></i>Quick Join</a></li>
