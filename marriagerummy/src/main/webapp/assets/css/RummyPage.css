@@ -13,6 +13,7 @@
 	min-height: 300px;
 	font-size: 14px;
 	margin-left: -15px;
+	 height:100vh;
 }
 
 .sidebar-shrinked>ul {
@@ -91,6 +92,7 @@
 	min-height: 300px;
 	font-size: 14px;
 	margin-left: -15px;
+	height:100vh;
 }
 
 .sidebar>ul {
@@ -164,12 +166,13 @@
 	width: 45px;
 	position: relative;
 	float: left;
-	font-size: 30px;
+	font-size: 20px;
 	color: whitesmoke;
 	background: rgb(3, 106, 172);
 	text-align: center;
 	cursor: pointer;
 	padding-top: 21px;
+	padding-left: 79px;
 }
 
 .Absolute-Center {
@@ -266,9 +269,8 @@
 	display: none;
 }
 
-.gamebrowsertools 
-{
-	padding-top:10px;
+.gamebrowsertools {
+	padding-top: 10px;
 }
 
 .gamebrowsertools li i {
@@ -277,11 +279,11 @@
 
 .gamebrowsertools .nav-pills>li.active>a,#gametools #nav-pills>li.active>a:hover,#gametools .nav-pills>li.active>a:focus
 	{
-	background: #2C397E;
+	background: #337ab7;
 }
 
 .gamebrowsertools .nav-pills>li a:hover {
-	background: #2C397E;
+	background: #337ab7;
 	color: white;
 }
 
@@ -292,4 +294,8 @@
 	font-family: 'open sans', arial, sans-serif;
 	font-size: 14px;
 }
+
+#GameType {
+	font-weight: bold;
+	color: rgb(3, 106, 172);
 }

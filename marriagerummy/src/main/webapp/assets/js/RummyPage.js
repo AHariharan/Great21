@@ -68,9 +68,22 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 				var button = $(event.relatedTarget);
 				var gameType = button.data('gametype');
 				var gameLobby = button.data('lobby');
+				var displayText = "";
+				if(gameType == "7CARDCLOSED")
+					displayText = "7 Card closed joker rummy";
+				else if(gameType == "7CARDOPEN")
+					displayText = "7 Card open joker rummy";
+				else if(gameType == "13CARDCLOSED")
+					displayText = "13 Card closed joker rummy";
+				else if(gameType == "13CARDOPEN")
+					displayText = "13 Card open joker rummy";
+				else if(gameType == "21CARDMARRIAGE")
+					displayText = "21 Card marriage rummy";
+				
+				
 				var modal = $(this);
-				modal.find('.modal-title').text(
-						'Create ' + gameType + " (" + gameLobby + ") ");
+				modal.find("#GameType").text(displayText + " ( " + gameLobby + " )" );
+				
 
 			});
 

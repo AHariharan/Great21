@@ -101,42 +101,48 @@
 	padding-top: 16px;
 }
 
-.carousel a
-{
-	background:transparent;
+.carousel a {
+	background: transparent;
 	background-image: none !important;
 }
 
-.carousel a span
-{
-	color:#036AAC;
+.carousel a span {
+	color: #036AAC;
 }
 
-.carousel-indicators
-{
+.carousel-indicators {
 	/* bottom: -31px; */
+	
 }
-.carousel-indicators li
-{
+
+.carousel-indicators li {
 	border: 1px solid #036AAC;
 }
 
-.carousel-indicators li.active
-{
-	background-color:#036AAC;
+.carousel-indicators li.active {
+	background-color: #036AAC;
 }
 
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus
-{
-	background-color:#036AAC;
-	color:white;
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover,.nav-tabs>li.active>a:focus
+	{
+	background-color: #036AAC;
+	color: white;
 }
 
-.tab-content
-{
-border-top: 3px solid #036AAC;
-/* border-left: 2px solid #036AAC; */
-/* box-shadow: inset 0px 0px 81px -21px rgba(12, 124, 195, 1); */
-/* border-bottom: 2px solid #036AAC;
+.tab-content {
+	border-top: 3px solid #036AAC;
+	/* border-left: 2px solid #036AAC; */
+	/* box-shadow: inset 0px 0px 81px -21px rgba(12, 124, 195, 1); */
+	/* border-bottom: 2px solid #036AAC;
 border-right: 2px solid #036AAC; */
+}
+
+.modal-header {
+	background: #036AAC;
+	color: white;
+}
+
+ul.nav-pills
+{
+	background: rgb(232, 232, 237);
 }
