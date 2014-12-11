@@ -20,6 +20,7 @@
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">
+<link href="./assets/css/GamePlay.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
 <link
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
@@ -62,6 +63,7 @@
 				<li><i class="fa fa-user"></i></li>
 				<li class="selected"><i class="fa fa-newspaper-o"></i></li>
 				<li><i class="fa fa-globe"></i></li>
+				<li><i class="fa fa-globe"></i></li>
 				<li><i class="fa fa-inbox"></i></li>
 				<li><i class="fa fa-trophy"></i></li>
 				<li><i class="fa fa-users"></i></li>
@@ -83,6 +85,8 @@
 				</li>
 				<li data-divid="GameBrowser"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-globe"></i> Game Lobby</li>
+				<li data-divid="GameArena"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-globe"></i> My Game</li>
 				<li data-divid="MyMessages"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-inbox"></i> Messages</li>
 				<li data-divid="MyAchievements"><div class="sidebar-arrow-left"></div>
@@ -101,6 +105,7 @@
 			<%@ include
 				file="./WEB-INF/includeTemplates/PlayPage/Profileinfo.jsp"%>
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/GameLobby.jsp"%>
+			<%@ include file="./WEB-INF/includeTemplates/PlayPage/GameArena.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->

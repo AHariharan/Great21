@@ -1,0 +1,109 @@
+@CHARSET "ISO-8859-1";
+
+#Arena {
+	min-height: 100vh;
+}
+
+.bedsheet {
+	-webkit-transform: skew(0deg, -30deg) scale(1, 1.16);
+	-moz-transform: skew(0deg, -30deg) scale(1, 1.16);
+	-o-transform: skew(0deg, -30deg) scale(1, 1.16);
+	-ms-transform: skew(0deg, -30deg) scale(1, 1.16);
+	transform: skew(31deg, -19deg) scale(2.1, 2.03);
+	background-color: rgba(202, 68, 68, 0.59);
+	font-size: 0.862em;
+	width: 400px;
+	height: 200px;
+	border-radius: 30px;
+	box-shadow: 0px 0px 10px 2px gray inset;
+}
+
+.player {
+	position: relative;
+	width: 75px;
+	height: 75px;
+	font-size: 30px;
+	background: rgba(3, 106, 172, 1);
+	border-radius: 50%;
+	text-align: center;
+	/* 	padding-top: 9px; */
+	border: 1px solid rgb(102, 106, 134);
+	box-shadow: 0px 0px 5px 0px rgb(79, 113, 219);
+	font-size: 40px;
+	color: rgb(253, 242, 242);
+}
+
+.player1-position {
+	left: 50%;
+	top: 699px;
+}
+
+.player2-position {
+	left: 20%;
+	top: 500px;
+}
+
+.player3-position {
+	left: 20%;
+	top: 100px
+}
+
+.player4-position {
+	left: 50%;
+	top: -150px;
+}
+
+.player5-position {
+	left: 80%;
+	top: -32px;
+}
+
+.player6-position {
+	left: 80%;
+	top: 198px;
+}
+
+.indicator {
+	width: 0;
+	height: 0;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-top: 12px solid #C2DBC8;
+	position: relative;
+	top: -24px;
+	left: 24px;
+}
+
+.indicator>p {
+	position: relative;
+	font-size: 19px;
+	left: -39px;
+	top: -41px;
+	color: crimson;
+	min-width: 80px;
+}
+
+.player-cards {
+	position: relative;
+	min-width: 600px;
+	min-height: 300px;
+	border: 1px solid gray;
+	left: -266px;
+	top: -378px;
+}
+
+.card {
+	width: 150px;
+	height: 215px;
+	border: 1px solid black;
+	position:relative;
+}
+
+.card1-pos
+{
+	transform:rotate(-35deg);
+}
+.card2-pos
+{
+	transform:rotate(-45deg);
+}
