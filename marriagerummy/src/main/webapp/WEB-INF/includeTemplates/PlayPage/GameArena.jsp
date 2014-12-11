@@ -4,6 +4,8 @@
 			<h2>My Game</h2>
 		</div>
 		<div id="Arena" class="col-lg-12">
+		    <div id="Joker" class="joker"></div>
+		    <div id="centerstage" class="centerstage"></div>
 			<div id="player1" class="player player1-position">
 				<div class="indicator">
 					<p>you</p>
