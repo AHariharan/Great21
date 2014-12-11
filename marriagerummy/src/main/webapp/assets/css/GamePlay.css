@@ -33,34 +33,49 @@
 	color: rgb(253, 242, 242);
 }
 
+.player:hover
+{
+	box-shadow: 0px 0px 13px 4px rgb(224, 149, 30);
+}
+
 .player1-position {
 	left: 50%;
-	top: 699px;
+	top: 562px;
 }
 
 .player2-position {
-	left: 20%;
-	top: 500px;
+	left: 0%;
+	top: 336px;
 }
 
 .player3-position {
-	left: 20%;
-	top: 100px
+	left: 9%;
+	top: 27px
 }
 
 .player4-position {
-	left: 50%;
-	top: -150px;
+	left: 30%;
+	top: -214px;
 }
 
 .player5-position {
-	left: 80%;
-	top: -32px;
+	left: 55%;
+	top: -293px;
 }
 
 .player6-position {
-	left: 80%;
-	top: 198px;
+	left: 79%;
+	top: -281px;
+}
+
+.player7-position {
+	left: 91%;
+	top: -200px;
+}
+
+.player8-position {
+	left: 95%;
+	top: -92px;
 }
 
 .indicator {
@@ -87,23 +102,126 @@
 	position: relative;
 	min-width: 600px;
 	min-height: 300px;
-	border: 1px solid gray;
-	left: -266px;
-	top: -378px;
+	/* border: 1px solid gray; */
+	left: -275px;
+	top: -795px;
 }
 
 .card {
-	width: 150px;
-	height: 215px;
-	border: 1px solid black;
-	position:relative;
+	width: 130px;
+	height: 190px;
+	border: 1px solid rgb(180, 175, 175);
+	position: relative;
+	cursor: pointer;
+	box-shadow: 0px 0px 16px 1px gray;
+	border-radius: 9px;
 }
 
-.card1-pos
+.card:hover
 {
-	transform:rotate(-35deg);
+	top:-20px;
 }
-.card2-pos
-{
-	transform:rotate(-45deg);
+
+.card1-pos {
+	transform: rotate(-50deg);
+	background: url('../images/Cards/ClubCards/3.png');
+	background-size: 130px 189px;
+	left: 208px;
+	top: 129px;
+}
+
+.card2-pos {
+	transform: rotate(-38deg);
+	background: url('../images/Cards/ClubCards/4.png');
+	background-size: 130px 189px;
+	left: 226px;
+	top: -64px;
+}
+
+.card3-pos {
+	transform: rotate(-29deg);
+	background: url('../images/Cards/ClubCards/5.png');
+	background-size: 130px 189px;
+	left: 244px;
+	top: -260px;
+}
+
+.card4-pos {
+	transform: rotate(-17deg);
+	background: url('../images/Cards/ClubCards/6.png');
+	background-size: 130px 189px;
+	left: 259px;
+	top: -449px
+}
+
+.card5-pos {
+	transform: rotate(-6deg);
+	background: url('../images/Cards/ClubCards/7.png');
+	background-size: 130px 189px;
+	left: 277px;
+	top: -636px;
+}
+
+.card6-pos {
+	transform: rotate(4deg);
+	background: url('../images/Cards/ClubCards/8.png');
+	background-size: 130px 189px;
+	left: 293px;
+	top: -817px;
+}
+
+.card7-pos {
+	transform: rotate(13deg);
+	background: url('../images/Cards/ClubCards/9.png');
+	background-size: 130px 189px;
+	left: 309px;
+	top: -996px;
+}
+
+.card8-pos {
+	transform: rotate(21deg);
+	background: url('../images/Cards/ClubCards/10.png');
+	background-size: 130px 189px;
+	left: 319px;
+	top: -1174px;
+}
+
+.card9-pos {
+	transform: rotate(29deg);
+	background: url('../images/Cards/ClubCards/J.png');
+	background-size: 130px 189px;
+	left: 329px;
+	top: -1348px;
+}
+
+.card0-pos {
+	transform: rotate(-65deg);
+	background: url('../images/Cards/ClubCards/2.png');
+	background-size: 130px 189px;
+	left: 196px;
+	top: 322px;
+}
+
+.card-1-pos {
+	transform: rotate(-79deg);
+	background: url('../images/Cards/ClubCards/A.png');
+	background-size: 130px 189px;
+	left: 183px;
+	top: 514px;
+}
+
+.card10-pos {
+	transform: rotate(40deg);
+	background: url('../images/Cards/ClubCards/Q.png');
+	background-size: 130px 189px;
+	left: 335px;
+	top: -1523px;
+}
+
+.card11-pos {
+	transform: rotate(49deg);
+	background: url('../images/Cards/ClubCards/K.png');
+	background-size: 130px 189px;
+	left: 342px;
+	top: -1699px;
 }
