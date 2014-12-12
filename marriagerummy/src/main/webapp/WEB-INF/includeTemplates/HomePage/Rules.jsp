@@ -4,16 +4,18 @@
 
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">7CardRummy</a></li>
-    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+ 
+    <li role="presentation" class="active"><a href="#7CardRummy" aria-controls="home" role="tab" data-toggle="tab">7CardRummy</a></li>
+    <li role="presentation"><a href="#13CardRummy"  aria-controls="13CardRummy" role="tab" data-toggle="tab">13CardRummy</a></li>
+    <li role="presentation"><a href="#21CardRummy" aria-controls="21CardRummy" role="tab" data-toggle="tab">21CardRummy</a></li>
   </ul>
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
+    <div role="tabpanel" class="tab-pane active" id="7CardRummy">
     <table class="table">
+    
+    
 		<caption>Rules</caption>
 		<thead>
 			<tr>
@@ -50,10 +52,11 @@
 			</tr>
 
 		</tbody>
-	</table></div>
-    <div role="tabpanel" class="tab-pane" id="profile">...</div>
-    <div role="tabpanel" class="tab-pane" id="messages">...</div>
-    <div role="tabpanel" class="tab-pane" id="settings">...</div>
+	</table>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="13CardRummy">...</div>
+    <div role="tabpanel" class="tab-pane" id="21CardRummy">...</div>
+    
   </div>
 
 </div>
