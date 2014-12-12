@@ -1,0 +1,68 @@
+[
+    {
+        "id": -1,
+        "flower":"Club",
+        "displayValue":"A"
+    },
+    {
+        "id": 0,
+        "flower":"Club",
+        "displayValue":"K"
+    },
+    {
+        "id": 1,
+        "flower":"Club",
+        "displayValue":"Q"
+    },
+    {
+        "id": 2,
+        "flower":"Heart",
+        "displayValue":"4"
+    },
+    {
+        "id": 3,
+        "flower":"Club",
+        "displayValue":"6"
+    },
+    {
+        "id": 4,
+        "flower":"Spade",
+        "displayValue":"9"
+    },
+    {
+        "id": 5,
+        "flower":"Spade",
+        "displayValue":"7"
+    },
+     {
+        "id": 6,
+        "flower":"Heart",
+        "displayValue":"4"
+    },     
+    {
+        "id": 7,
+        "flower":"Diamond",
+        "displayValue":"2"
+    },
+     {
+        "id": 8,
+        "flower":"Spade",
+        "displayValue":"K"
+    },
+     {
+        "id": 9,
+        "flower":"Heart",
+        "displayValue":"8"
+    },
+    {
+        "id": 10,
+        "flower":"Diamond",
+        "displayValue":"10"
+    },
+    {
+        "id": 11,
+        "flower":"Diamond",
+        "displayValue":"J"
+    }  
+   
+]

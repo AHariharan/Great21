@@ -21,6 +21,7 @@
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">
 <link href="./assets/css/GamePlay.css" rel="stylesheet">
+<link href="./assets/css/LoadCards.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
 <link
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
@@ -114,7 +115,9 @@
 	<script
 		src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.js"
 		type="text/javascript"></script>
-	
+		
+	<script src="./assets/js/GamePlay.js" type="text/javascript"></script>
 	<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
+	
 	
 </body>

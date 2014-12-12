@@ -32,6 +32,39 @@
 	border-radius: 7px;
 }
 
+.opencard {
+	width: 88px;
+	height: 137px;
+	transform: rotate(77deg);
+	position: absolute;
+	left: 720px;
+	top: 218px;
+	background: url('../images/Cards/DiamondCards/3.png');
+	background-size: 88px 137px;
+	background-repeat: no-repeat;
+	box-shadow: 0px 0px 10px 2px gray;
+	border-radius: 7px;
+	color: darkblue;
+	cursor: pointer;
+	z-index:11;
+}
+
+.deckNextCard {
+	width: 78px;
+	height: 117px;
+	transform: rotate(49deg);
+	position: absolute;
+	left: 607px;
+	top: 199px;
+	background: url('../images/Cards/BackShades/bg-red.png');
+	background-size: 78px 117px;
+	background-repeat: no-repeat;
+	box-shadow: 0px 0px 10px 2px gray;
+	border-radius: 7px;
+	color: darkblue;
+	cursor: pointer;
+	z-index:11;
+}
 
 .centerstage {
 	background: url('../images/GameArena/GameStageCardSlide.png');
@@ -130,6 +163,8 @@
 	/* border: 1px solid gray; */
 	left: -275px;
 	top: -778px;
+	z-index:10;
+	transform: rotate(3deg);
 }
 
 .card {
@@ -138,8 +173,9 @@
 	border: 1px solid rgb(180, 175, 175);
 	position: relative;
 	cursor: pointer;
-	box-shadow: 0px 0px 16px 1px gray;
+	box-shadow: 0px 0px 0px 1px rgb(125, 131, 141) inset;
 	border-radius: 9px;
+	
 }
 
 .card:hover {

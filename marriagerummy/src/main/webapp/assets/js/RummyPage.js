@@ -200,5 +200,7 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
+		
+	
 	};
 };
