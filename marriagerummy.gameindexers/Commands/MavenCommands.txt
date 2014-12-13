@@ -1,0 +1,3 @@
+cd C:\apache-maven-3.2.3-bin\apache-maven-3.2.3\bin
+
+mvn install:install-file -Dfile=Great21Models.jar -DgroupId=com.adansoft.great21 -DartifactId=marriagerummy-models -Dversion=1.0 -Dpackaging=jar
