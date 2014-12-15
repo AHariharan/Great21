@@ -1,6 +1,8 @@
 package com.adansoft.great21.gameindexer.services;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,12 @@ import com.adansoft.great21.restschemas.CreateGameRequest;
 
 public class GameBrowserController {
 
+	
+	@PostConstruct
+	public void onInitController()
+	{
+		System.out.println("This function is called on startup");
+	}
 
 	@RequestMapping( value = GameIndexerServiceURLs.CREATEGAME, method = RequestMethod.POST)
 	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request)
