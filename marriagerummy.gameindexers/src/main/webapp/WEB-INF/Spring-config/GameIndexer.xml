@@ -1,23 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:amq="http://activemq.apache.org/schema/core"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	                    http://www.springframework.org/schema/beans/spring-beans.xsd
-	                    http://www.springframework.org/schema/context  
-		                http://www.springframework.org/schema/context/spring-context-4.1.xsd
-		                http://www.springframework.org/schema/mvc 
-		                http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
-		                http://activemq.apache.org/schema/core 
-		                http://activemq.apache.org/schema/core/activemq-core-5.10.0.xsd
-		                http://www.springframework.org/schema/jms 
-		                http://www.springframework.org/schema/jms/spring-jms-4.1.xsd">
-		          
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+                           http://www.springframework.org/schema/context 
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jms 
+                           http://www.springframework.org/schema/jms/spring-jms.xsd
+                           http://activemq.apache.org/schema/core 
+                           http://activemq.apache.org/schema/core/activemq-core.xsd">
 
 	<mvc:annotation-driven />
 	<context:component-scan base-package="com.adansoft.great21.gameindexer" />
-	<context:property-placeholder location="classpath*:GameIndexer.properties"/>
+	<context:property-placeholder
+		location="WEB-INF/Spring-config/GameIndexer.properties" />
+
+	<!-- creates an activemq connection factory using the amq namespace -->
+	<amq:connectionFactory id="amqConnectionFactory"
+		brokerURL="${JMS.URL}" userName="${JMS.USER}" password="${JMS.PASSWORD}" />
+
+	<!-- CachingConnectionFactory Definition, sessionCacheSize property is the 
+		number of sessions to cache -->
+
+	<bean id="jmsExceptionListener" class="com.adansoft.great21.JMSHandlers.JMSExceptionListener" />
+
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="amqConnectionFactory" />
+		<property name="exceptionListener" ref="jmsExceptionListener" />
+		<property name="sessionCacheSize" value="100" />
+	</bean>
+	
+	<!-- <bean id="pulseDestination" class="org.apache.activemq.command.ActiveMQTopic"
+		p:physicalName="${JMS.DETECT.GAMEMANAGERS}" />
+
+	JmsTemplate Definition
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:defaultDestination-ref="pulseDestination">
+		<constructor-arg ref="connectionFactory" />
+	</bean> -->
+
+
+	<bean id="topicListener" class="com.adansoft.great21.JMSHandlers.PulseListener" />
+	<!-- listener container definition using the jms namespace, concurrency 
+		is the max number of concurrent listeners that can be started -->
+
+	<jms:listener-container concurrency="10"
+		container-type="default" connection-factory="connectionFactory"
+		acknowledge="auto" destination-type="topic">
+		<jms:listener destination="${JMS.DETECT.GAMEMANAGERS}" ref="topicListener" />
+	</jms:listener-container>
+	
+	
 
 
 
