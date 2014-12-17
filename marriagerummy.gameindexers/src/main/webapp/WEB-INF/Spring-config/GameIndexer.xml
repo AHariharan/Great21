@@ -44,12 +44,15 @@
 		<constructor-arg ref="connectionFactory" />
 	</bean> -->
 
+    <bean id="pulseConvertor" class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" p:typeIdPropertyName="HEARTBEAT"/>
+
 
 	<bean id="topicListener" class="com.adansoft.great21.JMSHandlers.PulseListener" />
 	<!-- listener container definition using the jms namespace, concurrency 
-		is the max number of concurrent listeners that can be started -->
+		is the max number of concurrent listeners that can be started  and setting this value to 1 -->
 
-	<jms:listener-container concurrency="10"
+    
+	<jms:listener-container concurrency="1"
 		container-type="default" connection-factory="connectionFactory"
 		acknowledge="auto" destination-type="topic">
 		<jms:listener destination="${JMS.DETECT.GAMEMANAGERS}" ref="topicListener" />
