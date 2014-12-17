@@ -54,7 +54,8 @@ public class JMSConfiguration {
 	public ActiveMQConnectionFactory createAMQConnectionFactory()
 	{		
 		System.out.println("AMQ Connection factory called");
-		return new ActiveMQConnectionFactory(jmsuser,jmspassword,brokerURL);
+		ActiveMQConnectionFactory amqfactory =  new ActiveMQConnectionFactory(jmsuser,jmspassword,brokerURL);
+		return  amqfactory;
 	}
 	
 	@Bean

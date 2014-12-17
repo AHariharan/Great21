@@ -13,6 +13,7 @@
 
 	<properties>
 		<java.version>1.7</java.version>
+		<spring.jmx.enabled>false</spring.jmx.enabled>
 	</properties>
 
 	<dependencies>
