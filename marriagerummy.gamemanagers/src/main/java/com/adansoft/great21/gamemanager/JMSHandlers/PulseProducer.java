@@ -8,10 +8,12 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.adansoft.great21.gamemanager.config.DataConfiguration;
 import com.adansoft.great21.gamemanager.config.JMSConfiguration;
 import com.adansoft.great21.jms.models.GameManagerHeartBeat;
 
-@Import(JMSConfiguration.class)
+@Import({JMSConfiguration.class , DataConfiguration.class})
+
 @Configuration
 @EnableScheduling
 public class PulseProducer {
@@ -19,7 +21,7 @@ public class PulseProducer {
 	@Value("${InstanceID}")
 	private String gameManagerInstanceID;
 	
-	private int count = 1;
+	
 
 	@Autowired
 	private JmsTemplate pulseTemplate;
@@ -59,13 +61,13 @@ public class PulseProducer {
 		
 	}
 	
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 25000)
 	public void sendAdditionalPulses()
 	{
 		System.out.println("Sending pulse ... " + gameManagerInstanceID + " : " + heartbeat);
 	    pulseTemplate.setMessageIdEnabled(true);
 		pulseTemplate.convertAndSend(heartbeat,postprocessor);
-		count++;
+
 	}
 	
 	

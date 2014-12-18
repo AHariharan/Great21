@@ -1,6 +1,7 @@
 package com.adansoft.great21.gamemanager.config;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -10,24 +11,24 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 
 
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.connection.SingleConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
-import com.adansoft.great21.gamemanager.GameManagerApplication;
+
 import com.adansoft.great21.gamemanager.JMSHandlers.JMSExceptionListener;
-import com.adansoft.great21.gamemanager.JMSHandlers.PulseProducer;
-import com.adansoft.great21.jms.models.GameManagerHeartBeat;
+import com.adansoft.great21.gamemanager.JMSHandlers.QueueListener;
 
 @Configuration
 @PropertySource("file:GameManager.properties")
 public class JMSConfiguration {
 
 	
-	@Value("${InstanceID}")
-	private String gameManagerInstanceID;
+
 	
 	@Value("${JMS.URL}")
 	private String brokerURL;
@@ -44,6 +45,11 @@ public class JMSConfiguration {
 	
 	@Value("${JMS.GAMEMANAGER.REQ}")
 	private String requestQueue;
+	
+	@Value("${InstanceID}")
+	private String gameManagerInstanceID;
+	
+
 	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -100,13 +106,48 @@ public class JMSConfiguration {
 		return pulsetemplate;
 	}	
 	
-	@Bean
-	public GameManagerHeartBeat createHeartBeat()
-	{
-		return new GameManagerHeartBeat(gameManagerInstanceID, requestQueue.replace("INSTANCEID", gameManagerInstanceID), 0, GameManagerHeartBeat.STATUS_ALIVE);
-		
-	}
+	
 
+	
+	/* Queue Related Configurations */
+	@Bean
+	public ActiveMQQueue createReceivingQueue()
+	{	
+		return new ActiveMQQueue(requestQueue.replace("INSTANCEID", gameManagerInstanceID));
+	}
+	
+	@Bean
+	public MappingJackson2MessageConverter createQueueMessageConvertor()
+	{
+		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+		converter.setTargetType(MessageType.TEXT);
+		converter.setTypeIdPropertyName("Operation");		
+		return converter;
+	}
+	
+	private CachingConnectionFactory createCacheFactory()
+	{
+		CachingConnectionFactory factory = new CachingConnectionFactory(createAMQConnectionFactory());
+		factory.setSessionCacheSize(100);
+		factory.setExceptionListener(createExceptionListener());
+		return factory;
+	}
+	
+	@Bean QueueListener createQueueListener()
+	{
+		QueueListener queuelistner = new QueueListener();
+		return queuelistner;
+	}
+	
+	@Bean DefaultMessageListenerContainer createContainer()
+	{
+		DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
+		container.setConcurrency("10");
+		container.setConnectionFactory(createCacheFactory());
+		container.setDestination(createReceivingQueue());
+		container.setMessageListener(createQueueListener());
+		return container;
+	}
 	
 	
 }

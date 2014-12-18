@@ -50,4 +50,19 @@ public class RummyArena {
 	   }
 	   return null;
 	}
+	
+	public int numofgamesinCache()
+	{
+		int totalgames = 0;
+		for(GameLobby lobby : this.getGameLobbyList())
+		{
+			int sevencardtotal  = lobby.getSevencard_gamelist().getGamelist().size();
+			int thirteencardtotal  = lobby.getThirteencard_gamelist().getGamelist().size();
+			int twentyonecardtotal  = lobby.getTwentyonecard_gamelist().getGamelist().size();
+			int lobbytotal = sevencardtotal + thirteencardtotal + twentyonecardtotal;
+			totalgames = totalgames + lobbytotal;
+		}
+		
+		return totalgames;
+	}
 }

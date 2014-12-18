@@ -59,6 +59,22 @@
 	</jms:listener-container>
 	
 	
+	<!--  Send receive -->
+	
+ 	
+	
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate" >
+		<constructor-arg ref="connectionFactory" />
+	</bean>
+	
+	<bean id="jmsmessagetemplate"  class="org.springframework.jms.core.JmsMessagingTemplate" p:jmsMessageConverter-ref="pulseConvertor">
+	   <constructor-arg ref="jmsTemplate"/>
+	</bean>
+	
+	
+	<!--  Create Deletegates of operation Execution -->
+	<bean id="gamebrowserDelegate" class="com.adansoft.great21.gameindexer.delegate.GameBrowserDelegate"/>
 
 
 

@@ -9,6 +9,7 @@ public class CreateGameRequest implements Serializable{
 
 	private static final long serialVersionUID = -9161854892669569490L;
 	
+	private String lobbyType;
 	private String gameType;
 	private String gameDescription;
 	private int maxPlayers;
@@ -23,10 +24,11 @@ public class CreateGameRequest implements Serializable{
 	}
 	
 		
-	public CreateGameRequest(String gameType, String gameDescription,
+	public CreateGameRequest(String lobbyType,String gameType, String gameDescription,
 			int maxPlayers, boolean isFriendsOnly, boolean isbyInviteOnly,
 			String gameMode) {
 		super();
+		this.lobbyType = lobbyType;
 		this.gameType = gameType;
 		this.gameDescription = gameDescription;
 		this.maxPlayers = maxPlayers;
@@ -84,6 +86,16 @@ public class CreateGameRequest implements Serializable{
 
 	public void setGameMode(String gameMode) {
 		this.gameMode = gameMode;
+	}
+
+
+	public String getLobbyType() {
+		return lobbyType;
+	}
+
+
+	public void setLobbyType(String lobbyType) {
+		this.lobbyType = lobbyType;
 	}
 	
 	

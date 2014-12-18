@@ -76,6 +76,7 @@ public class GameManagerHeartBeat {
 		return " [gameManagerInstanceID : " + 
 		        getGameManagerInstanceID()+
 		        " ] , requestQueue : "+ getRequestQueue()+
+		        " ] , NumofGames : "+ getNoofgamesHandled()+
 		        " ] , status : " + getStatus();
 	}
 	
