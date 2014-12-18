@@ -2,9 +2,14 @@ package com.adansoft.great21.models;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.annotation.XmlSeeAlso;
+import com.adansoft.great21.games.SevenCardRummy;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@XmlSeeAlso({com.adansoft.great21.games.SevenCardRummy.class})
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.WRAPPER_OBJECT, property="type")
+@JsonSubTypes({
+      @JsonSubTypes.Type(value=SevenCardRummy.class, name="SevenCardRummy")
+  }) 
 public interface Game {
 
 		

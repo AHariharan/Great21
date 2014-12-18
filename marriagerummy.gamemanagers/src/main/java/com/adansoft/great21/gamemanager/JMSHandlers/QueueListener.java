@@ -8,10 +8,14 @@ import javax.jms.TextMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.jca.cci.connection.SingleConnectionFactory;
+import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+
+
 
 
 
@@ -25,7 +29,7 @@ import com.adansoft.great21.models.Game;
 public class QueueListener implements MessageListener {
 
 	@Autowired
-	private final MappingJackson2MessageConverter converter = null;
+	private  MappingJackson2MessageConverter converter;
 	
 	@Autowired
 	private JmsTemplate template;
@@ -38,13 +42,16 @@ public class QueueListener implements MessageListener {
 	    if(msg instanceof TextMessage)
 	    {
 	    	converter.setTargetType(MessageType.TEXT);
-	    	converter.setTypeIdPropertyName("Operation");
+	    	converter.setTypeIdPropertyName("Object");
 	    	TextMessage receviedmsg = (TextMessage) msg;
+	    	
 	    	System.out.println("Received Game Request : " + receviedmsg.getText());
 	    	
 	    	//Send Reply
+	   
 		    Destination destination = receviedmsg.getJMSReplyTo();
 		    Game game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
+		    System.out.println ("Reply Game :- " + game);
 		    template.setMessageConverter(converter);
 		    template.convertAndSend(destination, game);
 	    }

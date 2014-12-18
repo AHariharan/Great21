@@ -92,7 +92,7 @@ public class JMSConfiguration {
 	{
 		MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
 		converter.setTargetType(MessageType.TEXT);
-		converter.setTypeIdPropertyName("HEARTBEAT");		
+		converter.setTypeIdPropertyName("Object");		
 		return converter;
 	}
 	
@@ -124,6 +124,7 @@ public class JMSConfiguration {
 		converter.setTypeIdPropertyName("Operation");		
 		return converter;
 	}
+	
 	
 	private CachingConnectionFactory createCacheFactory()
 	{

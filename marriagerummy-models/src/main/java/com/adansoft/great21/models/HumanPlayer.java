@@ -3,9 +3,11 @@ package com.adansoft.great21.models;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
+@JsonTypeName("HumanPlayer")
 public class HumanPlayer implements Player{
 
 	private ArrayList<Card<?>> cards;
@@ -14,6 +16,7 @@ public class HumanPlayer implements Player{
 	private static final String player_type = Player.PLAYER_TYPE_HUMAN;
 	private String status;
 	
+
 	public HumanPlayer(String nickname)
 	{
 		this.nickName = nickname;

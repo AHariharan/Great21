@@ -42,7 +42,7 @@ public class PulseListener implements MessageListener {
 	{
 		TextMessage receivedmessage = (TextMessage) msg;
 		System.out.println("Internal : " + receivedmessage.getText());				
-		converter.setTypeIdPropertyName("HEARTBEAT");				
+		converter.setTypeIdPropertyName("Object");				
 		GameManagerHeartBeat hearbeat = (GameManagerHeartBeat)	converter.fromMessage(msg);
 		GameManagerCache cache = new GameManagerCache(hearbeat,msg.getJMSTimestamp());
 		GameIndexerCache.getInstance().addGameManager(cache);

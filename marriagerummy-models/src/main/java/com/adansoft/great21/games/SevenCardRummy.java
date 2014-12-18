@@ -1,15 +1,22 @@
 package com.adansoft.great21.games;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.GameRound;
-import com.adansoft.great21.models.GameStrategy;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.ulitity.GameUtility;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
-public class SevenCardRummy implements Game {
+@JsonTypeName("SevenCardRummy")
+public class SevenCardRummy implements Game,Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1657836579007562512L;
 	private int noofdecks = 1;
 	private int maxplayers = 4;
 	private ArrayList<Player> playerlist;
@@ -25,6 +32,11 @@ public class SevenCardRummy implements Game {
 	private String lobbyName;
 	private String gameType;
 	private String gameName;
+	
+	public SevenCardRummy()
+	{
+		
+	}
 	
 	public SevenCardRummy(String gameName,String createdBy,String lobbyName,String gametype)
 	{
@@ -130,8 +142,109 @@ public class SevenCardRummy implements Game {
 	public void setGameName(String gameName) {
 		this.gameName = gameName;
 	}
+
+	public int getNoofdecks() {
+		return noofdecks;
+	}
+
+	public void setNoofdecks(int noofdecks) {
+		this.noofdecks = noofdecks;
+	}
+
+	public int getMaxplayers() {
+		return maxplayers;
+	}
+
+	public void setMaxplayers(int maxplayers) {
+		this.maxplayers = maxplayers;
+	}
+
+	public ArrayList<Player> getPlayerlist() {
+		return playerlist;
+	}
+
+	public void setPlayerlist(ArrayList<Player> playerlist) {
+		this.playerlist = playerlist;
+	}
+
+	public int getNumofrounds() {
+		return numofrounds;
+	}
+
+	public void setNumofrounds(int numofrounds) {
+		this.numofrounds = numofrounds;
+	}
+
+	public int getMaxrounds() {
+		return maxrounds;
+	}
+
+	public void setMaxrounds(int maxrounds) {
+		this.maxrounds = maxrounds;
+	}
+
+	public ArrayList<GameRound> getGameroundlist() {
+		return gameroundlist;
+	}
+
+	public void setGameroundlist(ArrayList<GameRound> gameroundlist) {
+		this.gameroundlist = gameroundlist;
+	}
+
+	public int getMaxpointtoEliminate() {
+		return maxpointtoEliminate;
+	}
+
+	public void setMaxpointtoEliminate(int maxpointtoEliminate) {
+		this.maxpointtoEliminate = maxpointtoEliminate;
+	}
+
+	public boolean isGameMoneyBased() {
+		return isGameMoneyBased;
+	}
+
+	public void setGameMoneyBased(boolean isGameMoneyBased) {
+		this.isGameMoneyBased = isGameMoneyBased;
+	}
+
+	public float getMoneyPerCard() {
+		return moneyPerCard;
+	}
+
+	public void setMoneyPerCard(float moneyPerCard) {
+		this.moneyPerCard = moneyPerCard;
+	}
+
+	public void setGameInstanceId(String gameInstanceId) {
+		this.gameInstanceId = gameInstanceId;
+	}
+
+	public void setGameOwnedBy(String gameOwnedBy) {
+		this.gameOwnedBy = gameOwnedBy;
+	}
+
+	public void setGamePointsBased(boolean isGamePointsBased) {
+		this.isGamePointsBased = isGamePointsBased;
+	}
 	
+	@Override
+	public String toString() {
 	
+		String content = "Game Instance ID : " + getGameInstanceId() + "\n" +
+				         "noofdecks : " + getNoofdecks() + "\n" +
+				         "maxplayers : " + getMaxplayers() + "\n"+
+				         "playerlist :" + getPlayerlist() + "\n" +
+				         "numofrounds : " + getNumofrounds() + "\n" +
+				         "maxrounds : " + getMaxrounds() + "\n" +
+				         "gameroundlist : " + getGameroundlist() + "\n" +
+				         "gameOwnedBy :" + getGameOwnedBy() + "\n"+
+				         "isGamePointsBased : " + isGameCardMoneyBased() + "\n" +
+				         "moneyPerCard : " + getMoneyPerCard() + "\n" +
+				         "lobbyName : " + getLobbyName() + "\n" +
+				         "gameType : " + getGameType() + "\n" +
+				         "gameName : " + getGameName();
+ 		return content; 
+	}
 	
 	
 	

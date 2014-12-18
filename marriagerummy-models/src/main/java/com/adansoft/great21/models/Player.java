@@ -1,7 +1,18 @@
 package com.adansoft.great21.models;
 
 
+import com.adansoft.great21.gameindexers.deserializers.PlayerDeserializer;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.WRAPPER_OBJECT, property="type")
+@JsonSubTypes({
+      @JsonSubTypes.Type(value=HumanPlayer.class, name="HumanPlayer")
+  }) 
+
+@JsonDeserialize(using = PlayerDeserializer.class)
 public interface Player {
 
 	public static final String PLAYER_TYPE_AI = "AI";
