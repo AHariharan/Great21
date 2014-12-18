@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("SevenCardRummy")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SevenCardRummy implements Game,Serializable {
 	
 	/**
@@ -122,10 +123,10 @@ public class SevenCardRummy implements Game,Serializable {
 		
 	}
 
-	public String getGameLobbyName() {
+	/*public String getGameLobbyName() {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	public String getGameType() {
 		return gameType;
@@ -244,6 +245,11 @@ public class SevenCardRummy implements Game,Serializable {
 				         "gameType : " + getGameType() + "\n" +
 				         "gameName : " + getGameName();
  		return content; 
+	}
+
+	public String getGameLobbyName() {
+		
+		return null;
 	}
 	
 	
