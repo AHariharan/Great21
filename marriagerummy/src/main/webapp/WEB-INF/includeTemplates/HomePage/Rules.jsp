@@ -29,6 +29,10 @@
 			<tr>
 				<td>1</td>
 				<td><img src="./assets/images/Rules/rule-sequence.png"></td>
+				<td>sequence rummy
+				this are formed as continous sequence in card with the same shape and color
+				
+				     </td>
 
 
 			</tr>

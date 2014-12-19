@@ -15,11 +15,15 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.connection.SingleConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
 
+
+
+import com.adansoft.great21.gamemanager.JMSHandlers.GameManagerDelegateImpl;
 import com.adansoft.great21.gamemanager.JMSHandlers.JMSExceptionListener;
 import com.adansoft.great21.gamemanager.JMSHandlers.QueueListener;
 
@@ -134,7 +138,7 @@ public class JMSConfiguration {
 		return factory;
 	}
 	
-	@Bean QueueListener createQueueListener()
+	/*@Bean QueueListener createQueueListener()
 	{
 		QueueListener queuelistner = new QueueListener();
 		return queuelistner;
@@ -149,6 +153,31 @@ public class JMSConfiguration {
 		container.setMessageListener(createQueueListener());
 		return container;
 	}
+	*/
 	
+/* New Try */
+	@Bean
+	public GameManagerDelegateImpl createDelegate()
+	{
+		GameManagerDelegateImpl impl = new GameManagerDelegateImpl();
+		return impl;
+	}
+	
+	@Bean
+	public MessageListenerAdapter createMessageListenerAdapter()
+	{
+		MessageListenerAdapter adapter = new MessageListenerAdapter(createDelegate());
+		return adapter;
+	}
+	
+	@Bean
+	public DefaultMessageListenerContainer createGameManagerContainer()
+	{
+		DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
+		container.setConnectionFactory(createCacheFactory());
+		container.setDestination(createReceivingQueue());
+		container.setMessageListener(createMessageListenerAdapter());
+		return container;
+	}
 	
 }

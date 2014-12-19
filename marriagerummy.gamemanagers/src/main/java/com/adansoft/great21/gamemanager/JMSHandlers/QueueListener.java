@@ -6,6 +6,7 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import org.apache.activemq.command.ActiveMQBytesMessage;
+import org.apache.activemq.command.ActiveMQObjectMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -21,6 +22,8 @@ import org.springframework.jms.support.converter.MessageType;
 
 
 
+
+import org.springframework.jms.support.converter.SimpleMessageConverter;
 
 import com.adansoft.great21.gameindexers.deserializers.PlayerKeyDeserializer;
 import com.adansoft.great21.gameindexers.deserializers.PlayerSerializer;
@@ -47,19 +50,20 @@ public class QueueListener implements MessageListener {
 		try
 		{
 		System.out.println("Message Received :- " + msg);
-	    if(msg instanceof ActiveMQBytesMessage)
+	    if(msg instanceof ActiveMQObjectMessage)
 	    {
 	    //	converter.setTargetType(MessageType.TEXT);
 	    //	converter.setTypeIdPropertyName("Object");
-	    	ActiveMQBytesMessage receviedmsg = (ActiveMQBytesMessage) msg;
+	    	ActiveMQObjectMessage receviedmsg = (ActiveMQObjectMessage) msg;
 	    	
-	    	System.out.println("Received Game Request : " + receviedmsg.getContent());
+	    	System.out.println("Received Game Request : " + receviedmsg.getObject().getClass());
 	    	
 	    	//Send Reply
 	   
 		    Destination destination = receviedmsg.getJMSReplyTo();
 		    SevenCardRummy game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
 		    System.out.println ("Reply Game :- " + game);
+		    System.out.println("Destinatoin name : " + destination);
 		    //ObjectMapper mapper = new ObjectMapper();
 			   
 			   //SimpleModule module = new SimpleModule();
@@ -71,6 +75,9 @@ public class QueueListener implements MessageListener {
 			 //  converter.setObjectMapper(mapper);
 			  
 		   // template.setMessageConverter(converter);
+		    SimpleMessageConverter convertor = new SimpleMessageConverter();
+		
+		    template.setMessageConverter(convertor);
 		    template.convertAndSend(destination, game);
 	    }
 		}catch(Exception e)

@@ -1,19 +1,16 @@
 package com.adansoft.great21.gameindexer.delegate;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
-import org.springframework.jms.support.converter.MessageType;
+import org.springframework.jms.support.converter.SimpleMessageConverter;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 
 import com.adansoft.great21.CacheModels.GameIndexerCache;
 import com.adansoft.great21.CacheModels.GameManagerCache;
 import com.adansoft.great21.exceptions.NoGameManagerAvailableException;
 import com.adansoft.great21.gameindexers.deserializers.PlayerDeserializer;
 import com.adansoft.great21.gameindexers.deserializers.PlayerKeyDeserializer;
-import com.adansoft.great21.gameindexers.deserializers.PlayerSerializer;
 import com.adansoft.great21.games.SevenCardRummy;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
@@ -54,7 +51,7 @@ public class GameBrowserDelegate {
 		   GameManagerCache cache = GameIndexerCache.getInstance().getNextAvailableGameManager();
 		   String destinationName = cache.getRequestQueue();	
 		   
-		   ObjectMapper mapper = new ObjectMapper();
+		 /*  ObjectMapper mapper = new ObjectMapper();
 		   
 		   SimpleModule module = new SimpleModule();
 		   //module.addSerializer(Player.class, new PlayerSerializer());
@@ -66,9 +63,13 @@ public class GameBrowserDelegate {
 		  // converter.setObjectMapper(mapper);
 		//   messageTemplate.setJmsMessageConverter(converter);
 		//   messageTemplate.setMessageConverter(messageconverter);
-		   
-		   createdGame = (Game) messageTemplate.convertSendAndReceive(destinationName, request, Object.class);
-		   System.out.println("Got Reply :- " + createdGame);
+		   SimpleMessageConverter convertor = new SimpleMessageConverter();
+		   messageTemplate.setJmsMessageConverter(convertor);*/
+		   Message<CreateGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+		   @SuppressWarnings("unchecked")
+		   Message<Game> game =  (Message<Game>) messageTemplate.sendAndReceive(destinationName, requestjmsmessage);
+		   System.out.println("Got Reply :- " + game.getPayload());
+		   createdGame = game.getPayload();
 		   
 		}catch(NoGameManagerAvailableException ex)
 		{
