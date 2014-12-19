@@ -10,6 +10,8 @@ import com.adansoft.great21.ulitity.GameUtility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+
+
 @JsonTypeName("SevenCardRummy")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SevenCardRummy implements Game,Serializable {

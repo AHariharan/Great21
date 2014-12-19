@@ -5,6 +5,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import org.apache.activemq.command.ActiveMQBytesMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -14,6 +15,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
+
 
 
 
@@ -34,8 +36,8 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 @Configuration
 public class QueueListener implements MessageListener {
 
-	@Autowired
-	private  MappingJackson2MessageConverter converter;
+//	@Autowired
+//	private  MappingJackson2MessageConverter converter;
 	
 	@Autowired
 	private JmsTemplate template;
@@ -45,30 +47,30 @@ public class QueueListener implements MessageListener {
 		try
 		{
 		System.out.println("Message Received :- " + msg);
-	    if(msg instanceof TextMessage)
+	    if(msg instanceof ActiveMQBytesMessage)
 	    {
-	    	converter.setTargetType(MessageType.TEXT);
-	    	converter.setTypeIdPropertyName("Object");
-	    	TextMessage receviedmsg = (TextMessage) msg;
+	    //	converter.setTargetType(MessageType.TEXT);
+	    //	converter.setTypeIdPropertyName("Object");
+	    	ActiveMQBytesMessage receviedmsg = (ActiveMQBytesMessage) msg;
 	    	
-	    	System.out.println("Received Game Request : " + receviedmsg.getText());
+	    	System.out.println("Received Game Request : " + receviedmsg.getContent());
 	    	
 	    	//Send Reply
 	   
 		    Destination destination = receviedmsg.getJMSReplyTo();
-		    Game game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
+		    SevenCardRummy game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
 		    System.out.println ("Reply Game :- " + game);
-		    ObjectMapper mapper = new ObjectMapper();
+		    //ObjectMapper mapper = new ObjectMapper();
 			   
-			   SimpleModule module = new SimpleModule();
-			   module.addSerializer(Player.class, new PlayerSerializer());
+			   //SimpleModule module = new SimpleModule();
+			   //module.addSerializer(Player.class, new PlayerSerializer());
 			  // module.addKeySerializer(Player.class, new PlayerSerializer());
 			  // module.addDeserializer(Player.class, new PlayerDeserializer());
-			   module.addKeyDeserializer(Player.class, new PlayerKeyDeserializer());
-			   mapper.registerModule(module);
-			   converter.setObjectMapper(mapper);
+			   ///module.addKeyDeserializer(Player.class, new PlayerKeyDeserializer());
+			   //mapper.registerModule(module);
+			 //  converter.setObjectMapper(mapper);
 			  
-		    template.setMessageConverter(converter);
+		   // template.setMessageConverter(converter);
 		    template.convertAndSend(destination, game);
 	    }
 		}catch(Exception e)

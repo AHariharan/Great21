@@ -61,7 +61,7 @@ public class PulseProducer {
 		
 	}
 	
-	@Scheduled(fixedRate = 25000)
+	@Scheduled(fixedRate = 250000)
 	public void sendAdditionalPulses()
 	{
 		System.out.println("Sending pulse ... " + gameManagerInstanceID + " : " + heartbeat);
