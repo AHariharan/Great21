@@ -9,6 +9,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.CacheModels.GameIndexerCache;
 import com.adansoft.great21.CacheModels.GameManagerCache;
 import com.adansoft.great21.exceptions.NoGameManagerAvailableException;
+import com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache;
 import com.adansoft.great21.gameindexer.helpers.GameBrowserHelper;
 import com.adansoft.great21.gameindexers.deserializers.PlayerDeserializer;
 import com.adansoft.great21.gameindexers.deserializers.PlayerKeyDeserializer;
@@ -16,6 +17,7 @@ import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.SevenCardRummy;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
+import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +31,9 @@ public class GameBrowserDelegate {
 	private JmsMessagingTemplate messageTemplate;
 	
 
+	@Autowired
+	private CacheServerGameIndexCache cacheserverinstance;
+	
 	
 	public Game createGame(CreateGameRequest request)
 	{
@@ -43,6 +48,7 @@ public class GameBrowserDelegate {
 		   Message<Game> game =  (Message<Game>) messageTemplate.sendAndReceive(destinationName, requestjmsmessage);
 		   System.out.println("Got Reply :- " + game.getPayload());
 		   createdGame = game.getPayload();
+		   cacheserverinstance.addGametoCache(createdGame.getGameInstanceId(), destinationName);
 		   
 		}catch(NoGameManagerAvailableException ex)
 		{
@@ -82,4 +88,21 @@ public class GameBrowserDelegate {
 		return replLobby;
 	}
 	
+	public String addPlayertoGame(AddPlayerRequest request)
+	{
+		String result = null;
+		try
+		{
+			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
+			Message<AddPlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		return result;
+	}
 }

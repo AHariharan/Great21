@@ -34,48 +34,61 @@
 		<property name="exceptionListener" ref="jmsExceptionListener" />
 		<property name="sessionCacheSize" value="100" />
 	</bean>
-	
-	<!-- <bean id="pulseDestination" class="org.apache.activemq.command.ActiveMQTopic"
-		p:physicalName="${JMS.DETECT.GAMEMANAGERS}" />
 
-	JmsTemplate Definition
-	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"
-		p:defaultDestination-ref="pulseDestination">
-		<constructor-arg ref="connectionFactory" />
-	</bean> -->
+	<!-- <bean id="pulseDestination" class="org.apache.activemq.command.ActiveMQTopic" 
+		p:physicalName="${JMS.DETECT.GAMEMANAGERS}" /> JmsTemplate Definition <bean 
+		id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate" p:defaultDestination-ref="pulseDestination"> 
+		<constructor-arg ref="connectionFactory" /> </bean> -->
 
-    <bean id="pulseConvertor" class="org.springframework.jms.support.converter.MappingJackson2MessageConverter" p:typeIdPropertyName="HEARTBEAT"/>
+	<bean id="pulseConvertor"
+		class="org.springframework.jms.support.converter.MappingJackson2MessageConverter"
+		p:typeIdPropertyName="HEARTBEAT" />
 
 
 	<bean id="topicListener" class="com.adansoft.great21.JMSHandlers.PulseListener" />
 	<!-- listener container definition using the jms namespace, concurrency 
-		is the max number of concurrent listeners that can be started  and setting this value to 1 -->
+		is the max number of concurrent listeners that can be started and setting 
+		this value to 1 -->
 
-    
+
 	<jms:listener-container concurrency="1"
 		container-type="default" connection-factory="connectionFactory"
 		acknowledge="auto" destination-type="topic">
-		<jms:listener destination="${JMS.DETECT.GAMEMANAGERS}" ref="topicListener" />
+		<jms:listener destination="${JMS.DETECT.GAMEMANAGERS}"
+			ref="topicListener" />
 	</jms:listener-container>
-	
-	
-	<!--  Send receive -->
-	
- 	
-	
-	
-	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate" >
+
+
+	<!-- Send receive -->
+
+
+
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<constructor-arg ref="connectionFactory" />
 	</bean>
-	
-	<bean id="jmsmessagetemplate"  class="org.springframework.jms.core.JmsMessagingTemplate" >
-	   <constructor-arg ref="jmsTemplate"/>
+
+	<bean id="jmsmessagetemplate" class="org.springframework.jms.core.JmsMessagingTemplate">
+		<constructor-arg ref="jmsTemplate" />
 	</bean>
-	
-	
-	<!--  Create Deletegates of operation Execution -->
-	<bean id="gamebrowserDelegate" class="com.adansoft.great21.gameindexer.delegate.GameBrowserDelegate"/>
 
 
+	<!-- Create Deletegates of operation Execution -->
+	<bean id="gamebrowserDelegate"
+		class="com.adansoft.great21.gameindexer.delegate.GameBrowserDelegate" />
+
+
+	<!-- Cache Server configurations -->
+	<!-- redis server configs -->
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:hostName="${CACHE_SERVER.HOST}" p:port="${CACHE_SERVER.PORT}" />
+
+	<!-- redis template definition -->
+	<bean id="gameInstanceRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory" />
+
+
+    <bean id="cacheServerInstace" class="com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache"/> 
 
 </beans>

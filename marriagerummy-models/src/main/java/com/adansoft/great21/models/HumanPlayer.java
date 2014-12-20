@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("HumanPlayer")
 public class HumanPlayer implements Player{
 
+
+	private static final long serialVersionUID = -83813341695789602L;
+	
 	private ArrayList<Card<?>> cards;
 	private boolean isTurn,isJokerKnown;
 	private String nickName;
@@ -20,7 +23,7 @@ public class HumanPlayer implements Player{
 	public HumanPlayer(String nickname)
 	{
 		this.nickName = nickname;
-		status = PLAYER_STATUS_INGAMEROUND;
+		status = PLAYER_STATUS_INGAME;
 	}
 
 	

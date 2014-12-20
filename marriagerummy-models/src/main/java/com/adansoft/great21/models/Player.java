@@ -1,6 +1,8 @@
 package com.adansoft.great21.models;
 
 
+import java.io.Serializable;
+
 import com.adansoft.great21.gameindexers.deserializers.PlayerDeserializer;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -13,13 +15,14 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
   }) 
 
 @JsonDeserialize(using = PlayerDeserializer.class)
-public interface Player {
+public interface Player extends Serializable {
 
 	public static final String PLAYER_TYPE_AI = "AI";
 	public static final String PLAYER_TYPE_HUMAN = "HUMAN";
 	
 	public static final String PLAYER_STATUS_ELIMINATED = "ELIMINATED";
 	public static final String PLAYER_STATUS_INGAMEROUND = "INGAMEROUND";
+	public static final String PLAYER_STATUS_INGAME = "INGAME";
 	
 	public static final String PLAYER_PLAY_STATUS_WAIT = "WAIT";
 	public static final String PLAYER_PLAY_STATUS_TURN = "TURN";

@@ -7,6 +7,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.helpers.GameBrowserHelper;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 
@@ -25,6 +26,13 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	public Message<GameLobby> handleMessage(GetGameListinLobbyRequest request) {
 		GameLobby lobby = GameBrowserHelper.getGameList(request);
 		Message<GameLobby> reply = MessageBuilder.withPayload(lobby).build();
+		return reply;
+	}
+
+	@Override
+	public Message<String> handleMessage(AddPlayerRequest request) {
+		String result = GameBrowserHelper.addPlayertoGame(request);
+		Message<String> reply = MessageBuilder.withPayload(result).build();
 		return reply;
 	}
 

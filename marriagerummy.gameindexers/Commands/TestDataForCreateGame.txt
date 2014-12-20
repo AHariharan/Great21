@@ -32,3 +32,17 @@ Header:- Content-Type : "application/json"
 Data content type select "Raw" ( JSON )
 
 ******************  End of Get GameList Request ***************
+
+******** Add Player ****************
+URL :- http://localhost:48080/marriagerummy.gameindexers/IndexerServices/GameBrowser/Player/Add
+Header:- Content-Type : "application/json"
+Data content type select "Raw" ( JSON )
+{ 
+"playerType":"HUMAN",
+	"nickname":"Arun",
+	"gameInstanceID":"",
+	"lobbyName":"Beginner",
+	"gameType" : "SEVENCARD_CLOSED"
+}
+
+***********End of  Add Player **********************************

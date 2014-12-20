@@ -18,6 +18,8 @@ import com.adansoft.great21.CacheModels.GameIndexerCache;
 import com.adansoft.great21.gameindexer.delegate.GameBrowserDelegate;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.Player;
+import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 
 @RestController
@@ -53,7 +55,13 @@ public class GameBrowserController {
 		return gameLobby;
 	}
 	
-	
+	@RequestMapping( value = GameIndexerServiceURLs.ADD_PLAYER, method = RequestMethod.POST)
+	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request)
+	{
+		String result = delegate.addPlayertoGame(request);
+		return result;
+		
+	}
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

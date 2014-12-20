@@ -6,6 +6,9 @@ import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.games.SevenCardRummy;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.HumanPlayer;
+import com.adansoft.great21.models.Player;
+import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 
@@ -38,4 +41,28 @@ public class GameBrowserHelper {
 		return lobby;
 		
 	}
+  
+	public static String addPlayertoGame(AddPlayerRequest request)
+	{
+		String result = "Success";
+		try
+		{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game =UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
+		{
+			HumanPlayer player = new HumanPlayer(request.getNickname());
+			game.getPlayerList().add(player);
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			result = "Failure";
+		}
+		return result;			
+	}
+	
+	
+	
+
 }
