@@ -1,3 +1,5 @@
+******************   Create Game Request ***************
+
 URL :- http://localhost:48080/marriagerummy.gameindexers/IndexerServices/GameBrowser/createGame
 
 Header:- Content-Type : "application/json"
@@ -5,11 +7,28 @@ Header:- Content-Type : "application/json"
 Data content type select "Raw" ( JSON )
 
 {
-  "lobbyType":"Beginner",
-  "gameType":"7 Card Rummy",
-  "gameDescription" : "7 Card rummy game",
-  "maxPlayers": 4,
-  "isFriendsOnly":false,
-  "isbyInviteOnly":false,
-  "gameMode":"Points"
+"lobbyType":"Beginner",
+"gameType":"SEVENCARD_CLOSED",
+"gameDescription":"SampleTestGame",
+"maxPlayers":4,
+"isFriendsOnly":false,
+"isbyInviteOnly":false,
+"gameMode":"gameMode",
+"createdBy":"Arun Hariharan",
+"isGamePointsBased":true,
+"isGamePerCardBase": false,
+"maxPoints":250,
+"perCardAmount": 10,
+"maxRounds":-1
 }
+
+******************   End of  Game Request ***************
+
+
+******************   Get GameList Request ***************
+
+URL :- http://localhost:48080/marriagerummy.gameindexers/IndexerServices/GameBrowser/GetGameListinLobby/{lobbyName}
+Header:- Content-Type : "application/json"
+Data content type select "Raw" ( JSON )
+
+******************  End of Get GameList Request ***************

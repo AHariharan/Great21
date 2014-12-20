@@ -1,12 +1,20 @@
 package com.adansoft.great21.games;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.adansoft.great21.models.Game;
 
-public class GameList {
+public class GameList implements Serializable{
 	
-		
+
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7746030211534883118L;
+	
 	private ArrayList<Game> gamelist;
 	private String lobbyName;
 	private String type;

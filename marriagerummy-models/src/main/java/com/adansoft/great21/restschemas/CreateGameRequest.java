@@ -16,7 +16,12 @@ public class CreateGameRequest implements Serializable{
 	private boolean isFriendsOnly;
 	private boolean isbyInviteOnly;
 	private String gameMode;
-	
+	private String createdBy;
+	private boolean isGamePointsBased;
+	private boolean isGamePerCardBase;
+	private int maxPoints;
+	private int perCardAmount;
+	private int maxRounds;
 	
 	public CreateGameRequest()
 	{
@@ -24,9 +29,15 @@ public class CreateGameRequest implements Serializable{
 	}
 	
 		
-	public CreateGameRequest(String lobbyType,String gameType, String gameDescription,
-			int maxPlayers, boolean isFriendsOnly, boolean isbyInviteOnly,
-			String gameMode) {
+	
+
+
+
+	public CreateGameRequest(String lobbyType, String gameType,
+			String gameDescription, int maxPlayers, boolean isFriendsOnly,
+			boolean isbyInviteOnly, String gameMode, String createdBy,
+			boolean isGamePointsBased, boolean isGamePerCardBase,
+			int maxPoints, int perCardAmount, int maxRounds) {
 		super();
 		this.lobbyType = lobbyType;
 		this.gameType = gameType;
@@ -35,7 +46,15 @@ public class CreateGameRequest implements Serializable{
 		this.isFriendsOnly = isFriendsOnly;
 		this.isbyInviteOnly = isbyInviteOnly;
 		this.gameMode = gameMode;
+		this.createdBy = createdBy;
+		this.isGamePointsBased = isGamePointsBased;
+		this.isGamePerCardBase = isGamePerCardBase;
+		this.maxPoints = maxPoints;
+		this.perCardAmount = perCardAmount;
+		this.maxRounds = maxRounds;
 	}
+
+
 
 
 
@@ -96,6 +115,66 @@ public class CreateGameRequest implements Serializable{
 
 	public void setLobbyType(String lobbyType) {
 		this.lobbyType = lobbyType;
+	}
+
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+
+	public boolean isGamePointsBased() {
+		return isGamePointsBased;
+	}
+
+
+	public void setGamePointsBased(boolean isGamePointsBased) {
+		this.isGamePointsBased = isGamePointsBased;
+	}
+
+
+	public boolean isGamePerCardBase() {
+		return isGamePerCardBase;
+	}
+
+
+	public void setGamePerCardBase(boolean isGamePerCardBase) {
+		this.isGamePerCardBase = isGamePerCardBase;
+	}
+
+
+	public int getMaxPoints() {
+		return maxPoints;
+	}
+
+
+	public void setMaxPoints(int maxPoints) {
+		this.maxPoints = maxPoints;
+	}
+
+
+	public int getPerCardAmount() {
+		return perCardAmount;
+	}
+
+
+	public void setPerCardAmount(int perCardAmount) {
+		this.perCardAmount = perCardAmount;
+	}
+
+
+	public int getMaxRounds() {
+		return maxRounds;
+	}
+
+
+	public void setMaxRounds(int maxRounds) {
+		this.maxRounds = maxRounds;
 	}
 	
 	

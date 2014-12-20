@@ -46,10 +46,14 @@ public class GameRound {
     
     private Game getCurrentGame() throws GameNotFoundException
     {
-    	if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_TYPE))
-    	      return RummyArena.getInstance().getLobby(lobbyName).getSevencard_gamelist().getGame(parentGameId);
-    	else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_TYPE))
-  	          return RummyArena.getInstance().getLobby(lobbyName).getThirteencard_gamelist().getGame(parentGameId);
+    	if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
+    	      return RummyArena.getInstance().getLobby(lobbyName).getSevencard_closed_gamelist().getGame(parentGameId);
+    	else if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
+  	          return RummyArena.getInstance().getLobby(lobbyName).getSevencard_open_gamelist().getGame(parentGameId);
+    	else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE))
+  	          return RummyArena.getInstance().getLobby(lobbyName).getThirteencard_closed_gamelist().getGame(parentGameId);
+    	else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE))
+	          return RummyArena.getInstance().getLobby(lobbyName).getThirteencard_open_gamelist().getGame(parentGameId);  
     	else if(gameType.equals(GameListConstants.GAMELIST_TWENTYONECARD_TYPE))
     		  return RummyArena.getInstance().getLobby(lobbyName).getTwentyonecard_gamelist().getGame(parentGameId);
     	else

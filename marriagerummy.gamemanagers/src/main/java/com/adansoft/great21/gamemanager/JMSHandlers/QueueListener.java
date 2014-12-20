@@ -1,5 +1,8 @@
 package com.adansoft.great21.gamemanager.JMSHandlers;
 
+/* Ignore this code this is not used anymore */
+
+
 import javax.jms.Destination;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -61,9 +64,9 @@ public class QueueListener implements MessageListener {
 	    	//Send Reply
 	   
 		    Destination destination = receviedmsg.getJMSReplyTo();
-		    SevenCardRummy game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
-		    System.out.println ("Reply Game :- " + game);
-		    System.out.println("Destinatoin name : " + destination);
+		   // SevenCardRummy game = new SevenCardRummy("Test", "test", "Beginner", GameListConstants.GAMELIST_SEVENCARD_TYPE);
+		    //System.out.println ("Reply Game :- " + game);
+		    //System.out.println("Destinatoin name : " + destination);
 		    //ObjectMapper mapper = new ObjectMapper();
 			   
 			   //SimpleModule module = new SimpleModule();
@@ -77,8 +80,8 @@ public class QueueListener implements MessageListener {
 		   // template.setMessageConverter(converter);
 		    SimpleMessageConverter convertor = new SimpleMessageConverter();
 		
-		    template.setMessageConverter(convertor);
-		    template.convertAndSend(destination, game);
+		   // template.setMessageConverter(convertor);
+		 //   template.convertAndSend(destination, game);
 	    }
 		}catch(Exception e)
 		{

@@ -41,6 +41,7 @@ public class GameIndexerCache {
 		{
 			GameManagerCache localcache = this.getGamemanagerlist().get(gamemanager.getGameManagerInstanceID());
 			localcache.setLastHeartbeatReceived(gamemanager.getLastHeartbeatReceived());
+			localcache.setNoofgamesHandled(gamemanager.getNoofgamesHandled());
 		}
 	}
 	

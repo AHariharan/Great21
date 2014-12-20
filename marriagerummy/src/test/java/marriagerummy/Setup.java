@@ -17,16 +17,16 @@ public class Setup {
 		 String lobbyName = "Beginners Lobby";
 		 RummyArena.getInstance();
 		 GameLobby lobby = GameLobby.createGameLobby(lobbyName);
-		 Game game = lobby.createGame("7Card Begineers", GameListConstants.GAMELIST_SEVENCARD_TYPE);
-		 
+		 SevenCardRummy game = new SevenCardRummy("Test", "System", "Beginnner", GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);
+		 lobby.addGame(game,GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);
 		 displayRummyArena();
 		 
-		 lobby.createGame("7Card Intermediate", GameListConstants.GAMELIST_SEVENCARD_TYPE);
-		 lobby.createGame("7Card Advanced", GameListConstants.GAMELIST_SEVENCARD_TYPE);
+		 /*lobby.createGame("7Card Intermediate", GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);
+		 lobby.createGame("7Card Advanced", GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);
 		 displayRummyArena();
-		 lobby.createGame("7Card Experts", GameListConstants.GAMELIST_SEVENCARD_TYPE);
+		 lobby.createGame("7Card Experts", GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);*/
 		 
-		 displayRummyArena();
+		 //displayRummyArena();
 		
 
 	}
@@ -38,7 +38,7 @@ public class Setup {
 		 for(GameLobby curlobby : rum.getGameLobbyList())
 		 {
 			 System.out.println("cur lobbyname : " + curlobby.getLobbyName());
-			 for(Game curgame : curlobby.getSevencard_gamelist().getGamelist())
+			 for(Game curgame : curlobby.getSevencard_closed_gamelist().getGamelist())
 			 {
 				 if(curgame instanceof SevenCardRummy)
 				 {

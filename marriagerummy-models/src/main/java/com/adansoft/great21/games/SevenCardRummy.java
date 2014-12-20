@@ -51,22 +51,34 @@ public class SevenCardRummy implements Game,Serializable {
 	
 	}
 	
-	public SevenCardRummy(String gameName,String lobbyName,String nickname,boolean isPointsBased,int maxPoints,boolean isGameMoneyBased,float perCardMoneyValue,int maxnoofPlayers,int maxrounds)
-	{
-		this.gameName = gameName;
-		this.lobbyName = lobbyName;
+	
+
+	public SevenCardRummy(int noofdecks, int maxplayers,
+			 int numofrounds, int maxrounds,
+			String gameOwnedBy, boolean isGamePointsBased,
+			int maxpointtoEliminate, boolean isGameMoneyBased,
+			float moneyPerCard, String lobbyName, String gameType,
+			String gameName) {
+		super();
 		this.gameInstanceId = GameUtility.generateGameInstanceID();
-		this.gameOwnedBy = nickname;
-	    this.isGamePointsBased = isPointsBased;
-	    this.maxpointtoEliminate = maxPoints;
-	    this.isGameMoneyBased = isGameMoneyBased;
-	    this.moneyPerCard = perCardMoneyValue;
-	    this.maxplayers = maxnoofPlayers;
-	    this.maxrounds = maxrounds;
-	    
-	    
+		this.gameroundlist = new ArrayList<GameRound>();
+		this.playerlist = new ArrayList<Player>();
+		this.noofdecks = noofdecks;
+		this.maxplayers = maxplayers;
+		this.numofrounds = numofrounds;
+		this.maxrounds = maxrounds;
+		this.gameOwnedBy = gameOwnedBy;
+		this.isGamePointsBased = isGamePointsBased;
+		this.maxpointtoEliminate = maxpointtoEliminate;
+		this.isGameMoneyBased = isGameMoneyBased;
+		this.moneyPerCard = moneyPerCard;
+		this.lobbyName = lobbyName;
+		this.gameType = gameType;
+		this.gameName = gameName;
 	}
 
+	
+	
 	public String getGameInstanceId() {
 		return this.gameInstanceId;
 	}

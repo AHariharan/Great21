@@ -4,5 +4,6 @@ public class GameIndexerServiceURLs {
 
 	public final static String GAMEBROWSER_BASE = "/IndexerServices/GameBrowser";
 	public final static String CREATEGAME = "createGame";
+	public final static String GETGAMELIST = "GetGameListinLobby/{lobbyName}";
 	
 }

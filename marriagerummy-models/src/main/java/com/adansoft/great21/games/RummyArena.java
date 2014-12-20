@@ -56,13 +56,28 @@ public class RummyArena {
 		int totalgames = 0;
 		for(GameLobby lobby : this.getGameLobbyList())
 		{
-			int sevencardtotal  = lobby.getSevencard_gamelist().getGamelist().size();
-			int thirteencardtotal  = lobby.getThirteencard_gamelist().getGamelist().size();
+			int sevencardclosedtotal  = lobby.getSevencard_closed_gamelist().getGamelist().size();
+			int sevencardopentotal  = lobby.getSevencard_open_gamelist().getGamelist().size();
+			int thirteencardclosedtotal  = lobby.getThirteencard_closed_gamelist().getGamelist().size();
+			int thirteencardopentotal  = lobby.getThirteencard_open_gamelist().getGamelist().size();
 			int twentyonecardtotal  = lobby.getTwentyonecard_gamelist().getGamelist().size();
-			int lobbytotal = sevencardtotal + thirteencardtotal + twentyonecardtotal;
+			int lobbytotal = sevencardclosedtotal + sevencardopentotal + thirteencardclosedtotal + thirteencardopentotal + twentyonecardtotal;
 			totalgames = totalgames + lobbytotal;
 		}
 		
 		return totalgames;
 	}
+	
+	public void displayArena()
+	{
+		for(GameLobby lobby : RummyArena.getInstance().getGameLobbyList())
+		{
+			System.out.println( "Game Lobby : " + lobby.getLobbyName());
+			System.out.println("\t lobby.getSevencard_closed_gamelist : " + lobby.getSevencard_closed_gamelist().getGamelist().size());
+			System.out.println("\t lobby.getSevencard_open_gamelist : " + lobby.getSevencard_open_gamelist().getGamelist().size());
+			System.out.println("\t lobby.getSevencard_closed_gamelist : " + lobby.getThirteencard_closed_gamelist().getGamelist().size());
+			System.out.println("\t lobby.getSevencard_open_gamelist : " + lobby.getThirteencard_open_gamelist().getGamelist().size());
+		}
+	}
+	
 }

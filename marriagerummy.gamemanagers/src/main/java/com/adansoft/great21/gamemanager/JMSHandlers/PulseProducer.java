@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.adansoft.great21.gamemanager.config.DataConfiguration;
 import com.adansoft.great21.gamemanager.config.JMSConfiguration;
+import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.jms.models.GameManagerHeartBeat;
 
 @Import({JMSConfiguration.class , DataConfiguration.class})
@@ -61,11 +62,14 @@ public class PulseProducer {
 		
 	}
 	
-	@Scheduled(fixedRate = 250000)
+	@Scheduled(fixedRate = 25000)
 	public void sendAdditionalPulses()
 	{
+		heartbeat.setNoofgamesHandled(RummyArena.getInstance().numofgamesinCache());
 		System.out.println("Sending pulse ... " + gameManagerInstanceID + " : " + heartbeat);
 	    pulseTemplate.setMessageIdEnabled(true);
+	    System.out.println("RummyArena Game size: " + RummyArena.getInstance().numofgamesinCache());
+	    heartbeat.setNoofgamesHandled(RummyArena.getInstance().numofgamesinCache());
 		pulseTemplate.convertAndSend(heartbeat,postprocessor);
 
 	}
