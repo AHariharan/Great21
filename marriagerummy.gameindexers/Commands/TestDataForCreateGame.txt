@@ -46,3 +46,18 @@ Data content type select "Raw" ( JSON )
 }
 
 ***********End of  Add Player **********************************
+
+*********** Remove Player ********************
+URL :- http://localhost:48080/marriagerummy.gameindexers/IndexerServices/GameBrowser/Player/Remove
+Header:- Content-Type : "application/json"
+Data content type select "Raw" ( JSON )
+
+{ 
+  	"nickname":"Arun",
+	"gameInstanceID":"93d844e1-d8b2-41f1-bb3d-4e958ab0e4e9",
+	"lobbyName":"Beginner",
+	"gameType" : "SEVENCARD_CLOSED"
+}
+
+
+****** End of Remove  Player *********************

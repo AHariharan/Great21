@@ -20,6 +20,7 @@ import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -95,6 +96,24 @@ public class GameBrowserDelegate {
 		{
 			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
 			Message<AddPlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		return result;
+	}
+	
+	public String removePlayerfromGame(RemovePlayerRequest request)
+	{
+		String result = null;
+		try
+		{
+			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
+			Message<RemovePlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();

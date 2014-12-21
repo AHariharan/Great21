@@ -11,6 +11,7 @@ import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameBrowserHelper {
 
@@ -24,7 +25,7 @@ public class GameBrowserHelper {
 				 request.getCreatedBy(), request.isGamePointsBased(),
 				 request.getMaxPoints(), request.isGamePerCardBase(),
 				 request.getPerCardAmount(), request.getLobbyType(), request.getGameType(),
-				request.getGameDescription());
+				 request.getGameDescription());
 		 
 		 RummyArena.getInstance().displayArena();      
 		 RummyArena.getInstance().getLobby(request.getLobbyType()).addGame(game, request.getGameType());
@@ -62,6 +63,28 @@ public class GameBrowserHelper {
 		return result;			
 	}
 	
+	
+	public static String removePlayerFromGame(RemovePlayerRequest request)
+	{
+		String result = "Success";
+		try {
+			GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+			Game game =UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+			for(Player player : game.getPlayerList())
+			{
+				if(player.getNickName().equals(request.getNickname()))
+				{
+					game.getPlayerList().remove(player);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "Failure";
+		}
+		return result;
+		
+	}
 	
 	
 

@@ -10,6 +10,7 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
 
@@ -36,7 +37,13 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		return reply;
 	}
 
-	
+	@Override
+	public Message<String> handleMessage(RemovePlayerRequest request)
+	{
+		String result = GameBrowserHelper.removePlayerFromGame(request);
+		Message<String> reply = MessageBuilder.withPayload(result).build();
+		return reply;
+	}
 
 	
 	
