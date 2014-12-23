@@ -7,6 +7,8 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.ulitity.GameUtility;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -91,12 +93,6 @@ public class SevenCardRummy implements Game,Serializable {
 		return this.maxplayers;
 	}
 
-/*	public ArrayList<Player> getPlayers() {
-		
-		return this.playerlist;
-	}
-
-*/
 	public int getMaxRounds() {
 		
 		return this.maxrounds;
@@ -171,6 +167,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.maxplayers = maxplayers;
 	}
 
+	@JsonGetter
 	public ArrayList<Player> getPlayerlist() {
 		return playerlist;
 	}
@@ -268,9 +265,9 @@ public class SevenCardRummy implements Game,Serializable {
 		return this.gameOwnedBy;
 	}
 
-	public ArrayList<Player> getPlayers() {
-		
-		return playerlist;
+	@JsonIgnore
+	public ArrayList<Player> getPlayers() {		
+		return getPlayerlist();
 	}
 	
 	
