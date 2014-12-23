@@ -22,6 +22,7 @@ import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
+import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 @RestController
@@ -43,17 +44,17 @@ public class GameBrowserController {
 	@RequestMapping( value = GameIndexerServiceURLs.CREATEGAME, method = RequestMethod.POST)
 	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request)
 	{
-		System.out.println("Request came in for create game from host :- " + request.getGameDescription());
+		System.out.println("GI: Request came in for create game from host :- " + request.getGameDescription());
 		Game createdgame = delegate.createGame(request);
 		return createdgame;
 	}
 	
 	
 	@RequestMapping( value = GameIndexerServiceURLs.GETGAMELIST, method = RequestMethod.POST)
-	public @ResponseBody GameLobby getGameList(@PathVariable("lobbyName") String lobbyName)
+	public @ResponseBody GetGameListinLobbyResponse getGameList(@PathVariable("lobbyName") String lobbyName)
 	{
 		System.out.println("Request came in for getGameList from lobby :- " + lobbyName);
-		GameLobby gameLobby = delegate.getGameList(lobbyName);				
+		GetGameListinLobbyResponse gameLobby = delegate.getGameList(lobbyName);				
 		return gameLobby;
 	}
 	

@@ -19,6 +19,11 @@ public class GameList implements Serializable{
 	private String lobbyName;
 	private String type;
 	
+	
+	public GameList()
+	{
+		gamelist = new ArrayList<Game>();
+	}
 
 	public GameList(String LobbyName,String GameType)
 	{		

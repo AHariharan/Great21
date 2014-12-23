@@ -1,8 +1,5 @@
 package com.adansoft.great21.controllers;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 

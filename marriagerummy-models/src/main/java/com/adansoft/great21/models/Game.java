@@ -35,7 +35,7 @@ public interface Game {
 	public int getMaxPlayers();
 	
 	/* gets Players in the current game */
-	public ArrayList<Player> getPlayerList();
+	public ArrayList<Player> getPlayers();
 	
 
 	

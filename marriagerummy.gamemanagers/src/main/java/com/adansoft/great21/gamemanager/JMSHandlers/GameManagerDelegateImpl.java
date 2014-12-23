@@ -11,6 +11,7 @@ import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
@@ -25,9 +26,10 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	@SendTo("lobby")
-	public Message<GameLobby> handleMessage(GetGameListinLobbyRequest request) {
+	public Message<GetGameListinLobbyResponse> handleMessage(GetGameListinLobbyRequest request) {
 		GameLobby lobby = GameBrowserHelper.getGameList(request);
-		Message<GameLobby> reply = MessageBuilder.withPayload(lobby).build();
+		GetGameListinLobbyResponse response = new GetGameListinLobbyResponse(request.getLobbyName(),lobby);
+		Message<GetGameListinLobbyResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 

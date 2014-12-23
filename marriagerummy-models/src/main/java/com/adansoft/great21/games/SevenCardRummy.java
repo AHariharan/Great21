@@ -91,12 +91,12 @@ public class SevenCardRummy implements Game,Serializable {
 		return this.maxplayers;
 	}
 
-	public ArrayList<Player> getPlayerList() {
+/*	public ArrayList<Player> getPlayers() {
 		
 		return this.playerlist;
 	}
 
-
+*/
 	public int getMaxRounds() {
 		
 		return this.maxrounds;
@@ -266,6 +266,11 @@ public class SevenCardRummy implements Game,Serializable {
 	public String getOwner()
 	{
 		return this.gameOwnedBy;
+	}
+
+	public ArrayList<Player> getPlayers() {
+		
+		return playerlist;
 	}
 	
 	

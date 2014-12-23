@@ -15,7 +15,7 @@ public class GameRound {
 	private float moneyperCard;
 	private ArrayList<Player> playerlist;
     private Player currentPlayerTurn;
-    private HashMap<Player,Integer> pointsMap;
+    private HashMap<String,Integer> pointsMap;
     private String lobbyName;
     private String gameType;
     
@@ -148,11 +148,11 @@ public class GameRound {
 		this.currentPlayerTurn = currentPlayerTurn;
 	}
 
-	public HashMap<Player, Integer> getPointsMap() {
+	public HashMap<String, Integer> getPointsMap() {
 		return pointsMap;
 	}
 
-	public void setPointsMap(HashMap<Player, Integer> pointsMap) {
+	public void setPointsMap(HashMap<String, Integer> pointsMap) {
 		this.pointsMap = pointsMap;
 	}
     

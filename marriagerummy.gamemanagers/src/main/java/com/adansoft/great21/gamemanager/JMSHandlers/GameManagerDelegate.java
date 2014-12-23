@@ -9,13 +9,14 @@ import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public interface GameManagerDelegate {
 
 	public Message<Game> handleMessage(CreateGameRequest request);
 	
-	public Message<GameLobby> handleMessage(GetGameListinLobbyRequest request);
+	public Message<GetGameListinLobbyResponse> handleMessage(GetGameListinLobbyRequest request);
 	
 	public Message<String> handleMessage(DeleteGameRequest request);
 	

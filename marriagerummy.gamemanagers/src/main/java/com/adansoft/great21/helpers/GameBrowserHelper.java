@@ -73,7 +73,8 @@ public class GameBrowserHelper {
 		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
 		{
 			HumanPlayer player = new HumanPlayer(request.getNickname());
-			game.getPlayerList().add(player);
+					
+			       game.getPlayers().add(player);
 		}
 		}catch(Exception e)
 		{
@@ -89,12 +90,13 @@ public class GameBrowserHelper {
 		String result = "Success";
 		try {
 			GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
-			Game game =UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
-			for(Player player : game.getPlayerList())
+			Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+			
+			for(Player player : game.getPlayers())
 			{
 				if(player.getNickName().equals(request.getNickname()))
 				{
-					game.getPlayerList().remove(player);
+					game.getPlayers().remove(player);
 					return result;
 				}
 			}

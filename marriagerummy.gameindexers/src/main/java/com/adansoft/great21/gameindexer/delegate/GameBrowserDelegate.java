@@ -21,6 +21,7 @@ import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -66,8 +67,9 @@ public class GameBrowserDelegate {
 		return createdGame;
 	}
 	
-	public GameLobby getGameList(String lobbyName)
+	public GetGameListinLobbyResponse getGameList(String lobbyName)
 	{
+		GetGameListinLobbyResponse response  = new GetGameListinLobbyResponse(lobbyName);
 		GameLobby replLobby = null;
 		try
 		{
@@ -78,16 +80,17 @@ public class GameBrowserDelegate {
 			String destination = GameIndexerCache.getInstance().getGamemanagerlist().get(gmcachekey).getRequestQueue();
 			Message<GetGameListinLobbyRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
-			Message<GameLobby> gamelobby =  (Message<GameLobby>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
-			GameBrowserHelper.mergeGameLobby(replLobby, gamelobby.getPayload());
+			Message<GetGameListinLobbyResponse> gamelobbyresp =  (Message<GetGameListinLobbyResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			GameBrowserHelper.mergeGameLobby(replLobby, gamelobbyresp.getPayload().getLobby());
 		}
+		response.setLobby(replLobby);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 			return null;
 		}
 		
-		return replLobby;
+		return response;
 	}
 	
 	public String deleteGame(DeleteGameRequest request)

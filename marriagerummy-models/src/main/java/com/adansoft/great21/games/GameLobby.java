@@ -3,6 +3,7 @@ package com.adansoft.great21.games;
 import java.io.Serializable;
 
 import com.adansoft.great21.models.Game;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 // GameLobby's Can be only created by admin's
 
@@ -30,7 +31,16 @@ public class GameLobby implements Serializable{
 		twentyonecard_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_TWENTYONECARD_TYPE);
 	}
 	
+	protected GameLobby()
+	{
+		sevencard_closed_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE);
+		sevencard_open_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE);
+		thirteencard_closed_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE);
+		thirteencard_open_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE);
+		twentyonecard_gamelist = new GameList(lobbyName,GameListConstants.GAMELIST_TWENTYONECARD_TYPE);
+	}
 	
+
 	public static GameLobby createGameLobby(String lobbyName)
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(lobbyName);
@@ -44,6 +54,7 @@ public class GameLobby implements Serializable{
 			return lobby;
 	}
 	
+	@JsonCreator
 	public static GameLobby createLocalGameLobby(String lobbyName)
 	{
 		GameLobby lobby = new GameLobby(lobbyName);

@@ -13,8 +13,6 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonSubTypes({
       @JsonSubTypes.Type(value=HumanPlayer.class, name="HumanPlayer")
   }) 
-
-@JsonDeserialize(using = PlayerDeserializer.class)
 public interface Player extends Serializable {
 
 	public static final String PLAYER_TYPE_AI = "AI";

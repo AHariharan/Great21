@@ -3,11 +3,13 @@ package com.adansoft.great21.models;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
 @JsonTypeName("HumanPlayer")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HumanPlayer implements Player{
 
 
@@ -26,6 +28,11 @@ public class HumanPlayer implements Player{
 		status = PLAYER_STATUS_INGAME;
 	}
 
+	
+	public HumanPlayer()
+	{
+		status = PLAYER_STATUS_INGAME;
+	}
 	
 
 	public boolean isJokerKnown() {
