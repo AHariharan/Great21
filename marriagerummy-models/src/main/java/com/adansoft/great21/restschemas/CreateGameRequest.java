@@ -17,8 +17,8 @@ public class CreateGameRequest implements Serializable{
 	private boolean isbyInviteOnly;
 	private String gameMode;
 	private String createdBy;
-	private boolean isGamePointsBased;
-	private boolean isGamePerCardBase;
+	private boolean gamePointsBased;
+	private boolean gamePerCardBase;
 	private int maxPoints;
 	private int perCardAmount;
 	private int maxRounds;
@@ -47,8 +47,8 @@ public class CreateGameRequest implements Serializable{
 		this.isbyInviteOnly = isbyInviteOnly;
 		this.gameMode = gameMode;
 		this.createdBy = createdBy;
-		this.isGamePointsBased = isGamePointsBased;
-		this.isGamePerCardBase = isGamePerCardBase;
+		this.gamePointsBased = isGamePointsBased;
+		this.gamePerCardBase = isGamePerCardBase;
 		this.maxPoints = maxPoints;
 		this.perCardAmount = perCardAmount;
 		this.maxRounds = maxRounds;
@@ -128,24 +128,42 @@ public class CreateGameRequest implements Serializable{
 	}
 
 
+	
+
 	public boolean isGamePointsBased() {
-		return isGamePointsBased;
+		return gamePointsBased;
 	}
 
 
-	public void setGamePointsBased(boolean isGamePointsBased) {
-		this.isGamePointsBased = isGamePointsBased;
+
+
+
+
+	public void setGamePointsBased(boolean gamePointsBased) {
+		this.gamePointsBased = gamePointsBased;
 	}
+
+
+
+
 
 
 	public boolean isGamePerCardBase() {
-		return isGamePerCardBase;
+		return gamePerCardBase;
 	}
 
 
-	public void setGamePerCardBase(boolean isGamePerCardBase) {
-		this.isGamePerCardBase = isGamePerCardBase;
+
+
+
+
+	public void setGamePerCardBase(boolean gamePerCardBase) {
+		this.gamePerCardBase = gamePerCardBase;
 	}
+
+
+
+
 
 
 	public int getMaxPoints() {

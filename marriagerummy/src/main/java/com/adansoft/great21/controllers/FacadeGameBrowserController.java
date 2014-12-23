@@ -22,11 +22,16 @@ import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.uimediation.UIMediationMapper;
+import com.adansoft.great21.uischemas.GetGamesinLobby;
 
 @RestController
 @RequestMapping(FacadeControllerURLs.GAMEBROWSER_BASE)
 public class FacadeGameBrowserController {
 
+	@Autowired
+	UIMediationMapper uimapper;
+	
 	@Autowired
 	FacadetoIndexerMapper mapper;
 	
@@ -72,7 +77,7 @@ public class FacadeGameBrowserController {
 	}
 	
 	@RequestMapping( value = FacadeControllerURLs.GETGAMELIST, method = RequestMethod.POST)
-	public @ResponseBody GetGameListinLobbyResponse getGameList(@PathVariable("lobbyName") String lobbyName)
+	public @ResponseBody GetGamesinLobby[] getGameList(@PathVariable("lobbyName") String lobbyName)
 	{
 		GetGameListinLobbyResponse lobby = null;
 		System.out.println("Request came in for getGameList from lobby :- " + lobbyName);
@@ -85,7 +90,7 @@ public class FacadeGameBrowserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return lobby;
+		return uimapper.map(lobby);
 	}
 	
 	

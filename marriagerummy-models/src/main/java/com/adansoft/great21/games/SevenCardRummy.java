@@ -30,13 +30,14 @@ public class SevenCardRummy implements Game,Serializable {
 	private ArrayList<GameRound> gameroundlist;
 	private String gameInstanceId;
 	private String gameOwnedBy;
-	private boolean isGamePointsBased;
+	private boolean gamePointsBased;
 	private int maxpointtoEliminate;
-	private boolean isGameMoneyBased;
+	private boolean gameMoneyBased;
 	private float moneyPerCard;
 	private String lobbyName;
 	private String gameType;
 	private String gameName;
+	private String status;
 	
 	public SevenCardRummy()
 	{
@@ -70,13 +71,14 @@ public class SevenCardRummy implements Game,Serializable {
 		this.numofrounds = numofrounds;
 		this.maxrounds = maxrounds;
 		this.gameOwnedBy = gameOwnedBy;
-		this.isGamePointsBased = isGamePointsBased;
+		this.gamePointsBased = isGamePointsBased;
 		this.maxpointtoEliminate = maxpointtoEliminate;
-		this.isGameMoneyBased = isGameMoneyBased;
+		this.gameMoneyBased = isGameMoneyBased;
 		this.moneyPerCard = moneyPerCard;
 		this.lobbyName = lobbyName;
 		this.gameType = gameType;
 		this.gameName = gameName;
+		this.status = Game.GAME_STATUS_OPEN;
 	}
 
 	
@@ -102,17 +104,13 @@ public class SevenCardRummy implements Game,Serializable {
 		return null;
 	}
 
-	public boolean isGamePointsBased() {		
-		return isGamePointsBased;
-	}
+	
 
 	public int getMaxPoints() {
 		return maxpointtoEliminate;
 	}
 
-	public boolean isGameCardMoneyBased() {
-		return isGameMoneyBased;
-	}
+	
 
 	public float getPerCardMoneyValue() {
 		return moneyPerCard;
@@ -129,11 +127,21 @@ public class SevenCardRummy implements Game,Serializable {
 
 	private void createNewGameRound()
 	{
-		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, isGamePointsBased , isGameMoneyBased,moneyPerCard);	
+		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased , gameMoneyBased,moneyPerCard);	
 		
 	}
 
 
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public String getGameType() {
 		return gameType;
@@ -208,13 +216,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.maxpointtoEliminate = maxpointtoEliminate;
 	}
 
-	public boolean isGameMoneyBased() {
-		return isGameMoneyBased;
-	}
 
-	public void setGameMoneyBased(boolean isGameMoneyBased) {
-		this.isGameMoneyBased = isGameMoneyBased;
-	}
 
 	public float getMoneyPerCard() {
 		return moneyPerCard;
@@ -232,10 +234,26 @@ public class SevenCardRummy implements Game,Serializable {
 		this.gameOwnedBy = gameOwnedBy;
 	}
 
-	public void setGamePointsBased(boolean isGamePointsBased) {
-		this.isGamePointsBased = isGamePointsBased;
-	}
+
 	
+	
+	
+	public boolean isGamePointsBased() {
+		return gamePointsBased;
+	}
+
+	public void setGamePointsBased(boolean gamePointsBased) {
+		this.gamePointsBased = gamePointsBased;
+	}
+
+	public boolean isGameMoneyBased() {
+		return gameMoneyBased;
+	}
+
+	public void setGameMoneyBased(boolean gameMoneyBased) {
+		this.gameMoneyBased = gameMoneyBased;
+	}
+
 	@Override
 	public String toString() {
 	
@@ -268,6 +286,21 @@ public class SevenCardRummy implements Game,Serializable {
 	@JsonIgnore
 	public ArrayList<Player> getPlayers() {		
 		return getPlayerlist();
+	}
+
+	@JsonIgnore
+	public String getDescription() {
+		return this.gameName;
+	}
+ 
+	@JsonIgnore
+	public boolean isGameCardMoneyBased() {
+		return gameMoneyBased;
+	}
+
+	@JsonIgnore
+	public String getGameStatus() {
+		return this.status;
 	}
 	
 	

@@ -1,42 +1,156 @@
 [
     {
-        "id": 1,
-        "type": "7' Closed Joker",
-        "desc": "Arun's sample game ",
-        "host":"Skunk",
-        "playedbet": "Points ( 250 )",
-        "players" : "6/8",
-        "gamestaus": "Open",
-        "action":"join"
+        "gameInstanceId": "c95ed676-9356-4f22-9962-8136775e4cae",
+        "id": "1",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
     },
     {
-        "id": 2,
-        "type": "7' Open Joker",
-        "desc": "Deepu's sample game ",
-        "host":"Indus",
-        "playedbet": "Points ( 500 )",
-        "players" : "3/8",
-        "gamestaus": "Open",
-        "action":"join"
+        "gameInstanceId": "033b4cb7-e352-4b4a-a07f-b6e360ad02c3",
+        "id": "2",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
     },
     {
-        "id": 3,
-        "type": "7' Closed Joker",
-        "host":"Mariyan",
-        "desc": "Arun's sample game  ",
-        "playedbet": "Per card 3 rs.",
-        "players" : "6/8",
-        "gamestaus": "Open",
-        "action":"join"
+        "gameInstanceId": "3b80668a-031d-4062-9dc6-0514340d2fc3",
+        "id": "3",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
     },
     {
-        "id": 4,
-        "type": "13' Closed Joker",
-        "desc": "Arun's sample game ",
-        "playedbet": "Per card 3 rs.",
-        "players" : "6/8",
-        "gamestaus": "In Progress",
-        "action":"Watch"
+        "gameInstanceId": "251082f7-e10c-4adb-a2ea-ff02107a15e9",
+        "id": "4",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "0fe1a647-9647-4c7a-9d4c-9ed338a6179f",
+        "id": "5",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "eb6f4a49-f55b-484c-9b84-f59a3ce0414b",
+        "id": "6",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "7ac30460-3cc9-4f97-9f4f-63d398d70f53",
+        "id": "7",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "05613f9d-6f22-409c-b209-40015b9812bb",
+        "id": "8",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "0895f15e-6d3b-4154-8065-345b3283fba4",
+        "id": "9",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "913bd76a-9908-400c-b8b1-28878ce85121",
+        "id": "10",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "d6faa20d-14ca-425a-9c93-b45e95063765",
+        "id": "11",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "4344b342-e27f-4d9f-bf19-cfac9b3801d3",
+        "id": "12",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "066d1f5a-abf7-42c1-98db-358eb267cfd5",
+        "id": "13",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
+    },
+    {
+        "gameInstanceId": "5da18eac-aea5-4323-9e62-bd6f3f6f18d5",
+        "id": "14",
+        "type": "SEVENCARD_CLOSED",
+        "host": "Arun Hariharan",
+        "desc": "Sample Test Game",
+        "playedbet": "Points ( Max points : 250)",
+        "players": 0,
+        "gameStatus": "OPEN",
+        "action": "Join"
     }
-   
 ]

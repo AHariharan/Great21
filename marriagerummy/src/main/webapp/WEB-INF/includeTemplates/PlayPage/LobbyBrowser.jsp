@@ -51,7 +51,7 @@
 						<th data-field="desc" data-align=""center"">Game Description</th>
 						<th data-field="playedbet" data-align="center">Game Bet</th>
 						<th data-field="players" data-align="center">Players</th>
-						<th data-field="gamestaus" data-align="center">Status</th>
+						<th data-field="gameStatus" data-align="center">Status</th>
 						<th data-field="action" data-align="center"
 							data-formatter="operateFormatter" data-events="operateEvents">Action</th>
 					</tr>
@@ -59,7 +59,7 @@
 			</table>
 			<script>
 				function operateFormatter(value, row, index) {
-					if (value == "join")
+					if (value == "Join")
 						return ' <button class="btn btn-success btn-sm"> Join </button>';
 					else if (value == "Watch")
 						return ' <button class="btn btn-warning btn-sm"> Watch </button>';
@@ -123,7 +123,7 @@
 						<th data-field="desc" data-align=""center"">Game Description</th>
 						<th data-field="playedbet" data-align="center">Game Bet</th>
 						<th data-field="players" data-align="center">Players</th>
-						<th data-field="gamestaus" data-align="center">Status</th>
+						<th data-field="gameStatus" data-align="center">Status</th>
 						<th data-field="action" data-align="center"
 							data-formatter="operateFormatter" data-events="operateEvents">Action</th>
 					</tr>
@@ -131,7 +131,7 @@
 			</table>
 			<script>
 				function operateFormatter(value, row, index) {
-					if (value == "join")
+					if (value == "Join")
 						return ' <button class="btn btn-success btn-sm"> Join </button>';
 					else if (value == "Watch")
 						return ' <button class="btn btn-warning btn-sm"> Watch </button>';
@@ -195,7 +195,7 @@
 						<th data-field="desc" data-align=""center"">Game Description</th>
 						<th data-field="playedbet" data-align="center">Game Bet</th>
 						<th data-field="players" data-align="center">Players</th>
-						<th data-field="gamestaus" data-align="center">Status</th>
+						<th data-field="gameStatus" data-align="center">Status</th>
 						<th data-field="action" data-align="center"
 							data-formatter="operateFormatter" data-events="operateEvents">Action</th>
 					</tr>
@@ -203,7 +203,7 @@
 			</table>
 			<script>
 				function operateFormatter(value, row, index) {
-					if (value == "join")
+					if (value == "Join")
 						return ' <button class="btn btn-success btn-sm"> Join </button>';
 					else if (value == "Watch")
 						return ' <button class="btn btn-warning btn-sm"> Watch </button>';

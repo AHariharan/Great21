@@ -57,5 +57,8 @@
 	
 	<!--  Create Rest Client Template -->
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate"/>
+	
+	<!--  Create UIMapper -->
+	<bean id="uimapper" class="com.adansoft.great21.uimediation.UIMediationMapper"/>
 
 </beans>

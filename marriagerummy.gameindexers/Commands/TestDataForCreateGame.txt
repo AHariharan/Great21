@@ -9,16 +9,16 @@ Data content type select "Raw" ( JSON )
 {
 "lobbyType":"Beginner",
 "gameType":"SEVENCARD_CLOSED",
-"gameDescription":"SampleTestGame",
-"maxPlayers":4,
+"gameDescription":"Sample Test Game",
+"maxPlayers":"6",
 "isFriendsOnly":false,
 "isbyInviteOnly":false,
-"gameMode":"gameMode",
+"gameMode":"Human",
 "createdBy":"Arun Hariharan",
-"isGamePointsBased":true,
-"isGamePerCardBase": false,
+"gamePointsBased":true,
+"gamePerCardBase":false,
 "maxPoints":250,
-"perCardAmount": 10,
+"perCardAmount":"0",
 "maxRounds":-1
 }
 

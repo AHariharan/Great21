@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
   }) 
 public interface Game {
 
-		
+	public static final String GAME_STATUS_OPEN = "OPEN";	
 	public static final String GAME_STATUS_INPROGRESS = "INPROGRESS";
 	public static final String GAME_STATUS_COMPLETED = "COMPLETED";	
 	public static final String GAME_STATUS_ABANDEND = "ABANDEND";
@@ -60,6 +60,11 @@ public interface Game {
    /* Get the owner of the game */
 	public String getOwner();
 	
+  /* get Game description */
+	public String getDescription();
+	
+  /* get Game Status */
+	public String getGameStatus();
 	
 	
 }
