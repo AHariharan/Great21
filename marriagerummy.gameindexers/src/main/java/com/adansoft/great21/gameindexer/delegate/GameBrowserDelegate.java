@@ -19,6 +19,7 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
+import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -89,12 +90,43 @@ public class GameBrowserDelegate {
 		return replLobby;
 	}
 	
+	public String deleteGame(DeleteGameRequest request)
+	{
+		String result = null;
+		try
+		{
+			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
+			if(destination == null)
+			{
+				result = "Failure: No such Game Available";
+				return result;
+			}
+			Message<DeleteGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			if(result.equals("Success"))
+				cacheserverinstance.deleteGameInstanceID(request.getGameInstanceID());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		return result;
+	}
+	
+	
 	public String addPlayertoGame(AddPlayerRequest request)
 	{
 		String result = null;
 		try
 		{
 			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
+			if(destination == null)
+			{
+				result = "Failure : No such Game Available";
+				return result;
+			}
 			Message<AddPlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
@@ -113,6 +145,11 @@ public class GameBrowserDelegate {
 		try
 		{
 			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
+			if(destination == null)
+			{
+				result = "Failure : No such Game Available";
+				return result;
+			}
 			Message<RemovePlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);

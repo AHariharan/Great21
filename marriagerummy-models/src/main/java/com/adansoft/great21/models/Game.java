@@ -57,6 +57,9 @@ public interface Game {
 	/* Gets percard value if game is played for Money */
 	public float getPerCardMoneyValue();
 	
+   /* Get the owner of the game */
+	public String getOwner();
+	
 	
 	
 }

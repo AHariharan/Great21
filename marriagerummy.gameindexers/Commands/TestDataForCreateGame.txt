@@ -24,6 +24,18 @@ Data content type select "Raw" ( JSON )
 
 ******************   End of  Game Request ***************
 
+******************   Remove Game ************************
+http://localhost:48080/marriagerummy.gameindexers/IndexerServices/GameBrowser/removeGame
+
+{
+  "gameInstanceID":"746250dc-e114-4119-8d04-316fcdd5aa6b",
+  "nickName":"Test",
+  "lobbyName":"Beginner",
+  "gameType":"SEVENCARD_CLOSED"
+}
+
+****************** End of Remove Game *******************
+
 
 ******************   Get GameList Request ***************
 

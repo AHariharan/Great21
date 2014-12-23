@@ -137,10 +137,7 @@ public class SevenCardRummy implements Game,Serializable {
 		
 	}
 
-	/*public String getGameLobbyName() {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
+
 
 	public String getGameType() {
 		return gameType;
@@ -264,6 +261,11 @@ public class SevenCardRummy implements Game,Serializable {
 	public String getGameLobbyName() {
 		
 		return null;
+	}
+	
+	public String getOwner()
+	{
+		return this.gameOwnedBy;
 	}
 	
 	

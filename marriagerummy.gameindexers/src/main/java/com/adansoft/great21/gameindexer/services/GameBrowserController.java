@@ -21,6 +21,7 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
+import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 @RestController
@@ -56,6 +57,13 @@ public class GameBrowserController {
 		return gameLobby;
 	}
 	
+	@RequestMapping( value = GameIndexerServiceURLs.DELETEGAME, method = RequestMethod.POST)
+	public @ResponseBody String deleteGame(@RequestBody DeleteGameRequest request)
+	{
+		String result = delegate.deleteGame(request);		
+		return result;
+	}
+	
 	@RequestMapping( value = GameIndexerServiceURLs.ADD_PLAYER, method = RequestMethod.POST)
 	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request)
 	{
@@ -65,7 +73,7 @@ public class GameBrowserController {
 	}
 	
 	@RequestMapping( value = GameIndexerServiceURLs.REMOVE_PLAYER, method = RequestMethod.POST)
-	public @ResponseBody String addPlayertoGame(@RequestBody RemovePlayerRequest request)
+	public @ResponseBody String removePlayerFromGame(@RequestBody RemovePlayerRequest request)
 	{
 		String result = delegate.removePlayerfromGame(request);
 		return result;

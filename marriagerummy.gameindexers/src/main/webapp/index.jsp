@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>Game Indexer Services are up and running</h2>
 </body>
 </html>

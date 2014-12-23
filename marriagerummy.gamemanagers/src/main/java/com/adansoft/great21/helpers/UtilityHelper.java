@@ -24,4 +24,21 @@ public class UtilityHelper {
 		return game;
 	}
 	
+	public static Game deleteGamefromLobby(GameLobby lobby,Game game,String gameType)
+	{
+	
+		if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
+			 lobby.getSevencard_closed_gamelist().getGamelist().remove(game);
+		else if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
+			 lobby.getSevencard_open_gamelist().getGamelist().remove(game);
+		else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE))
+			 lobby.getThirteencard_closed_gamelist().getGamelist().remove(game);
+		else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE))
+			 lobby.getThirteencard_open_gamelist().getGamelist().remove(game);
+		else if(gameType.equals(GameListConstants.GAMELIST_TWENTYONECARD_TYPE))
+			 lobby.getTwentyonecard_gamelist().getGamelist().remove(game);
+		
+		return game;
+	}
+	
 }

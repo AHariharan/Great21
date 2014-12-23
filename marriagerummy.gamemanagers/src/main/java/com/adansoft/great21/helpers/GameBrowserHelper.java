@@ -10,6 +10,7 @@ import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
+import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
@@ -43,6 +44,25 @@ public class GameBrowserHelper {
 		
 	}
   
+	public static String deleteGame(DeleteGameRequest request)
+	{
+		String result = "Success";
+		try
+		{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		if(game.getOwner().equals(request.getNickName()))
+		     UtilityHelper.deleteGamefromLobby(lobby, game, request.getGameType());
+		else
+			result = "Failure : Not enough previleges";
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			result = "Failure";
+		}
+		return result;	
+	}
+	
 	public static String addPlayertoGame(AddPlayerRequest request)
 	{
 		String result = "Success";
@@ -75,6 +95,7 @@ public class GameBrowserHelper {
 				if(player.getNickName().equals(request.getNickname()))
 				{
 					game.getPlayerList().remove(player);
+					return result;
 				}
 			}
 			
