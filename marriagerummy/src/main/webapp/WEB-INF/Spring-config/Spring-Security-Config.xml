@@ -1,0 +1,34 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http pattern="/assets/css/**" security="none" />
+	<http pattern="/assets/images/**" security="none" />
+	<http pattern="/assets/SampleJson/**" security="none" />
+	<http pattern="/assets/js/**" security="none" />
+	<http pattern="/assets/ThirdPartyLibs/**" security="none" />
+
+	<http>
+		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/RummyPage.jsp" access="ROLE_USER" />
+		<session-management>
+			<concurrency-control max-sessions="1"
+				error-if-maximum-exceeded="true" />
+		</session-management>
+		<form-login default-target-url="/RummyPage.jsp"/>
+		<logout />
+	</http>
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="arun" password="arun" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="deepika" password="deepika" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>

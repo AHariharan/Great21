@@ -6,6 +6,10 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +31,7 @@ import com.adansoft.great21.uischemas.GetGamesinLobby;
 
 @RestController
 @RequestMapping(FacadeControllerURLs.GAMEBROWSER_BASE)
+@EnableWebMvcSecurity
 public class FacadeGameBrowserController {
 
 	@Autowired
@@ -59,8 +64,9 @@ public class FacadeGameBrowserController {
 		}
 	}
 	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.CREATEGAME, method = RequestMethod.POST)
-	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request)
+	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request,@AuthenticationPrincipal Object principal)
 	{
 		Game game = null;
 		try
@@ -76,9 +82,11 @@ public class FacadeGameBrowserController {
 		return game;
 	}
 	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.GETGAMELIST, method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody GetGamesinLobby[] getGameList(@PathVariable("lobbyName") String lobbyName)
+	public @ResponseBody GetGamesinLobby[] getGameList(@PathVariable("lobbyName") String lobbyName,@AuthenticationPrincipal Authentication authentication)
 	{
+		System.out.println("Principal obejct" + authentication.getName());
 		GetGameListinLobbyResponse lobby = null;
 		System.out.println("Request came in for getGameList from lobby :- " + lobbyName);
 		try {
@@ -93,7 +101,7 @@ public class FacadeGameBrowserController {
 		return uimapper.map(lobby);
 	}
 	
-	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.DELETEGAME, method = RequestMethod.POST)
 	public @ResponseBody String deleteGame(@RequestBody DeleteGameRequest request)
 	{
@@ -110,6 +118,7 @@ public class FacadeGameBrowserController {
 		return result;
 	}
 	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.ADD_PLAYER, method = RequestMethod.POST)
 	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request)
 	{
@@ -127,6 +136,7 @@ public class FacadeGameBrowserController {
 		
 	}
 	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.REMOVE_PLAYER, method = RequestMethod.POST)
 	public @ResponseBody String removePlayerFromGame(@RequestBody RemovePlayerRequest request)
 	{

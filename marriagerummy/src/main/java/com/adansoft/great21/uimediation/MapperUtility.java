@@ -37,7 +37,7 @@ public class MapperUtility {
 		if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
 			return "7 Card closed joker rummy";
 		else if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
-			return "7 Card closed joker rummy";
+			return "7 Card open joker rummy";
 		else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE))
 			return "13 Card closed joker rummy";
 		else if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE))
