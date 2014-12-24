@@ -62,22 +62,25 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
 MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 
+	var gameType = "";
+	var gameLobby = "";
+	
 	$('#creategamemodal').on(
 			'show.bs.modal',
 			function(event) {
 				var button = $(event.relatedTarget);
-				var gameType = button.data('gametype');
-				var gameLobby = button.data('lobby');
+				gameType = button.data('gametype');
+				gameLobby = button.data('lobby');
 				var displayText = "";
-				if(gameType == "7CARDCLOSED")
+				if(gameType == "SEVENCARD_CLOSED")
 					displayText = "7 Card closed joker rummy";
-				else if(gameType == "7CARDOPEN")
+				else if(gameType == "SEVENCARD_OPEN")
 					displayText = "7 Card open joker rummy";
-				else if(gameType == "13CARDCLOSED")
+				else if(gameType == "THIRTEEN_CLOSED")
 					displayText = "13 Card closed joker rummy";
-				else if(gameType == "13CARDOPEN")
+				else if(gameType == "THIRTEEN_OPEN")
 					displayText = "13 Card open joker rummy";
-				else if(gameType == "21CARDMARRIAGE")
+				else if(gameType == "TWENTYONE")
 					displayText = "21 Card marriage rummy";
 				
 				
@@ -85,6 +88,52 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 				modal.find("#GameType").text(displayText + " ( " + gameLobby + " )" );
 				
 
+			});
+	
+	$("#createGameBtn").click(function()
+			{
+		           
+		            var gameDesc = $('#creategamemodal #GameDesc').val();
+		            var maxplayers = $('#creategamemodal #MaxPlayers').val();
+		            var isFriendsOnly = $('#creategamemodal #isFriendsOnly').prop("checked");
+		            var isInviteOnly = $('#creategamemodal #isByInviteonly').prop("checked");
+		            var gamePointsBased = $('#creategamemodal #inlineRadio1').prop("checked");
+		            var gamePerCardBase = $('#creategamemodal #inlineRadio2').prop("checked");
+		            var Points = $('#creategamemodal #Points').val();
+		            var CardValue = $('#creategamemodal #CardVal').val();
+		            var formdata = {
+		            		
+		            			"lobbyType":gameLobby,
+		            			"gameType":gameType,
+		            			"gameDescription":gameDesc,
+		            			"maxPlayers":maxplayers,
+		            			"isFriendsOnly":isFriendsOnly,
+		            			"isbyInviteOnly":isInviteOnly,
+		            			"gameMode":"Human",
+		            			"createdBy":"Arun Hariharan",
+		            			"gamePointsBased":gamePointsBased,
+		            			"gamePerCardBase":gamePerCardBase,
+		            			"maxPoints":Points,
+		            			"perCardAmount":CardValue,
+		            			"maxRounds":-1        		
+		            };
+		            
+		          //  alert("Window button clicked" + JSON.stringify(formdata));
+		            var url = "/marriagerummy/IndexerServices/GameBrowser/createGame";
+		            $.ajax({
+		    			type : "POST",
+		    			url : url,
+		    			contentType : "application/json",
+		    			data : JSON.stringify(formdata),
+		    			consumes : "application/json",
+		    			success : function(data, textStatus, jqXHR) {
+		    				alert("Game Created Successfully");
+		    			},
+		    			error : function(data) {
+		    				console.log("Failed to get data from server");
+		    			}
+		    			
+		    		});
 			});
 
 };

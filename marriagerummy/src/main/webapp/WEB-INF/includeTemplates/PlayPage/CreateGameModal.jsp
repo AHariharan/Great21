@@ -45,11 +45,11 @@
 									</select>
 								</div>
 								<div class="checkbox col-sm-2">
-									<label> <input type="checkbox"> Friends Only
+									<label> <input id="isFriendsOnly" type="checkbox"> Friends Only
 									</label>
 								</div>
 								<div class="checkbox col-sm-4">
-									<label> <input type="checkbox"> By Invite Only.
+									<label> <input  id="isByInviteonly" type="checkbox"> By Invite Only.
 									</label>
 								</div>
 							</div>
@@ -105,7 +105,7 @@
 									</label> <label class="radio-inline"> <input type="radio"
 										name="inlineRadioOptions" id="inlineRadio2" value="option2">
 										Per card Mode , Per card Value <select class="form-control"
-										id="Points">
+										id="CardVal">
 											<option>5</option>
 											<option>10</option>
 											<option>100</option>
@@ -122,7 +122,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button type="button" class="btn btn-primary">Create Game</button>
+				<button id="createGameBtn" type="button" class="btn btn-primary">Create Game</button>
 			</div>
 		</div>
 	</div>

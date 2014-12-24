@@ -28,7 +28,10 @@ public class GameBrowserHelper {
 				 request.getPerCardAmount(), request.getLobbyType(), request.getGameType(),
 				 request.getGameDescription());
 		 
-		 RummyArena.getInstance().displayArena();      
+		 HumanPlayer player = new HumanPlayer(request.getCreatedBy());
+		 game.getPlayers().add(player);
+		 
+		// RummyArena.getInstance().displayArena();      
 		 RummyArena.getInstance().getLobby(request.getLobbyType()).addGame(game, request.getGameType());
 		 return game;
 	}
