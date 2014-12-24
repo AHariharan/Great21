@@ -18,9 +18,13 @@
 			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" />
 		</session-management>
-		<form-login default-target-url="/RummyPage.jsp"/>
+		<form-login default-target-url="/RummyPage.jsp"
+			authentication-success-handler-ref="authsuccesshandler" />
 		<logout />
+		<csrf />
 	</http>
+
+
 
 	<authentication-manager>
 		<authentication-provider>
@@ -31,4 +35,14 @@
 		</authentication-provider>
 	</authentication-manager>
 
+
+
+	<beans:bean id="authsuccesshandler"
+		class="com.adansoft.great21.security.AuthSuccessHandler" />
+
+
+	
+
+
 </beans:beans>
+
