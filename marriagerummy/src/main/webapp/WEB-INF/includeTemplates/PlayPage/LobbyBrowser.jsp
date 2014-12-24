@@ -39,7 +39,7 @@
 
 		<div id="gamebrowserBeginnerLobby" class="col-lg-12 gamebrowser">
 			<table data-toggle="table"
-				data-url="./assets/SampleJson/beginners.json" data-height="500"
+				data-url="/marriagerummy/IndexerServices/GameBrowser/GetGameListinLobby/Beginner" data-height="500"
 				data-show-refresh="true" data-show-toggle="true"
 				data-show-columns="true" data-search="true"
 				data-select-item-name="toolbar1">

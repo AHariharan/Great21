@@ -76,7 +76,7 @@ public class FacadeGameBrowserController {
 		return game;
 	}
 	
-	@RequestMapping( value = FacadeControllerURLs.GETGAMELIST, method = RequestMethod.POST)
+	@RequestMapping( value = FacadeControllerURLs.GETGAMELIST, method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody GetGamesinLobby[] getGameList(@PathVariable("lobbyName") String lobbyName)
 	{
 		GetGameListinLobbyResponse lobby = null;
