@@ -12,7 +12,7 @@ public class MapperUtility {
 		uiGame.setGameInstanceId(game.getGameInstanceId());
 		uiGame.setId(new Integer(id).toString());id++;
 		uiGame.setHost(game.getOwner());
-		uiGame.setPlayers(game.getPlayers().size());
+		uiGame.setPlayers(game.getPlayers().size()+"/"+game.getMaxPlayers());
 		uiGame.setDesc(game.getDescription());
 		String playedbet = null;
 		if(game.isGameCardMoneyBased())

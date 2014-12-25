@@ -11,7 +11,7 @@ public class GetGamesinLobby implements Serializable{
 	private String host;
 	private String desc;
 	private String playedbet;
-	private int players;
+	private String players;
 	private String gameStatus;
 	private String action;
 	
@@ -21,7 +21,7 @@ public class GetGamesinLobby implements Serializable{
 	}
 
 	public GetGamesinLobby(String gameInstanceId, String id, String type,
-			String host, String playedbet, int players, String gameStatus,String desc) {
+			String host, String playedbet, String players, String gameStatus,String desc) {
 		super();
 		this.gameInstanceId = gameInstanceId;
 		this.id = id;
@@ -73,11 +73,11 @@ public class GetGamesinLobby implements Serializable{
 		this.playedbet = playedbet;
 	}
 
-	public int getPlayers() {
+	public String getPlayers() {
 		return players;
 	}
 
-	public void setPlayers(int players) {
+	public void setPlayers(String players) {
 		this.players = players;
 	}
 

@@ -12,12 +12,18 @@ MarriageRummy.Utilities.GameUtilities.Player = function()
 	
 	self.getCards = function(url,formdata)
 	{
+		var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
 			type : "POST",
 			url : url,
 			contentType : "application/json",
 			data : JSON.stringify(formdata),
 			consumes : "application/json",
+			beforeSend: function (request) // This is to include CSRF token.
+            {
+                request.setRequestHeader(header, token);
+            }, 
 			success : function(data, textStatus, jqXHR) {
 				renderCards(data);
 			},

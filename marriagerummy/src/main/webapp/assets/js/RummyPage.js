@@ -120,14 +120,22 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		            
 		          //  alert("Window button clicked" + JSON.stringify(formdata));
 		            var url = "/marriagerummy/IndexerServices/GameBrowser/createGame";
+		            var token = $("meta[name='_csrf']").attr("content");
+		            var header = $("meta[name='_csrf_header']").attr("content");
 		            $.ajax({
 		    			type : "POST",
 		    			url : url,
 		    			contentType : "application/json",
 		    			data : JSON.stringify(formdata),
 		    			consumes : "application/json",
+		    			beforeSend: function (request) // This is to include CSRF token.
+		                {
+		                    request.setRequestHeader(header, token);
+		                },
 		    			success : function(data, textStatus, jqXHR) {
-		    				alert("Game Created Successfully");
+		    				//alert("Game Created Successfully " + gameLobby);
+		    				$("#gamebrowserBeginnerLobby #" + gameLobby +"lobbytable").bootstrapTable('refresh', {silent: true});
+		    				$("#creategamemodal").modal('hide');
 		    			},
 		    			error : function(data) {
 		    				console.log("Failed to get data from server");

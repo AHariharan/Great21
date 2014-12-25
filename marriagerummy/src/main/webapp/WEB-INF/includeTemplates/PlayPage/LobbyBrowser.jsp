@@ -38,7 +38,7 @@
 		</div>
 
 		<div id="gamebrowserBeginnerLobby" class="col-lg-12 gamebrowser">
-			<table data-toggle="table"
+			<table id="Beginnerlobbytable" data-toggle="table"
 				data-url="/marriagerummy/IndexerServices/GameBrowser/GetGameListinLobby/Beginner" data-height="500"
 				data-show-refresh="true" data-show-toggle="true"
 				data-show-columns="true" data-search="true"
