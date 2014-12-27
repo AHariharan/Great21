@@ -4,6 +4,7 @@
 			<h2>Game Lobby Browser</h2>
 			<hr />
 		</div>
+		<%@ include file="./GameLauncher.jsp" %>
 		<%@ include file="./LobbyBrowser.jsp"%>
 	</div>
 </div>

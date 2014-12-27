@@ -13,7 +13,7 @@
 	min-height: 300px;
 	font-size: 14px;
 	margin-left: -15px;
-	 height:100vh;
+	height: 100vh;
 }
 
 .sidebar-shrinked>ul {
@@ -92,7 +92,7 @@
 	min-height: 300px;
 	font-size: 14px;
 	margin-left: -15px;
-	height:100vh;
+	height: 100vh;
 }
 
 .sidebar>ul {
@@ -298,4 +298,114 @@
 #GameType {
 	font-weight: bold;
 	color: rgb(3, 106, 172);
+}
+
+.lobbyMask {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: rgb(246, 246, 246);
+	z-index: 300;
+	margin-left: -30px;
+	opacity: 0.99;
+}
+
+#GameLauncherContainer {
+	min-height: 500px;
+	box-shadow: 1px 1px 10px 5px gray;
+}
+
+#GameLauncherContainer .heading {
+	min-height: 45px;
+	background: rgb(3, 106, 172);
+	color: white;
+	padding-top: 3px;
+	padding-left: 30px;
+}
+
+#GameLauncherContainer #content {
+	min-height: 455px;
+}
+
+#GameLauncherContainer #content #chat {
+	border-right: 2px solid gray;
+	min-height: 450px;
+	float: left;
+	width: 80%;
+}
+
+#GameLauncherContainer #content #chat .chatWindow {
+	height: 150px;
+	overflow: auto;
+	border: 1px solid gray;
+/* 	box-shadow: 0px 0px 10px 3px gray; */
+	border-radius: 5px;
+	padding-left: 20px;
+}
+
+#GameLauncherContainer #content #chat .chatContent {
+	font-size: 15px;
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player1Chat {
+	color: rgb(103, 87, 148);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player2Chat {
+	color: rgb(200, 139, 139);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player3Chat {
+	color: rgb(148, 99, 3);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player4Chat {
+	color: rgb(3, 106, 172);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player5Chat {
+	color: rgb(3, 166, 172);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player6Chat {
+	color: rgb(3, 106, 12);
+}
+
+#GameLauncherContainer #content #chat .chatContent.Player7Chat {
+	color: rgb(233, 106, 172);
+}
+
+#GameLauncherContainer #content #chat .sendText {
+	min-height: 100px;
+	margin-top: 5px;
+}
+
+#GameLauncherContainer .members {
+	border: 1px solid rgb(171, 165, 165);
+	min-height: 30px;
+	border-left: 5px solid rgb(13, 112, 175);
+	padding-left: 7px;
+	padding-top: 2px;
+	background: rgba(69, 114, 208, 0.21);
+	color: rgb(36, 111, 161);
+	display: flex;
+	margin-top: 2px;
+	box-shadow: 1px 1px 7px -2px rgb(13, 112, 175);
+}
+
+#GameLauncherContainer .members p {
+	margin-left: 20px;
+	padding-top: 4px;
+}
+
+#GameLauncherContainer .members p i#remove {
+	color: rgb(119, 53, 53);
+	padding-left: 13px;
+	cursor: pointer;
+}
+
+#GameLauncherContainer .members p i#add {
+	color: rgb(13, 112, 175);
+	padding-left: 79px;
+	cursor: pointer;
 }
