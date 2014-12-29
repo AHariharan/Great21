@@ -76,6 +76,9 @@
 	<!-- Create Deletegates of operation Execution -->
 	<bean id="gamebrowserDelegate"
 		class="com.adansoft.great21.gameindexer.delegate.GameBrowserDelegate" />
+		
+	<bean id="gameLauncherDelegate"
+		class="com.adansoft.great21.gameindexer.delegate.GameLauncherDelegate" />
 
 
 	<!-- Cache Server configurations -->
@@ -86,9 +89,11 @@
 
 	<!-- redis template definition -->
 	<bean id="gameInstanceRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
-		p:connection-factory-ref="jedisConnFactory" />
+		p:connection-factory-ref="jedisConnFactory"	/>
 
 
-    <bean id="cacheServerInstace" class="com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache"/> 
+    <bean id="cacheServerInstance" class="com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache"/> 
+    
+    <bean id="cacheServerGameChatInstance" class="com.adansoft.great21.gameindexer.helpers.CacheServerGameChatCache"/> 
 
 </beans>

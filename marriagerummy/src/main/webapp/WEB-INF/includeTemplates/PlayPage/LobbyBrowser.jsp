@@ -37,7 +37,7 @@
 			<hr />
 		</div>
 
-		<div id="gamebrowserBeginnerLobby" class="col-lg-12 gamebrowser">
+		<div id="gamebrowserBeginnerLobby" data-lobbyType="Beginner" class="col-lg-12 gamebrowser">
 			<table id="Beginnerlobbytable" data-toggle="table"
 				data-url="/marriagerummy/IndexerServices/GameBrowser/GetGameListinLobby/Beginner" data-height="500"
 				data-show-refresh="true" data-show-toggle="true"
@@ -70,9 +70,11 @@
 
 				window.operateEvents = {
 					'click .btn-success' : function(e, value, row, index) {
-						alert('You click join button , row: '
-								+ JSON.stringify(row));
+						alert("Test :- " + $(this).parents());
+						/* alert('You click join button , row: '
+								+ JSON.stringify(row)); */
 						console.log(value, row, index);
+						
 					},
 					'click .btn-warning' : function(e, value, row, index) {
 						alert('You click watch button , row: '
@@ -204,19 +206,27 @@
 			<script>
 				function operateFormatter(value, row, index) {
 					if (value == "Join")
-						return ' <button class="btn btn-success btn-sm"> Join </button>';
+						return ' <button class="btn btn-success btn-sm joinGameBtn"> Join </button>';
 					else if (value == "Watch")
 						return ' <button class="btn btn-warning btn-sm"> Watch </button>';
 					else
 						return value;
 
-				}
+				};
 
-				window.operateEvents = {
+				 operateEvents = {
 					'click .btn-success' : function(e, value, row, index) {
+						//alert($(this).parents("table"));
+						var par = $(e.target).parent();
+						var lobbyType = par.parents(".gamebrowser").data("lobbytype");
+						var gameInstanceID = row.gameInstanceId;
+						var gameType = row.type;
+						console.log( lobbyType , gameInstanceID , gameType);
 						alert('You click join button , row: '
 								+ JSON.stringify(row));
 						console.log(value, row, index);
+						var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
+						gameLobbyBrowser.joinGame(lobbyType,gameInstanceID,gameType);
 					},
 					'click .btn-warning' : function(e, value, row, index) {
 						alert('You click watch button , row: '

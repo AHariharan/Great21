@@ -1,4 +1,4 @@
-<div id="GameLauncher" class="lobbyMask">
+<div id="GameLauncher" class="lobbyMask" style="display:none">
 	<div style="padding: 50px;">
 		<div id="GameLauncherContainer">
 			<div class="heading">
@@ -65,7 +65,7 @@
 				<div id="gamemembers" style="width: 20%; float: right;">
 					<div style="min-height: 331px;">
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/A.png" width="35px"
 								height="35px" />
 							<p>
 								Player 1 <i id="add" class="fa fa-plus"></i><i id="remove"
@@ -81,7 +81,7 @@
 							</p>
 						</div>
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/J.png" width="35px"
 								height="35px" />
 							<p>
 								Player 3 <i id="add" class="fa fa-plus"></i><i id="remove"
@@ -89,7 +89,7 @@
 							</p>
 						</div>
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/4.png" width="35px"
 								height="35px" />
 							<p>
 								Player 4 <i id="add" class="fa fa-plus"></i><i id="remove"
@@ -97,7 +97,7 @@
 							</p>
 						</div>
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/9.png" width="35px"
 								height="35px" />
 							<p>
 								Player 5 <i id="add" class="fa fa-plus"></i><i id="remove"
@@ -105,7 +105,7 @@
 							</p>
 						</div>
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/2.png" width="35px"
 								height="35px" />
 							<p>
 								Player 6 <i id="add" class="fa fa-plus"></i><i id="remove"
@@ -113,7 +113,7 @@
 							</p>
 						</div>
 						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
+							<img src="./assets/images/Cards/ClubCards/8.png" width="35px"
 								height="35px" />
 							<p>
 								Player 7 <i id="add" class="fa fa-plus"></i><i id="remove"

@@ -136,6 +136,8 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		    				//alert("Game Created Successfully " + gameLobby);
 		    				$("#gamebrowserBeginnerLobby #" + gameLobby +"lobbytable").bootstrapTable('refresh', {silent: true});
 		    				$("#creategamemodal").modal('hide');
+		    				$("#GameLauncher").css("display","block");
+		    				new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
 		    			},
 		    			error : function(data) {
 		    				console.log("Failed to get data from server");
@@ -143,6 +145,9 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		    			
 		    		});
 			});
+	
+	
+	     
 
 };
 
@@ -247,6 +252,34 @@ MarriageRummy.Utilities.UIUtilities.charts = function() {
 	};
 
 };
+
+
+MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function()
+{
+
+	var self = this;
+	
+	$('.joinGameBtn').click(function(){
+		alert("This is invoked");
+	});
+	
+	self.joinGame = function(lobbyType,gameInstanceID,gameType)
+	{
+		  var url = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
+          var token = $("meta[name='_csrf']").attr("content");
+          var header = $("meta[name='_csrf_header']").attr("content");
+          var formdata = {          		
+        		    "playerType":"Human",
+        			"nickname":"Auto",
+        			"gameInstanceID":gameInstanceID,
+        			"lobbyName":lobbyType,
+        			"gameType":"SEVENCARD_CLOSED"	
+          };
+          console.log(formdata);
+          
+	};
+};
+
 
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {

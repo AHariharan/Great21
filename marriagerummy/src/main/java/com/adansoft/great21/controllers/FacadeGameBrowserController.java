@@ -66,8 +66,10 @@ public class FacadeGameBrowserController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.CREATEGAME, method = RequestMethod.POST)
-	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request,@AuthenticationPrincipal Object principal)
+	public @ResponseBody Game createGame(@RequestBody CreateGameRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
+		String user = authentication.getName();
+		request.setCreatedBy(user);
 		Game game = null;
 		try
 		{
