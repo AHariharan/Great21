@@ -39,9 +39,7 @@
 	type="text/javascript"></script>
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
-<script>
-    MarriageRummy.profile.CurrentProfileName = "Arun Hariharan";
-</script>
+<script type="text/javascript" src="assets/js/UICommunication.js"></script>
 
 
 <script>

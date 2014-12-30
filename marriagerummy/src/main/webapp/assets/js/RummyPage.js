@@ -10,6 +10,10 @@ MarriageRummy.Utilities = MarriageRummy.Utilities || {};
 // UIUtilites Namespace
 MarriageRummy.Utilities.UIUtilities = MarriageRummy.Utilities.UIUtilities || {};
 
+// UIUtilites Namespace
+MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities || {};
+
+
 // @Class LoggedinPage
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	$(".shrinker").click(function() {
@@ -59,97 +63,31 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 };
 
 // Class Modal Initializer
-
 MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 
 	var gameType = "";
 	var gameLobby = "";
-	
-	$('#creategamemodal').on(
-			'show.bs.modal',
-			function(event) {
-				var button = $(event.relatedTarget);
-				gameType = button.data('gametype');
-				gameLobby = button.data('lobby');
-				var displayText = "";
-				if(gameType == "SEVENCARD_CLOSED")
-					displayText = "7 Card closed joker rummy";
-				else if(gameType == "SEVENCARD_OPEN")
-					displayText = "7 Card open joker rummy";
-				else if(gameType == "THIRTEEN_CLOSED")
-					displayText = "13 Card closed joker rummy";
-				else if(gameType == "THIRTEEN_OPEN")
-					displayText = "13 Card open joker rummy";
-				else if(gameType == "TWENTYONE")
-					displayText = "21 Card marriage rummy";
-				
-				
-				var modal = $(this);
-				modal.find("#GameType").text(displayText + " ( " + gameLobby + " )" );
-				
 
-			});
-	
-	$("#createGameBtn").click(function()
-			{
-		           
-		            var gameDesc = $('#creategamemodal #GameDesc').val();
-		            var maxplayers = $('#creategamemodal #MaxPlayers').val();
-		            var isFriendsOnly = $('#creategamemodal #isFriendsOnly').prop("checked");
-		            var isInviteOnly = $('#creategamemodal #isByInviteonly').prop("checked");
-		            var gamePointsBased = $('#creategamemodal #inlineRadio1').prop("checked");
-		            var gamePerCardBase = $('#creategamemodal #inlineRadio2').prop("checked");
-		            var Points = $('#creategamemodal #Points').val();
-		            var CardValue = $('#creategamemodal #CardVal').val();
-		            var formdata = {
-		            		
-		            			"lobbyType":gameLobby,
-		            			"gameType":gameType,
-		            			"gameDescription":gameDesc,
-		            			"maxPlayers":maxplayers,
-		            			"isFriendsOnly":isFriendsOnly,
-		            			"isbyInviteOnly":isInviteOnly,
-		            			"gameMode":"Human",
-		            			"createdBy":"Arun Hariharan",
-		            			"gamePointsBased":gamePointsBased,
-		            			"gamePerCardBase":gamePerCardBase,
-		            			"maxPoints":Points,
-		            			"perCardAmount":CardValue,
-		            			"maxRounds":-1        		
-		            };
-		            
-		          //  alert("Window button clicked" + JSON.stringify(formdata));
-		            var url = "/marriagerummy/IndexerServices/GameBrowser/createGame";
-		            var token = $("meta[name='_csrf']").attr("content");
-		            var header = $("meta[name='_csrf_header']").attr("content");
-		            $.ajax({
-		    			type : "POST",
-		    			url : url,
-		    			contentType : "application/json",
-		    			data : JSON.stringify(formdata),
-		    			consumes : "application/json",
-		    			beforeSend: function (request) // This is to include CSRF token.
-		                {
-		                    request.setRequestHeader(header, token);
-		                },
-		    			success : function(data, textStatus, jqXHR) {
-		    				//alert("Game Created Successfully " + gameLobby);
-		    				$("#gamebrowserBeginnerLobby #" + gameLobby +"lobbytable").bootstrapTable('refresh', {silent: true});
-		    				$("#creategamemodal").modal('hide');
-		    				$("#GameLauncher").css("display","block");
-		    				new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
-		    			},
-		    			error : function(data) {
-		    				console.log("Failed to get data from server");
-		    			}
-		    			
-		    		});
-			});
-	
-	
-	     
+	$('#creategamemodal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget);
+		gameType = button.data('gametype');
+		gameLobby = button.data('lobby');
+		var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
+		var modal = $(this);
+		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
 
+	});
+
+	$("#createGameBtn")
+			.click(	function() {
+						var formdata = marriageRummy.request.getCreateGameRequest(gameLobby,gameType);
+						var url = marriageRummy.urls.createGame;
+						var requestObj = { "gameLobby" : gameLobby };
+						marriageRummy.httpComm.invokeAsyncRequest(url, formdata, marriageRummy.callbacks.onCreateGameSucess,  marriageRummy.callbacks.onCreateGameFailure,requestObj);						
+					});
+					
 };
+
 
 // @Class dashboard page
 MarriageRummy.Utilities.UIUtilities.charts = function() {
@@ -253,33 +191,70 @@ MarriageRummy.Utilities.UIUtilities.charts = function() {
 
 };
 
-
-MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function()
-{
-
+MarriageRummy.Utilities.DataUtilities.DataConvertor = function() {
+	
 	var self = this;
 	
-	$('.joinGameBtn').click(function(){
+	self.convertGameTypetoDisplayText = function(gameType) {
+		var displayText = "";
+		if(gameType == "SEVENCARD_CLOSED")
+			displayText = "7 Card closed joker rummy";
+		else if(gameType == "SEVENCARD_OPEN")
+			displayText = "7 Card open joker rummy";
+		else if(gameType == "THIRTEEN_CLOSED")
+			displayText = "13 Card closed joker rummy";
+		else if(gameType == "THIRTEEN_OPEN")
+			displayText = "13 Card open joker rummy";
+		else if(gameType == "TWENTYONE")
+			displayText = "21 Card marriage rummy";		
+		return displayText;		
+	};
+
+	self.convertDisplayTexttoGameType = function(displayText) {
+		var gameType = "";
+		if(displayText == "7 Card closed joker rummy")
+			gameType = "SEVENCARD_CLOSED";
+		else if(displayText == "7 Card open joker rummy")
+			gameType = "SEVENCARD_OPEN";
+		else if(displayText == "13 Card closed joker rummy")
+			gameType = "THIRTEEN_CLOSED";
+		else if(displayText == "13 Card open joker rummy")
+			gameType = "THIRTEEN_OPEN";
+		else if(displayText == "21 Card marriage rummy")
+			gameType = "TWENTYONE";		
+		return gameType;		
+	};
+
+} ;
+
+var marriageRummy = marriageRummy || {};
+
+marriageRummy.dataConvertor = new MarriageRummy.Utilities.DataUtilities.DataConvertor();
+
+MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
+
+	var self = this;
+
+	$('.joinGameBtn').click(function() {
 		alert("This is invoked");
 	});
-	
-	self.joinGame = function(lobbyType,gameInstanceID,gameType)
-	{
-		  var url = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
-          var token = $("meta[name='_csrf']").attr("content");
-          var header = $("meta[name='_csrf_header']").attr("content");
-          var formdata = {          		
-        		    "playerType":"Human",
-        			"nickname":"Auto",
-        			"gameInstanceID":gameInstanceID,
-        			"lobbyName":lobbyType,
-        			"gameType":"SEVENCARD_CLOSED"	
-          };
-          console.log(formdata);
-          
+
+	self.joinGame = function(lobbyType, gameInstanceID, displayText) {
+		var url = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		var gameType = marriageRummy.dataConvertor.convertDisplayTexttoGameType(displayText);
+		var formdata = {
+			"playerType" : "Human",
+			"nickname" : "Auto",
+			"gameInstanceID" : gameInstanceID,
+			"lobbyName" : lobbyType,
+			"gameType" : gameType
+		};
+		console.log(formdata);
+
 	};
 };
-
 
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
@@ -290,7 +265,6 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
-		
-	
+       
 	};
 };
