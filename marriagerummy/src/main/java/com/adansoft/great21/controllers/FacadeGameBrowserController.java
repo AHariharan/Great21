@@ -53,7 +53,7 @@ public class FacadeGameBrowserController {
 			System.out.println("Failed to game indexer config .. exiting");
 			System.exit(0);
 		}
-		System.out.println("GameIndexer configured : " + mapper.getIndexerURI());
+		System.out.println("GameIndexer configured for FacadeGameBrowser: " + mapper.getIndexerURI());
 		}catch(GameIndexerConfigException ex)
 		{
 			ex.printStackTrace();
@@ -122,8 +122,10 @@ public class FacadeGameBrowserController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.ADD_PLAYER, method = RequestMethod.POST)
-	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request)
+	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
+		String nickname = authentication.getName();
+		request.setNickname(nickname);
 		String result = null;
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"

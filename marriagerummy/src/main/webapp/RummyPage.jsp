@@ -29,6 +29,7 @@
 
 
 <meta name="description" content="">
+<script src="./assets/ThirdPartyLibs/AngularJS/angular.min.js" type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
@@ -40,6 +41,7 @@
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/UICommunication.js"></script>
+<script type="text/javascript" src="assets/js/UIUtilities.js"></script>
 
 
 <script>

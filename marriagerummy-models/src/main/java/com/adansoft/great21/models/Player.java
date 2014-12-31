@@ -22,6 +22,9 @@ public interface Player extends Serializable {
 	public static final String PLAYER_STATUS_INGAMEROUND = "INGAMEROUND";
 	public static final String PLAYER_STATUS_INGAME = "INGAME";
 	
+	public static final String PLAYER_ROLE_HOST = "HOST";
+	public static final String PLAYER_ROLE_GUEST = "GUEST";
+	
 	public static final String PLAYER_PLAY_STATUS_WAIT = "WAIT";
 	public static final String PLAYER_PLAY_STATUS_TURN = "TURN";
 	
@@ -44,5 +47,10 @@ public interface Player extends Serializable {
 	/* gets the player's status who is in game with round status */
 	public String getPlayerRoundStatus();
 	
+	/*gets player position */
+	public int getPlayerPosition();
+	
+	/*get check if he is host */
+	public boolean isHost();
 	
 }

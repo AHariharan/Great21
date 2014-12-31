@@ -16,6 +16,8 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities ||
 
 // @Class LoggedinPage
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
+	var self = this;
+	
 	$(".shrinker").click(function() {
 		var delay = 500;
 		var sidebar = $(".sidebar");
@@ -42,6 +44,8 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 
 MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
+	var self = this;
+	
 	resetNavigation = function() {
 		$(".sidebar ul>li").removeClass("selected");
 		$(".sidebar ul>li").children().filter("div").css("display", "none");
@@ -83,7 +87,9 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 						var formdata = marriageRummy.request.getCreateGameRequest(gameLobby,gameType);
 						var url = marriageRummy.urls.createGame;
 						var requestObj = { "gameLobby" : gameLobby };
-						marriageRummy.httpComm.invokeAsyncRequest(url, formdata, marriageRummy.callbacks.onCreateGameSucess,  marriageRummy.callbacks.onCreateGameFailure,requestObj);						
+						var successcall = marriageRummy.callbacks.getGameBrowserCallback().onCreateGameSucess;
+						var failurecall = marriageRummy.callbacks.getGameBrowserCallback().onCreateGameFailure;
+						marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);						
 					});
 					
 };
@@ -240,19 +246,14 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 	});
 
 	self.joinGame = function(lobbyType, gameInstanceID, displayText) {
-		var url = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
+		var url = marriageRummy.urls.joinGame; 
 		var gameType = marriageRummy.dataConvertor.convertDisplayTexttoGameType(displayText);
-		var formdata = {
-			"playerType" : "Human",
-			"nickname" : "Auto",
-			"gameInstanceID" : gameInstanceID,
-			"lobbyName" : lobbyType,
-			"gameType" : gameType
-		};
-		console.log(formdata);
-
+		var formdata = marriageRummy.request.getJoinGameRequest(lobbyType, gameInstanceID, gameType);
+		var requestObj = {"gameLobby" : lobbyType , "formdata" : formdata};
+		var successcall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameSuccess;
+		var failurecall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
+		console.log(url,formdata);
 	};
 };
 

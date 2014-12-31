@@ -1,5 +1,7 @@
 package com.adansoft.great21.gamemanager.JMSHandlers;
 
+import java.util.ArrayList;
+
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.support.MessageBuilder;
@@ -7,11 +9,13 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.helpers.GameBrowserHelper;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
+import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
@@ -56,7 +60,13 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		return reply;
 	}
 
-	
+	@Override
+	public Message<ArrayList<Player>> handleMessage(GetPlayersinGameRequest request)
+	{
+		ArrayList<Player> result = GameBrowserHelper.getPlayersinGame(request);
+		Message<ArrayList<Player>> reply = MessageBuilder.withPayload(result).build();
+		return reply;
+	}
 	
 	
 	

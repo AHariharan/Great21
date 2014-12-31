@@ -25,7 +25,7 @@
 						</div>
 						<div class="panel-body">
 							<div class="chatWindow">
-								<div class="chatContent Player1Chat">
+								<!-- <div class="chatContent Player1Chat">
 									<span><strong>Player 1 :</strong> Hello World !!!</span>
 								</div>
 								<div class="chatContent Player2Chat">
@@ -54,7 +54,7 @@
 								</div>
 								<div class="chatContent Player7Chat">
 									<span><strong>Player 7 :</strong> Hello World 21312!!!</span>
-								</div>
+								</div> -->
 							</div>
 							<div class="sendText">
 								<textarea class="form-control" rows="3"></textarea>
@@ -64,7 +64,7 @@
 				</div>
 				<div id="gamemembers" style="width: 20%; float: right;">
 					<div style="min-height: 331px;">
-						<div class="members">
+						<!-- <div class="members">
 							<img src="./assets/images/Cards/ClubCards/A.png" width="35px"
 								height="35px" />
 							<p>
@@ -127,7 +127,7 @@
 								Player 8 <i id="add" class="fa fa-plus"></i><i id="remove"
 									class="fa fa-times"></i>
 							</p>
-						</div>
+						</div> -->
 					</div>
 					<div style="min-height: 20%; padding-left: 30%; padding-top: 7%;">
 						<button class="btn btn-success">Launch Game</button>

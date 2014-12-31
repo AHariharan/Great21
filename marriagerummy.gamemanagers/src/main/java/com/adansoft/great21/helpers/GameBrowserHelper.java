@@ -1,6 +1,8 @@
 package com.adansoft.great21.helpers;
 
 
+import java.util.ArrayList;
+
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
@@ -12,6 +14,7 @@ import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameBrowserHelper {
@@ -29,6 +32,7 @@ public class GameBrowserHelper {
 				 request.getGameDescription());
 		 
 		 HumanPlayer player = new HumanPlayer(request.getCreatedBy());
+		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);
 		 game.getPlayers().add(player);
 		 
 		// RummyArena.getInstance().displayArena();      
@@ -76,7 +80,7 @@ public class GameBrowserHelper {
 		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
 		{
 			HumanPlayer player = new HumanPlayer(request.getNickname());
-					
+			player.setPlayerrole(Player.PLAYER_ROLE_GUEST);		
 			       game.getPlayers().add(player);
 		}
 		}catch(Exception e)
@@ -113,5 +117,11 @@ public class GameBrowserHelper {
 	}
 	
 	
+	public static ArrayList<Player> getPlayersinGame(GetPlayersinGameRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		return game.getPlayers();
+	}
 
 }

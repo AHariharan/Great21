@@ -37,6 +37,7 @@ MarriageRummy.Utilities.CommunicationUtilities.HttpCommunicator = function() {
 MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	var self = this;
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
+	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
@@ -72,16 +73,58 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 
 	};
 
+	self.getJoinGameRequest = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"playerType" : "HUMAN",
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType
+			};
+		return formdata;
+	};
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 	var self = this;
+	
+	var gameBrowserCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback();
+	var gameLauncherCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback();
+	
+	self.getGameBrowserCallback = function()
+	{
+	    return gameBrowserCallback;
+	};
 
+	self.getGameLauncherCallback = function()
+	{
+		return gameLauncherCallback;
+	};
+	
+};
+
+
+MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
+{
+   var self = this;
+   
+   self.onAddChatMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+   {
+	   console.log("Posted chat message successfully");
+   };
+   
+   self.onAddChatMessageFailure = function(data)
+   {
+	   console.log("Posted chat message Failure");
+   };
+};
+
+MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
+{
+	var self = this;
 	self.onCreateGameSucess = function(data, textstatus, Jhxr, requestObj) {
-		$("#gamebrowserBeginnerLobby #" + requestObj.gameLobby + "lobbytable")
-				.bootstrapTable('refresh', {
-					silent : true
-				});
+		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.gameLobby);
 		$("#creategamemodal").modal('hide');
 		$("#GameLauncher").css("display", "block");
 		console.log(data);
@@ -90,7 +133,20 @@ MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 	self.onCreateGameFailure = function(data) {
 		console.log("Failed to create game " + data);
 	};
+	
+	self.onJoinGameSuccess = function(data,textstatus,jhxr,requestObj)
+	{
+		console.log("Join game Successful", data, textstatus);		
+		marriageRummy.gameLauncherUtilities.startPollingforChatMessages(requestObj.formdata.gameInstanceID);
+		
+	};
+	
+	self.onJoinGameFailure = function(data)
+	{
+		console.log("Failed to join game : ", data);
+	};
 
+	
 };
 
 var marriageRummy = marriageRummy || {};

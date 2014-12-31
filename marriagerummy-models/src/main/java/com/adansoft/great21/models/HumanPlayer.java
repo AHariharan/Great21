@@ -3,6 +3,7 @@ package com.adansoft.great21.models;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -20,6 +21,8 @@ public class HumanPlayer implements Player{
 	private String nickName;
 	private static final String player_type = Player.PLAYER_TYPE_HUMAN;
 	private String status;
+    private int playerpos;
+    private String playerrole;
 	
 
 	public HumanPlayer(String nickname)
@@ -163,7 +166,38 @@ public class HumanPlayer implements Player{
 	}
 
 
+	public int getPlayerpos() {
+		return playerpos;
+	}
 
+
+	public void setPlayerpos(int playerpos) {
+		this.playerpos = playerpos;
+	}
+
+
+	public String getPlayerrole() {
+		return playerrole;
+	}
+
+
+	public void setPlayerrole(String playerrole) {
+		this.playerrole = playerrole;
+	}
+
+
+	
+	public int getPlayerPosition() {		
+		return getPlayerpos();
+	}
+
+
+	public boolean isHost() {		
+		return getPlayerrole().equals(Player.PLAYER_ROLE_HOST);		
+	}
+
+
+   
 
 
 }

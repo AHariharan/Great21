@@ -24,7 +24,7 @@ public class MapperUtility {
 		uiGame.setType(getGameTypeDesc(gameType));
 		uiGame.setGameStatus(getGameStatusDesc(game.getGameStatus()));
 		String action = null;
-		if(game.getGameStatus().equals(Game.GAME_STATUS_OPEN))
+		if(game.getGameStatus().equals(Game.GAME_STATUS_OPEN) && game.getPlayers().size() < game.getMaxPlayers())
 			action = "Join";
 		else
 			action = "Watch";
