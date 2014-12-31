@@ -29,7 +29,7 @@
 
 
 <meta name="description" content="">
-<script src="./assets/ThirdPartyLibs/AngularJS/angular.min.js" type="text/javascript"></script>
+<!-- <script src="./assets/ThirdPartyLibs/AngularJS/angular.min.js" type="text/javascript"></script> -->
 <script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
