@@ -58,7 +58,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function()
     		{
     		    var nickname = data.playerlist[i].HumanPlayer.nickName;
     		    var addMemeberContent = membertemplate.replace("MEMBERNAME", nickname);
-    		    $("#gamemembers>div").append(addMemeberContent);
+    		    $("#gamemembers div:first-child").append(addMemeberContent);
     		}
     };
     
@@ -74,6 +74,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function()
     
     self.startPlayerCheckJob = function(gameInstanceID,lobbyName,gameType)
     {
+    	playerCheckCallback(gameInstanceID,lobbyName,gameType);
     	playerCheckJob = setInterval(playerCheckCallback, playerCheckInterval,gameInstanceID,lobbyName,gameType);
     };
     
