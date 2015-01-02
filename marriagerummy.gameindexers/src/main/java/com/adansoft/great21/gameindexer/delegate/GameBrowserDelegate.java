@@ -18,6 +18,7 @@ import com.adansoft.great21.games.SevenCardRummy;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
@@ -119,20 +120,20 @@ public class GameBrowserDelegate {
 	}
 	
 	
-	public String addPlayertoGame(AddPlayerRequest request)
+	public AddPlayerResponse addPlayertoGame(AddPlayerRequest request)
 	{
-		String result = null;
+		AddPlayerResponse result = null;
 		try
 		{
 			String destination = cacheserverinstance.lookupGameInstanceID(request.getGameInstanceID());
 			if(destination == null)
 			{
-				result = "Failure : No such Game Available";
+				//result = "Failure : No such Game Available";
 				return result;
 			}
 			Message<AddPlayerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
-			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			Message<AddPlayerResponse> reply =  (Message<AddPlayerResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 		}catch(Exception e)
 		{

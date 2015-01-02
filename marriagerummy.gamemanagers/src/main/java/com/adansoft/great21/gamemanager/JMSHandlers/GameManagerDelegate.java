@@ -9,6 +9,7 @@ import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
@@ -24,7 +25,7 @@ public interface GameManagerDelegate {
 	
 	public Message<String> handleMessage(DeleteGameRequest request);
 	
-	public Message<String> handleMessage(AddPlayerRequest request);
+	public Message<AddPlayerResponse> handleMessage(AddPlayerRequest request);
 	
 	public Message<String> handleMessage(RemovePlayerRequest request);
 	

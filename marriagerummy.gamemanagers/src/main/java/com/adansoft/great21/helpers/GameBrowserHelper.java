@@ -11,6 +11,7 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
@@ -31,9 +32,9 @@ public class GameBrowserHelper {
 				 request.getPerCardAmount(), request.getLobbyType(), request.getGameType(),
 				 request.getGameDescription());
 		 
-		 HumanPlayer player = new HumanPlayer(request.getCreatedBy());
+		 HumanPlayer player = new HumanPlayer(request.getCreatedBy(),0);
 		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);
-		 game.getPlayers().add(player);
+		 game.addPlayertoGame(player);
 		 
 		// RummyArena.getInstance().displayArena();      
 		 RummyArena.getInstance().getLobby(request.getLobbyType()).addGame(game, request.getGameType());
@@ -70,23 +71,38 @@ public class GameBrowserHelper {
 		return result;	
 	}
 	
-	public static String addPlayertoGame(AddPlayerRequest request)
+	public static AddPlayerResponse addPlayertoGame(AddPlayerRequest request)
 	{
-		String result = "Success";
+		AddPlayerResponse result = new AddPlayerResponse();
 		try
 		{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
-		Game game =UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
 		{
-			HumanPlayer player = new HumanPlayer(request.getNickname());
+			HumanPlayer player = new HumanPlayer(request.getNickname(),0);
 			player.setPlayerrole(Player.PLAYER_ROLE_GUEST);		
-			       game.getPlayers().add(player);
+			game.addPlayertoGame(player);
+			result.setGameInstanceID(request.getGameInstanceID());
+			result.setGameType(request.getGameType());
+			result.setLobbyName(request.getLobbyName());
+			result.setNickname(request.getNickname());
+			result.setPlayerType(request.getPlayerType());
+			result.setPlayerPosition(player.getPlayerPosition());
+			result.setGameMoneyBased(game.isGameCardMoneyBased());
+			result.setGameName(game.getDescription());
+			result.setGamePointsBased(game.isGamePointsBased());
+			result.setMaxplayers(game.getMaxPlayers());
+			result.setMaxPoints(game.getMaxPoints());
+			result.setMoneyPerCard((int) game.getPerCardMoneyValue());
+			result.setOwner(game.getOwner());
+			result.setPlayersize(game.getPlayers().size());
+			result.setPlayerType(player.getPlayerType());	
 		}
 		}catch(Exception e)
 		{
 			e.printStackTrace();
-			result = "Failure";
+			result = null;
 		}
 		return result;			
 	}
@@ -103,7 +119,7 @@ public class GameBrowserHelper {
 			{
 				if(player.getNickName().equals(request.getNickname()))
 				{
-					game.getPlayers().remove(player);
+					game.removePlayerFromGame(player);
 					return result;
 				}
 			}

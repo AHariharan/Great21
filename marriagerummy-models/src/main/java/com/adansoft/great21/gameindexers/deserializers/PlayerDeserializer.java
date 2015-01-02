@@ -18,7 +18,7 @@ public class PlayerDeserializer extends JsonDeserializer<Player> {
 		if(jp.getText().length() == 0)
 			return null;
 		
-		return new HumanPlayer("Test");
+		return new HumanPlayer("Test",0);
 	}
 
 }

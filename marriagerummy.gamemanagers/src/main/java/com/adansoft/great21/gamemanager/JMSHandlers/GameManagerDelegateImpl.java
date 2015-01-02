@@ -11,6 +11,7 @@ import com.adansoft.great21.helpers.GameBrowserHelper;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
@@ -46,9 +47,9 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	
 	
 	@Override
-	public Message<String> handleMessage(AddPlayerRequest request) {
-		String result = GameBrowserHelper.addPlayertoGame(request);
-		Message<String> reply = MessageBuilder.withPayload(result).build();
+	public Message<AddPlayerResponse> handleMessage(AddPlayerRequest request) {
+		AddPlayerResponse result = GameBrowserHelper.addPlayertoGame(request);
+		Message<AddPlayerResponse> reply = MessageBuilder.withPayload(result).build();
 		return reply;
 	}
 

@@ -2,9 +2,11 @@ package com.adansoft.great21.games;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.GameRound;
+import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.ulitity.GameUtility;
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -38,10 +40,12 @@ public class SevenCardRummy implements Game,Serializable {
 	private String gameType;
 	private String gameName;
 	private String status;
+	private HashMap<Integer, String> positionAvailabiltyMap;
 	
 	public SevenCardRummy()
 	{
-		
+		super();
+		initAvailablePosition();
 	}
 	
 	public SevenCardRummy(String gameName,String createdBy,String lobbyName,String gametype)
@@ -51,7 +55,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.lobbyName = lobbyName;
 		this.gameType = gametype;
 		this.gameName = gameName;
-	
+		initAvailablePosition();
 	}
 	
 	
@@ -79,8 +83,20 @@ public class SevenCardRummy implements Game,Serializable {
 		this.gameType = gameType;
 		this.gameName = gameName;
 		this.status = Game.GAME_STATUS_OPEN;
+		initAvailablePosition();
 	}
 
+	
+	
+	private void initAvailablePosition()
+	{
+		positionAvailabiltyMap = new HashMap<Integer, String>();
+		for(int i=1;i<=this.getMaxplayers();i++)
+		{
+			positionAvailabiltyMap.put(new Integer(i), Game.POSITION_AVAILABLE);
+		}
+	}
+	
 	
 	
 	public String getGameInstanceId() {
@@ -302,6 +318,39 @@ public class SevenCardRummy implements Game,Serializable {
 	public String getGameStatus() {
 		return this.status;
 	}
+
+	@JsonIgnore
+	public int getNextAvailablePlayerPosition() {
+		for(Integer key : positionAvailabiltyMap.keySet())
+		{
+			if(positionAvailabiltyMap.get(key).equals(Game.POSITION_AVAILABLE))
+				return key.intValue();
+		}
+		return 0;
+	}
+
+	public void addPlayertoGame(Player player) {
+		int nexpost = getNextAvailablePlayerPosition();
+		if(player instanceof HumanPlayer)
+		{
+			HumanPlayer HPlayer = (HumanPlayer)player;
+			HPlayer.setPlayerpos(nexpost);
+			this.getPlayerlist().add(HPlayer);
+			positionAvailabiltyMap.put(new Integer(nexpost),Game.POSITION_NOTAVAILABLE);
+		}	
+	}
+	
+	public void removePlayerFromGame(Player player) {
+		int position = 0;
+		if(player instanceof HumanPlayer)
+		{
+			HumanPlayer HPlayer = (HumanPlayer) player;
+			position = HPlayer.getPlayerpos();
+			positionAvailabiltyMap.put(new Integer(position),Game.POSITION_AVAILABLE);
+			this.getPlayerlist().remove(HPlayer);
+		}
+	}
+	
 	
 	
 	

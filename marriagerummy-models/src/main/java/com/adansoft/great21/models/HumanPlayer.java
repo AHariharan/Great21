@@ -25,9 +25,10 @@ public class HumanPlayer implements Player{
     private String playerrole;
 	
 
-	public HumanPlayer(String nickname)
+	public HumanPlayer(String nickname,int playerpos)
 	{
 		this.nickName = nickname;
+		this.playerpos = playerpos;
 		status = PLAYER_STATUS_INGAME;
 	}
 

@@ -21,20 +21,23 @@ MarriageRummy.Utilities.RummyUtilities.GameBrowserUtilities = function() {
 };
 
 
-MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGameResponse,playerpos)
+MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGameResponse,playerpos,LauncherType)
 {
     var self = this;
     var stateobject = createGameResponse;
-    stateobject.playerpos = 1;
+    stateobject.playerpos = playerpos;
+    if(stateobject.playerlist.length != undefined)
+    	 stateobject.currentplayers = stateobject.playerlist.length;
+    
     var chatPollingJob = {};
-    var chatPollinginterval = 5000; // In Milli seconds
+    var chatPollinginterval = 7000; // In Milli seconds
     var currentChatCount = 0;
     
     var currentChatWindowScrollHeight = $('.chatWindow')[0].scrollHeight;
     var currentChatWindowScrollTop = $('.chatWindow')[0].scrollTop;
     
     var playerCheckJob = {};
-    var playerCheckInterval = 10000;
+    var playerCheckInterval = 15000; // In Milli seconds
     
     var sendMessage = function(message)
     {
@@ -63,7 +66,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     	$("#GameLauncherContainer .well dd#host").html(stateobject.owner);
     	var type = marriageRummy.dataConvertor.convertGameTypetoDisplayText(stateobject.gameType);
     	$("#GameLauncherContainer .well dd#gameType").html(type);
-    	$("#GameLauncherContainer .well dd#noplayers").html(stateobject.playerlist.length+"/"+stateobject.maxplayers);
+    	$("#GameLauncherContainer .well dd#noplayers").html(stateobject.currentplayers+"/"+stateobject.maxplayers);
     	if(stateobject.gameMoneyBased == true)
     	       $("#GameLauncherContainer .well dd#gameMode").html("Per Card  ");
     	if(stateobject.gamePointsBased == true)
@@ -80,6 +83,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
  	          sendMessage(message);
  	      }
  		  }); 
+ 	    
+ 	   if(LauncherType == "JOINMODE")
+   	    {
+ 		  $("#CancelGame").text("Leave Game");
+ 		  $("#LaunchGame").css("display","none");
+ 	
+   	    }
  	       
  	    $("#CancelGame").on('click',function()
  	    		{
@@ -87,14 +97,25 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
  	    	        marriageRummy.gameBrowserUtilities.refreshGameLobby(stateobject.lobbyName);
  	    	        self.stopPlayerCheckJob();
  	    	        self.stopPollingforChatMessages();
+ 	    	        removeGame();
  	    	       
  	    		});   
- 
+        
     	
     };
     
     init();
     
+    
+    var removeGame = function()
+    {
+    	var url = marriageRummy.urls.deleteGame;
+    	var formdata = marriageRummy.request.getDeleteGameRequest(stateobject.gameInstanceId,stateobject.lobbyName,stateobject.gameType);
+    	var successfn = marriageRummy.callbacks.getGameBrowserCallback().onDeleteGameSuccess;
+    	var failurefn = marriageRummy.callbacks.getGameBrowserCallback().onDeleteGameFailure;
+    	var reqobj = {"formdata":formdata};
+    	marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successfn, failurefn, reqobj);
+    };
    
     var pollingCallback = function()
     {

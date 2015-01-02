@@ -38,6 +38,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	var self = this;
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
+	self.deleteGame = "/marriagerummy/IndexerServices/GameBrowser/removeGame";
 	self.getPlayersinGame ="/marriagerummy/IndexerServices/GameLauncher/Game/GetPlayers";
 	self.addChatMessage ="/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Add";
 	self.getChatMessage = "/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Get";
@@ -120,6 +121,17 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		               };
 		return formdata;
 	};
+	
+	self.getDeleteGameRequest = function(gameInstanceID,lobbyName,gameType)
+	{
+		var formdata = {
+				"gameInstanceID":gameInstanceID,
+				"nickName":"Auto",
+				"lobbyName":lobbyName,
+				"gameType":gameType
+		};
+		return formdata;
+	};
 
 };
 
@@ -197,7 +209,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    	{
 	       	  createGameResponse = data.SevenCardRummy;
 	    	}
-	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(createGameResponse);
+	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(createGameResponse,createGameResponse.playerlist[0].HumanPlayer.playerPosition,"CREATEMODE");
 	    $("#GameLauncher").css("display", "block");	   
 	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
 	    gamelauncher.startPlayerCheckJob();
@@ -211,14 +223,50 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	
 	self.onJoinGameSuccess = function(data,textstatus,jhxr,requestObj)
 	{
-		console.log("Join game Successful", data, textstatus);		
-		marriageRummy.gameLauncherUtilities.startPollingforChatMessages(requestObj.formdata.gameInstanceID);
-		marriageRummy.gameLauncherUtilities.startPlayerCheckJob(requestObj.formdata.gameInstanceID, requestObj.formdata.lobbyName, requestObj.formdata.gameType)
+		
+		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.gameLobby);
+		var joinGameResponse = {
+				"gameInstanceId":data.gameInstanceID,
+				"gameName":data.gameName,
+				"owner":data.owner,
+				"gameType":data.gameType,
+				"currentplayers":data.playersize,
+				"playerlist": {
+					"length" : data.playersize
+				 },
+				"maxplayers":data.maxplayers,
+				"gameMoneyBased":data.gameMoneyBased,
+				"gamePointsBased":data.gamePointsBased,
+				"moneyPerCard":data.moneyPerCard,
+				"maxPoints":data.maxPoints,
+				"lobbyName":data.lobbyName,
+				"nickName":data.nickname
+				
+		};
+		console.log("Join game Successful", joinGameResponse);	
+	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(joinGameResponse,data.playerPosition,"JOINMODE");
+	    $("#GameLauncher").css("display", "block");	   
+	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
+	    gamelauncher.startPlayerCheckJob();
+	    gamelauncher.startPollingforChatMessages();
+		console.log(data);
+		
 	};
 	
 	self.onJoinGameFailure = function(data)
 	{
 		console.log("Failed to join game : ", data);
+	};
+	
+	self.onDeleteGameSuccess = function(data,textstatus,jhxr,requestObj)
+	{
+		console.log("Delete game Successful", data, textstatus);		
+		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);
+	};
+	
+	self.onDeleteGameFailure = function(data)
+	{
+		console.log("Failed to delete game : ", data);
 	};
 
 	
@@ -229,3 +277,4 @@ marriageRummy.httpComm = new MarriageRummy.Utilities.CommunicationUtilities.Http
 marriageRummy.urls = new MarriageRummy.Utilities.CommunicationUtilities.URLS();
 marriageRummy.request = new MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer();
 marriageRummy.callbacks = new MarriageRummy.Utilities.CommunicationUtilities.Callbacks();
+var loggedinnickname = "deepika";

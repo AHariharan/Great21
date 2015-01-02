@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
@@ -105,8 +106,10 @@ public class FacadeGameBrowserController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.DELETEGAME, method = RequestMethod.POST)
-	public @ResponseBody String deleteGame(@RequestBody DeleteGameRequest request)
+	public @ResponseBody String deleteGame(@RequestBody DeleteGameRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
 		String result = null;
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
@@ -122,16 +125,16 @@ public class FacadeGameBrowserController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.ADD_PLAYER, method = RequestMethod.POST)
-	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request,@AuthenticationPrincipal Authentication authentication)
+	public @ResponseBody AddPlayerResponse addPlayertoGame(@RequestBody AddPlayerRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
 		String nickname = authentication.getName();
 		request.setNickname(nickname);
-		String result = null;
+		AddPlayerResponse result = null;
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEBROWSER_BASE + "/"
 					+ FacadeControllerURLs.ADD_PLAYER);
-			result = restTemplate.postForEntity(url, request, String.class).getBody();
+			result = restTemplate.postForEntity(url, request, AddPlayerResponse.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -20,6 +20,7 @@ import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
+import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
@@ -66,9 +67,9 @@ public class GameBrowserController {
 	}
 	
 	@RequestMapping( value = GameIndexerServiceURLs.ADD_PLAYER, method = RequestMethod.POST)
-	public @ResponseBody String addPlayertoGame(@RequestBody AddPlayerRequest request)
+	public @ResponseBody AddPlayerResponse addPlayertoGame(@RequestBody AddPlayerRequest request)
 	{
-		String result = delegate.addPlayertoGame(request);
+		AddPlayerResponse result = delegate.addPlayertoGame(request);
 		return result;
 		
 	}

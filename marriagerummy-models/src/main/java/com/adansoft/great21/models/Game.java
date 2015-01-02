@@ -21,6 +21,10 @@ public interface Game {
 	public static final int THIRTEENCARD_RUMMY_MAXPLAYERS = 8;
 	public static final int INDEFINITE_RUMMY_ROUNDS = -1;
 
+	public static final String POSITION_AVAILABLE = "AVAILABLE";
+	public static final String POSITION_NOTAVAILABLE = "NOTAVAILABLE";
+	
+	
 	/* gets Which GameLobby this belongs to */
 	
 	public String getGameLobbyName();
@@ -65,6 +69,15 @@ public interface Game {
 	
   /* get Game Status */
 	public String getGameStatus();
+	
+  /* get Next Player Position */
+	public int getNextAvailablePlayerPosition();
+	
+  /* Add Player to Game */
+	public void addPlayertoGame(Player player);
+	
+   /* Add Player to Game */
+	public void removePlayerFromGame(Player player);
 	
 	
 }
