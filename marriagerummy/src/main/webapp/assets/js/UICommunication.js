@@ -39,6 +39,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
 	self.getPlayersinGame ="/marriagerummy/IndexerServices/GameLauncher/Game/GetPlayers";
+	self.addChatMessage ="/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Add";
+	self.getChatMessage = "/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Get";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
@@ -95,6 +97,29 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		};
 		return formdata;
 	};
+	
+	self.getAddChatMessage = function(gameInstanceID,messageContent,PlayerName,PlayerPos)
+	{
+		var formdata = {
+				"gameInstanceID" : gameInstanceID,
+				"message" : {
+					"playerName" : PlayerName,
+					"message" : messageContent,
+					"playerpos" : PlayerPos
+				}		
+		};
+		
+		return formdata;
+	};
+	
+	self.getChatMessage = function(gameInstanceID,currentChatCount)
+	{
+		var formdata = {
+				         "gameInstanceID" : gameInstanceID,
+				         "currentChatCount" :  currentChatCount
+		               };
+		return formdata;
+	};
 
 };
 
@@ -123,7 +148,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
    
    self.onAddChatMessageSuccess = function(data, textstatus, Jhxr, requestObj)
    {
-	   console.log("Posted chat message successfully");
+	   var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+	   gamelauncher.sendMessageSuccess();
+	   
    };
    
    self.onAddChatMessageFailure = function(data)
@@ -131,10 +158,25 @@ MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
 	   console.log("Posted chat message Failure");
    };
    
+   self.onGetChatMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+   {
+	   console.log("Got chat message successfully" , data);
+	   if(data === undefined || data == null)
+		   return;	   
+	   var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+	   gamelauncher.getMessageSuccess(data.messages,data.currentChatCount);
+   };
+   
+   self.onGetChatMessageFailure = function(data)
+   {
+	   console.log("get chat message Failure");
+   };
+   
    self.onGetPlayersinGameSuccess = function(data, textstatus, Jhxr, requestObj)
    {
-	 console.log("Players List : " + JSON.stringify(data));  
-	 marriageRummy.gameLauncherUtilities.updatePlayerList(data);
+	 console.log("Players List : " + JSON.stringify(data)); 
+	 var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+	 gamelauncher.updatePlayerList(data);
    };
    
    self.onGetPlayersinGameFailure = function(data)
@@ -150,18 +192,16 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	self.onCreateGameSucess = function(data, textstatus, Jhxr, requestObj) {
 		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.gameLobby);
 		$("#creategamemodal").modal('hide');
-		$("#GameLauncher").css("display", "block");
-		var gameInstanceID = "";
-		var lobbyName = "";
-		var gameType = "";
+		var createGameResponse = null;
 	    if(data.hasOwnProperty("SevenCardRummy"))
 	    	{
-	    	  gameInstanceID = data.SevenCardRummy.gameInstanceId;
-	    	  lobbyName = data.SevenCardRummy.lobbyName;
-	    	  gameType = data.SevenCardRummy.gameType;
+	       	  createGameResponse = data.SevenCardRummy;
 	    	}
-		marriageRummy.gameLauncherUtilities.startPlayerCheckJob(gameInstanceID, lobbyName, gameType);
-		marriageRummy.gameLauncherUtilities.startPollingforChatMessages(gameInstanceID);
+	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(createGameResponse);
+	    $("#GameLauncher").css("display", "block");	   
+	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
+	    gamelauncher.startPlayerCheckJob();
+	    gamelauncher.startPollingforChatMessages();
 		console.log(data);
 	};
 

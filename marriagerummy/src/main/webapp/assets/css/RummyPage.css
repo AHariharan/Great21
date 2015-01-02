@@ -311,7 +311,7 @@
 }
 
 #GameLauncherContainer {
-	min-height: 500px;
+	min-height: 527px;
 	box-shadow: 1px 1px 10px 5px gray;
 }
 
@@ -338,7 +338,7 @@
 	height: 150px;
 	overflow: auto;
 	border: 1px solid gray;
-/* 	box-shadow: 0px 0px 10px 3px gray; */
+	/* 	box-shadow: 0px 0px 10px 3px gray; */
 	border-radius: 5px;
 	padding-left: 20px;
 }
@@ -408,4 +408,29 @@
 	color: rgb(13, 112, 175);
 	padding-left: 79px;
 	cursor: pointer;
+}
+
+#GameLauncherContainer .well {
+	font-size: 13px;
+}
+
+#GameLauncherContainer .well dt {
+	color: rgb(102, 102, 111);
+	padding-top: 5px;
+}
+
+#GameLauncherContainer .well dd {
+	color: rgb(172, 5, 5);
+	padding-top: 5px;
+}
+
+.playerslistheading {
+	background: rgb(3, 106, 172);
+	color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-family: 'open sans', arial, sans-serif;
+	font-weight: 300;
+	text-align: center;
+	font-size: 15px;
 }

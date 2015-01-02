@@ -7,11 +7,21 @@
 			<div id="content">
 				<div id="chat" class="container">
 					<div class="well well-sm row">
-						<dl class="dl-horizontal col-md-9">
+					    <dl class="dl-horizontal col-md-5">
+							<dt>Game Description</dt>
+							<dd id="gamedesc"></dd>
+							<dt>Host</dt>
+							<dd id="host">2/6</dd>
 							<dt>Game Type</dt>
-							<dd>7 Card Closed Joker</dd>
-							<dt>No of Players</dt>
-							<dd>2/6</dd>
+							<dd id="gameType">7 Card Closed Joker</dd>
+						</dl>
+						<dl class="dl-horizontal col-md-4">
+						    <dt>No of Players</dt>
+							<dd id="noplayers">2/6</dd>
+							<dt>Game Mode</dt>
+							<dd id="gameMode">7 Card Closed Joker</dd>
+							<dt>Max Points / Per Card</dt>
+							<dd id="perCard">2/6</dd>
 						</dl>
 						<button class="btn btn-primary col-md-offset-1 col-md-2">
 							Invite Friends</button>
@@ -57,13 +67,14 @@
 								</div> -->
 							</div>
 							<div class="sendText">
-								<textarea class="form-control" rows="3"></textarea>
+								<textarea class="form-control" rows="3" placeholder="Type Messages here ...."></textarea>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div id="gamemembers" style="width: 20%; float: right;">
-					<div style="min-height: 331px;">
+				    <div class="playerslistheading">Players in Game</div>
+					<div id="playersarea" style="min-height: 331px;">
 						<!-- <div class="members">
 							<img src="./assets/images/Cards/ClubCards/A.png" width="35px"
 								height="35px" />

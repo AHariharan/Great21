@@ -13,7 +13,7 @@ public class CacheServerGameChatCache {
 	
 	public void addChatMessagetoGame(String gameinstanceid,GameChatMessageManager requestQueue)
 	{
-		this.gameChatRedisTemplate.opsForHash().put(gameinstanceid, gameinstanceid.hashCode(), requestQueue);		
+		this.gameChatRedisTemplate.opsForHash().put(gameinstanceid+"-Chat", gameinstanceid.hashCode(), requestQueue);		
 	}
 	
 	public GameChatMessageManager lookupChatMessage(String gameinstanceid)
@@ -22,8 +22,8 @@ public class CacheServerGameChatCache {
 		GameChatMessageManager manager = null; 
 		try
 		{
-		if(this.gameChatRedisTemplate.opsForHash().get(gameinstanceid, gameinstanceid.hashCode()) != null)
-		   manager =  (GameChatMessageManager) this.gameChatRedisTemplate.opsForHash().get(gameinstanceid, gameinstanceid.hashCode());
+		if(this.gameChatRedisTemplate.opsForHash().get(gameinstanceid+"-Chat", gameinstanceid.hashCode()) != null)
+		   manager =  (GameChatMessageManager) this.gameChatRedisTemplate.opsForHash().get(gameinstanceid+"-Chat", gameinstanceid.hashCode());
 		}catch(Exception e) { e.printStackTrace();}
 		return manager;
 	}
@@ -35,7 +35,7 @@ public class CacheServerGameChatCache {
 	
 	public void updateCache(String gameinstanceid,GameChatMessageManager requestQueue)
 	{
-		this.gameChatRedisTemplate.opsForHash().put(gameinstanceid, gameinstanceid.hashCode(), requestQueue);		
+		this.gameChatRedisTemplate.opsForHash().put(gameinstanceid+"-Chat", gameinstanceid.hashCode(), requestQueue);		
 	}
 	
 }
