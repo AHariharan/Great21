@@ -81,6 +81,8 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
 
 	});
+	
+	
 
 	$("#createGameBtn")
 			.click(	function() {

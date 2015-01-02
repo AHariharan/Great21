@@ -79,7 +79,17 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
  	          var message = $(this).val();
  	          sendMessage(message);
  	      }
- 	  });
+ 		  }); 
+ 	       
+ 	    $("#CancelGame").on('click',function()
+ 	    		{
+ 	    	        $("#GameLauncher").css("display", "none");
+ 	    	        marriageRummy.gameBrowserUtilities.refreshGameLobby(stateobject.lobbyName);
+ 	    	        self.stopPlayerCheckJob();
+ 	    	        self.stopPollingforChatMessages();
+ 	    	       
+ 	    		});   
+ 
     	
     };
     
@@ -90,7 +100,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     {
     	console.log("Polling for chat Messages :" ,stateobject.gameInstanceId, currentChatCount);
     	getMessage();
-    
+        
     };
     
     var playerCheckCallback = function()

@@ -141,8 +141,8 @@
 						</div> -->
 					</div>
 					<div style="min-height: 20%; padding-left: 30%; padding-top: 7%;">
-						<button class="btn btn-success">Launch Game</button>
-						<button class="btn btn-warning" style="margin-top: 6%;">Cancel
+						<button id="LaunchGame" class="btn btn-success">Launch Game</button>
+						<button id="CancelGame" class="btn btn-warning" style="margin-top: 6%;">Cancel
 							Game</button>
 					</div>
 				</div>
