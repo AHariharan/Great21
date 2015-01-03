@@ -38,10 +38,14 @@
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 	type="text/javascript"></script>
+	
+<script type="text/javascript" src="assets/ThirdPartyLibs/SockJS/sockjs-0.3.4.js"></script>	
+<script type="text/javascript" src="assets/ThirdPartyLibs/SockJS/stomp.js"></script>
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/UICommunication.js"></script>
 <script type="text/javascript" src="assets/js/UIUtilities.js"></script>
+<script type="text/javascript" src="assets/js/ServerPushSubscribers.js"></script>
 
 
 <script>
@@ -73,6 +77,7 @@
 			</ul>
 		</div>
 		<div class="sidebar">
+		    <button class="btn btn-primary" onclick="marriageRummy.chatSubscriber.sendMessage('Text Message','GAMEINSTANCE123');">Initiate Message</button>
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>

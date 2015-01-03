@@ -10,6 +10,7 @@
 	<http pattern="/assets/SampleJson/**" security="none" />
 	<http pattern="/assets/js/**" security="none" />
 	<http pattern="/assets/ThirdPartyLibs/**" security="none" />
+	<http pattern="/WebSocketChatMessages/**" security="none" />
 
 	<http>
 		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />

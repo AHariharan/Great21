@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import com.adansoft.great21.gameplay.GameChatMessageManager;
-import com.adansoft.great21.gameplay.GameMessage;
+
 
 public class CacheServerGameChatCache {
 
@@ -18,7 +18,7 @@ public class CacheServerGameChatCache {
 	
 	public GameChatMessageManager lookupChatMessage(String gameinstanceid)
 	{
-		System.out.println("gameChat Template: " + gameChatRedisTemplate);
+		//System.out.println("gameChat Template: " + gameChatRedisTemplate);
 		GameChatMessageManager manager = null; 
 		try
 		{

@@ -60,5 +60,8 @@
 	
 	<!--  Create UIMapper -->
 	<bean id="uimapper" class="com.adansoft.great21.uimediation.UIMediationMapper"/>
+	
+	<!--  Websocket SimpleMessageTemplate -->
+	
 
 </beans>
