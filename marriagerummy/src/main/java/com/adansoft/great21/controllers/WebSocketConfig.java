@@ -13,15 +13,14 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry registry) {
 			super.configureMessageBroker(registry);
-			registry.enableSimpleBroker("/WebSocketChatMessages/");
+			registry.enableSimpleBroker("/WebSocketGameLauncher/","/WebSocketChatMessages/");
 			registry.setApplicationDestinationPrefixes("/marriagerummy");
 			
 	}
 	
 
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/WebSocketChatMessages/Add/*").withSockJS();
-
+		registry.addEndpoint("/WebSocketChatMessages/Add/*","/WebSocketGameLauncher/Player/Add/*").withSockJS();
 	}
 	
 	

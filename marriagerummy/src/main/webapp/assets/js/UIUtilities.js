@@ -41,12 +41,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     
     var sendMessage = function(message)
     {
-    	var gameInstanceID = stateobject.gameInstanceId;
+    	var gameInstanceID = stateobject.gameInstanceId;    	
     	var formdata = marriageRummy.request.getAddChatMessage(gameInstanceID,message,"Auto",stateobject.playerpos);
-    	var url = marriageRummy.urls.addChatMessage;
+    	marriageRummy.chatSubscriber.sendMessage(gameInstanceID, formdata);
+    	/*var url = marriageRummy.urls.addChatMessage;
     	var onSuccessCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onAddChatMessageSuccess;
     	var onFailureCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onAddChatMessageFailure;    		
-    	marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, null);
+    	marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, null);*/
     };
     
     var getMessage = function()
@@ -81,6 +82,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
  	      {
  	          var message = $(this).val();
  	          sendMessage(message);
+ 	          self.sendMessageSuccess();
  	      }
  		  }); 
  	    
@@ -98,6 +100,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
  	    	        self.stopPlayerCheckJob();
  	    	        self.stopPollingforChatMessages();
  	    	        removeGame();
+ 	    	        marriageRummy.chatSubscriber.disconnect();
  	    	       
  	    		});   
         
@@ -140,8 +143,39 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     self.sendMessageSuccess = function()
     {
     	$('.sendText textarea').val("");
-    	getMessage();
+    	//getMessage();
     }; 
+    
+    
+    var handleScroll = function()
+    {
+    	var clienHeight = $('.chatWindow')[0].clientHeight;
+    	var chatWindowScrollHeight = $('.chatWindow')[0].scrollHeight;
+	    var chatWindowScrollTop = $('.chatWindow')[0].scrollTop;
+    	if(chatWindowScrollHeight > clienHeight)
+    		{
+    		    newscrolltop = chatWindowScrollTop + (chatWindowScrollHeight - currentChatWindowScrollHeight);
+    		    $('.chatWindow').scrollTop(newscrolltop);
+    		}
+    	else
+    		{
+    		   currentChatWindowScrollHeight = chatWindowScrollHeight;
+    		   currentChatWindowScrollTop = chatWindowScrollTop;
+    		}
+    };
+    
+    self.onReceiveMessage = function(formdata)
+    {
+    	var object = jQuery.parseJSON(formdata);
+    	var htmlContent = '<div class="chatContent PlayerPOSITIONChat"><span><strong>PLAYERNAME</strong>MESSAGE</span></div>';
+    	var position = object.message.playerpos;
+	    var playername = object.message.playerName;
+		var message = object.message.message;
+		
+		var finalcontent = htmlContent.replace("POSITION",position).replace("PLAYERNAME",playername + " : ").replace("MESSAGE",message);
+		 $('.chatWindow').append(finalcontent);
+		 handleScroll();
+    };
     
     self.getMessageSuccess = function(arrayofmessages,currentCount)
     {
@@ -159,20 +193,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     		   $('.chatWindow').append(finalcontent);
     		}    
     	
-    	var clienHeight = $('.chatWindow')[0].clientHeight;
-    	var chatWindowScrollHeight = $('.chatWindow')[0].scrollHeight;
-	    var chatWindowScrollTop = $('.chatWindow')[0].scrollTop;
-    	if(chatWindowScrollHeight > clienHeight)
-    		{
-    		    newscrolltop = chatWindowScrollTop + (chatWindowScrollHeight - currentChatWindowScrollHeight);
-    		    $('.chatWindow').scrollTop(newscrolltop);
-    		}
-    	else
-    		{
-    		   currentChatWindowScrollHeight = chatWindowScrollHeight;
-    		   currentChatWindowScrollTop = chatWindowScrollTop;
-    		}
+    	
     }; 
+    
+    self.onPlayerJoin = function()
+    {
+    	playerCheckCallback();
+    }
     
     self.updatePlayerList = function(data)
     {

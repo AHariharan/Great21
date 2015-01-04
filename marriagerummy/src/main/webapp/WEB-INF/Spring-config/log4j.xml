@@ -18,7 +18,7 @@
 	
 
 	<category name="org.springframework">
-		<priority value="WARN" />		
+		<priority value="DEBUG" />		
 	</category>
 	
 	<category name="org.springframework.web">
@@ -33,7 +33,7 @@
 	</category>
 
 	<category name="org.springframework.security">
-		<priority value="INFO" />
+		<priority value="DEBUG" />
 	</category>
 
 	<category name="org.springframework.beans.CachedIntrospectionResults">

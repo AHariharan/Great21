@@ -212,8 +212,10 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(createGameResponse,createGameResponse.playerlist[0].HumanPlayer.playerPosition,"CREATEMODE");
 	    $("#GameLauncher").css("display", "block");	   
 	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
-	    gamelauncher.startPlayerCheckJob();
-	    gamelauncher.startPollingforChatMessages();
+	    //gamelauncher.startPlayerCheckJob();
+	    //gamelauncher.startPollingforChatMessages();
+	    gamelauncher.onPlayerJoin();
+	    marriageRummy.chatSubscriber.connect(createGameResponse.gameInstanceId);
 		console.log(data);
 	};
 
@@ -247,8 +249,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(joinGameResponse,data.playerPosition,"JOINMODE");
 	    $("#GameLauncher").css("display", "block");	   
 	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
-	    gamelauncher.startPlayerCheckJob();
-	    gamelauncher.startPollingforChatMessages();
+	    gamelauncher.onPlayerJoin();
+	    marriageRummy.chatSubscriber.connect(joinGameResponse.gameInstanceId);
+	    setTimeout(marriageRummy.chatSubscriber.sendAddPlayer, 2000,requestObj.formdata);
 		console.log(data);
 		
 	};

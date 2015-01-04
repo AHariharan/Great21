@@ -77,7 +77,8 @@
 			</ul>
 		</div>
 		<div class="sidebar">
-		    <button class="btn btn-primary" onclick="marriageRummy.chatSubscriber.sendMessage('Text Message','GAMEINSTANCE123');">Initiate Message</button>
+		    <button class="btn btn-success" onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send Add Player</button>
+		    <button class="btn btn-success" onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send Message</button>
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
