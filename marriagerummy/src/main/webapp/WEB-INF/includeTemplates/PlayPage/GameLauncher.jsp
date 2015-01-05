@@ -35,39 +35,10 @@
 						</div>
 						<div class="panel-body">
 							<div class="chatWindow">
-								<!-- <div class="chatContent Player1Chat">
-									<span><strong>Player 1 :</strong> Hello World !!!</span>
-								</div>
-								<div class="chatContent Player2Chat">
-									<span><strong>Player 2 :</strong> Hello World 123 !!!</span>
-								</div>
-								<div class="chatContent Player3Chat">
-									<span><strong>Player 3 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player4Chat">
-									<span><strong>Player 4 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player5Chat">
-									<span><strong>Player 5 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player6Chat">
-									<span><strong>Player 6 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player7Chat">
-									<span><strong>Player 7 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player5Chat">
-									<span><strong>Player 5 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player6Chat">
-									<span><strong>Player 6 :</strong> Hello World 21312!!!</span>
-								</div>
-								<div class="chatContent Player7Chat">
-									<span><strong>Player 7 :</strong> Hello World 21312!!!</span>
-								</div> -->
+								<!-- Contents of Chat Goes here -->
 							</div>
 							<div class="sendText">
-								<textarea class="form-control" rows="3" placeholder="Type Messages here ...."></textarea>
+								<textarea class="form-control" rows="3" placeholder="Type Messages here ...." autofocus="autofocus"></textarea>
 							</div>
 						</div>
 					</div>
@@ -75,6 +46,16 @@
 				<div id="gamemembers" style="width: 20%; float: right;">
 				    <div class="playerslistheading">Players in Game</div>
 					<div id="playersarea" style="min-height: 331px;">
+					   <table id="gamememebers" class="table table-striped">
+					      <thead>
+					         <tr>
+					            <th class="col-md-1"><i class="fa fa-user"></i></th>
+					            <th class="col-md-9">Nick Name</th>
+					            <th class="col-md-1"></th>
+					            <th class="col-md-1"></th>
+					         </tr>				         
+					      </thead>
+					   </table>
 						<!-- <div class="members">
 							<img src="./assets/images/Cards/ClubCards/A.png" width="35px"
 								height="35px" />

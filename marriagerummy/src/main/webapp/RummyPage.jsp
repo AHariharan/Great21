@@ -17,6 +17,7 @@
 <link
 	href="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.min.css"
 	rel="stylesheet">
+<link href="./assets/ThirdPartyLibs/bootstrap-dist/css/docs.css" rel="stylesheet"/>	
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">

@@ -34,7 +34,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     var currentChatCount = 0;
     
     var currentChatWindowScrollHeight = $('.chatWindow')[0].scrollHeight;
-    var currentChatWindowScrollTop = $('.chatWindow')[0].scrollTop;
+
     
     var playerCheckJob = {};
     var playerCheckInterval = 15000; // In Milli seconds
@@ -199,14 +199,19 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     self.onPlayerJoin = function()
     {
     	playerCheckCallback();
-    }
+    };
     
     self.updatePlayerList = function(data)
     {
     	$("#GameLauncherContainer .well dd#noplayers").html(data.playerlist.length+"/"+stateobject.maxplayers);
     	$("#gamemembers #playersarea").empty();
-    	var membertemplate = '<div class="members"><img src="./assets/images/Cards/ClubCards/A.png" width="35px" height="35px" />' +
-					  '<p>MEMBERNAME<i id="add" class="fa fa-plus"></i><i id="remove" class="fa fa-times"></i></p></div>';
+    	var membertemplate = '<div class="members">'+ 
+    	                          '<img src="./assets/images/Cards/ClubCards/A.png">'+
+    		                      '<button class="close kickPlayer"><i id="add" class="fa fa-times"></i></button>' +
+    		                      '<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>' +
+    		                      'MEMBERNAME</div>';
+    		
+    		
     	for(var i=0;i<data.playerlist.length;i++)
     		{
     		    var nickname = data.playerlist[i].HumanPlayer.nickName;

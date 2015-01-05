@@ -381,16 +381,38 @@
 }
 
 #GameLauncherContainer .members {
-	border: 1px solid rgb(171, 165, 165);
-	min-height: 30px;
-	border-left: 5px solid rgb(13, 112, 175);
-	padding-left: 7px;
-	padding-top: 2px;
-	background: rgba(69, 114, 208, 0.21);
-	color: rgb(36, 111, 161);
-	display: flex;
+	border: 1px solid rgb(200, 205, 225);
+	border-left: 6px solid rgb(13, 112, 175);
+	border-radius: 4px;
+	padding: 5px;
+	background: rgba(226, 230, 238, 1);
+	color: rgb(60, 113, 148);
 	margin-top: 2px;
-	box-shadow: 1px 1px 7px -2px rgb(13, 112, 175);
+	font-size: 18px;
+	font-weight: 300;
+	font-family: 'open sans', arial, sans-serif;
+}
+
+#GameLauncherContainer .members img {
+	width: 35px;
+	height: 35px;
+	margin-right: 10px;
+}
+
+#GameLauncherContainer .members button.addFriend {
+	color: rgb(74, 74, 205);
+	margin-top: 13px;
+	font-size: 13px;
+	padding-right: 14px;
+	opacity: 0.8;
+}
+
+#GameLauncherContainer .members button.kickPlayer {
+	color: rgb(207, 58, 58);
+	opacity: 0.8;
+	margin-top: 11px;
+	padding-right: 10px;
+	font-size: 15px;
 }
 
 #GameLauncherContainer .members p {
