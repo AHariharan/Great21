@@ -311,8 +311,9 @@
 }
 
 #GameLauncherContainer {
-	min-height: 527px;
 	box-shadow: 1px 1px 10px 5px gray;
+	border: 1px solid;
+	overflow: auto;
 }
 
 #GameLauncherContainer .heading {
@@ -324,7 +325,9 @@
 }
 
 #GameLauncherContainer #content {
-	min-height: 455px;
+	/* min-height: 455px; */
+	overflow: auto;
+	
 }
 
 #GameLauncherContainer #content #chat {
@@ -444,6 +447,12 @@
 #GameLauncherContainer .well dd {
 	color: rgb(172, 5, 5);
 	padding-top: 5px;
+}
+
+#GameLauncherContainer .actionLauncher {
+	position: relative;
+	top: 328px;
+	padding: 10px;
 }
 
 .playerslistheading {

@@ -218,6 +218,11 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(createGa
     		    var addMemeberContent = membertemplate.replace("MEMBERNAME", nickname);
     		    $("#gamemembers #playersarea").append(addMemeberContent);
     		}
+    	
+    	var currenttop = $('#GameLauncherContainer .actionLauncher').css("top");
+    	var curtopint = parseInt(currenttop);
+    	var desiredtop = curtopint - 38;
+    	$('#GameLauncherContainer .actionLauncher').css("top",desiredtop+"px");
     };
     
     self.startPollingforChatMessages = function()

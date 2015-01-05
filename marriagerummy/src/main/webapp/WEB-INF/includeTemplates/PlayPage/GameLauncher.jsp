@@ -45,85 +45,12 @@
 				</div>
 				<div id="gamemembers" style="width: 20%; float: right;">
 				    <div class="playerslistheading">Players in Game</div>
-					<div id="playersarea" style="min-height: 331px;">
-					   <table id="gamememebers" class="table table-striped">
-					      <thead>
-					         <tr>
-					            <th class="col-md-1"><i class="fa fa-user"></i></th>
-					            <th class="col-md-9">Nick Name</th>
-					            <th class="col-md-1"></th>
-					            <th class="col-md-1"></th>
-					         </tr>				         
-					      </thead>
-					   </table>
-						<!-- <div class="members">
-							<img src="./assets/images/Cards/ClubCards/A.png" width="35px"
-								height="35px" />
-							<p>
-								Player 1 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
-								height="35px" />
-							<p>
-								Player 2 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/J.png" width="35px"
-								height="35px" />
-							<p>
-								Player 3 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/4.png" width="35px"
-								height="35px" />
-							<p>
-								Player 4 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/9.png" width="35px"
-								height="35px" />
-							<p>
-								Player 5 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/2.png" width="35px"
-								height="35px" />
-							<p>
-								Player 6 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/8.png" width="35px"
-								height="35px" />
-							<p>
-								Player 7 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div>
-						<div class="members">
-							<img src="./assets/images/Cards/ClubCards/5.png" width="35px"
-								height="35px" />
-							<p>
-								Player 8 <i id="add" class="fa fa-plus"></i><i id="remove"
-									class="fa fa-times"></i>
-							</p>
-						</div> -->
+					<div id="playersarea">
+					  
 					</div>
-					<div style="min-height: 20%; padding-left: 30%; padding-top: 7%;">
+					<div class="actionLauncher">
 						<button id="LaunchGame" class="btn btn-success">Launch Game</button>
-						<button id="CancelGame" class="btn btn-warning" style="margin-top: 6%;">Cancel
+						<button id="CancelGame" class="btn btn-warning">Cancel
 							Game</button>
 					</div>
 				</div>
