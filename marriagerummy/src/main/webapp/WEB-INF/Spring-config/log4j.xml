@@ -18,22 +18,22 @@
 	
 
 	<category name="org.springframework">
-		<priority value="DEBUG" />		
+		<priority value="WARN" />		
 	</category>
 	
 	<category name="org.springframework.web">
-	     <priority value="DEBUG"/>
+	     <priority value="WARN"/>
 	</category>     
 
    <category name="org.springframework.web.socket">
-	     <priority value="DEBUG"/>
+	     <priority value="WARN"/>
 	</category> 
 	<category name="org.springframework.beans">
 		<priority value="WARN" />
 	</category>
 
 	<category name="org.springframework.security">
-		<priority value="DEBUG" />
+		<priority value="WARN" />
 	</category>
 
 	<category name="org.springframework.beans.CachedIntrospectionResults">

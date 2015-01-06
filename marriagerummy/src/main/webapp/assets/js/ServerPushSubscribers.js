@@ -93,6 +93,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 		 var username = jsonobj.notifiedBy;
 		 if(type == "ADDPLAYER")
 			 callback.handleAddPlayer(jsonobj);
+		 if(type == "CANCELGAME")
+			 callback.handleCancelGame(jsonobj);
 		
 	 }; 
 	 
@@ -100,6 +102,12 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 	 {
 		 stompClient.send(subscribeNotification+gameInstanceID,{},JSON.stringify(data));
 	 };
+	 
+	 self.shutdown = function()
+	 {
+		  stompClient.disconnect();
+	 };
+	 
 	 
 };
 
@@ -111,10 +119,15 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		   var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
 		   gamelauncher.onPlayerJoin();
 	};
-	self.handleRemovePlayer = function(data)
+	self.handleCancelGame = function(data)
 	{
-		   var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
-		   gamelauncher.onPlayerJoin();
+		   console.log("Game Cancelled " , data);
+		   if($("#GameLauncher").css("display") == "block")
+			   {
+			             marriageRummy.generalutility.showRedAlert("Game Cancelled !", "Host has cancelled the game and we returned you to Game Lobby");
+			             $("#GameLauncher").css("display", "none");
+    	                 marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);	                 
+			   }
 	};
 };
 
@@ -129,7 +142,18 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
     			 notificationType : "ADDPLAYER",
     			 notificationSource : source,
     			 notificationObject : object,
-    			 norifiedBy : "Auto"
+    			 notifiedBy : "Auto"
+    	 };
+    	 return formdata;
+     };
+     
+     self.createCancelGameNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "CANCELGAME",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
     	 };
     	 return formdata;
      };

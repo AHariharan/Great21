@@ -17,7 +17,8 @@
 <link
 	href="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.min.css"
 	rel="stylesheet">
-<link href="./assets/ThirdPartyLibs/bootstrap-dist/css/docs.css" rel="stylesheet"/>	
+<link href="./assets/ThirdPartyLibs/bootstrap-dist/css/docs.css"
+	rel="stylesheet" />
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/RummyPage.css" rel="stylesheet">
@@ -39,9 +40,11 @@
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 	type="text/javascript"></script>
-	
-<script type="text/javascript" src="assets/ThirdPartyLibs/SockJS/sockjs-0.3.4.js"></script>	
-<script type="text/javascript" src="assets/ThirdPartyLibs/SockJS/stomp.js"></script>
+
+<script type="text/javascript"
+	src="assets/ThirdPartyLibs/SockJS/sockjs-0.3.4.js"></script>
+<script type="text/javascript"
+	src="assets/ThirdPartyLibs/SockJS/stomp.js"></script>
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/UICommunication.js"></script>
@@ -58,7 +61,9 @@
 </head>
 <body style="padding-top: 83px;">
 	<!--  Required Modals -->
-	<%@ include file="./WEB-INF/includeTemplates/PlayPage/CreateGameModal.jsp" %>
+
+	<%@ include
+		file="./WEB-INF/includeTemplates/PlayPage/CreateGameModal.jsp"%>
 	<!--  End of Modals -->
 	<div class="container-fluid maincontent">
 		<div class="sidebar-shrinked" style="display: none">
@@ -78,8 +83,12 @@
 			</ul>
 		</div>
 		<div class="sidebar">
-		    <button class="btn btn-success" onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send Add Player</button>
-		    <button class="btn btn-success" onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send Message</button>
+			<button class="btn btn-success"
+				onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send
+				Add Player</button>
+			<button class="btn btn-success"
+				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
+				Message</button>
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
@@ -106,8 +115,10 @@
 			</ul>
 		</div>
 		<div class="navigation">
-
 			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
+		</div>
+		<div id="NotificationArea">
+			
 		</div>
 		<div class="page-content" style="padding: 50px; padding-top: 2px;">
 			<%@ include
@@ -124,9 +135,9 @@
 	<script
 		src="./assets/ThirdPartyLibs/bootstrap-table/bootstrap-table.js"
 		type="text/javascript"></script>
-		
+
 	<script src="./assets/js/GamePlay.js" type="text/javascript"></script>
 	<script src="./assets/js/RummyPage.js" type="text/javascript"></script>
-	
-	
+
+
 </body>

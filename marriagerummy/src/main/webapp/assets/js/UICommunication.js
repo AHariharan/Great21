@@ -266,6 +266,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	{
 		console.log("Delete game Successful", data, textstatus);		
 		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);
+		var notificationdata = marriageRummy.notificationRequest.createCancelGameNotification("onDeleteGameSuccess", requestObj.formdata);
+		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		setTimeout(marriageRummy.notificationManager.shutdown, 2000);
 	};
 	
 	self.onDeleteGameFailure = function(data)
@@ -281,4 +284,5 @@ marriageRummy.httpComm = new MarriageRummy.Utilities.CommunicationUtilities.Http
 marriageRummy.urls = new MarriageRummy.Utilities.CommunicationUtilities.URLS();
 marriageRummy.request = new MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer();
 marriageRummy.callbacks = new MarriageRummy.Utilities.CommunicationUtilities.Callbacks();
+
 var loggedinnickname = "deepika";

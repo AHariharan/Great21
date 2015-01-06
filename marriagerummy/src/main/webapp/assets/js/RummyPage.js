@@ -259,6 +259,23 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 	};
 };
 
+MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
+{
+	var self = this;
+	var htmlTemplate = '<div id="generalnotifications" class="alert  alert-danger alert-dismissible" role="alert" style="display:block">' +
+                       '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                       '<strong id="messageshort" style="padding-left:30px;">MESSAGE</strong><span id="messagedesc" style="padding-left:30px;">DESCRIPTION</span></div>';
+
+	
+	self.showRedAlert = function(message,description)
+	{
+		var alert = htmlTemplate.replace("MESSAGE",message).replace("DESCRIPTION", description);
+		$('#NotificationArea').append(alert);
+	};
+
+};
+
+
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
 
@@ -271,3 +288,5 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
        
 	};
 };
+
+marriageRummy.generalutility = new MarriageRummy.Utilities.UIUtilities.GeneralUtilities();
