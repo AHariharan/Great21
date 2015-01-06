@@ -212,10 +212,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    var gamelauncher = new MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities(createGameResponse,createGameResponse.playerlist[0].HumanPlayer.playerPosition,"CREATEMODE");
 	    $("#GameLauncher").css("display", "block");	   
 	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
-	    //gamelauncher.startPlayerCheckJob();
-	    //gamelauncher.startPollingforChatMessages();
 	    gamelauncher.onPlayerJoin();
 	    marriageRummy.chatSubscriber.connect(createGameResponse.gameInstanceId);
+	    marriageRummy.notificationManager =  new MarriageRummy.Utilities.PushServerSubscriber.NotificationManager(createGameResponse.gameInstanceId);
 		console.log(data);
 	};
 
@@ -251,7 +250,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    jQuery.data( $("#GameLauncher")[0], "LauncherObj", gamelauncher);
 	    gamelauncher.onPlayerJoin();
 	    marriageRummy.chatSubscriber.connect(joinGameResponse.gameInstanceId);
-	    setTimeout(marriageRummy.chatSubscriber.sendAddPlayer, 2000,requestObj.formdata);
+	    marriageRummy.notificationManager = new MarriageRummy.Utilities.PushServerSubscriber.NotificationManager(joinGameResponse.gameInstanceId);
+	    var notificationdata = marriageRummy.notificationRequest.createAddPlayerNotification("onJoinGameSuccess", requestObj.formdata);
+	    setTimeout(marriageRummy.notificationManager.sendNotificationEvent, 2000,notificationdata);
 		console.log(data);
 		
 	};

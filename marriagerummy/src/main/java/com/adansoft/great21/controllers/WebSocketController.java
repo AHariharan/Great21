@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 
+
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
+import com.adansoft.great21.uischemas.NotificationEvent;
 
 @Controller
 public class WebSocketController {
@@ -49,6 +51,14 @@ public class WebSocketController {
 		System.out.println("Web Socket invoked Add Player : Game : " + payload );
 		template.convertAndSend("/WebSocketGameLauncher/Player/Add/"+request.getGameInstanceID(), request);
 		return payload;
+	}
+	
+	@MessageMapping("/WebSockets/Notifications/{gameInstanceID}")
+	public void receiveAndPublishNotification(NotificationEvent event,@DestinationVariable String gameInstanceID,@AuthenticationPrincipal Authentication authentication)
+	{
+	     event.setNotifiedBy(authentication.getName());
+	     System.out.println("Web Socket Notification received : " + event);
+	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	}
 	
 	
