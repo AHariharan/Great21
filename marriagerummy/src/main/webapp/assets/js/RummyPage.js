@@ -18,6 +18,8 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities ||
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
 	
+	
+	
 	$(".shrinker").click(function() {
 		var delay = 500;
 		var sidebar = $(".sidebar");

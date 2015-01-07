@@ -97,6 +97,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleCancelGame(jsonobj);
 		 if(type == "REMOVEPLAYER")
 			 callback.handleRemovePlayer(jsonobj);
+		 if(type == "KICKPLAYER")
+			 callback.handleKickPlayer(jsonobj);
 		
 	 }; 
 	 
@@ -128,6 +130,21 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		        var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
 		        gamelauncher.onPlayerJoin();
 			}    
+	};
+	self.handleKickPlayer = function(data)
+	{
+		if(data.notificationObject.nickname == marriageRummy.loggedinUser)
+		{
+			 marriageRummy.generalutility.showRedAlert("Host Kicked !", "Host has kicked you from  game and we returned you to Game Lobby");
+             $("#GameLauncher").css("display", "none");
+             marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);	                 
+		}
+		if($("#GameLauncher").css("display") == "block")
+		{
+	        var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+	        gamelauncher.onPlayerJoin();
+		}  
+		
 	};
 	self.handleCancelGame = function(data)
 	{
@@ -172,6 +189,16 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
      {
     	 var formdata = {
     			 notificationType : "REMOVEPLAYER",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	 };
+    	 return formdata;
+     };
+     self.kickPlayerNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "KICKPLAYER",
     			 notificationSource : source,
     			 notificationObject : object,
     			 notifiedBy : "Auto"

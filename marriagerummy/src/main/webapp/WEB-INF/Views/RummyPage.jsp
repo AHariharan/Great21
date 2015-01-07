@@ -56,7 +56,8 @@
 	$(document).ready(function() {
 		var loadpage = new MarriageRummy.Utilities.UIUtilities.onLoad();
 		loadpage.initRummyPage();
-		var loggedinUser = "${loggedinuser}";
+		marriageRummy = marriageRummy || {};
+		marriageRummy.loggedinUser = "${loggedinuser}";
 	});
 </script>
 </head>

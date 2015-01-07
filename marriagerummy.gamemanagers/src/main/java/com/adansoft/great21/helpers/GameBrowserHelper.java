@@ -114,7 +114,13 @@ public class GameBrowserHelper {
 		try {
 			GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 			Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
-			
+			if(!(request.getRequestedby().equals(game.getOwner())) &&
+			   !(request.getRequestedby().equals(request.getNickname()))
+			  )
+			{
+				result = "Failure not enough previlges";
+				return result;
+			}
 			for(Player player : game.getPlayers())
 			{
 				if(player.getNickName().equals(request.getNickname()))

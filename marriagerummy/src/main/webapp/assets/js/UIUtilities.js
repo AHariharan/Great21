@@ -109,7 +109,8 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			$("#LaunchGame").css("display", "none");
 
 		}
-
+		
+		
 		$("#CancelGame")
 				.on(
 						'click',
@@ -140,6 +141,20 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	};
 
 	init();
+	
+	var kickPlayer = function(nickname)
+	{
+		var gameInstanceID = stateobject.gameInstanceId;
+		var url = marriageRummy.urls.unjoinGame;
+		var formdata = marriageRummy.request.getKickPlayerRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType,nickname);
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onKickPlayerSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onKickPlayerFailure;
+		var requestObj = {"formdata":formdata};	
+		marriageRummy.httpComm.invokeAsyncRequest(url,
+				formdata, onSuccessCallbackfn,
+				onFailureCallbackfn, requestObj);
+
+	};
 
 	var removeGame = function() {
 		var url = marriageRummy.urls.deleteGame;
@@ -233,6 +248,8 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	};
 
 	self.updatePlayerList = function(data) {
+	
+
 		$("#GameLauncherContainer .well dd#noplayers").html(
 				data.playerlist.length + "/" + stateobject.maxplayers);
 		$("#gamemembers #playersarea").empty();
@@ -261,6 +278,10 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		var curtopint = 328;
 		var desiredtop = curtopint - (data.playerlist.length -1 )*38;
 		$('#GameLauncherContainer .actionLauncher').css("top",desiredtop + "px");
+		$(".kickPlayer").on("click",function(){
+			nickname = $(this).parent().text();
+			kickPlayer(nickname);
+		});
 	};
 
 	self.startPollingforChatMessages = function() {

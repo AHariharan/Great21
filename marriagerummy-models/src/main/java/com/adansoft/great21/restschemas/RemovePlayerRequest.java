@@ -9,17 +9,19 @@ public class RemovePlayerRequest implements Serializable{
 	private String nickname;
 	private String gameType;
 	private String lobbyName;
+	private String requestedby;
 	
 	public RemovePlayerRequest() {
 		super();
 		}
 
-	public RemovePlayerRequest(String gameInstanceID, String nickname,String gameType,String lobbyName) {
+	public RemovePlayerRequest(String gameInstanceID, String nickname,String gameType,String lobbyName,String requestedby) {
 		super();
 		this.gameInstanceID = gameInstanceID;
 		this.nickname = nickname;
 		this.gameType = gameType;
 		this.lobbyName = lobbyName;
+		this.requestedby = requestedby;
 	}
 
 	public String getGameInstanceID() {
@@ -53,8 +55,14 @@ public class RemovePlayerRequest implements Serializable{
 	public void setLobbyName(String lobbyName) {
 		this.lobbyName = lobbyName;
 	}
+
+	public String getRequestedby() {
+		return requestedby;
+	}
+
+	public void setRequestedby(String requestedby) {
+		this.requestedby = requestedby;
+	}
 	
-	
-	
-	
+
 }

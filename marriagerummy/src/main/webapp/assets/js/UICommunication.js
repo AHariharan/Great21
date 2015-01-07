@@ -140,7 +140,20 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 				"nickname" : "Auto",
 				"gameInstanceID" : gameInstanceID,
 				"lobbyName" : lobbyType,
-				"gameType" : gameType
+				"gameType" : gameType,
+				"requestedby":"Auto"
+			};
+		return formdata;
+	};
+	
+	self.getKickPlayerRequest = function(lobbyType, gameInstanceID, gameType,nickname)
+	{
+		var formdata = {
+				"nickname" : nickname,
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+				"requestedby":"Auto"
 			};
 		return formdata;
 	};
@@ -240,6 +253,19 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 		
 	};
 	
+	self.onKickPlayerSuccess = function(data,textstatus,jhxr,requestObj)
+	{
+		var notificationdata = marriageRummy.notificationRequest.kickPlayerNotification("onKickPlayerSuccess", requestObj.formdata);
+	    marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+	};
+	
+	self.onKickPlayerFailure = function(data)
+	{
+		console.log("Failed to onKickPlayerFailure " + data);	
+		/*var notificationdata = marriageRummy.notificationRequest.createRemovePlayerNotification("onKickPlayerSuccess", requestObj.formdata);
+	    marriageRummy.notificationManager.sendNotificationEvent(notificationdata);*/
+	};
+	
 	self.onUnJoinGameSuccess = function(data,textstatus,jhxr,requestObj)
 	{
 		
@@ -247,7 +273,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);
 		var notificationdata = marriageRummy.notificationRequest.createRemovePlayerNotification("onUnJoinGameSuccess", requestObj.formdata);
 	    marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
-	    marriageRummy.notificationManager.disconnect();
+	    marriageRummy.notificationManager.shutdown();
 	};
 	
 	self.onUnJoinGameFailure = function(data,textstatus,jhxr,requestObj)
