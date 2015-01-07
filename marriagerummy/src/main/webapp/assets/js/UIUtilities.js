@@ -131,8 +131,6 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 							$("#GameLauncher").css("display", "none");
 							marriageRummy.gameBrowserUtilities
 									.refreshGameLobby(stateobject.lobbyName);
-							self.stopPlayerCheckJob();
-							self.stopPollingforChatMessages();
 							removeGame();
 							marriageRummy.chatSubscriber.disconnect();
 
@@ -141,6 +139,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	};
 
 	init();
+	
+	self.shutdownEvents = function()
+	{
+		$(".sendText textarea").unbind();
+		$("#CancelGame").unbind();
+		
+	};
 	
 	var kickPlayer = function(nickname)
 	{
@@ -170,12 +175,6 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				failurefn, reqobj);
 	};
 
-	var pollingCallback = function() {
-		console.log("Polling for chat Messages :", stateobject.gameInstanceId,
-				currentChatCount);
-		getMessage();
-
-	};
 
 	var playerCheckCallback = function() {
 
@@ -258,6 +257,9 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				+ '<button class="close kickPlayer"><i id="add" class="fa fa-times"></i></button>'
 				+ '<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
 				+ 'MEMBERNAME</div>';
+		var hosttemplate = '<div class="members">'
+			+ '<img src="./assets/images/Cards/ClubCards/A.png">'
+			+ 'MEMBERNAME</div>';
 		if(LauncherType == "JOINMODE")
 			{
 			membertemplate = '<div class="members">'
@@ -269,8 +271,14 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 		for (var i = 0; i < data.playerlist.length; i++) {
 			var nickname = data.playerlist[i].HumanPlayer.nickName;
+			
+				
 			var addMemeberContent = membertemplate.replace("MEMBERNAME",
 					nickname);
+
+			if(i == 0)
+				addMemeberContent = hosttemplate.replace("MEMBERNAME",nickname);
+				
 			$("#gamemembers #playersarea").append(addMemeberContent);
 		}
 
@@ -284,7 +292,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		});
 	};
 
-	self.startPollingforChatMessages = function() {
+/*	self.startPollingforChatMessages = function() {
 		chatPollingJob = setInterval(pollingCallback, chatPollinginterval,
 				stateobject.gameInstanceID);
 	};
@@ -303,7 +311,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 	self.stopPlayerCheckJob = function() {
 		clearInterval(playerCheckJob);
-	};
+	};*/
 
 };
 

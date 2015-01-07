@@ -44,6 +44,8 @@
 				<user name="hariharan" password="hariharan" authorities="ROLE_USER" />
 				<user name="rathika" password="rathika" authorities="ROLE_USER" />
 				<user name="nikitha" password="nikitha" authorities="ROLE_USER" />
+				<user name="gautam" password="gautam" authorities="ROLE_USER" />
+				<user name="phoutty" password="phoutty" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 	</authentication-manager>

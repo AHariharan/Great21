@@ -28,11 +28,11 @@ MarriageRummy.Utilities.PushServerSubscriber.ChatSubscriber = function()
                 var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
      		    gamelauncher.onReceiveMessage(formdata.body);	    
             });
-            stompClient.subscribe('/WebSocketGameLauncher/Player/Add/'+gameInstanceID, function(formdata){
+           /* stompClient.subscribe('/WebSocketGameLauncher/Player/Add/'+gameInstanceID, function(formdata){
                 console.log ("Websocket subscribe ** ADD Player *** received " + formdata.body); 
                 var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
      		    gamelauncher.onPlayerJoin();
-            });     
+            });    */ 
            
         });  
       
@@ -137,7 +137,12 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		{
 			 marriageRummy.generalutility.showRedAlert("Host Kicked !", "Host has kicked you from  game and we returned you to Game Lobby");
              $("#GameLauncher").css("display", "none");
-             marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);	                 
+             marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);
+             marriageRummy.notificationManager.shutdown();
+             marriageRummy.chatSubscriber.disconnect();
+             var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+     	     gamelauncher.shutdownEvents();
+             
 		}
 		if($("#GameLauncher").css("display") == "block")
 		{

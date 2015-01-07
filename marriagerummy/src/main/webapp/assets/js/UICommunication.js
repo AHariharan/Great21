@@ -274,6 +274,10 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 		var notificationdata = marriageRummy.notificationRequest.createRemovePlayerNotification("onUnJoinGameSuccess", requestObj.formdata);
 	    marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 	    marriageRummy.notificationManager.shutdown();
+	    marriageRummy.chatSubscriber.disconnect();
+	    var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+	    gamelauncher.shutdownEvents();
+	    
 	};
 	
 	self.onUnJoinGameFailure = function(data,textstatus,jhxr,requestObj)
@@ -330,6 +334,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 		var notificationdata = marriageRummy.notificationRequest.createCancelGameNotification("onDeleteGameSuccess", requestObj.formdata);
 		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 		setTimeout(marriageRummy.notificationManager.shutdown, 2000);
+		marriageRummy.chatSubscriber.disconnect();
 	};
 	
 	self.onDeleteGameFailure = function(data)
