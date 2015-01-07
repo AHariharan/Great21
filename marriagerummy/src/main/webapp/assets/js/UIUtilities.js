@@ -241,6 +241,14 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				+ '<button class="close kickPlayer"><i id="add" class="fa fa-times"></i></button>'
 				+ '<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
 				+ 'MEMBERNAME</div>';
+		if(LauncherType == "JOINMODE")
+			{
+			membertemplate = '<div class="members">'
+				+ '<img src="./assets/images/Cards/ClubCards/A.png">'
+				+'<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
+				+ 'MEMBERNAME</div>';
+			
+			}
 
 		for (var i = 0; i < data.playerlist.length; i++) {
 			var nickname = data.playerlist[i].HumanPlayer.nickName;

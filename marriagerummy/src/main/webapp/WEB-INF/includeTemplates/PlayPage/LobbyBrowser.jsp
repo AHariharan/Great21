@@ -222,8 +222,8 @@
 						var gameInstanceID = row.gameInstanceId;
 						var gameType = row.type;
 						console.log( lobbyType , gameInstanceID , gameType);
-						alert('You click join button , row: '
-								+ JSON.stringify(row));
+						/* alert('You click join button , row: '
+								+ JSON.stringify(row)); */
 						console.log(value, row, index);
 						var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
 						gameLobbyBrowser.joinGame(lobbyType,gameInstanceID,gameType);

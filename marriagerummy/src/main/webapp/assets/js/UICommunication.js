@@ -231,7 +231,12 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	};
 
 	self.onCreateGameFailure = function(data) {
-		console.log("Failed to create game " + data);
+		console.log("Failed to create game " + JSON.stringify(data));
+		if(data.status == 403)
+			{
+			   alert("You must login again access forbidden");
+			   location.reload(true);
+			}
 		
 	};
 	

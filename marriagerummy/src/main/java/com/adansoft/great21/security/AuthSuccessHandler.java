@@ -19,7 +19,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 			HttpServletResponse resp, Authentication auth) throws IOException,
 			ServletException {
 		System.out.println(auth.getPrincipal().getClass());
-		String targetURL = "/RummyPage.jsp";
+		String targetURL = "/login";
 		redirectStrategy.sendRedirect(req,resp,targetURL);
 	}
 

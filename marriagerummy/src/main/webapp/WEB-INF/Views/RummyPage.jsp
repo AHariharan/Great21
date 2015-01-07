@@ -56,6 +56,7 @@
 	$(document).ready(function() {
 		var loadpage = new MarriageRummy.Utilities.UIUtilities.onLoad();
 		loadpage.initRummyPage();
+		var loggedinUser = "${loggedinuser}";
 	});
 </script>
 </head>
@@ -63,7 +64,7 @@
 	<!--  Required Modals -->
 
 	<%@ include
-		file="./WEB-INF/includeTemplates/PlayPage/CreateGameModal.jsp"%>
+		file="../includeTemplates/PlayPage/CreateGameModal.jsp"%>
 	<!--  End of Modals -->
 	<div class="container-fluid maincontent">
 		<div class="sidebar-shrinked" style="display: none">
@@ -115,18 +116,18 @@
 			</ul>
 		</div>
 		<div class="navigation">
-			<%@ include file="./WEB-INF/includeTemplates/PlayPage/navpage.jsp"%>
+			<%@ include file="../includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
 		<div id="NotificationArea">
 			
 		</div>
 		<div class="page-content" style="padding: 50px; padding-top: 2px;">
 			<%@ include
-				file="./WEB-INF/includeTemplates/PlayPage/DashboardPage.jsp"%>
+				file="../includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include
-				file="./WEB-INF/includeTemplates/PlayPage/Profileinfo.jsp"%>
-			<%@ include file="./WEB-INF/includeTemplates/PlayPage/GameLobby.jsp"%>
-			<%@ include file="./WEB-INF/includeTemplates/PlayPage/GameArena.jsp"%>
+				file="../includeTemplates/PlayPage/Profileinfo.jsp"%>
+			<%@ include file="../includeTemplates/PlayPage/GameLobby.jsp"%>
+			<%@ include file="../includeTemplates/PlayPage/GameArena.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->

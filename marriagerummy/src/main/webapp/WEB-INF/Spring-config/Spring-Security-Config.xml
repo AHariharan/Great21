@@ -13,13 +13,21 @@
 	<!-- <http pattern="/WebSocketChatMessages/**" security="none" /> -->
 
 	<http>
+		<headers>
+			<cache-control />
+			<content-type-options />
+			<hsts />
+			<frame-options />
+			<xss-protection />
+		</headers>
 		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
-		<intercept-url pattern="/RummyPage.jsp" access="ROLE_USER" />
+		<intercept-url pattern="/login" access="ROLE_USER" />
+		<intercept-url pattern="/IndexerServices/" access="ROLE_USER"/>
 		<session-management>
 			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" />
 		</session-management>
-		<form-login default-target-url="/RummyPage.jsp"
+		<form-login default-target-url="/login"
 			authentication-success-handler-ref="authsuccesshandler" />
 		<logout />
 		<csrf />
@@ -46,7 +54,7 @@
 		class="com.adansoft.great21.security.AuthSuccessHandler" />
 
 
-	
+
 
 
 </beans:beans>
