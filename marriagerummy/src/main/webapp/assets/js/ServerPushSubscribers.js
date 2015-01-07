@@ -158,7 +158,16 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 			   {
 			             marriageRummy.generalutility.showRedAlert("Game Cancelled !", "Host has cancelled the game and we returned you to Game Lobby");
 			             $("#GameLauncher").css("display", "none");
-    	                 marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);	                 
+    	                 marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);
+    	                 try
+    	                 {
+    	                 marriageRummy.notificationManager.shutdown();
+    	                 marriageRummy.chatSubscriber.disconnect();
+    	                 gamelauncher.shutdownEvents();
+    	                 }catch(e)
+    	                 {
+    	                	 console.log("Cancel Game : " + e);
+    	                 }
 			   }
 	};
 };

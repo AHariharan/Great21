@@ -24,6 +24,15 @@ MarriageRummy.Utilities.RummyUtilities.GameBrowserUtilities = function() {
 
 MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		createGameResponse, playerpos, LauncherType) {
+	
+	var unblindallEvents = function()
+	{
+		$(".sendText textarea").unbind();
+		$("#CancelGame").unbind();
+		
+	};
+	
+	unblindallEvents();
 	var self = this;
 	var stateobject = createGameResponse;
 	stateobject.playerpos = playerpos;
@@ -109,6 +118,11 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			$("#LaunchGame").css("display", "none");
 
 		}
+		else
+			{
+			$("#LaunchGame").css("display", "block");
+			$("#CancelGame").text("Cancel Game");
+			}
 		
 		
 		$("#CancelGame")

@@ -335,6 +335,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 		setTimeout(marriageRummy.notificationManager.shutdown, 2000);
 		marriageRummy.chatSubscriber.disconnect();
+		var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+		gamelauncher.shutdownEvents();
+		delete gamelauncher;
 	};
 	
 	self.onDeleteGameFailure = function(data)
