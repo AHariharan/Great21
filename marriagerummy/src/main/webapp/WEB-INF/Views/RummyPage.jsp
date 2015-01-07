@@ -28,7 +28,7 @@
 <link
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">
-
+<link href="./assets/ThirdPartyLibs/Toastr/toastr.min.css" rel="stylesheet">
 
 <meta name="description" content="">
 <!-- <script src="./assets/ThirdPartyLibs/AngularJS/angular.min.js" type="text/javascript"></script> -->
@@ -45,6 +45,7 @@
 	src="assets/ThirdPartyLibs/SockJS/sockjs-0.3.4.js"></script>
 <script type="text/javascript"
 	src="assets/ThirdPartyLibs/SockJS/stomp.js"></script>
+<script type="text/javascript"	src="assets/ThirdPartyLibs/Toastr/toastr.min.js"></script>
 
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
 <script type="text/javascript" src="assets/js/UICommunication.js"></script>
@@ -85,12 +86,7 @@
 			</ul>
 		</div>
 		<div class="sidebar">
-			<button class="btn btn-success"
-				onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send
-				Add Player</button>
-			<button class="btn btn-success"
-				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
-				Message</button>
+			
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
@@ -119,8 +115,13 @@
 		<div class="navigation">
 			<%@ include file="../includeTemplates/PlayPage/navpage.jsp"%>
 		</div>
-		<div id="NotificationArea">
-			
+		<div id="NotificationArea" style="display:none">
+			<button class="btn btn-success"
+				onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send
+				Add Player</button>
+			<button class="btn btn-success"
+				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
+				Message</button>
 		</div>
 		<div class="page-content" style="padding: 50px; padding-top: 2px;">
 			<%@ include

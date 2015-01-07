@@ -263,16 +263,42 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 
 MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 {
+	var init = function()
+	{
+		toastr.options.closeButton = true;
+		toastr.options.preventDuplicates = true;
+		/*toastr.options.timeOut = 40;
+		toastr.options.extendedTimeOut = 60;*/
+		toastr.options.progressBar = true; 
+		toastr.options.positionClass = "toast-bottom-right";
+	}
+	
+	init();
+	
 	var self = this;
 	var htmlTemplate = '<div id="generalnotifications" class="alert  alert-danger alert-dismissible" role="alert" style="display:block">' +
                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
                        '<strong id="messageshort" style="padding-left:30px;">MESSAGE</strong><span id="messagedesc" style="padding-left:30px;">DESCRIPTION</span></div>';
 
 	
-	self.showRedAlert = function(message,description)
+	/*self.showRedAlert = function(message,description)
 	{
 		var alert = htmlTemplate.replace("MESSAGE",message).replace("DESCRIPTION", description);
 		$('#NotificationArea').append(alert);
+	};*/
+	
+	self.showRedAlert = function(heading,message)
+	{
+		toastr.error(heading,message);
+	};
+	
+	self.showMediumAlert = function(heading,message)
+	{
+		toastr.warning(heading,message);
+	};
+	self.showSuccessAlert = function(heading,message)
+	{
+		toastr.Success(heading,message);
 	};
 
 };
