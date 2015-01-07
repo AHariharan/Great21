@@ -95,6 +95,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleAddPlayer(jsonobj);
 		 if(type == "CANCELGAME")
 			 callback.handleCancelGame(jsonobj);
+		 if(type == "REMOVEPLAYER")
+			 callback.handleRemovePlayer(jsonobj);
 		
 	 }; 
 	 
@@ -118,6 +120,14 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 	{
 		   var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
 		   gamelauncher.onPlayerJoin();
+	};
+	self.handleRemovePlayer = function(data)
+	{
+		if($("#GameLauncher").css("display") == "block")
+			{
+		        var gamelauncher =  jQuery.data( $("#GameLauncher")[0], "LauncherObj");
+		        gamelauncher.onPlayerJoin();
+			}    
 	};
 	self.handleCancelGame = function(data)
 	{
@@ -151,6 +161,17 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
      {
     	 var formdata = {
     			 notificationType : "CANCELGAME",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	 };
+    	 return formdata;
+     };
+     
+     self.createRemovePlayerNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "REMOVEPLAYER",
     			 notificationSource : source,
     			 notificationObject : object,
     			 notifiedBy : "Auto"

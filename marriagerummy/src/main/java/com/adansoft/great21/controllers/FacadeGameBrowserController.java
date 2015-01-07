@@ -145,8 +145,9 @@ public class FacadeGameBrowserController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.REMOVE_PLAYER, method = RequestMethod.POST)
-	public @ResponseBody String removePlayerFromGame(@RequestBody RemovePlayerRequest request)
+	public @ResponseBody String removePlayerFromGame(@RequestBody RemovePlayerRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
+	    request.setNickname(authentication.getName());
 		String result = null;
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"

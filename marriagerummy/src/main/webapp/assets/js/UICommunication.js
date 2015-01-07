@@ -38,6 +38,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	var self = this;
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
+	self.unjoinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Remove";
 	self.deleteGame = "/marriagerummy/IndexerServices/GameBrowser/removeGame";
 	self.getPlayersinGame ="/marriagerummy/IndexerServices/GameLauncher/Game/GetPlayers";
 	self.addChatMessage ="/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Add";
@@ -132,6 +133,17 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		};
 		return formdata;
 	};
+	
+	self.getUnjoinGameRequest = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType
+			};
+		return formdata;
+	};
 
 };
 
@@ -220,6 +232,24 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 
 	self.onCreateGameFailure = function(data) {
 		console.log("Failed to create game " + data);
+		
+	};
+	
+	self.onUnJoinGameSuccess = function(data,textstatus,jhxr,requestObj)
+	{
+		
+		$("#GameLauncher").css("display", "none");	  
+		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);
+		var notificationdata = marriageRummy.notificationRequest.createRemovePlayerNotification("onUnJoinGameSuccess", requestObj.formdata);
+	    marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+	    marriageRummy.notificationManager.disconnect();
+	};
+	
+	self.onUnJoinGameFailure = function(data,textstatus,jhxr,requestObj)
+	{
+		console.log("Failed to unjoin game" + requestObj);		
+		$("#GameLauncher").css("display", "none");	  
+		marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);		
 	};
 	
 	self.onJoinGameSuccess = function(data,textstatus,jhxr,requestObj)
@@ -252,7 +282,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function()
 	    marriageRummy.chatSubscriber.connect(joinGameResponse.gameInstanceId);
 	    marriageRummy.notificationManager = new MarriageRummy.Utilities.PushServerSubscriber.NotificationManager(joinGameResponse.gameInstanceId);
 	    var notificationdata = marriageRummy.notificationRequest.createAddPlayerNotification("onJoinGameSuccess", requestObj.formdata);
-	    setTimeout(marriageRummy.notificationManager.sendNotificationEvent, 2000,notificationdata);
+	    setTimeout(marriageRummy.notificationManager.sendNotificationEvent, 3000,notificationdata);
 		console.log(data);
 		
 	};
