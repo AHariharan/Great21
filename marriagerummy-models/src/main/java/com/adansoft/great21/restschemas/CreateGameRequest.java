@@ -22,6 +22,7 @@ public class CreateGameRequest implements Serializable{
 	private int maxPoints;
 	private int perCardAmount;
 	private int maxRounds;
+	private int buyinValue;
 	
 	public CreateGameRequest()
 	{
@@ -37,7 +38,7 @@ public class CreateGameRequest implements Serializable{
 			String gameDescription, int maxPlayers, boolean isFriendsOnly,
 			boolean isbyInviteOnly, String gameMode, String createdBy,
 			boolean isGamePointsBased, boolean isGamePerCardBase,
-			int maxPoints, int perCardAmount, int maxRounds) {
+			int maxPoints, int perCardAmount, int maxRounds,int buyinValue) {
 		super();
 		this.lobbyType = lobbyType;
 		this.gameType = gameType;
@@ -52,6 +53,7 @@ public class CreateGameRequest implements Serializable{
 		this.maxPoints = maxPoints;
 		this.perCardAmount = perCardAmount;
 		this.maxRounds = maxRounds;
+		this.buyinValue = buyinValue;
 	}
 
 
@@ -193,6 +195,20 @@ public class CreateGameRequest implements Serializable{
 
 	public void setMaxRounds(int maxRounds) {
 		this.maxRounds = maxRounds;
+	}
+
+
+
+
+
+
+	public int getBuyinValue() {
+		return buyinValue;
+	}
+
+
+	public void setBuyinValue(int buyinValue) {
+		this.buyinValue = buyinValue;
 	}
 	
 	

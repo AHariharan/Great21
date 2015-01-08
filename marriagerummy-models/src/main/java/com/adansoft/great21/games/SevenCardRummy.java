@@ -41,6 +41,7 @@ public class SevenCardRummy implements Game,Serializable {
 	private String gameName;
 	private String status;
 	private HashMap<Integer, String> positionAvailabiltyMap;
+	private int buyinValue;
 	
 	public SevenCardRummy()
 	{
@@ -65,7 +66,7 @@ public class SevenCardRummy implements Game,Serializable {
 			String gameOwnedBy, boolean isGamePointsBased,
 			int maxpointtoEliminate, boolean isGameMoneyBased,
 			float moneyPerCard, String lobbyName, String gameType,
-			String gameName) {
+			String gameName,int buyinValue) {
 		super();
 		this.gameInstanceId = GameUtility.generateGameInstanceID();
 		this.gameroundlist = new ArrayList<GameRound>();
@@ -82,6 +83,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.lobbyName = lobbyName;
 		this.gameType = gameType;
 		this.gameName = gameName;
+		this.buyinValue = buyinValue;
 		this.status = Game.GAME_STATUS_OPEN;
 		initAvailablePosition();
 	}
@@ -349,6 +351,14 @@ public class SevenCardRummy implements Game,Serializable {
 			positionAvailabiltyMap.put(new Integer(position),Game.POSITION_AVAILABLE);
 			this.getPlayerlist().remove(HPlayer);
 		}
+	}
+
+	public int getBuyinValue() {
+		return buyinValue;
+	}
+
+	public void setBuyinValue(int buyinValue) {
+		this.buyinValue = buyinValue;
 	}
 	
 	

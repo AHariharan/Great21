@@ -58,45 +58,59 @@
 							<div class="form-group">
 								<label for="GameMode" class="col-sm-3 control-label"><span
 									class="required">*</span>Game mode</label>
-								<div class="col-sm-3">
+								<div class="col-sm-2">
 									<div class="radio">
 										<label> <input type="radio" name="optionsRadios"
-											id="optionsRadios1" value="option1" checked> Points
-											Based
+											id="optionsRadios1" value="option1" checked>
+											Points Based
 										</label>
 									</div>
 									<div class="radio">
 										<label> <input type="radio" name="optionsRadios"
-											id="optionsRadios2" value="option2" checked> Per Card
-											Based
+											id="optionsRadios2" value="option2" > Per
+											Card Based
 										</label>
 									</div>
 								</div>
-								<div class="col-sm-6 form-group">
-									<label for="MaxPoints"> <span class="required">*</span>
-										Max Points
-									</label> <label for="Buyin" style="padding-left: 57px;"> <span
-										class="required">*</span> Buy in
-									</label><label for="PerCardValue" style="padding-left: 50px;">
-										<span class="required">*</span> PerCard Value
-									</label>
-									<div class="col-md-4">
-										<select class="form-control " id="MaxPoints">
-											<option>200</option>
-											<option>250</option>
-											<option>300</option>
-											<option>350</option>
-											<option>400</option>
-											<option>500</option>
-										</select>
+								<div class="col-sm-7 ">
+									<div id="PointsBasedDiv" class="formgroup">
+										<label for="MaxPoints" class="col-md-2"> <span
+											class="required">*</span> Max Points
+										</label>
+										<div class="col-md-3">
+											<select class="form-control " id="MaxPoints">
+												<option>200</option>
+												<option>250</option>
+												<option>300</option>
+												<option>350</option>
+												<option>400</option>
+												<option>500</option>
+											</select>
+										</div>
+										<label for="Buyin" class="col-md-3"> <span
+											class="required">*</span> Buy in
+										</label>
+										<div class="col-md-4">
+											<div class="input-group">
+												<span class="input-group-addon" 
+													><i class="fa  fa-inr"></i></span> <input id="buyinvalue"
+													type="number" class="form-control"
+													aria-describedby="basic-addon1">
+											</div>
+										</div>
 									</div>
-
-									<div class="col-md-3">
-										<input id="Buyin" class="form-control" type="number">
-									</div>
-
-									<div class="col-md-5">
-										<input id="PerCardValue" class="form-control" type="number" disabled>
+									<div id="PerCardDiv" class="formgroup" style="display: none;">
+										<label for="PerCardValue" class="col-md-5"> <span
+											class="required">*</span> Per Card Value
+										</label>
+										<div class="col-md-5">
+											<div class="input-group">
+												<span class="input-group-addon" 
+													><i class="fa  fa-inr"></i></span> <input id="percardinputvalue"
+													type="number" class="form-control"
+													aria-describedby="basic-addon1">
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

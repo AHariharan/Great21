@@ -104,6 +104,9 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		if (stateobject.gamePointsBased == true)
 			$("#GameLauncherContainer .well dd#perCard").html(
 					stateobject.maxPoints);
+		$("#GameLauncherContainer .well dd#buyindisplay").html(
+				stateobject.buyinValue);
+		
 
 		$(".sendText textarea").keyup(function(e) {
 			if (e.keyCode == 13) {
@@ -120,7 +123,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		}
 		else
 			{
-			$("#LaunchGame").css("display", "block");
+			$("#LaunchGame").css("display", "inline-block");
 			$("#CancelGame").text("Cancel Game");
 			}
 		

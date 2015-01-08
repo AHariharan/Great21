@@ -79,5 +79,7 @@ public interface Game {
    /* Add Player to Game */
 	public void removePlayerFromGame(Player player);
 	
+	/* Get Buy in Value for  Points */
+	public int getBuyinValue();
 	
 }

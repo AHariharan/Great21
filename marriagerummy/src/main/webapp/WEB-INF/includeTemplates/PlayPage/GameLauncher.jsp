@@ -22,6 +22,8 @@
 							<dd id="gameMode">7 Card Closed Joker</dd>
 							<dt>Max Points / Per Card</dt>
 							<dd id="perCard">2/6</dd>
+							<dt>Buy in value</dt>
+							<dd id="buyindisplay">2/6</dd>
 						</dl>
 						<button class="btn btn-primary col-md-offset-1 col-md-2">
 							Invite Friends</button>

@@ -73,7 +73,24 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 
 	var gameType = "";
 	var gameLobby = "";
-
+	var init = function()
+	{
+		$('#optionsRadios1').on("click", function() {
+			if ($(this).prop("checked")) {
+				$('#PointsBasedDiv').css("display", "block");
+				$('#PerCardDiv').css("display", "none");
+			}
+		});
+		$('#optionsRadios2').on("click", function() {
+			if ($(this).prop("checked")) {
+				$('#PointsBasedDiv').css("display", "none");
+				$('#PerCardDiv').css("display", "block");
+			}
+		});
+	};
+	
+	init();
+	
 	$('#creategamemodal').on('show.bs.modal', function(event) {
 		var button = $(event.relatedTarget);
 		gameType = button.data('gametype');
@@ -81,6 +98,8 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
 		var modal = $(this);
 		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
+		$('#MaxPoints').val("200");$('#buyinvalue').val(10);$('#optionsRadios1').val(true);
+		$('#GameDesc').val(marriageRummy.loggedinUser.toUpperCase()+"'s Game ... ");
 
 	});
 	

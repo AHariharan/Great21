@@ -30,7 +30,7 @@ public class GameBrowserHelper {
 				 request.getCreatedBy(), request.isGamePointsBased(),
 				 request.getMaxPoints(), request.isGamePerCardBase(),
 				 request.getPerCardAmount(), request.getLobbyType(), request.getGameType(),
-				 request.getGameDescription());
+				 request.getGameDescription(),request.getBuyinValue());
 		 
 		 HumanPlayer player = new HumanPlayer(request.getCreatedBy(),0);
 		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);

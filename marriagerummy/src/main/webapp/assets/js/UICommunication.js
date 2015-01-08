@@ -53,10 +53,11 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		var maxplayers = $('#creategamemodal #MaxPlayers').val();
 		var isFriendsOnly = $('#creategamemodal #isFriendsOnly').prop("checked");
 		var isInviteOnly = $('#creategamemodal #isByInviteonly').prop("checked");
-		var gamePointsBased = $('#creategamemodal #inlineRadio1').prop("checked");
-		var gamePerCardBase = $('#creategamemodal #inlineRadio2').prop("checked");
-		var Points = $('#creategamemodal #Points').val();
-		var CardValue = $('#creategamemodal #CardVal').val();
+		var gamePointsBased = $('#creategamemodal #optionsRadios1').prop("checked");
+		var gamePerCardBase = $('#creategamemodal #optionsRadios2').prop("checked");
+		var Points = $('#creategamemodal #MaxPoints').val();
+		var BuyinValue = $('#creategamemodal #buyinvalue').val();
+		var CardValue = $('#creategamemodal #percardinputvalue').val();
 		var formdata = {
 
 			"lobbyType" : gameLobby,
@@ -70,6 +71,7 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			"gamePointsBased" : gamePointsBased,
 			"gamePerCardBase" : gamePerCardBase,
 			"maxPoints" : Points,
+			"buyinValue" : BuyinValue,
 			"perCardAmount" : CardValue,
 			"maxRounds" : -1
 		};
