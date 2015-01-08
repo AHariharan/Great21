@@ -45,75 +45,59 @@
 									</select>
 								</div>
 								<div class="checkbox col-sm-2">
-									<label> <input id="isFriendsOnly" type="checkbox"> Friends Only
+									<label> <input id="isFriendsOnly" type="checkbox">
+										Friends Only
 									</label>
 								</div>
 								<div class="checkbox col-sm-4">
-									<label> <input  id="isByInviteonly" type="checkbox"> By Invite Only.
+									<label> <input id="isByInviteonly" type="checkbox">
+										By Invite Only.
 									</label>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="GameMode" class="col-sm-3 control-label"><span
 									class="required">*</span>Game mode</label>
-								<div class="col-sm-9">
-									<!-- <div class="radio" >
-										<label> <input type="radio" name="optionsgamemode"
-											id="optionsRadios1" value="option1" checked>Points
+								<div class="col-sm-3">
+									<div class="radio">
+										<label> <input type="radio" name="optionsRadios"
+											id="optionsRadios1" value="option1" checked> Points
 											Based
-
 										</label>
-										<label for="Max Points" class="control-label">Max Points
-										<select class="form-control" id="Points">
-											<option>200</option>
-											<option>250</option>
-											<option>300</option>
-											<option>350</option>
-											<option>400</option>
-											<option>500</option>
-										</select>
-										</label> 
-
 									</div>
-									<div class="radio" >
-										<label> <input type="radio" name="optionsgamemode"
-											id="optionsRadios2" value="option2"> Per Card Mode
+									<div class="radio">
+										<label> <input type="radio" name="optionsRadios"
+											id="optionsRadios2" value="option2" checked> Per Card
+											Based
 										</label>
-										<label for="Bet per Card" class="control-label">Bet per card
-										<select class="form-control" id="Points">
-											<option>5</option>
-											<option>10</option>
-											<option>100</option>
-											<option>200</option>
-											<option>500</option>
-											<option>1000</option>
-										</select>
-										</label> 
 									</div>
-								 -->
-									<label class="radio-inline"> <input type="radio"
-										name="inlineRadioOptions" id="inlineRadio1" value="option1">
-										Points Mode , Max Points <select class="form-control"
-										id="Points">
-											<option>200</option>
-											<option>250</option>
-											<option>300</option>
-											<option>350</option>
-											<option>400</option>
-											<option>500</option>
-									</select>
-									</label> <label class="radio-inline"> <input type="radio"
-										name="inlineRadioOptions" id="inlineRadio2" value="option2">
-										Per card Mode , Per card Value <select class="form-control"
-										id="CardVal">
-											<option>5</option>
-											<option>10</option>
-											<option>100</option>
-											<option>200</option>
-											<option>500</option>
-											<option>1000</option>
-									</select>
+								</div>
+								<div class="col-sm-6 form-group">
+									<label for="MaxPoints"> <span class="required">*</span>
+										Max Points
+									</label> <label for="Buyin" style="padding-left: 57px;"> <span
+										class="required">*</span> Buy in
+									</label><label for="PerCardValue" style="padding-left: 50px;">
+										<span class="required">*</span> PerCard Value
 									</label>
+									<div class="col-md-4">
+										<select class="form-control " id="MaxPoints">
+											<option>200</option>
+											<option>250</option>
+											<option>300</option>
+											<option>350</option>
+											<option>400</option>
+											<option>500</option>
+										</select>
+									</div>
+
+									<div class="col-md-3">
+										<input id="Buyin" class="form-control" type="number">
+									</div>
+
+									<div class="col-md-5">
+										<input id="PerCardValue" class="form-control" type="number" disabled>
+									</div>
 								</div>
 							</div>
 						</form>
@@ -122,7 +106,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button id="createGameBtn" type="button" class="btn btn-primary">Create Game</button>
+				<button id="createGameBtn" type="button" class="btn btn-primary">Create
+					Game</button>
 			</div>
 		</div>
 	</div>

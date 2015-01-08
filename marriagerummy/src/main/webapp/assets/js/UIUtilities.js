@@ -14,7 +14,7 @@ MarriageRummy.Utilities.RummyUtilities.GameBrowserUtilities = function() {
 	var self = this;
 
 	self.refreshGameLobby = function(gameLobby) {
-		$("#gamebrowserBeginnerLobby #" + gameLobby + "lobbytable")
+		$("#gamebrowser"+gameLobby+"Lobby #" + gameLobby + "lobbytable")
 				.bootstrapTable('refresh', {
 					silent : true
 				});
