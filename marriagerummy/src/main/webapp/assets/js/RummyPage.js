@@ -70,6 +70,8 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
 // Class Modal Initializer
 MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
+	
+	var self=this;
 
 	var gameType = "";
 	var gameLobby = "";
@@ -92,14 +94,16 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 	init();
 	
 	$('#creategamemodal').on('show.bs.modal', function(event) {
+		$('#CreateGameErrorPanel').empty();
 		var button = $(event.relatedTarget);
 		gameType = button.data('gametype');
 		gameLobby = button.data('lobby');
 		var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
 		var modal = $(this);
 		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
-		$('#MaxPoints').val("200");$('#buyinvalue').val(10);$('#optionsRadios1').val(true);
-		$('#GameDesc').val(marriageRummy.loggedinUser.toUpperCase()+"'s Game ... ");
+		$('#MaxPoints').val("200");
+		//$('#buyinvalue').val(10);$('#optionsRadios1').val(true);
+		//$('#GameDesc').val(marriageRummy.loggedinUser.toUpperCase()+"'s Game ... ");
 
 	});
 	
@@ -107,6 +111,8 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 
 	$("#createGameBtn")
 			.click(	function() {
+				        if(!marriageRummy.validator.validateCreateGame(true))
+				        	return;
 						var formdata = marriageRummy.request.getCreateGameRequest(gameLobby,gameType);
 						var url = marriageRummy.urls.createGame;
 						var requestObj = { "gameLobby" : gameLobby };
@@ -323,6 +329,92 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 };
 
 
+MarriageRummy.Utilities.UIUtilities.Validation = function()
+{
+    var self = this;
+    
+    self.validateCreateGame = function(startmode)
+    {
+    	if(startmode)
+    	cleanupErrorPanel('#CreateGameErrorPanel');
+    	
+    	var result = true;
+    	if($('#GameDesc').val() == null || $('#GameDesc').val().trim().length  == 0 )
+    		{
+    		   addErrortoErrorPanel('#CreateGameErrorPanel',marriageRummy.ErrorMessages.createGame.GAMEDESC,'#GameDesc',1);
+    		  result = false;
+    		}
+    	else
+    		{
+    		removeErrorfromErrorPanel('#CreateGameErrorPanel','#GameDesc',1);
+    		}
+    	if($('#buyinvalue').val() == null || $('#buyinvalue').val().trim().length == 0)
+    		{
+    		  addErrortoErrorPanel('#CreateGameErrorPanel',marriageRummy.ErrorMessages.createGame.BUYINEMPTY,'#buyinvalue',2);
+  		      result = false;
+    		}
+    	else
+    		{
+    		   try
+    		   {
+    			  var amount =  parseInt($('#buyinvalue').val());
+    			  if(amount == 0)
+    				  {
+    				  addErrortoErrorPanel('#CreateGameErrorPanel',marriageRummy.ErrorMessages.createGame.BUYINGT0,'#buyinvalue',2);
+    				  result = false;
+    				  }
+    			  else
+    				  {
+    				  removeErrorfromErrorPanel('#CreateGameErrorPanel','#buyinvalue',2);
+    				  }
+    		   }catch(e)
+    		   {
+    			   result = false;
+    		   }
+    		}
+    	return result;
+    };
+    
+    var cleanupErrorPanel = function(panel)
+    {
+    	$(panel).empty();
+    };
+    
+    var addErrortoErrorPanel = function(panel,ErrorMessage,refid,level)
+    {
+    	if($('#error-'+refid.replace("#","")).length > 0)
+    		return;
+       var template = '<p id="error-'+refid.replace("#","")+'" ><a href="'+refid + '"><i class="fa fa-exclamation-triangle"></i> &nbsp;&nbsp;'+ErrorMessage+'</a></p>';
+       $(panel).append(template);
+       if(level == 1)
+  	     $(refid).parent().addClass("has-error");
+       if(level == 2)
+        	     $(refid).parent().parent().addClass("has-error");
+       $(refid).blur(function(){
+    	   self.validateCreateGame(false);
+       });     
+    };
+    
+    var removeErrorfromErrorPanel = function(panel,refid,level)
+    {
+    try{
+  
+    	$('#error-'+refid.replace("#","")+' a').css("color","green");
+    	$('#error-'+refid.replace("#","")+' a>i').removeClass("fa-exclamation-triangle");
+    	$('#error-'+refid.replace("#","")+' a>i').addClass("fa-check-circle");
+    	if(level == 1)
+     	     $(refid).parent().removeClass("has-error");
+        if(level == 2)
+             $(refid).parent().parent().removeClass("has-error");
+        $(refid).unbind();
+      }catch(e)
+      {
+    	  console.log(e);
+      } 
+      
+    };
+};
+
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
 
@@ -337,3 +429,15 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 };
 
 marriageRummy.generalutility = new MarriageRummy.Utilities.UIUtilities.GeneralUtilities();
+marriageRummy.validator = new MarriageRummy.Utilities.UIUtilities.Validation();
+
+marriageRummy.ErrorMessages = {
+	      "createGame" : {
+	    		"GAMEDESC" : "Game Description can't be empty",
+	    		"MAXPLAYERS" : "Max Players must be atleast 2",
+	    		"BUYINEMPTY" : "Buy in amount can't be empty",
+	    		"BUYINGT0" :   "Buy in amount must be greater than 0"
+	      }	
+};
+
+

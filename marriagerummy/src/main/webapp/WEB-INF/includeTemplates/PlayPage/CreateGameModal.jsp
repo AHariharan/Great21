@@ -13,6 +13,8 @@
 						create game )</small>
 				</h4>
 				<hr>
+				<div id="CreateGameErrorPanel" class="ErrorPanel">
+				</div>
 				<div class="row">
 					<div class="col-md-12">
 						<form class="form-horizontal" role="form">
