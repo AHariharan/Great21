@@ -47,7 +47,10 @@
 	src="assets/ThirdPartyLibs/SockJS/stomp.js"></script>
 <script type="text/javascript"	src="assets/ThirdPartyLibs/Toastr/toastr.min.js"></script>
 
+
 <script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
+<script type="text/javascript" src="assets/js/ErrorMessage.js"></script>
+<script type="text/javascript" src="assets/js/Validator.js"></script>
 <script type="text/javascript" src="assets/js/UICommunication.js"></script>
 <script type="text/javascript" src="assets/js/UIUtilities.js"></script>
 <script type="text/javascript" src="assets/js/ServerPushSubscribers.js"></script>
