@@ -99,13 +99,15 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		if (stateobject.gamePointsBased == true)
 			$("#GameLauncherContainer .well dd#gameMode").html("Points");
 		if (stateobject.gameMoneyBased == true)
-			$("#GameLauncherContainer .well dd#perCard").html(
+			$("#GameLauncherContainer .well dd#perCard").html('<i class="fa  fa-inr"></i>&nbsp;&nbsp;'+
 					stateobject.moneyPerCard);
 		if (stateobject.gamePointsBased == true)
-			$("#GameLauncherContainer .well dd#perCard").html(
+			$("#GameLauncherContainer .well dd#perCard").html("Points " +
 					stateobject.maxPoints);
-		$("#GameLauncherContainer .well dd#buyindisplay").html(
-				stateobject.buyinValue);
+		if(stateobject.gameMoneyBased == true)
+			$("#GameLauncherContainer .well dd#buyindisplay").html("N/A");
+		else
+    		$("#GameLauncherContainer .well dd#buyindisplay").html('<i class="fa  fa-inr"></i>&nbsp;&nbsp;'+stateobject.buyinValue);
 		
 
 		$(".sendText textarea").keyup(function(e) {

@@ -72,26 +72,28 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 	
 	var self=this;
+	var statepreserver = {};
 
 	var gameType = "";
 	var gameLobby = "";
-	var init = function()
+	var init = function(validation)
 	{
 		$('#optionsRadios1').on("click", function() {
 			if ($(this).prop("checked")) {
 				$('#PointsBasedDiv').css("display", "block");
 				$('#PerCardDiv').css("display", "none");
+				validation.updateMode("PointsMade");
 			}
 		});
 		$('#optionsRadios2').on("click", function() {
 			if ($(this).prop("checked")) {
 				$('#PointsBasedDiv').css("display", "none");
-				$('#PerCardDiv').css("display", "block");
+				$('#PerCardDiv').css("display", "block");			
+				validation.updateMode("PerCard");				
 			}
 		});
 	};
 	
-	init();
 	
 	$('#creategamemodal').on('show.bs.modal', function(event) {
 		$('#CreateGameErrorPanel').empty();
@@ -101,17 +103,21 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
 		var modal = $(this);
 		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
-		$('#MaxPoints').val("200");
-		//$('#buyinvalue').val(10);$('#optionsRadios1').val(true);
-		//$('#GameDesc').val(marriageRummy.loggedinUser.toUpperCase()+"'s Game ... ");
-
+	     var validation = new MarriageRummy.Utilities.Validation.CreateGameValidation('CreateGameErrorPanel');
+	        jQuery.data( $("#creategamemodal")[0], "validation",validation);
+		statepreserver = $("#creategamemodal .modal-body").html();
+		init(validation);
+	});
+	
+	$("#creategamemodal").on('hidden.bs.modal', function () {
+		$("#creategamemodal .modal-body").html(statepreserver);
 	});
 	
 	
 
 	$("#createGameBtn")
 			.click(	function() {
-				        var validation = new MarriageRummy.Utilities.Validation.CreateGameValidation('CreateGameErrorPanel');
+				        var validation = jQuery.data( $("#creategamemodal")[0], "validation");
 				        if(!validation.validate())
 				        	return;
 						var formdata = marriageRummy.request.getCreateGameRequest(gameLobby,gameType);

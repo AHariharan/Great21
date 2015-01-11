@@ -6,6 +6,8 @@ marriageRummy.ErrorMessages = {
 	    		"MAXPLAYERS" : "Max Players must be atleast 2",
 	    		"BUYINEMPTY" : "Buy in amount can't be empty",
 	    		"BUYINNOTANUMBER" : "Buy in value must be a number",
-	    		"BUYINGT0" :   "Buy in amount must be greater than 0"
+	    		"BUYINGT0" :   "Buy in amount must be greater than VAL",
+	    		"MAXPTSGT0" :   "Per card amount must be greater than MINVAL and less than MAXVAL",
+	    	    
 	      }	
 };

@@ -146,3 +146,8 @@ ul.nav-pills
 {
 	background: rgb(232, 232, 237);
 }
+
+.dropdown-menu
+{
+	font-size:13px;
+}
