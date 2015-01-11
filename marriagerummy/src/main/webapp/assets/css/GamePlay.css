@@ -46,7 +46,7 @@
 	border-radius: 7px;
 	color: darkblue;
 	cursor: pointer;
-	z-index:11;
+	z-index: 11;
 }
 
 .deckNextCard {
@@ -63,7 +63,7 @@
 	border-radius: 7px;
 	color: darkblue;
 	cursor: pointer;
-	z-index:11;
+	z-index: 11;
 }
 
 .centerstage {
@@ -158,130 +158,97 @@
 
 .player-cards {
 	position: relative;
-	min-width: 600px;
-	min-height: 300px;
-	/* border: 1px solid gray; */
-	left: -275px;
-	top: -778px;
-	z-index:10;
-	transform: rotate(3deg);
+	left: -620px;
+	top: -263px;
+	border: 1px solid black;
+}
+
+#cardContent {
+	margin-left: 600px;
+	margin-top: 30px;
 }
 
 .card {
-	width: 130px;
-	height: 190px;
+	width: 110px;
+	height: 160px;
 	border: 1px solid rgb(180, 175, 175);
-	position: relative;
 	cursor: pointer;
-	box-shadow: 0px 0px 0px 1px rgb(125, 131, 141) inset;
+	box-shadow: 0px 0px 14px 0px rgb(125, 131, 141);
 	border-radius: 9px;
-	
+	display: inline-block;
+	position: absolute;
 }
 
 .card:hover {
-	top: -20px;
+	/* top: -20px; */
+	border: 1px solid red;
+	/* position: absolute !important; */
 }
 
 .card1-pos {
-	transform: rotate(-50deg);
-	background: url('../images/Cards/ClubCards/3.png');
-	background-size: 130px 189px;
-	left: 208px;
-	top: 129px;
+	transform: rotate(-24deg);
+	margin-left: -5px;
 }
 
 .card2-pos {
-	transform: rotate(-38deg);
-	background: url('../images/Cards/ClubCards/4.png');
-	background-size: 130px 189px;
-	left: 226px;
-	top: -64px;
+	transform: rotate(0deg);
+	margin-left: 30px;
 }
 
 .card3-pos {
-	transform: rotate(-29deg);
-	background: url('../images/Cards/ClubCards/5.png');
-	background-size: 130px 189px;
-	left: 244px;
-	top: -260px;
+	transform: rotate(20deg);
+	margin-left: 37px;
+	margin-top: 13px;
 }
 
 .card4-pos {
-	transform: rotate(-17deg);
-	background: url('../images/Cards/ClubCards/6.png');
-	background-size: 130px 189px;
-	left: 259px;
-	top: -449px
+	transform: rotate(40deg);
+	margin-left: 54px;
+	margin-top: 30px;
 }
 
 .card5-pos {
-	transform: rotate(-6deg);
-	background: url('../images/Cards/ClubCards/7.png');
-	background-size: 130px 189px;
-	left: 277px;
-	top: -636px;
+	transform: rotate(60deg);
+	margin-left: 72px;
+	margin-top: 45px;
 }
 
 .card6-pos {
 	transform: rotate(4deg);
-	background: url('../images/Cards/ClubCards/8.png');
-	background-size: 130px 189px;
-	left: 293px;
-	top: -817px;
 }
 
 .card7-pos {
 	transform: rotate(13deg);
-	background: url('../images/Cards/ClubCards/9.png');
-	background-size: 130px 189px;
-	left: 309px;
-	top: -996px;
 }
 
 .card8-pos {
 	transform: rotate(21deg);
-	background: url('../images/Cards/ClubCards/10.png');
-	background-size: 130px 189px;
-	left: 319px;
-	top: -1174px;
 }
 
 .card9-pos {
 	transform: rotate(29deg);
-	background: url('../images/Cards/ClubCards/J.png');
-	background-size: 130px 189px;
-	left: 329px;
-	top: -1348px;
+	margin-left: -100px;
 }
 
 .card0-pos {
-	transform: rotate(-65deg);
-	background: url('../images/Cards/ClubCards/2.png');
-	background-size: 130px 189px;
-	left: 196px;
-	top: 322px;
-}
-
+	transform: rotate(-40deg);
+	 margin-left : -24px; 
+	 margin-top : -3px;
+ }
+	
 .card-1-pos {
-	transform: rotate(-79deg);
-	background: url('../images/Cards/ClubCards/A.png');
-	background-size: 130px 189px;
-	left: 183px;
-	top: 514px;
+	transform: rotate(-60deg);
+	margin-left: -34px;
+	margin-left: -24px;
+	margin-top: -3px;
 }
 
 .card10-pos {
 	transform: rotate(40deg);
-	background: url('../images/Cards/ClubCards/Q.png');
-	background-size: 130px 189px;
-	left: 335px;
-	top: -1523px;
+	margin-left: -100px;
 }
 
 .card11-pos {
 	transform: rotate(49deg);
-	background: url('../images/Cards/ClubCards/K.png');
-	background-size: 130px 189px;
-	left: 342px;
-	top: -1699px;
+	margin-left: -100px;
 }
