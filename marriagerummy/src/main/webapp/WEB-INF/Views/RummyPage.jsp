@@ -29,6 +29,7 @@
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link href="./assets/ThirdPartyLibs/Toastr/toastr.min.css" rel="stylesheet">
+<link href="./assets/ThirdPartyLibs/Animate/animate.css" rel="stylesheet">
 
 <meta name="description" content="">
 <!-- <script src="./assets/ThirdPartyLibs/AngularJS/angular.min.js" type="text/javascript"></script> -->

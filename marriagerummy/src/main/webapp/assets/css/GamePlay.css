@@ -164,8 +164,8 @@
 }
 
 #cardContent {
-	margin-left: 600px;
-	margin-top: 30px;
+	margin-left: 618px;
+	margin-top: 21px;
 }
 
 .card {
@@ -180,37 +180,46 @@
 }
 
 .card:hover {
-	/* top: -20px; */
-	border: 1px solid red;
-	/* position: absolute !important; */
+	box-shadow: 0px 0px 10px 2px green;	
 }
+
+/* .card:active
+{
+	margin-top:-20px;
+} */
 
 .card1-pos {
 	transform: rotate(-24deg);
 	margin-left: -5px;
+	z-index: 10;
 }
 
 .card2-pos {
-	transform: rotate(0deg);
-	margin-left: 30px;
+	transform: rotate(-9deg);
+	margin-left: 14px;
+	margin-top: 5px;
+	z-index: 20;
 }
 
 .card3-pos {
-	transform: rotate(20deg);
-	margin-left: 37px;
-	margin-top: 13px;
+	transform: rotate(5deg);
+	margin-left: 33px;
+	margin-top: 9px;
+	z-index: 30;
 }
 
 .card4-pos {
-	transform: rotate(40deg);
+	transform: rotate(19deg);
 	margin-left: 54px;
-	margin-top: 30px;
+	margin-top: 24px;
+	z-index: 40;
 }
 
 .card5-pos {
-	transform: rotate(60deg);
-	margin-left: 72px;
-	margin-top: 45px;
+	transform: rotate(35deg);
+	margin-left: 64px;
+	margin-top: 39px;
+	z-index: 50;
 }
 
 .card6-pos {
@@ -232,15 +241,16 @@
 
 .card0-pos {
 	transform: rotate(-40deg);
-	 margin-left : -24px; 
-	 margin-top : -3px;
- }
-	
-.card-1-pos {
-	transform: rotate(-60deg);
-	margin-left: -34px;
 	margin-left: -24px;
 	margin-top: -3px;
+	z-index: 5;
+}
+
+.card-1-pos {
+	transform: rotate(-60deg);
+	margin-left: -38px;
+	margin-top: -3px;
+	z-index: 1;
 }
 
 .card10-pos {
