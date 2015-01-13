@@ -58,16 +58,35 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 	   $('#'+prefix+"-"+startpos).addClass(dragcardvalue);
    };
    
-   $(".card").hover(function()
-		   {
-	            $(this).css("box-shadow","0px 0px 10px 2px green");
-	            $(this).attr("data-replacecard","true");
-		   },
-		   function()
-		   {
-			   $(this).css("box-shadow","");
-			   $(this).attr("data-replacecard","false");
-		   });
+  var showIndicator = function()
+  {
+	  $(".card").hover(function()
+			   {
+		            $(this).css("box-shadow","0px 0px 10px 2px green");
+		            $(this).attr("data-replacecard","true");
+		            $(this).children().filter('.cardindicator').css("display","block");
+			   },
+			   function()
+			   {
+				   $(this).css("box-shadow","");
+				   $(this).attr("data-replacecard","false");
+				   $(this).children().filter('.cardindicator').css("display","none");
+			   });  
+  };
+  
+  var removeIndicator = function()
+  {
+	  $(".card").hover(function()
+			   {
+		            $(this).css("box-shadow","0px 0px 10px 2px green");
+		            $(this).children().filter('.cardindicator').css("display","none");
+			   },
+			   function()
+			   {
+				   $(this).css("box-shadow","");
+				   $(this).children().filter('.cardindicator').css("display","none");
+			   });  
+  };
    
    $(".card").draggable(
 		   {
@@ -79,11 +98,12 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 				   curtop=ui.position.top;
 				   curleft=ui.position.left;
 				   $(".card").attr("data-replacecard","false");
+				   showIndicator();
 			   },
 			  /* opacity: 0.565,*/
 			   stop: function(event,ui)
 			   {
-				   
+				   removeIndicator();
 				   if( $(".card[data-replacecard=true").length > 0 )
 					   {
 					     var id = $(".card[data-replacecard=true").attr("id");

@@ -14,23 +14,51 @@
 				</div>
 				<i class=" fa fa-user"></i>
 				<div id="cards" class="player-cards">
-				    <div id="cardintercept">
-				       <div id="intercept1" class="card-intercept" style="min-width:27px"></div>
-				       <div id="intercept2" class="card-intercept" style="min-width:32px"></div>
-				       <div id="intercept3" class="card-intercept" style="min-width:36px"></div>
-				       <div id="intercept4" class="card-intercept" style="min-width:36px"></div>
-				       <div id="intercept5" class="card-intercept" style="min-width:36px"></div>
-				       <div id="intercept6" class="card-intercept" style="min-width:42px"></div>
-				       <div id="intercept7" class="card-intercept" style="min-width:116px"></div>
-			        </div>
+					<div id="cardintercept">
+						<div id="intercept1" class="card-intercept"
+							style="min-width: 27px"></div>
+						<div id="intercept2" class="card-intercept"
+							style="min-width: 32px"></div>
+						<div id="intercept3" class="card-intercept"
+							style="min-width: 36px"></div>
+						<div id="intercept4" class="card-intercept"
+							style="min-width: 36px"></div>
+						<div id="intercept5" class="card-intercept"
+							style="min-width: 36px"></div>
+						<div id="intercept6" class="card-intercept"
+							style="min-width: 42px"></div>
+						<div id="intercept7" class="card-intercept"
+							style="min-width: 116px"></div>
+					</div>
 					<div id="cardContent">
-						<div id="Sevencard-1" data-replacecard="false" class="card Sevencard-1-pos"></div>
-						<div id="Sevencard-2" data-replacecard="false" class="card Sevencard-2-pos"></div>
-						<div id="Sevencard-3" data-replacecard="false" class="card Sevencard-3-pos"></div>
-						<div id="Sevencard-4" data-replacecard="false" class="card Sevencard-4-pos"></div>
-						<div id="Sevencard-5" data-replacecard="false" class="card Sevencard-5-pos"></div>
-						<div id="Sevencard-6" data-replacecard="false" class="card Sevencard-6-pos"></div>
-						<div id="Sevencard-7" data-replacecard="false" class="card Sevencard-7-pos"></div>
+						<div id="Sevencard-1" data-replacecard="false"
+							class="card Sevencard-1-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-2" data-replacecard="false"
+							class="card Sevencard-2-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-3" data-replacecard="false"
+							class="card Sevencard-3-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-4" data-replacecard="false"
+							class="card Sevencard-4-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-5" data-replacecard="false"
+							class="card Sevencard-5-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-6" data-replacecard="false"
+							class="card Sevencard-6-pos">
+							<div class="cardindicator"></div>
+						</div>
+						<div id="Sevencard-7" data-replacecard="false"
+							class="card Sevencard-7-pos">
+							<div class="cardindicator"></div>
+						</div>
 					</div>
 
 					<!-- <div id="card-1" class="card card-1-pos"></div>
