@@ -157,15 +157,18 @@
 }
 
 .player-cards {
-	position: relative;
-	left: -620px;
-	top: -263px;
-	border: 1px solid black;
+	position: absolute;
+	left: -310px;
+	top: -220px;
+	/* border: 1px solid black; */
+	/* 	overflow: auto; */
+	min-width: 585px;
+	padding: 40px;
 }
 
 #cardContent {
-	margin-left: 618px;
-	margin-top: 21px;
+	/* overflow: auto; */
+	padding: 32px;
 }
 
 .card {
@@ -175,19 +178,18 @@
 	cursor: pointer;
 	box-shadow: 0px 0px 14px 0px rgb(125, 131, 141);
 	border-radius: 9px;
-	display: inline-block;
-	position: absolute;
+	display: block;
+	position: relative;
 }
 
-.card:hover {
-	box-shadow: 0px 0px 10px 2px green;	
+/* .card:hover {
+	box-shadow: 0px 0px 10px 2px green;
 }
-
+ */
 /* .card:active
 {
 	margin-top:-20px;
 } */
-
 .card1-pos {
 	transform: rotate(-24deg);
 	margin-left: -5px;
@@ -262,3 +264,79 @@
 	transform: rotate(49deg);
 	margin-left: -100px;
 }
+
+.Sevencard-1-pos {
+	transform: rotate(-49deg);
+	margin-left: -38px;
+	margin-top: -3px;
+	z-index: 1;
+	left: 230px;
+	top: 5px;
+}
+
+.Sevencard-2-pos {
+	transform: rotate(-35deg);
+	margin-left: -24px;
+	margin-top: -3px;
+	z-index: 5;
+	top: -158px;
+	left: 232px;
+}
+
+.Sevencard-3-pos {
+	transform: rotate(-23deg);
+	margin-left: -24px;
+	margin-top: -3px;
+	z-index: 5;
+	top: -320px;
+	left: 251px;
+}
+
+.Sevencard-4-pos {
+	transform: rotate(-9deg);
+	margin-left: 14px;
+	margin-top: 5px;
+	z-index: 20;
+	top: -480px;
+	left: 235px;
+}
+
+.Sevencard-5-pos {
+	transform: rotate(5deg);
+	margin-left: 33px;
+	margin-top: 9px;
+	z-index: 30;
+	top: -640px;
+	left: 233px;
+}
+
+.Sevencard-6-pos {
+	transform: rotate(19deg);
+	margin-left: 54px;
+	margin-top: 24px;
+	z-index: 40;
+	top: -811px;
+	left: 230px
+}
+
+.Sevencard-7-pos {
+	transform: rotate(35deg);
+	margin-left: 64px;
+	margin-top: 39px;
+	z-index: 50;
+	top: -991px;
+	left: 232px
+}
+
+#cardintercept {
+	border: 1px solid rgb(15, 67, 113);
+	margin-left: 178px;
+	overflow: auto;
+}
+
+.card-intercept {
+	border: 1px solid purple;
+	float:left;
+	min-height: 27px;
+}
+

@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "flower":"Club",
+        "displayValue":"A"
+    },
+    {
+        "id": 2,
+        "flower":"Club",
+        "displayValue":"K"
+    },
+    {
+        "id": 3,
+        "flower":"Club",
+        "displayValue":"Q"
+    },
+    {
+        "id": 4,
+        "flower":"Heart",
+        "displayValue":"4"
+    },
+    {
+        "id": 5,
+        "flower":"Club",
+        "displayValue":"6"
+    },
+    {
+        "id": 6,
+        "flower":"Spade",
+        "displayValue":"9"
+    },
+    {
+        "id": 7,
+        "flower":"Spade",
+        "displayValue":"7"
+    }
+]
