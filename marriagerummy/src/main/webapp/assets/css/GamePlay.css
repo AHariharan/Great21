@@ -352,7 +352,7 @@
 }
 
 .GameTools {
-	position: relative;
+	position: absolute;
 	/* display: inline-flex; */
 	width: 480px;
 	z-index: 99999;
@@ -360,21 +360,23 @@
 	background: rgb(23, 22, 22);
 	box-shadow: 0px 0px 10px 3px gray;
 	float: right;
-	top: 545px;
-	left: 33px;
+	top: 700px;
+	left: -33px;
 	border-radius: 10px;
 	padding-left: 10px;
+	cursor:move;
 }
+
+.GameTools-mini
+{
+	min-height: 50px;
+}
+
 
 .tool {
 	min-width: 30px;
 	display: inline-block;
-	/* border: 1px solid; */
 	height: 30px;
-	/* border-radius: 4px; */
-	/* display: inline-block; */
-	/* margin-left: 16px; */
-	/* padding: 5px; */
 	cursor: pointer;
 	color: gray;
 	margin-top: 10px;
@@ -384,6 +386,11 @@
 	color: rgb(3, 106, 172);
 	/* border:1px solid;
 	border-radius:5px; */
+}
+
+.tool-mini button>i
+{
+	font-size:20px !important;
 }
 
 .chattool {

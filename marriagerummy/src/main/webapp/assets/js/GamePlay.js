@@ -108,6 +108,28 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 				   $(this).children().filter('.cardindicator').css("display","none");
 			   });  
   };
+  
+  var switchtoolMode = function(mode)
+  {
+	  if(mode == "COMPRESS")
+		  {
+		     $('#gametoolminimized').css("display","block");
+		     $('#gametool').css("display:none");
+		  }
+	  else
+		  {
+		     $('#gametoolminimized').css("display","none");
+		     $('#gametool').css("display","block");
+		  }
+  };       
+  
+  $('.GameTools').draggable();
+  $('#changetoolcompress').on("click",function(){
+	  switchtoolMode("COMPRESS");
+  });
+  $('#changetoolexpand').on("click",function(){
+	  switchtoolMode("EXPAND");
+  });
    
    $(".card").draggable(
 		   {
