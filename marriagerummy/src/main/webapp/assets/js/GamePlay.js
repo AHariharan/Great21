@@ -37,10 +37,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 	            console.log("drop activated");
 		   });*/
    
-   var switchCard = function(prefix,startpos,numofrec,dragcardvalue)
+   var switchCardAfter = function(prefix,startpos,endpos,dragcardvalue)
    {
 	   var arr = new Array();
-	   for(var i = startpos ;i<numofrec;i++)
+	   for(var i = startpos ;i<endpos;i++)
 		   {
 		      var cardvalue = $('#'+prefix+"-"+i).attr("data-cardvalue");
 		      arr.push(cardvalue);
@@ -56,6 +56,27 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 	   $('#'+prefix+"-"+startpos).removeClass(replacecardexisting);
 	   $('#'+prefix+"-"+startpos).attr("data-cardvalue",dragcardvalue);
 	   $('#'+prefix+"-"+startpos).addClass(dragcardvalue);
+   };
+   
+   var switchCardBefore = function(prefix,startpos,endpos,dragcardvalue)
+   {
+	   var arr = new Array();
+	   for(var i = endpos+1 ;i<startpos;i++)
+		   {
+		      var cardvalue = $('#'+prefix+"-"+i).attr("data-cardvalue");
+		      arr.push(cardvalue);
+		   }
+	   for(var i=0,j=endpos;i<arr.length;i++,j++)
+		   {
+		      var existingValue = $('#'+prefix+"-"+j).attr("data-cardvalue");
+		      $('#'+prefix+"-"+j).removeClass(existingValue);
+		      $('#'+prefix+"-"+j).attr("data-cardvalue",arr[i]);
+		      $('#'+prefix+"-"+j).addClass(arr[i]);		      
+		   }
+	   var replacecardexisting = $('#'+prefix+"-"+(startpos-1)).attr("data-cardvalue");
+	   $('#'+prefix+"-"+(startpos-1)).removeClass(replacecardexisting);
+	   $('#'+prefix+"-"+(startpos-1)).attr("data-cardvalue",dragcardvalue);
+	   $('#'+prefix+"-"+(startpos-1)).addClass(dragcardvalue);
    };
    
   var showIndicator = function()
@@ -109,9 +130,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 					     var id = $(".card[data-replacecard=true").attr("id");
 					     var prefix = id.split("-")[0];
 					     var startpos = parseInt(id.split("-")[1]);
-					     var numofrec = parseInt($(this).attr("id").split("-")[1]);
+					     var endpos = parseInt($(this).attr("id").split("-")[1]);
 					     var dragcardvalue = $(this).attr("data-cardvalue");					   
-					     switchCard(prefix,startpos,numofrec,dragcardvalue);
+					     if(startpos < endpos)
+					         switchCardAfter(prefix,startpos,endpos,dragcardvalue);
+					     else
+					    	 switchCardBefore(prefix,startpos,endpos,dragcardvalue);
+					     
 					       $(this).css("transform","");
 						   $(this).css("left","");
 						   $(this).css("top","");
