@@ -83,13 +83,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
   {
 	  $(".card").hover(function()
 			   {
-		            $(this).css("box-shadow","0px 0px 10px 2px green");
+		          //  $(this).css("box-shadow","0px 0px 10px 2px green");
 		            $(this).attr("data-replacecard","true");
 		            $(this).children().filter('.cardindicator').css("display","block");
 			   },
 			   function()
 			   {
-				   $(this).css("box-shadow","");
+				  // $(this).css("box-shadow","");
 				   $(this).attr("data-replacecard","false");
 				   $(this).children().filter('.cardindicator').css("display","none");
 			   });  
