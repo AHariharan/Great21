@@ -111,10 +111,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
    
    $(".card").draggable(
 		   {
+			   opacity:0.88,
 			   start: function(event,ui)
 			   {
 				   $(this).css("transform","rotate(0deg)");
-				  $(this).css("z-index","-10");
+				    $(this).css("z-index","-10");
 				   console.log("Start Position",ui.position);
 				   curtop=ui.position.top;
 				   curleft=ui.position.left;
@@ -125,9 +126,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 			   stop: function(event,ui)
 			   {
 				   removeIndicator();
-				   if( $(".card[data-replacecard=true").length > 0 )
+				   if( $(".card[data-replacecard=true]").length > 0 )
 					   {
-					     var id = $(".card[data-replacecard=true").attr("id");
+					     var id = $(".card[data-replacecard=true]").attr("id");
 					     var prefix = id.split("-")[0];
 					     var startpos = parseInt(id.split("-")[1]);
 					     var endpos = parseInt($(this).attr("id").split("-")[1]);
@@ -143,7 +144,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 						   $(this).css("z-index","");
 					     return;
 					   }
-				   console.log("Selected replace card " , $(".card[data-replacecard=true").attr("id"));
+				   console.log("Selected replace card " , $(".card[data-replacecard=true]").attr("id"));
 				   console.log("Stop Position" , ui.position);
 				   $(this).css("transform","");
 				   $(this).css("left","");

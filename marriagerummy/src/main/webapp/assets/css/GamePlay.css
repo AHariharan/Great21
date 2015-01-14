@@ -350,3 +350,55 @@
 	margin-top: -16px;
 	display: none;
 }
+
+.GameTools {
+	position: relative;
+	/* display: inline-flex; */
+	width: 480px;
+	z-index: 99999;
+	min-height: 100px;
+	background: white;
+	box-shadow: 0px 0px 10px 3px gray;
+	float: right;
+	top: 545px;
+	left: 33px;
+	border-radius: 10px;
+	padding-left: 10px;
+}
+
+
+.tool {
+	min-width: 30px;
+	display: inline-block;
+	/* border: 1px solid; */
+	height: 30px;
+	/* border-radius: 4px; */
+	/* display: inline-block; */
+	/* margin-left: 16px; */
+	/* padding: 5px; */
+	cursor: pointer;
+	color: gray;
+	margin-top: 10px;
+}
+
+.tool:hover {
+	color: rgb(3, 106, 172);
+	/* border:1px solid;
+	border-radius:5px; */
+}
+
+.chattool {
+	background: url('../images/icons/24x24/chaticon.png');
+}
+
+.btn-tool {
+	color: #fff;
+	background-color: #036AAC;
+	border-color: #FDF2F2;
+}
+
+.btn-tool:hover {
+	color: #fff;
+	background-color: #2C397E;
+	border-color: #FDF2F2;
+}

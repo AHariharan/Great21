@@ -8,28 +8,79 @@
 			<div id="centerstage" class="centerstage"></div>
 			<div id="DeckNextCard" class="deckNextCard"></div>
 			<div id="OpenCard" class="opencard"></div>
+			<div class="GameTools">
+				<div class="tool">
+					<div class="dropup">
+						<button class="btn btn-tool dropdown-toggle" type="button"
+							id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+							<i class="fa fa-comments-o"></i>&nbsp;Chat
+						</button>
+						<ul class="dropdown-menu" role="menu"
+							aria-labelledby="dropdownMenu1">
+							<li role="presentation">
+								<div class="panel-body">
+									<div class="chatWindow">
+										<!-- Contents of Chat Goes here -->
+									</div>
+									<div class="sendText">
+										<textarea class="form-control" rows="3"
+											placeholder="Type Messages here ...." autofocus="autofocus"></textarea>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-sort-amount-asc"></i>&nbsp; Sort  Cards
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-trophy"></i>&nbsp; Declare
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-times-circle"></i>&nbsp; Drop Game
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-compress"></i>
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-umbrella"></i>&nbsp; Show Joker
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-table"></i>&nbsp; Points Table
+					</button>
+				</div>
+				<div class="tool">
+					<button class="btn btn-tool dropdown-toggle" type="button"
+						id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+						<i class="fa fa-inr"></i>&nbsp; Cash Balance
+					</button>
+				</div>
+			</div>
 			<div id="player1" class="player player1-position">
 				<div class="indicator">
 					<p>you</p>
 				</div>
 				<i class=" fa fa-user"></i>
 				<div id="cards" class="player-cards">
-					<div id="cardintercept">
-						<div id="intercept1" class="card-intercept"
-							style="min-width: 27px"></div>
-						<div id="intercept2" class="card-intercept"
-							style="min-width: 32px"></div>
-						<div id="intercept3" class="card-intercept"
-							style="min-width: 36px"></div>
-						<div id="intercept4" class="card-intercept"
-							style="min-width: 36px"></div>
-						<div id="intercept5" class="card-intercept"
-							style="min-width: 36px"></div>
-						<div id="intercept6" class="card-intercept"
-							style="min-width: 42px"></div>
-						<div id="intercept7" class="card-intercept"
-							style="min-width: 116px"></div>
-					</div>
+
 					<div id="cardContent">
 						<div id="Sevencard-1" data-replacecard="false"
 							class="card Sevencard-1-pos">
