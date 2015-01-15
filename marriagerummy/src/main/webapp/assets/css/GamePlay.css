@@ -435,3 +435,31 @@
 	background-color: #E2E2E2;
 	border-color: #FDF2F2;
 }
+
+.cardpickuparea {
+	border: 3px dashed rgb(155, 208, 170);
+	width: 157px;
+	height: 193px;
+	color: rgb(169, 208, 181);
+	font-size: 25px;
+	border-radius: 10px;
+	position: relative;
+	top: -218px;
+	left: 279px;
+	padding: 22px;
+	text-align: center;
+}
+
+.dropcardarea {
+	border: 3px dashed rgb(221, 151, 151);
+	width: 157px;
+	height: 193px;
+	color: rgb(223, 135, 135);
+	font-size: 25px;
+	border-radius: 10px;
+	position: relative;
+	top: -400px;
+	left: -377px;
+	padding: 22px;
+	text-align: center;
+}
