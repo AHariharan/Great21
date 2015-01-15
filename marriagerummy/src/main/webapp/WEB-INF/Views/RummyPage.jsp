@@ -64,6 +64,9 @@
 		marriageRummy = marriageRummy || {};
 		marriageRummy.loggedinUser = "${loggedinuser}";
 	});
+	$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+	});
 </script>
 </head>
 <body style="padding-top: 83px;">

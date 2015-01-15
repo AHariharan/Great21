@@ -109,26 +109,55 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 			   });  
   };
   
+  var dropgame = function()
+  {
+	  $('#cardContent').children().each(function()
+			  {
+		           $(this).css("background","url('assets/images/Cards/BackShades/bg-red.png')");
+		           $(this).css("background-size","110px 160px");
+		           $(this).css("margin-left","0px");
+		           $(this).css("margin-top","0px");
+		           $(this).addClass("animated tada");
+		          
+			  });
+	  
+  };
+  
   var switchtoolMode = function(mode)
   {
 	  if(mode == "COMPRESS")
 		  {
 		     $('#gametoolminimized').css("display","block");
-		     $('#gametool').css("display:none");
+		     var top = $('#gametool').css("top");
+		     var left = $('#gametool').css("left");
+		     $('#gametool').css("display","none");
+		     $('#gametoolminimized').css("top",top);
+		     $('#gametoolminimized').css("left",left);
 		  }
 	  else
 		  {
+		    $('#gametool').css("display","block");
+		    var top = $('#gametoolminimized').css("top");
+		    var left = $('#gametoolminimized').css("left");
 		     $('#gametoolminimized').css("display","none");
-		     $('#gametool').css("display","block");
+		     $('#gametool').css("top",top);
+		     $('#gametool').css("left",left);
 		  }
   };       
   
   $('.GameTools').draggable();
+  $('.GameTools').css("top",$('#player1').position().top+"px");
   $('#changetoolcompress').on("click",function(){
 	  switchtoolMode("COMPRESS");
   });
   $('#changetoolexpand').on("click",function(){
 	  switchtoolMode("EXPAND");
+  });
+  $('#dropgame').on("click",function(){
+	  dropgame();
+  });
+  $('#dropgamemini').on("click",function(){
+	  dropgame();
   });
    
    $(".card").draggable(
