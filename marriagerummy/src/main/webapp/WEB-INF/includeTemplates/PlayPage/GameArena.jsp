@@ -15,7 +15,7 @@
 				</div>
 				<i class=" fa fa-user"></i>
 				<div id="cards" class="player-cards">
-
+                    <div class="pointDisplayer">-20</div>
 					<div id="cardContent">
 						<div id="Sevencard-1" data-replacecard="false"
 							class="card Sevencard-1-pos">

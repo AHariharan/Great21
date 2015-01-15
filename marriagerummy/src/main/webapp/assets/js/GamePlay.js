@@ -120,6 +120,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function()
 		           $(this).addClass("animated tada");
 		          
 			  });
+	  $(".pointDisplayer").css("display","block");
+      $(".pointDisplayer").addClass("animated rollIn");
 	  
   };
   
