@@ -99,6 +99,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleRemovePlayer(jsonobj);
 		 if(type == "KICKPLAYER")
 			 callback.handleKickPlayer(jsonobj);
+		 if(type == "LAUNCHGAME")
+			 callback.handleLaunchGame(jsonobj)
 		
 	 }; 
 	 
@@ -154,7 +156,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 	
 	self.handleLaunchGame = function(data)
 	{
-		
+		var gameObject = jQuery.data( $("#GameArena")[0], "GameObj");
+		gameObject.getCards();
 	};
 	
 	self.handleCancelGame = function(data)
@@ -219,6 +222,17 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
      {
     	 var formdata = {
     			 notificationType : "KICKPLAYER",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	 };
+    	 return formdata;
+     };
+     
+     self.launchGameNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "LAUNCHGAME",
     			 notificationSource : source,
     			 notificationObject : object,
     			 notifiedBy : "Auto"

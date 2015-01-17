@@ -8,7 +8,17 @@
 	id="rest" version="3.0">
 
 	<display-name>GameIndexers Restful services</display-name>
-	
+
+<!-- 	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener> -->
+
+	<!-- <context-param>
+		<param-name>log4jConfigLocationIndexer</param-name>
+		<param-value>/WEB-INF/Spring-config/log4j.xml</param-value>
+	</context-param>
+ -->
 	<servlet>
 		<servlet-name>spring-restservlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet

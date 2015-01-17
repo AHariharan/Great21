@@ -1,6 +1,9 @@
 package com.adansoft.great21.gameindexer.services;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,9 +22,17 @@ public class GamePlayController {
 	GamePlayDelegate delegate;
 	
 	@RequestMapping(value = GameIndexerServiceURLs.GETCARDS, method = RequestMethod.POST)
-	public GetCardResponse addChatMessage(@RequestBody GetCardsRequest request)
+	public GetCardResponse getCards(@RequestBody GetCardsRequest request)
 	{
 		return delegate.getCards(request);
+	}
+	
+	@ExceptionHandler
+	public String handleBadRequest(Exception ex,HttpServletRequest request)
+	{
+		System.out.println("*********** Incoming request : " + request);
+		ex.printStackTrace();
+		return ex.getMessage();
 	}
 
 }

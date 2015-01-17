@@ -46,6 +46,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getChatMessage = "/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Get";
 	self.launchGame = "/marriagerummy/IndexerServices/GameLauncher/Game/Start";
 	
+	self.getCards = "/marriagerummy/IndexerServices/GamePlay/Cards/Get";
+	
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
@@ -173,6 +175,18 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			};
 		return formdata;
 	};
+    
+	self.getCardRequest = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+			};
+		return formdata;
+	};
+
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -180,6 +194,7 @@ MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 	
 	var gameBrowserCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback();
 	var gameLauncherCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback();
+	var gamePlayCallback = new MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback();
 	
 	self.getGameBrowserCallback = function()
 	{
@@ -191,8 +206,30 @@ MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 		return gameLauncherCallback;
 	};
 	
+	self.getGamePlayCallback = function()
+	{
+		return gamePlayCallback;
+	};
+	
+	
 };
 
+
+MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
+{
+    var self = this;
+    
+    self.onGetCardSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderCards(data);
+    };
+    
+    self.onGetCardFailure = function(data)
+    {
+        console.log("Failed to get Card : " + data);
+    };
+};
 
 MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
 {
@@ -247,6 +284,10 @@ MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
 	   var divid = $('#mygame').attr("data-divid");
 	   if ($('#' + divid) != undefined && $('#' + divid) != null)
 			$('#' + divid).slideDown();
+	   var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(requestObj);
+	   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
+	   var notificationdata = marriageRummy.notificationRequest.launchGameNotification("onLaunchGameSuccess", requestObj.formdata);
+	   marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
    };
    
    self.onLaunchGameFailure = function(data)

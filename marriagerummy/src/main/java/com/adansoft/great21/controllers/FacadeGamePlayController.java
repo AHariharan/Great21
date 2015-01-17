@@ -70,7 +70,7 @@ public class FacadeGamePlayController {
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
-					+ FacadeControllerURLs.GETCHATMESSAGES);
+					+ FacadeControllerURLs.GETCARDS);
 			result = restTemplate.postForEntity(url, request, GetCardResponse.class).getBody();
 		
 		} catch (Exception e) {

@@ -15,7 +15,7 @@ public interface Card extends Serializable{
 	
 	public static final String FLOWER_SPADE = "SPADE";
 	public static final String FLOWER_HEART = "HEART";
-	public static final String FLOWER_CLUBS = "CLUBS";
+	public static final String FLOWER_CLUBS = "CLUB";
 	public static final String FLOWER_DIAMOND = "DIAMOND";
 	
 	public static final String STATUS_UNASSIGNED = "UNASSIGNED";
