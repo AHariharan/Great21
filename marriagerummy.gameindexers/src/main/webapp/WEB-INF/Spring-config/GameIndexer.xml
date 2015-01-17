@@ -80,6 +80,8 @@
 	<bean id="gameLauncherDelegate"
 		class="com.adansoft.great21.gameindexer.delegate.GameLauncherDelegate" />
 
+    <bean id="gamePlayDelegate"
+		class="com.adansoft.great21.gameindexer.delegate.GamePlayDelegate" />
 
 	<!-- Cache Server configurations -->
 	<!-- redis server configs -->

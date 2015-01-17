@@ -7,6 +7,7 @@ import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.games.SevenCardRummy;
+import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
@@ -14,8 +15,10 @@ import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
+import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 
 public class GameBrowserHelper {
@@ -144,6 +147,31 @@ public class GameBrowserHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		return game.getPlayers();
+	}
+	
+	public static String launchGame(LaunchGameRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		if(game.getOwner().equals(request.getNickName()))
+		{  
+			game.startGame();		
+		   return "Success"; 
+		}
+		return "Failure : Not enough previleges ";
+	}
+	
+	public static ArrayList<Card> getCards(GetCardsRequest request)
+	{
+		ArrayList<Card> cardlist = new  ArrayList<Card>();
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		for(Player player : game.getPlayers())
+		{
+			if(player.getNickName().equals(request.getNickName()))
+			    cardlist = player.getPlayerCards();
+		}
+		return cardlist;
 	}
 
 }

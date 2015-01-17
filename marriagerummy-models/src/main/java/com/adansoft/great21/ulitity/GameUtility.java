@@ -9,4 +9,9 @@ public class GameUtility {
 		return UUID.randomUUID().toString();
 	}
 	
+	public static String generatePlayerInstanceID()
+	{
+		return UUID.randomUUID().toString();
+	}
+	
 }

@@ -48,7 +48,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
 	var self = this;
 	
-	resetNavigation = function() {
+	self.resetNavigation = function() {
 		$(".sidebar ul>li").removeClass("selected");
 		$(".sidebar ul>li").children().filter("div").css("display", "none");
 		$(".page-content>div").each(function(index, element) {
@@ -58,7 +58,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 	};
 
 	$(".sidebar ul>li").click(function() {
-		resetNavigation();
+		self.resetNavigation();
 		$(this).addClass("selected");
 		$(this).children().filter("div").css("display", "block");
 		var divid = $(this).attr("data-divid");
@@ -341,7 +341,7 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
 
 		new MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad();
-		new MarriageRummy.Utilities.UIUtilities.LoggedinNavigator();
+		marriageRummy.navigator = new MarriageRummy.Utilities.UIUtilities.LoggedinNavigator();
 		var dashboardcharts = new MarriageRummy.Utilities.UIUtilities.charts();
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();

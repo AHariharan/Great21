@@ -2,6 +2,10 @@ package com.adansoft.great21.models;
 
 public class DiamondCard implements Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6299593988232608700L;
 	private String flower = Card.FLOWER_DIAMOND;
 	private String displayValue;
 	private int countValue;
@@ -10,6 +14,11 @@ public class DiamondCard implements Card {
 	private String cardInstanceId;
 	private int instrinsicValue;
 	
+	
+	public DiamondCard()
+	{
+		
+	}
 	
 	public DiamondCard( String displayValue, int countValue,
 			int deckID, String status) {

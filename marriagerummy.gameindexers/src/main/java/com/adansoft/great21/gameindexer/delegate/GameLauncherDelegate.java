@@ -14,6 +14,7 @@ import com.adansoft.great21.gameplay.GameMessage;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatResponse;
@@ -92,6 +93,26 @@ public class GameLauncherDelegate {
 		return playerlist;
 	}
 	
+	
+	public String launchGame(LaunchGameRequest request)
+	{
+		String result = "Success";
+		try
+		{
+		String gameinstanceid = request.getGameInstanceID();
+		String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+		Message<LaunchGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+		@SuppressWarnings("unchecked")
+		Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+		result = reply.getPayload();		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			result = "Faliure";
+		}
+		
+		return result;
+	}
 	
 	
 }

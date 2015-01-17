@@ -2,6 +2,10 @@ package com.adansoft.great21.models;
 
 public class HeartCard implements Card{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7991229386952535295L;
 	private String flower = Card.FLOWER_HEART;
 	private String displayValue;
 	private int countValue;
@@ -10,6 +14,10 @@ public class HeartCard implements Card{
 	private String cardInstanceId;
 	private int instrinsicValue;
 	
+	public HeartCard()
+	{
+		
+	}
 	
 	public HeartCard( String displayValue, int countValue,
 			int deckID, String status) {
@@ -106,7 +114,7 @@ public class HeartCard implements Card{
 
 	    if(input instanceof Card)
 	    {
-	     	 Card<?> inputcard = (Card<?>) input;
+	     	 Card inputcard = (Card) input;
 			if(getInstrinsicValue() > inputcard.getInstrinsicValue())
 				 return AFTER;
 			if(getInstrinsicValue() < inputcard.getInstrinsicValue())

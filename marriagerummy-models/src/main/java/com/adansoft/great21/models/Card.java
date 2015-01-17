@@ -1,6 +1,17 @@
 package com.adansoft.great21.models;
 
-public interface Card<T> extends Comparable<T>{
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include=JsonTypeInfo.As.WRAPPER_OBJECT, property="type")
+@JsonSubTypes({
+      @JsonSubTypes.Type(value=HeartCard.class, name="HeartCard"),
+      @JsonSubTypes.Type(value=ClubCard.class, name="ClubCard"),
+      @JsonSubTypes.Type(value=DiamondCard.class, name="DiamondCard"),
+      @JsonSubTypes.Type(value=SpadeCard.class, name="SpadeCard")
+  }) 
+public interface Card extends Serializable{
 	
 	public static final String FLOWER_SPADE = "SPADE";
 	public static final String FLOWER_HEART = "HEART";
@@ -44,7 +55,7 @@ public interface Card<T> extends Comparable<T>{
 	
 	public int getInstrinsicValue();
 
-	int compareTo(Card<?> inputcard);
+	int compareTo(Card inputcard);
 
 	int compareTo(Object input);
 	

@@ -82,4 +82,7 @@ public interface Game {
 	/* Get Buy in Value for  Points */
 	public int getBuyinValue();
 	
+	/* Start the game */
+	public void startGame();
+	
 }

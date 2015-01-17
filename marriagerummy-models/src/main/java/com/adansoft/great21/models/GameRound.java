@@ -6,9 +6,15 @@ import java.util.HashMap;
 import com.adansoft.great21.exceptions.GameNotFoundException;
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.RummyArena;
+import com.adansoft.great21.ulitity.CardUtility;
 
 public class GameRound {
 
+	public final static String STATUS_CREATED = "Created";
+	public final static String STATUS_STARTED = "Started";
+	public final static String STATUS_INPROGRESS = "Inprogress";
+	public final static String STATUS_COMPLETED = "Completed";
+	
 	private String parentGameId;
 	private boolean isPointsEnabled;
 	private boolean isMoneyEnabled;
@@ -18,9 +24,11 @@ public class GameRound {
     private HashMap<String,Integer> pointsMap;
     private String lobbyName;
     private String gameType;
-    
-    
-    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard)
+    private int noofdecks;
+    private String currentStatus;
+    private  Card[] deckcards;
+
+    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks)
     {
     	this.parentGameId = gameid;
     	this.isPointsEnabled = isPointsEnabled;
@@ -29,6 +37,9 @@ public class GameRound {
     	playerlist = new ArrayList<Player>();
     	this.lobbyName = lobbyName;
     	this.gameType = gameType;
+    	this.noofdecks = noofdecks;
+    	setCurrentStatus(GameRound.STATUS_CREATED);
+    	
     }
 
     // Add Players to Gameround
@@ -154,6 +165,38 @@ public class GameRound {
 
 	public void setPointsMap(HashMap<String, Integer> pointsMap) {
 		this.pointsMap = pointsMap;
+	}
+
+	public int getNoofdecks() {
+		return noofdecks;
+	}
+
+	public void setNoofdecks(int noofdecks) {
+		this.noofdecks = noofdecks;
+	}
+    
+    public void startRound()
+    {
+    	deckcards = CardUtility.shuffleCards(noofdecks);
+    	CardUtility.distributeCards(playerlist, deckcards, 7);
+    	setCurrentStatus(GameRound.STATUS_STARTED);
+    	
+    	for(Player player : playerlist)
+    	{
+    		System.out.println("************************************************************************");
+    		System.out.println("Player Name :- " + player.getNickName());
+    		System.out.println("************************************************************************");
+    		player.showCards();
+    		System.out.println("************************************************************************");
+    	}
+    }
+
+	public String getCurrentStatus() {
+		return currentStatus;
+	}
+
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
 	}
     
     

@@ -2,6 +2,7 @@ package com.adansoft.great21.models;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.adansoft.great21.gameindexers.deserializers.PlayerDeserializer;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -29,7 +30,7 @@ public interface Player extends Serializable {
 	public static final String PLAYER_PLAY_STATUS_TURN = "TURN";
 	
 	public void showCards();
-	public void assignCard(Card<?> card);
+	public void assignCard(Card card);
 	public String getNickName();
 	public void autoArrangeCards();
 	public boolean isJokerKnown();
@@ -52,5 +53,9 @@ public interface Player extends Serializable {
 	
 	/*get check if he is host */
 	public boolean isHost();
+	
+	public String getPlayerInstanceID();
+	
+	public ArrayList<Card> getPlayerCards();
 	
 }

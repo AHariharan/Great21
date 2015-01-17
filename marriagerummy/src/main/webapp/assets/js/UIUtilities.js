@@ -130,6 +130,21 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			}
 		
 		
+		$('#LaunchGame').on("click",function(){
+			var gameInstanceID = stateobject.gameInstanceId;
+			var url = marriageRummy.urls.launchGame;
+			var formdata = marriageRummy.request.getLauchGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
+			var onSuccessCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameSuccess;
+			var onFailureCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameFailure;
+			var requestObj = {"formdata":formdata};	
+			marriageRummy.httpComm.invokeAsyncRequest(url,
+					formdata, onSuccessCallbackfn,
+					onFailureCallbackfn, requestObj);
+
+			return;
+			
+		});
+		
 		$("#CancelGame")
 				.on(
 						'click',

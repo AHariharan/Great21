@@ -23,7 +23,7 @@
 	height: 82px;
 	transform: rotate(-41deg);
 	position: absolute;
-	left: 492px;
+	left: 564px;
 	top: 122px;
 	background: url('../images/Cards/DiamondCards/7.png');
 	background-size: 99px 137px;
@@ -33,14 +33,14 @@
 }
 
 .opencard {
-	width: 88px;
-	height: 137px;
+	width: 74px;
+	height: 118px;
 	transform: rotate(77deg);
 	position: absolute;
-	left: 720px;
-	top: 218px;
+	left: 765px;
+	top: 252px;
 	background: url('../images/Cards/DiamondCards/3.png');
-	background-size: 88px 137px;
+	background-size: 74px 118px;
 	background-repeat: no-repeat;
 	box-shadow: 0px 0px 10px 2px gray;
 	border-radius: 7px;
@@ -54,7 +54,7 @@
 	height: 117px;
 	transform: rotate(49deg);
 	position: absolute;
-	left: 607px;
+	left: 683px;
 	top: 199px;
 	background: url('../images/Cards/BackShades/bg-red.png');
 	background-size: 78px 117px;
@@ -66,6 +66,7 @@
 	z-index: 11;
 }
 
+
 .centerstage {
 	background: url('../images/GameArena/GameStageCardSlide.png');
 	min-width: 227px;
@@ -73,7 +74,7 @@
 	background-size: 227px 189px;
 	background-repeat: no-repeat;
 	position: absolute;
-	left: 497px;
+	left: 570px;
 	top: 132px;
 }
 
@@ -376,8 +377,8 @@
 	background: rgb(23, 22, 22);
 	box-shadow: 0px 0px 10px 3px gray;
 	float: right;
-	top: -61px;
-	left: 850px;
+	top: -54px;
+	left: 869px;
 	border-radius: 10px;
 }
 
@@ -462,4 +463,77 @@
 	left: -377px;
 	padding: 22px;
 	text-align: center;
+}
+
+.PlayerDropCard {
+	width: 74px;
+	height: 118px;
+	position: relative;
+	background: url('../images/Cards/DiamondCards/3.png');
+	background-size: 74px 118px;
+	background-repeat: no-repeat;
+	box-shadow: 0px 0px 10px 2px gray;
+	border-radius: 7px;
+	color: darkblue;
+	cursor: pointer;
+	opacity: .65;
+	z-index: 11;
+}
+
+.PlayerDropCard:hover {
+	box-shadow: 0px 0px 10px 3px orange;
+}
+
+.drop2 {
+	transform: rotate(77deg);
+	left: 116px;
+	top: -92px;
+}
+
+.drop3 {
+	transform: rotate(94deg);
+	left: 111px;
+	top: -64px;
+	background: url('../images/Cards/SpadeCards/3.png');
+	background-size: 74px 118px;
+}
+
+.drop4 {
+	transform: rotate(0deg);
+	left: -85px;
+	top: -97px;
+	background: url('../images/Cards/SpadeCards/A.png');
+	background-size: 74px 118px;
+}
+
+.drop5 {
+	transform: rotate(0deg);
+	left: -85px;
+	top: -97px;
+	background: url('../images/Cards/SpadeCards/A.png');
+	background-size: 74px 118px;
+}
+
+.drop6 {
+	transform: rotate(-85deg);
+	left: -119px;
+	top: -64px;
+	background: url('../images/Cards/HeartCards/10.png');
+	background-size: 74px 118px;
+}
+
+.drop7 {
+	transform: rotate(-135deg);
+	left: -119px;
+	top: -64px;
+	background: url('../images/Cards/HeartCards/5.png');
+	background-size: 74px 118px;
+}
+
+.drop8 {
+	transform: rotate(-51deg);
+	left: -101px;
+	top: -64px;
+	background: url('../images/Cards/ClubCards/7.png');
+	background-size: 74px 118px;
 }

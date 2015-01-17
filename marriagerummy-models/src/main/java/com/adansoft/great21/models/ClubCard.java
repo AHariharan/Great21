@@ -2,6 +2,7 @@ package com.adansoft.great21.models;
 
 public class ClubCard  implements Card{
 
+	private static final long serialVersionUID = -424892593803018814L;
 	private String flower = Card.FLOWER_CLUBS;
 	private String displayValue;
 	private int countValue;
@@ -10,6 +11,10 @@ public class ClubCard  implements Card{
 	private String cardInstanceId;
 	private int instrinsicValue;
 	
+	public ClubCard()
+	{
+		
+	}
 	
 	public ClubCard( String displayValue, int countValue,
 			int deckID, String status) {

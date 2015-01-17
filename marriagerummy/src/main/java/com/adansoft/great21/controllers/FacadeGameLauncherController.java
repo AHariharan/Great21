@@ -24,6 +24,7 @@ import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatRequest;
@@ -116,6 +117,25 @@ public class FacadeGameLauncherController {
 					+ FacadeControllerURLs.GAMELAUNCHER_BASE + "/"
 					+ FacadeControllerURLs.GETPLAYERSINGAME);
 			result = restTemplate.postForEntity(url, request, GetPlayersinGameResponse.class ).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.LAUNCHAME, method = RequestMethod.POST)
+	public @ResponseBody String launchGame(@RequestBody  LaunchGameRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		String result = null;	
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMELAUNCHER_BASE + "/"
+					+ FacadeControllerURLs.LAUNCHAME);
+			result = restTemplate.postForEntity(url, request, String.class ).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

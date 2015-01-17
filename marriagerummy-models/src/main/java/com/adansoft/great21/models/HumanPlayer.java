@@ -16,7 +16,8 @@ public class HumanPlayer implements Player{
 
 	private static final long serialVersionUID = -83813341695789602L;
 	
-	private ArrayList<Card<?>> cards;
+	private String instanceID;
+	private ArrayList<Card> cards;
 	private boolean isTurn,isJokerKnown;
 	private String nickName;
 	private static final String player_type = Player.PLAYER_TYPE_HUMAN;
@@ -30,6 +31,7 @@ public class HumanPlayer implements Player{
 		this.nickName = nickname;
 		this.playerpos = playerpos;
 		status = PLAYER_STATUS_INGAME;
+		cards = new ArrayList<Card>();
 	}
 
 	
@@ -51,6 +53,11 @@ public class HumanPlayer implements Player{
 		}
 		
 	}
+	
+	public ArrayList<Card> getPlayerCards()
+	{
+		return cards;
+	}
 
 	public String getNickName() {
 		return nickName;
@@ -61,12 +68,12 @@ public class HumanPlayer implements Player{
 		if(cards.size() == 0 )
 			return;
 		
-		ArrayList<Card<?>> spadeCardList = new ArrayList<Card<?>>();
-		ArrayList<Card<?>> diamondCardList = new ArrayList<Card<?>>();
-		ArrayList<Card<?>> clubCardList = new ArrayList<Card<?>>();
-		ArrayList<Card<?>> heartCardList = new ArrayList<Card<?>>();
+		ArrayList<Card> spadeCardList = new ArrayList<Card>();
+		ArrayList<Card> diamondCardList = new ArrayList<Card>();
+		ArrayList<Card> clubCardList = new ArrayList<Card>();
+		ArrayList<Card> heartCardList = new ArrayList<Card>();
 		
-		for(Card<?> card : cards)
+		for(Card card : cards)
 		{
 			if(card.getFlower().equals(Card.FLOWER_CLUBS))
 				clubCardList.add(card);
@@ -86,20 +93,20 @@ public class HumanPlayer implements Player{
 		Arrays.sort(clubcards);
 		
 		Arrays.sort(diamondcards);Arrays.sort(heartcards);Arrays.sort(spadecards);
-		cards = new ArrayList<Card<?>>();
+		cards = new ArrayList<Card>();
 		addToList(cards,clubcards);addToList(cards,diamondcards);addToList(cards,heartcards);addToList(cards,spadecards);
 	}
 	
-	private void addToList(ArrayList<Card<?>> sortedcardlist, Object[] list)
+	private void addToList(ArrayList<Card> sortedcardlist, Object[] list)
 	{
 		for(int i=0;i<list.length;i++)
 		{
-			sortedcardlist.add((Card<?>)list[i]);
+			sortedcardlist.add((Card)list[i]);
 		}
 	}
 
 	
-	public ArrayList<Card<?>> getCards() {
+	public ArrayList<Card> getCards() {
 		return cards;
 	}
 
@@ -133,11 +140,14 @@ public class HumanPlayer implements Player{
 	}
 
 
-	public void assignCard(Card<?> card) {
-		// TODO Auto-generated method stub
-		
+	public void assignCard(Card card) {
+	cards.add(card);		
 	}
 
+	public void wipeoutCards()
+	{
+		cards = new ArrayList<Card>();
+	}
 
 
 	public int getCurrentPoints() {
@@ -198,7 +208,36 @@ public class HumanPlayer implements Player{
 	}
 
 
-   
+	public String getInstanceID() {
+		return instanceID;
+	}
 
+
+	public void setInstanceID(String instanceID) {
+		this.instanceID = instanceID;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public void setCards(ArrayList<Card> cards) {
+		this.cards = cards;
+	}
+
+	public String getPlayerInstanceID()
+	{
+		return this.instanceID;
+	}
+   
+	
+	
 
 }

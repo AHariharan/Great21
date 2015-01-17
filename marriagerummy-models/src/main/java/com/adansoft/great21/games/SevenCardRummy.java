@@ -24,7 +24,7 @@ public class SevenCardRummy implements Game,Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1657836579007562512L;
-	private int noofdecks = 1;
+	private int noofdecks = 3;
 	private int maxplayers = 4;
 	private ArrayList<Player> playerlist;
 	private int numofrounds;
@@ -145,8 +145,14 @@ public class SevenCardRummy implements Game,Serializable {
 
 	private void createNewGameRound()
 	{
-		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased , gameMoneyBased,moneyPerCard);	
-		
+		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks);	
+		round.setPlayerlist(getPlayers());
+		round.startRound();
+	}
+	
+	public void startGame()
+	{
+		createNewGameRound();
 	}
 
 
@@ -336,6 +342,7 @@ public class SevenCardRummy implements Game,Serializable {
 		if(player instanceof HumanPlayer)
 		{
 			HumanPlayer HPlayer = (HumanPlayer)player;
+			HPlayer.setInstanceID(GameUtility.generatePlayerInstanceID());
 			HPlayer.setPlayerpos(nexpost);
 			this.getPlayerlist().add(HPlayer);
 			positionAvailabiltyMap.put(new Integer(nexpost),Game.POSITION_NOTAVAILABLE);

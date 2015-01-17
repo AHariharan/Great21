@@ -86,7 +86,7 @@
 				<li><i class="fa fa-user"></i></li>
 				<li class="selected"><i class="fa fa-newspaper-o"></i></li>
 				<li><i class="fa fa-globe"></i></li>
-				<li><i class="fa fa-globe"></i></li>
+				<li><i class="fa fa-cubes"></i></li>
 				<li><i class="fa fa-inbox"></i></li>
 				<li><i class="fa fa-trophy"></i></li>
 				<li><i class="fa fa-users"></i></li>
@@ -109,8 +109,8 @@
 				</li>
 				<li data-divid="GameBrowser"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-globe"></i> Game Lobby</li>
-				<li data-divid="GameArena"><div class="sidebar-arrow-left"></div>
-					<i class="fa fa-globe"></i> My Game</li>
+				<li id="mygame" data-divid="GameArena" style="display:none"><div class="sidebar-arrow-left"></div>
+					<i class="fa fa-cubes"></i> My Game</li>
 				<li data-divid="MyMessages"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-inbox"></i> Messages</li>
 				<li data-divid="MyAchievements"><div class="sidebar-arrow-left"></div>

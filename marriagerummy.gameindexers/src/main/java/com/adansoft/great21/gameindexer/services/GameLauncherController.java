@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import com.adansoft.great21.gameindexer.delegate.GameLauncherDelegate;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatResponse;
@@ -54,6 +56,12 @@ public class GameLauncherController {
 		response.setGameInstanceID(request.getGameInstanceID());
 		response.setPlayerlist(playerlist);
 		return response;
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.LAUNCHAME,method = RequestMethod.POST)
+	public @ResponseBody String launchGame(@RequestBody LaunchGameRequest request)
+	{
+		return delegate.launchGame(request);
 	}
 	
 	@ExceptionHandler

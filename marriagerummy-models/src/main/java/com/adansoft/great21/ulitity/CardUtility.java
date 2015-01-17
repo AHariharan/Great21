@@ -8,6 +8,7 @@ import com.adansoft.great21.models.Deck;
 import com.adansoft.great21.models.DiamondCard;
 import com.adansoft.great21.models.HeartCard;
 import com.adansoft.great21.models.HumanPlayer;
+import com.adansoft.great21.models.Player;
 import com.adansoft.great21.models.SpadeCard;
 
 
@@ -110,11 +111,11 @@ public class CardUtility {
 	}
 	
 
-	public static Card<?>[] shuffleCards(int numberofDecks)
+	public static Card[] shuffleCards(int numberofDecks)
 	{
 		Deck[] decklist = new Deck[numberofDecks];
 		
-		Card<?>[] cardlist = new Card<?>[52*numberofDecks];
+		Card[] cardlist = new Card[52*numberofDecks];
 		for(int i=0;i<numberofDecks;i++)
 		{
 			decklist[i] = createDeck(i);
@@ -124,7 +125,7 @@ public class CardUtility {
 		{
 			while(true)
 			{
-				Card<?> inputcard = null;
+				Card inputcard = null;
 			    int deckid = NumberUtility.generateRandomNumber(1, numberofDecks);
 			    int flowerid = NumberUtility.generateRandomNumber(1, 4);
 			    int valueid = NumberUtility.generateRandomNumber(1, 13);
@@ -152,7 +153,7 @@ public class CardUtility {
 	}
 	
 	
-	private static boolean checkCardExists(Card<?>[] cardlist,Card<?> inputcard,int index)
+	private static boolean checkCardExists(Card[] cardlist,Card inputcard,int index)
 	{
 		
 		
@@ -171,7 +172,7 @@ public class CardUtility {
 	}
 
 	
-	public static void distributeCards(ArrayList<HumanPlayer> playerlist,Card<?>[] cardlist,int numofcardstodistribute)
+	public static void distributeCards(ArrayList<Player> playerlist,Card[] cardlist,int numofcardstodistribute)
 	{
 		int countofdistcards = playerlist.size()*numofcardstodistribute;
 		for(int i=0;i<countofdistcards;)

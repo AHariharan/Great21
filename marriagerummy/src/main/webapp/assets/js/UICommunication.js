@@ -40,9 +40,12 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
 	self.unjoinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Remove";
 	self.deleteGame = "/marriagerummy/IndexerServices/GameBrowser/removeGame";
+	
 	self.getPlayersinGame ="/marriagerummy/IndexerServices/GameLauncher/Game/GetPlayers";
 	self.addChatMessage ="/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Add";
 	self.getChatMessage = "/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Get";
+	self.launchGame = "/marriagerummy/IndexerServices/GameLauncher/Game/Start";
+	
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
@@ -160,6 +163,16 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		return formdata;
 	};
 
+	self.getLauchGameRequest = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+			};
+		return formdata;
+	};
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -221,6 +234,24 @@ MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
    self.onGetPlayersinGameFailure = function(data)
    {
 	 console.log("Failed to fetch players in game ");  
+   };
+   
+   self.onLaunchGameSuccess = function(data, textstatus, Jhxr, requestObj)
+   {
+	   $('#mygame').css("display","block");
+	   marriageRummy.gameBrowserUtilities.refreshGameLobby(requestObj.formdata.lobbyName);
+	   $("#GameLauncher").css("display", "none");
+	   marriageRummy.navigator.resetNavigation();
+	   $('#mygame').addClass("selected");
+	   $('#mygame').children().filter("div").css("display", "block");
+	   var divid = $('#mygame').attr("data-divid");
+	   if ($('#' + divid) != undefined && $('#' + divid) != null)
+			$('#' + divid).slideDown();
+   };
+   
+   self.onLaunchGameFailure = function(data)
+   {
+	   alert("Launch Game Failure");
    };
    
 };

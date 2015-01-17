@@ -151,6 +151,12 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		}  
 		
 	};
+	
+	self.handleLaunchGame = function(data)
+	{
+		
+	};
+	
 	self.handleCancelGame = function(data)
 	{
 		   console.log("Game Cancelled " , data);

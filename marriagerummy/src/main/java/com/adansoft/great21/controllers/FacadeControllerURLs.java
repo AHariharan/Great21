@@ -13,5 +13,9 @@ public class FacadeControllerURLs {
 	public final static String ADDCHATMESSAGES = "/ChatMessages/Add";
 	public final static String GETCHATMESSAGES = "/ChatMessages/Get";
 	public final static String GETPLAYERSINGAME = "/Game/GetPlayers";
+	public final static String LAUNCHAME = "/Game/Start";
+	
+	public final static String GAMEPLAY_BASE = "/IndexerServices/GamePlay";
+	public final static String GETCARDS = "/Cards/Get";
 	
 }

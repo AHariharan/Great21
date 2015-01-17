@@ -62,7 +62,7 @@ public class PulseProducer {
 		
 	}
 	
-	@Scheduled(fixedRate = 25000)
+	@Scheduled(fixedRate = 300000)
 	public void sendAdditionalPulses()
 	{
 		heartbeat.setNoofgamesHandled(RummyArena.getInstance().numofgamesinCache());

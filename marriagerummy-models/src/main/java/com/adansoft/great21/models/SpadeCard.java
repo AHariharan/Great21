@@ -2,6 +2,10 @@ package com.adansoft.great21.models;
 
 public class SpadeCard implements Card {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8274206613609681480L;
 	private String flower = Card.FLOWER_SPADE;
 	private String displayValue;
 	private int countValue;
@@ -19,6 +23,11 @@ public class SpadeCard implements Card {
 		this.status = status;
 		this.cardInstanceId = deckID + " - " + flower + " - " + displayValue;
 		assignInstrinsicValue();
+	}
+	
+	public SpadeCard()
+	{
+		
 	}
 
 	private void assignInstrinsicValue()
@@ -101,7 +110,7 @@ public class SpadeCard implements Card {
 
 	    if(input instanceof Card)
 	    {
-	     	 Card<?> inputcard = (Card<?>) input;
+	     	 Card inputcard = (Card) input;
 			if(getInstrinsicValue() > inputcard.getInstrinsicValue())
 				 return AFTER;
 			if(getInstrinsicValue() < inputcard.getInstrinsicValue())
