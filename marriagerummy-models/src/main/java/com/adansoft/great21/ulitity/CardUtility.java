@@ -172,10 +172,11 @@ public class CardUtility {
 	}
 
 	
-	public static void distributeCards(ArrayList<Player> playerlist,Card[] cardlist,int numofcardstodistribute)
+	public static int distributeCards(ArrayList<Player> playerlist,Card[] cardlist,int numofcardstodistribute)
 	{
 		int countofdistcards = playerlist.size()*numofcardstodistribute;
-		for(int i=0;i<countofdistcards;)
+		int i=0;
+		for(;i<countofdistcards;)
 		{
 			for(int j=0;j<playerlist.size();j++)
 			{
@@ -184,6 +185,7 @@ public class CardUtility {
 				i++;
 			}
 		}
+		return i;
 	}
 
 }

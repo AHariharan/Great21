@@ -20,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
@@ -72,6 +73,26 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.GETCARDS);
 			result = restTemplate.postForEntity(url, request, GetCardResponse.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETNEXTCARDFROMDECK, method = RequestMethod.POST)
+	public @ResponseBody Card getNextCardFromDeck(@RequestBody  GetNextCardFromDeckRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		Card result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETNEXTCARDFROMDECK);
+			result = restTemplate.postForEntity(url, request, Card.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

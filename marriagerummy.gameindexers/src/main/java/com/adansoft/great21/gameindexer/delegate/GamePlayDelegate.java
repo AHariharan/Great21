@@ -10,6 +10,7 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 
 
@@ -40,6 +41,25 @@ public class GamePlayDelegate {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+	
+	public Card getNextCardFromDeck(GetNextCardFromDeckRequest request)
+	{
+		Card result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<GetNextCardFromDeckRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<Card> reply =  (Message<Card>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 		return result;
 	}
 

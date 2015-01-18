@@ -156,8 +156,18 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 	
 	self.handleLaunchGame = function(data)
 	{
-		var gameObject = jQuery.data( $("#GameArena")[0], "GameObj");
-		gameObject.getCards();
+		   $('#mygame').css("display","block");
+		   marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);
+		   $("#GameLauncher").css("display", "none");
+		   marriageRummy.navigator.resetNavigation();
+		   $('#mygame').addClass("selected");
+		   $('#mygame').children().filter("div").css("display", "block");
+		   var divid = $('#mygame').attr("data-divid");
+		   if ($('#' + divid) != undefined && $('#' + divid) != null)
+				$('#' + divid).slideDown();
+		   var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(data.notificationObject);
+		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
+		   gameObject.getCards();
 	};
 	
 	self.handleCancelGame = function(data)

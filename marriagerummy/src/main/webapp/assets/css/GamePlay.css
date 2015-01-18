@@ -66,7 +66,6 @@
 	z-index: 11;
 }
 
-
 .centerstage {
 	background: url('../images/GameArena/GameStageCardSlide.png');
 	min-width: 227px;
@@ -326,6 +325,15 @@
 	margin-top: 39px;
 	z-index: 50;
 	top: -991px;
+	left: 232px
+}
+
+.Sevencard-8-pos {
+	transform: rotate(49deg);
+	margin-left: 73px;
+	margin-top: -7px;
+	z-index: 50;
+	top: -1127px;
 	left: 232px
 }
 

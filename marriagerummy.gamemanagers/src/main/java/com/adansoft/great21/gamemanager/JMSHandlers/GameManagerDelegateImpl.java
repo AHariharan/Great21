@@ -18,6 +18,7 @@ import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
+import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -86,6 +87,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		ArrayList<Card> result = GameBrowserHelper.getCards(request);
 		Message<ArrayList<Card>> reply = MessageBuilder.withPayload(result).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<Card> handleMessage(GetNextCardFromDeckRequest request)
+	{
+		Card card = GameBrowserHelper.getNextCardFromDeck(request);
+		Message<Card> reply = MessageBuilder.withPayload(card).build();
 		return reply;
 	}
 	

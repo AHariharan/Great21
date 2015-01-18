@@ -17,6 +17,7 @@ import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -172,6 +173,14 @@ public class GameBrowserHelper {
 			    cardlist = player.getPlayerCards();
 		}
 		return cardlist;
+	}
+	
+	public static Card getNextCardFromDeck(GetNextCardFromDeckRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Card card = game.getCurrentGameRound().getNextCardFromDeck();
+		return card;
 	}
 
 }

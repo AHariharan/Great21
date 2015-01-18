@@ -27,6 +27,7 @@ public class GameRound {
     private int noofdecks;
     private String currentStatus;
     private  Card[] deckcards;
+    private int currentindexincard;
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks)
     {
@@ -178,7 +179,8 @@ public class GameRound {
     public void startRound()
     {
     	deckcards = CardUtility.shuffleCards(noofdecks);
-    	CardUtility.distributeCards(playerlist, deckcards, 7);
+    	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);
+    	currentindexincard++;
     	setCurrentStatus(GameRound.STATUS_STARTED);
     	
     	for(Player player : playerlist)
@@ -189,6 +191,15 @@ public class GameRound {
     		player.showCards();
     		System.out.println("************************************************************************");
     	}
+    }
+    
+    
+    public Card getNextCardFromDeck()
+    {
+    	Card card = deckcards[currentindexincard];
+    	card.setStatus(Card.STATUS_ASSIGNED);
+    	currentindexincard++;
+    	return card;
     }
 
 	public String getCurrentStatus() {

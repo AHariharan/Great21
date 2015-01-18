@@ -42,6 +42,8 @@ public class SevenCardRummy implements Game,Serializable {
 	private String status;
 	private HashMap<Integer, String> positionAvailabiltyMap;
 	private int buyinValue;
+	private GameRound currentGameRound;
+	
 	
 	public SevenCardRummy()
 	{
@@ -119,7 +121,7 @@ public class SevenCardRummy implements Game,Serializable {
 	}
 
 	public GameRound getCurrentGameRound() {
-		return null;
+		return currentGameRound;
 	}
 
 	
@@ -148,6 +150,7 @@ public class SevenCardRummy implements Game,Serializable {
 		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks);	
 		round.setPlayerlist(getPlayers());
 		round.startRound();
+		currentGameRound = round;
 	}
 	
 	public void startGame()

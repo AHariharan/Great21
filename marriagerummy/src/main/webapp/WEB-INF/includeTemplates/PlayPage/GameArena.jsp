@@ -8,8 +8,7 @@
 			<div id="centerstage" class="centerstage"></div>
 			<div id="DeckNextCard" class="deckNextCard"></div>
 			<div id="OpenCard" class="opencard"></div>
-			<%@include file="./GameArena_GameTools.jsp" %>
-			
+			<%@include file="./GameArena_GameTools.jsp" %>			
 			<div id="player1" class="player player1-position">			
 				<div class="indicator">
 					<p>you</p>
@@ -18,52 +17,8 @@
 				<%@include file="./GameArena_CardDropPickUpArea.jsp" %>
 				<div id="cards" class="player-cards">
                     <div class="pointDisplayer">-20</div>
-                    
-					<div id="cardContent">
-						<div id="Sevencard-1" data-replacecard="false"
-							class="card Sevencard-1-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-2" data-replacecard="false"
-							class="card Sevencard-2-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-3" data-replacecard="false"
-							class="card Sevencard-3-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-4" data-replacecard="false"
-							class="card Sevencard-4-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-5" data-replacecard="false"
-							class="card Sevencard-5-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-6" data-replacecard="false"
-							class="card Sevencard-6-pos">
-							<div class="cardindicator"></div>
-						</div>
-						<div id="Sevencard-7" data-replacecard="false"
-							class="card Sevencard-7-pos">
-							<div class="cardindicator"></div>
-						</div>
-					</div>
-
-					<!-- <div id="card-1" class="card card-1-pos"></div>
-					<div id="card0" class="card card0-pos"></div>
-					<div id="card1" class="card card1-pos"></div>
-					<div id="card2" class="card card2-pos"></div>
-					<div id="card3" class="card card3-pos"></div>
-					<div id="card4" class="card card4-pos"></div>
-					<div id="card5" class="card card5-pos"></div>
-					<div id="card6" class="card card6-pos"></div>
-					<div id="card7" class="card card7-pos"></div>
-					<div id="card8" class="card card8-pos"></div>
-					<div id="card9" class="card card9-pos"></div>
-					<div id="card10" class="card card10-pos"></div>
-					<div id="card11" class="card card11-pos"></div> -->
-				</div>
+                    <%@include file="./GameArena_SevenCard.jsp" %>
+                </div>
 			</div>
 			<div id="player2" class="player player2-position">
 				<div class="indicator">
