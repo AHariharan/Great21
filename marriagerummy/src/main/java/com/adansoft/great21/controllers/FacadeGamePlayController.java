@@ -20,7 +20,9 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
+import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
@@ -92,6 +94,46 @@ public class FacadeGamePlayController {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.GETNEXTCARDFROMDECK);
+			result = restTemplate.postForEntity(url, request, Card.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETJOKER, method = RequestMethod.POST)
+	public @ResponseBody Card getJokerForGame(@RequestBody  GetJokerRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		Card result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETJOKER);
+			result = restTemplate.postForEntity(url, request, Card.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETOPENCARD, method = RequestMethod.POST)
+	public @ResponseBody Card getOpenCard(@RequestBody GetOpenCardRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		Card result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETOPENCARD);
 			result = restTemplate.postForEntity(url, request, Card.class).getBody();
 		
 		} catch (Exception e) {

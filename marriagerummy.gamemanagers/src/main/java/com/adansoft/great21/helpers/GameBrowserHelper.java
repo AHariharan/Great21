@@ -9,6 +9,7 @@ import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.games.SevenCardRummy;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
@@ -17,7 +18,9 @@ import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
+import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
+import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -38,6 +41,10 @@ public class GameBrowserHelper {
 		 
 		 HumanPlayer player = new HumanPlayer(request.getCreatedBy(),0);
 		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);
+		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
+			 player.setJokerKnown(false);
+		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
+			 player.setJokerKnown(true);
 		 game.addPlayertoGame(player);
 		 
 		// RummyArena.getInstance().displayArena();      
@@ -180,6 +187,34 @@ public class GameBrowserHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card card = game.getCurrentGameRound().getNextCardFromDeck();
+		return card;
+	}
+	
+	public static Card getJokerForGame(GetJokerRequest request)
+	{
+		Card card = null;
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		GameRound round = game.getCurrentGameRound();
+	    for(Player player : game.getPlayers())
+	    {
+	        if(player.getNickName().equals(request.getNickName()))
+	        {
+	        	if(player.isJokerKnown())
+	        	{
+	        		card = round.getJoker();
+	        	}
+	        }
+	    }
+	    return card;
+	}
+	
+	public static Card getOpenCard(GetOpenCardRequest request)
+	{
+		Card card = null;
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		card = game.getCurrentGameRound().getOpenCard();
 		return card;
 	}
 

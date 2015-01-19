@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adansoft.great21.gameindexer.delegate.GamePlayDelegate;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
+import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 
 
@@ -33,6 +35,18 @@ public class GamePlayController {
 	public Card getNextCardFromDeck(@RequestBody GetNextCardFromDeckRequest request)
 	{
 		return delegate.getNextCardFromDeck(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.GETJOKER, method = RequestMethod.POST)
+	public Card getJokerForGame(@RequestBody GetJokerRequest request)
+	{
+		return delegate.getJokerForGame(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.GETOPENCARD, method = RequestMethod.POST)
+	public Card getOpenCardGame(@RequestBody GetOpenCardRequest request)
+	{
+		return delegate.getOpenCardGame(request);
 	}
 	
 	@ExceptionHandler

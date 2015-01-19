@@ -17,7 +17,9 @@ import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
+import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
+import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -41,5 +43,9 @@ public interface GameManagerDelegate {
 	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request);
 	
 	public Message<Card> handleMessage(GetNextCardFromDeckRequest request);
+	
+	public Message<Card> handleMessage(GetJokerRequest request);
+	
+	public Message<Card> handleMessage(GetOpenCardRequest request);
 	
 }

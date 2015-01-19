@@ -187,5 +187,28 @@ public class CardUtility {
 		}
 		return i;
 	}
+	
+	public static Card pickJoker(Card[] cardlist,int numberofDecks)
+	{
+		Card card = null;
+	    int jokerid = NumberUtility.generateRandomNumber(0, numberofDecks*52);
+	    boolean jokerpicked = false;
+	    while(!jokerpicked)
+	    {
+	    	card = cardlist[jokerid];
+	    	if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
+	    	{
+	    		jokerpicked = true;
+	    		card.setStatus(Card.STATUS_JOKER);	    		
+	    	}
+	    	else
+	    	{
+	    		jokerid = NumberUtility.generateRandomNumber(0, numberofDecks*52);
+	    	}
+	    }
+	    return card;
+	}
+	
+	
 
 }

@@ -28,6 +28,8 @@ public class GameRound {
     private String currentStatus;
     private  Card[] deckcards;
     private int currentindexincard;
+    private Card Joker;
+    private Card OpenCard;
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks)
     {
@@ -178,9 +180,22 @@ public class GameRound {
     
     public void startRound()
     {
+    	boolean opencardset = false;
     	deckcards = CardUtility.shuffleCards(noofdecks);
     	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);
     	currentindexincard++;
+    	while(!opencardset)
+    	{
+    	Card card = deckcards[currentindexincard];
+    	if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
+    	{
+    		 card.setStatus(Card.STATUS_OPEN);
+    		 opencardset = true;
+    	}
+    	currentindexincard++;
+    	}
+    	Joker =  CardUtility.pickJoker(deckcards, noofdecks);
+    	
     	setCurrentStatus(GameRound.STATUS_STARTED);
     	
     	for(Player player : playerlist)
@@ -200,6 +215,17 @@ public class GameRound {
     	card.setStatus(Card.STATUS_ASSIGNED);
     	currentindexincard++;
     	return card;
+    }
+    
+    public Card getJoker()
+    {
+    	
+    	return Joker;
+    }
+    
+    public Card getOpenCard()
+    {
+    	return Joker;
     }
 
 	public String getCurrentStatus() {
