@@ -189,7 +189,7 @@ public class GameBrowserHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card card = game.getCurrentGameRound().getNextCardFromDeck();
-		response.setCard(card);response.setCard(card);
+		response.setCard(card);response.setAvaialble(true);
 	    response.setCardtype(GetSingleCardResponse.CARDTYPE_NEXTFROMDECK);
 		return response;
 	}

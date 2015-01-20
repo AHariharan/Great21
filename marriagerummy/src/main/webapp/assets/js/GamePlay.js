@@ -15,10 +15,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	
 	
-	self.getJoker = function()
+	/*self.getJoker = function()
 	{
 		
-	};
+	};*/
 	
 	self.renderCards = function(data) {
 		var cardlist = data.cardlist;
@@ -305,13 +305,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	    "OAnimation"     : "oAnimationEnd",
 	    "MozAnimation"   : "animationend",
 	    "WebkitAnimation": "webkitAnimationEnd"
-	  }
+	  };
 
 	  for (t in animations){
 	    if (el.style[t] !== undefined){
 	      return animations[t];
 	    }
-	  }
+	     }
 		};
 	
 	var onNextCardSelect = function()
@@ -320,7 +320,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$("#DeckNextCard").on("click",function(){
 			$(this).addClass("nextCardAnimation");
 			 $(this).one(transitionEvent,function(event) {
-				 self.getNextCardFromDeck();
+				  self.getNextCardFromDeck();
 		  });
 		});
 /*		$(".nextCardAnimation").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
