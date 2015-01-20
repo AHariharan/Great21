@@ -14,6 +14,7 @@ import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
+import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 
 public class GamePlayDelegate {
@@ -46,16 +47,16 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
-	public Card getNextCardFromDeck(GetNextCardFromDeckRequest request)
+	public GetSingleCardResponse getNextCardFromDeck(GetNextCardFromDeckRequest request)
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		try
 		{
 			String gameinstanceid = request.getGameInstanceID();
 			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
 			Message<GetNextCardFromDeckRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
-			Message<Card> reply =  (Message<Card>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			Message<GetSingleCardResponse> reply =  (Message<GetSingleCardResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)
@@ -65,16 +66,16 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
-	public Card getJokerForGame(GetJokerRequest request)
+	public GetSingleCardResponse getJokerForGame(GetJokerRequest request)
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		try
 		{
 			String gameinstanceid = request.getGameInstanceID();
 			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
 			Message<GetJokerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
-			Message<Card> reply =  (Message<Card>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			Message<GetSingleCardResponse> reply =  (Message<GetSingleCardResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)
@@ -84,16 +85,16 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
-	public Card getOpenCardGame(GetOpenCardRequest request)
+	public GetSingleCardResponse getOpenCardGame(GetOpenCardRequest request)
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		try
 		{
 			String gameinstanceid = request.getGameInstanceID();
 			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
 			Message<GetOpenCardRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
-			Message<Card> reply =  (Message<Card>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			Message<GetSingleCardResponse> reply =  (Message<GetSingleCardResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

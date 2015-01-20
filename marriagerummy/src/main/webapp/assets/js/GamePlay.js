@@ -13,6 +13,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var curleft = 0;
 	var stateobject = GameObject;
 	
+	
+	
+	self.getJoker = function()
+	{
+		
+	};
+	
 	self.renderCards = function(data) {
 		var cardlist = data.cardlist;
 		for (var i = 0; i < cardlist.length; i++) {			
@@ -48,6 +55,95 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		 var requestObj = {"formdata":formdata};
 		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 		 
+	};
+	
+	
+	self.getJoker = function()
+	{
+		 var url = marriageRummy.urls.getJoker;
+		 var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerSuccess;
+		 var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerFailure;
+		 var formdata = marriageRummy.request.getCardRequest(stateobject.lobbyName,stateobject.gameInstanceID,stateobject.gameType);
+		 var requestObj = {"formdata":formdata};
+		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	self.getOpenCard = function()
+	{
+		 var url = marriageRummy.urls.getOpenCard;
+		 var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetOpenCardSuccess;
+		 var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetOpenCardFailure;
+		 var formdata = marriageRummy.request.getCardRequest(stateobject.lobbyName,stateobject.gameInstanceID,stateobject.gameType);
+		 var requestObj = {"formdata":formdata};
+		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	self.getNextCardFromDeck = function()
+	{
+		 var url = marriageRummy.urls.getNextCardFromDeck;
+		 var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetNextCardFromDeckSuccess;
+		 var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetNextCardFromDeckFailure;
+		 var formdata = marriageRummy.request.getCardRequest(stateobject.lobbyName,stateobject.gameInstanceID,stateobject.gameType);
+		 var requestObj = {"formdata":formdata};
+		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	
+	self.renderJokerCard = function(data)
+	{
+		var divid = $('#Joker');
+		if(data.avaialble)
+			{
+			    var card = getCardObject(data.card);
+			    var flower = card.flower[0].toUpperCase() + card.flower.slice(1).toLowerCase();
+			    var classname = flower + "-" + card.displayValue;
+			    divid.addClass(classname);
+			    divid.addClass("jokerdimension");
+			}
+		else
+			{
+				divid.addClass("closedcard");			    
+			}
+	};
+	
+	self.renderOpenCard = function(data)
+	{
+		var divid = $('#OpenCard');
+		if(data.avaialble)
+			{
+			    var card = getCardObject(data.card);
+			    var flower = card.flower[0].toUpperCase() + card.flower.slice(1).toLowerCase();
+			    var classname = flower + "-" + card.displayValue;
+			    divid.addClass(classname);
+			    divid.addClass("opencarddimension");
+			}
+	};
+	
+	self.renderNextCardFromDeck = function(data)
+	{
+		var divid = $('#pickedcard');
+		if(data.avaialble)
+			{
+			    var card = getCardObject(data.card);
+			    var flower = card.flower[0].toUpperCase() + card.flower.slice(1).toLowerCase();
+			    var classname = flower + "-" + card.displayValue;
+			    divid.addClass(classname);
+			    divid.css("display","block");
+			}
+	};
+	
+	var getCardObject = function(inputcard)
+	{
+		var currentcard = {};
+		if(inputcard.hasOwnProperty("HeartCard"))
+			currentcard = inputcard.HeartCard;
+		if(inputcard.hasOwnProperty("SpadeCard"))
+			currentcard = inputcard.SpadeCard;
+		if(inputcard.hasOwnProperty("DiamondCard"))
+			currentcard = inputcard.DiamondCard;
+		if(inputcard.hasOwnProperty("ClubCard"))
+			currentcard = inputcard.ClubCard;
+		return currentcard;
 	};
 
 	var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue) {
@@ -199,9 +295,45 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		source.css("z-index", "");
 
 	};
+	
+	var whichAnimationEnd = function(){
+		 var t,
+	      el = document.createElement("fakeelement");
+
+	  var animations = {
+	    "animation"      : "animationend",
+	    "OAnimation"     : "oAnimationEnd",
+	    "MozAnimation"   : "animationend",
+	    "WebkitAnimation": "webkitAnimationEnd"
+	  }
+
+	  for (t in animations){
+	    if (el.style[t] !== undefined){
+	      return animations[t];
+	    }
+	  }
+		};
+	
+	var onNextCardSelect = function()
+	{
+		var transitionEvent = whichAnimationEnd();
+		$("#DeckNextCard").on("click",function(){
+			$(this).addClass("nextCardAnimation");
+			 $(this).one(transitionEvent,function(event) {
+				 self.getNextCardFromDeck();
+		  });
+		});
+/*		$(".nextCardAnimation").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
+				function() {
+			         self.getNextCardFromDeck();
+				});*/
+		
+	};
+	
 
 	var init = function()
 	{
+		onNextCardSelect();
 		$(".card").each(function() {
 			var left = $(this).position.left;
 			var top = $(this).position.top;

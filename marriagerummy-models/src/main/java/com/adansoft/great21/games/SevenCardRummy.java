@@ -120,6 +120,7 @@ public class SevenCardRummy implements Game,Serializable {
 		return this.maxrounds;
 	}
 
+	@JsonIgnore
 	public GameRound getCurrentGameRound() {
 		return currentGameRound;
 	}

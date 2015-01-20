@@ -16,6 +16,7 @@ import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
+import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 
 @RestController
@@ -32,19 +33,19 @@ public class GamePlayController {
 	}
 	
 	@RequestMapping(value = GameIndexerServiceURLs.GETNEXTCARDFROMDECK, method = RequestMethod.POST)
-	public Card getNextCardFromDeck(@RequestBody GetNextCardFromDeckRequest request)
+	public GetSingleCardResponse getNextCardFromDeck(@RequestBody GetNextCardFromDeckRequest request)
 	{
 		return delegate.getNextCardFromDeck(request);
 	}
 	
 	@RequestMapping(value = GameIndexerServiceURLs.GETJOKER, method = RequestMethod.POST)
-	public Card getJokerForGame(@RequestBody GetJokerRequest request)
+	public GetSingleCardResponse getJokerForGame(@RequestBody GetJokerRequest request)
 	{
 		return delegate.getJokerForGame(request);
 	}
 	
 	@RequestMapping(value = GameIndexerServiceURLs.GETOPENCARD, method = RequestMethod.POST)
-	public Card getOpenCardGame(@RequestBody GetOpenCardRequest request)
+	public GetSingleCardResponse getOpenCardGame(@RequestBody GetOpenCardRequest request)
 	{
 		return delegate.getOpenCardGame(request);
 	}

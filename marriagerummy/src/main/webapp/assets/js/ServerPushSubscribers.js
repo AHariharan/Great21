@@ -168,6 +168,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		   var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(data.notificationObject);
 		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
 		   gameObject.getCards();
+		   gameObject.getJoker();
+		   gameObject.getOpenCard();
 	};
 	
 	self.handleCancelGame = function(data)

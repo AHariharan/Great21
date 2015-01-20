@@ -24,6 +24,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
 
@@ -93,26 +94,27 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	}
 	
 	@Override
-	public Message<Card> handleMessage(GetNextCardFromDeckRequest request)
+	public Message<GetSingleCardResponse> handleMessage(GetNextCardFromDeckRequest request)
 	{
-		Card card = GameBrowserHelper.getNextCardFromDeck(request);
-		Message<Card> reply = MessageBuilder.withPayload(card).build();
+		
+		GetSingleCardResponse response = GameBrowserHelper.getNextCardFromDeck(request);
+		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	
 	@Override
-	public Message<Card> handleMessage(GetJokerRequest request)
+	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request)
 	{
-		Card card = GameBrowserHelper.getJokerForGame(request);
-		Message<Card> reply = MessageBuilder.withPayload(card).build();
+		GetSingleCardResponse response = GameBrowserHelper.getJokerForGame(request);
+		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	
 	@Override
-	public Message<Card> handleMessage(GetOpenCardRequest request)
+	public Message<GetSingleCardResponse> handleMessage(GetOpenCardRequest request)
 	{
-		Card card = GameBrowserHelper.getOpenCard(request);
-		Message<Card> reply = MessageBuilder.withPayload(card).build();
+		GetSingleCardResponse response = GameBrowserHelper.getOpenCard(request);
+		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	

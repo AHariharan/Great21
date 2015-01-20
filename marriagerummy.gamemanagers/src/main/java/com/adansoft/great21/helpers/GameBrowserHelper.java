@@ -24,6 +24,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameBrowserHelper {
 
@@ -182,16 +183,20 @@ public class GameBrowserHelper {
 		return cardlist;
 	}
 	
-	public static Card getNextCardFromDeck(GetNextCardFromDeckRequest request)
+	public static GetSingleCardResponse getNextCardFromDeck(GetNextCardFromDeckRequest request)
 	{
+		GetSingleCardResponse response = new GetSingleCardResponse();
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card card = game.getCurrentGameRound().getNextCardFromDeck();
-		return card;
+		response.setCard(card);response.setCard(card);
+	    response.setCardtype(GetSingleCardResponse.CARDTYPE_NEXTFROMDECK);
+		return response;
 	}
 	
-	public static Card getJokerForGame(GetJokerRequest request)
+	public static GetSingleCardResponse getJokerForGame(GetJokerRequest request)
 	{
+		GetSingleCardResponse response = new GetSingleCardResponse();
 		Card card = null;
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
@@ -202,20 +207,26 @@ public class GameBrowserHelper {
 	        {
 	        	if(player.isJokerKnown())
 	        	{
+	        		response.setAvaialble(true);
 	        		card = round.getJoker();
 	        	}
 	        }
 	    }
-	    return card;
+	    response.setCard(card);
+	    response.setCardtype(GetSingleCardResponse.CARDTYPE_JOKER);
+	    return response;
 	}
 	
-	public static Card getOpenCard(GetOpenCardRequest request)
+	public static GetSingleCardResponse getOpenCard(GetOpenCardRequest request)
 	{
+		GetSingleCardResponse response = new GetSingleCardResponse();
 		Card card = null;
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		card = game.getCurrentGameRound().getOpenCard();
-		return card;
+		response.setCard(card);response.setAvaialble(true);
+	    response.setCardtype(GetSingleCardResponse.CARDTYPE_OPEN);
+		return response;
 	}
 
 }

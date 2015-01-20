@@ -1,4 +1,21 @@
 @CHARSET "ISO-8859-1";
+
+.jokerdimension
+{
+	background-size:99px 137px !important;
+}
+
+.opencarddimension
+{
+	background-size: 74px 118px !important;
+}
+
+.closedcard
+{
+	background: url('../images/Cards/BackShades/bg-red.png');
+	background-size: 89px 137px;
+}
+
 .Spade-A
 {
 	background:url("../images/Cards/SpadeCards/A.png");

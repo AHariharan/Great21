@@ -47,6 +47,7 @@ public interface Game {
 	public int getMaxRounds();
 	
 	/* gets Current round details */
+	
 	public GameRound getCurrentGameRound();	
 	
 	/* checks if game is played on points */

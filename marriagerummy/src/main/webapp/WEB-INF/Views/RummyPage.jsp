@@ -25,6 +25,7 @@
 <link href="./assets/css/GamePlay.css" rel="stylesheet">
 <link href="./assets/css/LoadCards.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
+<link href="./assets/css/GameAnimation.css" rel="stylesheet">
 <link
 	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">

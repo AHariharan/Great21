@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+.nextCardAnimation
+{
+    -webkit-animation: pickNextCard 2s; 
+    animation: pickNextCard 2s;
+}
+
+@-webkit-keyframes pickNextCard {
+    10% {
+    		transform: rotate(25deg);
+			top: 225px;
+        }
+    20% {
+   				 transform: rotate(0deg);
+				 top: 299px;    
+        } 
+    35%{
+             top: 371px;
+             transform: skew(20deg,184deg);
+             z-index: 200;
+       }
+    50%{
+            
+             top: 371px;
+             transform: skew(20deg,184deg);
+             z-index: 200;
+       }
+     80%
+     {
+        transform: rotate(0deg);
+		top: 371px;
+		left: 966px;
+		z-index: 200;     
+     }
+           
+    100%  {
+       transform: rotate(0deg);
+		top: 455px;
+		left: 966px;
+		z-index: 200;
+		
+       }
+       
+}
+    

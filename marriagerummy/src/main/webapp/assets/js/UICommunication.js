@@ -47,6 +47,9 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.launchGame = "/marriagerummy/IndexerServices/GameLauncher/Game/Start";
 	
 	self.getCards = "/marriagerummy/IndexerServices/GamePlay/Cards/Get";
+	self.getJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Get";
+	self.getOpenCard = "/marriagerummy/IndexerServices/GamePlay/OpenCard/Get";
+	self.getNextCardFromDeck = "/marriagerummy/IndexerServices/GamePlay/NextCardFromDeck/Get";
 	
 };
 
@@ -228,6 +231,39 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onGetCardFailure = function(data)
     {
         console.log("Failed to get Card : " + data);
+    };
+    
+    self.onGetJokerSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderJokerCard(data);
+    };
+    
+    self.onGetJokerFailure = function(data)
+    {
+        console.log("Failed to get Joker Card : " + data);
+    };
+    
+    self.onGetOpenCardSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderOpenCard(data);
+    };
+    
+    self.onGetOpenCardFailure = function(data)
+    {
+        console.log("Failed to get Open Card : " + data);
+    };
+    
+    self.onGetNextCardFromDeckSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderNextCardFromDeck(data);
+    };
+    
+    self.onGetNextCardFromDeckFailure = function(data)
+    {
+        console.log("Failed to get Open Card : " + data);
     };
 };
 

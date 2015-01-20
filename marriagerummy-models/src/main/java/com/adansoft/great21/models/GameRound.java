@@ -1,5 +1,6 @@
 package com.adansoft.great21.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,8 +9,9 @@ import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.ulitity.CardUtility;
 
-public class GameRound {
+public class GameRound implements Serializable{
 
+	private static final long serialVersionUID = -2269719594608200339L;
 	public final static String STATUS_CREATED = "Created";
 	public final static String STATUS_STARTED = "Started";
 	public final static String STATUS_INPROGRESS = "Inprogress";

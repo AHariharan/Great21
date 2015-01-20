@@ -26,6 +26,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
+import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 @RestController
 @RequestMapping(FacadeControllerURLs.GAMEPLAY_BASE)
@@ -85,16 +86,16 @@ public class FacadeGamePlayController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.GETNEXTCARDFROMDECK, method = RequestMethod.POST)
-	public @ResponseBody Card getNextCardFromDeck(@RequestBody  GetNextCardFromDeckRequest request,@AuthenticationPrincipal Authentication authentication)	
+	public @ResponseBody GetSingleCardResponse getNextCardFromDeck(@RequestBody  GetNextCardFromDeckRequest request,@AuthenticationPrincipal Authentication authentication)	
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		String nickname = authentication.getName();
 		request.setNickName(nickname);
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.GETNEXTCARDFROMDECK);
-			result = restTemplate.postForEntity(url, request, Card.class).getBody();
+			result = restTemplate.postForEntity(url, request, GetSingleCardResponse.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -105,16 +106,16 @@ public class FacadeGamePlayController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.GETJOKER, method = RequestMethod.POST)
-	public @ResponseBody Card getJokerForGame(@RequestBody  GetJokerRequest request,@AuthenticationPrincipal Authentication authentication)	
+	public @ResponseBody GetSingleCardResponse getJokerForGame(@RequestBody  GetJokerRequest request,@AuthenticationPrincipal Authentication authentication)	
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		String nickname = authentication.getName();
 		request.setNickName(nickname);
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.GETJOKER);
-			result = restTemplate.postForEntity(url, request, Card.class).getBody();
+			result = restTemplate.postForEntity(url, request, GetSingleCardResponse.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,16 +126,16 @@ public class FacadeGamePlayController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.GETOPENCARD, method = RequestMethod.POST)
-	public @ResponseBody Card getOpenCard(@RequestBody GetOpenCardRequest request,@AuthenticationPrincipal Authentication authentication)	
+	public @ResponseBody GetSingleCardResponse getOpenCard(@RequestBody GetOpenCardRequest request,@AuthenticationPrincipal Authentication authentication)	
 	{
-		Card result = null;
+		GetSingleCardResponse result = null;
 		String nickname = authentication.getName();
 		request.setNickName(nickname);
 		try {
 			URI url = new URI(mapper.getIndexerURI() + "/"
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.GETOPENCARD);
-			result = restTemplate.postForEntity(url, request, Card.class).getBody();
+			result = restTemplate.postForEntity(url, request, GetSingleCardResponse.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();
