@@ -13,7 +13,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var curleft = 0;
 	var stateobject = GameObject;
 	
-	
+	var onStartup = function()
+	{
+		$(".navigation").css("display","none");
+		$("body").css("padding-top","10px");
+	};
 	
 	/*self.getJoker = function()
 	{
@@ -333,6 +337,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	var init = function()
 	{
+		onStartup();
 		onNextCardSelect();
 		$(".card").each(function() {
 			var left = $(this).position.left;

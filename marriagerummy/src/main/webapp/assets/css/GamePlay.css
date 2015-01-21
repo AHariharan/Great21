@@ -4,6 +4,12 @@
 	min-height: 100vh;
 }
 
+.GameSetup {
+	top: 93px;
+	position: relative;
+	left: 36px;
+}
+
 .bedsheet {
 	-webkit-transform: skew(0deg, -30deg) scale(1, 1.16);
 	-moz-transform: skew(0deg, -30deg) scale(1, 1.16);
@@ -22,9 +28,9 @@
 	width: 87px;
 	height: 82px;
 	transform: rotate(-41deg);
-	position: absolute;
+	position: relative;
 	left: 564px;
-	top: 122px;
+	top: 127px;
 	background: url('../images/Cards/DiamondCards/7.png');
 	background-size: 99px 137px;
 	background-repeat: no-repeat;
@@ -36,9 +42,9 @@
 	width: 74px;
 	height: 118px;
 	transform: rotate(77deg);
-	position: absolute;
+	position: relative;
 	left: 765px;
-	top: 252px;
+	top: -120px;
 	background: url('../images/Cards/DiamondCards/3.png');
 	background-size: 74px 118px;
 	background-repeat: no-repeat;
@@ -53,9 +59,9 @@
 	width: 78px;
 	height: 117px;
 	transform: rotate(49deg);
-	position: absolute;
+	position: relative;
 	left: 683px;
-	top: 199px;
+	top: -65px;
 	background: url('../images/Cards/BackShades/bg-red.png');
 	background-size: 78px 117px;
 	background-repeat: no-repeat;
@@ -72,9 +78,9 @@
 	min-height: 189px;
 	background-size: 227px 189px;
 	background-repeat: no-repeat;
-	position: absolute;
+	position: relative;
 	left: 570px;
-	top: 132px;
+	top: 60px;
 }
 
 .player {
@@ -98,42 +104,42 @@
 
 .player1-position {
 	left: 50%;
-	top: 583px;
+	top: 167px;
 }
 
 .player2-position {
 	left: 0%;
-	top: 336px;
+	top: -100px;
 }
 
 .player3-position {
 	left: 9%;
-	top: 27px
+	top: -385px;
 }
 
 .player4-position {
 	left: 30%;
-	top: -214px;
+	top: -652px;
 }
 
 .player5-position {
-	left: 55%;
-	top: -293px;
+	left: 51%;
+	top: -751px;
 }
 
 .player6-position {
-	left: 79%;
-	top: -281px;
+	left: 71%;
+	top: -788px;
 }
 
 .player7-position {
-	left: 91%;
-	top: -200px;
+	left: 87%;
+	top: -678px;
 }
 
 .player8-position {
 	left: 95%;
-	top: -92px;
+	top: -563px;
 }
 
 .indicator {
@@ -379,7 +385,7 @@
 
 .GameTools {
 	position: absolute;
-	width: 480px;
+	width: 522px;
 	z-index: 99999;
 	min-height: 123px;
 	background: rgb(23, 22, 22);
@@ -392,7 +398,7 @@
 
 .GameTools-mini {
 	min-height: 87px;
-	width: 427px;
+	width: 475px;
 }
 
 .toolheading {

@@ -193,6 +193,7 @@ public class GameRound implements Serializable{
     	{
     		 card.setStatus(Card.STATUS_OPEN);
     		 opencardset = true;
+    		 OpenCard = card;
     	}
     	currentindexincard++;
     	}
@@ -208,6 +209,9 @@ public class GameRound implements Serializable{
     		player.showCards();
     		System.out.println("************************************************************************");
     	}
+    	
+    	System.out.println("Joker " + Joker);
+    	System.out.println("OpenCard " + OpenCard);
     }
     
     
@@ -227,7 +231,7 @@ public class GameRound implements Serializable{
     
     public Card getOpenCard()
     {
-    	return Joker;
+    	return OpenCard;
     }
 
 	public String getCurrentStatus() {

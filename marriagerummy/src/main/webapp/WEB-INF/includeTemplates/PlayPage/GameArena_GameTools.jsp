@@ -66,6 +66,12 @@
 				<i class="fa fa-inr"></i>&nbsp; Cash Balance
 			</button>
 		</div>
+		<div class="tool">
+			<button class="btn btn-tool dropdown-toggle" type="button"
+				id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				<i class="fa fa-power-off"></i>&nbsp; Exit Game
+			</button>
+		</div>
 	</div>
 </div>
 
@@ -137,6 +143,13 @@
 				id="dropdownMenu1" data-toggle="tooltip" data-placement="bottom"
 				title="Show Game Balance">
 				<i class="fa fa-inr"></i>&nbsp;
+			</button>
+		</div>
+		<div class="tool tool-mini">
+			<button class="btn btn-tool dropdown-toggle" type="button"
+				id="dropdownMenu1" data-toggle="tooltip" data-placement="bottom"
+				title="Exit Game">
+				<i class="fa fa-power-off"></i>&nbsp;
 			</button>
 		</div>
 		<div class="tool tool-mini">

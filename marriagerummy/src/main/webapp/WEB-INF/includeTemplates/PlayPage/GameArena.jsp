@@ -4,21 +4,23 @@
 			<h2>My Game</h2>
 		</div>
 		<div id="Arena" class="col-lg-12">
-			<div id="Joker" class="joker"></div>
-			<div id="centerstage" class="centerstage"></div>
-			<div id="DeckNextCard" class="deckNextCard"></div>
-			<div id="OpenCard" class="opencard"></div>
-			<%@include file="./GameArena_GameTools.jsp" %>			
-			<div id="player1" class="player player1-position">			
+			<div class="GameSetup">
+				<div id="Joker" class="joker"></div>
+				<div id="centerstage" class="centerstage"></div>
+				<div id="DeckNextCard" class="deckNextCard"></div>
+				<div id="OpenCard" class="opencard"></div>
+			</div>
+			<%@include file="./GameArena_GameTools.jsp"%>
+			<div id="player1" class="player player1-position">
 				<div class="indicator">
 					<p>you</p>
 				</div>
 				<i class=" fa fa-user"></i>
-				<%@include file="./GameArena_CardDropPickUpArea.jsp" %>
+				<%@include file="./GameArena_CardDropPickUpArea.jsp"%>
 				<div id="cards" class="player-cards">
-                    <div class="pointDisplayer">-20</div>
-                    <%@include file="./GameArena_SevenCard.jsp" %>
-                </div>
+					<div class="pointDisplayer">-20</div>
+					<%@include file="./GameArena_SevenCard.jsp"%>
+				</div>
 			</div>
 			<div id="player2" class="player player2-position">
 				<div class="indicator">
