@@ -237,7 +237,23 @@ public class HumanPlayer implements Player{
 		return this.instanceID;
 	}
    
+	/* Game Play Code */
 	
+	public void turnPlayed(Card pickedupcard,Card droppedCard)
+	{
+		if(pickedupcard.getCardInstanceID().equals(droppedCard.getCardInstanceID()))
+		{
+			return;
+		}		
+		droppedCard.setStatus(Card.STATUS_DROPPED);
+		for(Card card : this.getCards())
+		{
+			if(card.getCardInstanceID().equals(droppedCard.getCardInstanceID()))
+			{
+				card = pickedupcard;
+			}
+		}
+	}
 	
 
 }

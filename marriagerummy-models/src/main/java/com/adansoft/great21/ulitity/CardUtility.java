@@ -1,6 +1,7 @@
 package com.adansoft.great21.ulitity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.ClubCard;
@@ -209,6 +210,97 @@ public class CardUtility {
 	    return card;
 	}
 	
+	public static boolean checkSequence(Card[] cardlist)
+	{
+		boolean result = true;
+		if(cardlist == null || cardlist.length < 3)
+			return false;
+		else
+		{
+			if(checkCardwithSameFlower(cardlist))
+			{
+				Arrays.sort(cardlist);
+				for(int i =0;i<cardlist.length-1;i++)
+				{
+					Card curcard = cardlist[i];int curvalue = curcard.getInstrinsicValue();
+					Card nextcard = cardlist[i+1];int nextvalue = nextcard.getInstrinsicValue();
+					if(curvalue+1 == nextvalue)
+					{
+						continue;
+					}
+					else
+					{
+						if(curcard.getInstrinsicValue() == 1 && nextcard.getInstrinsicValue() == 12)
+							continue;
+						result = false;
+						break;
+					}
+					
+				}
+			}
+			else
+			{
+				result = false;
+			}
+		}
+		
+		return result;
+	}
 	
+	
+	private static boolean checkCardwithSameFlower(Card[] cardlist)
+	{
+		       if(cardlist[0] instanceof ClubCard)
+		        	return checkAllClubs(cardlist);
+				else if(cardlist[0] instanceof DiamondCard)
+					return checkAllDiamond(cardlist);
+				else if(cardlist[0] instanceof SpadeCard)
+					return checkAllSpade(cardlist);
+				else if(cardlist[0] instanceof HeartCard)
+					return checkAllHearts(cardlist);
+				else
+					return false;		
+	}
+	
+	private static boolean checkAllClubs(Card[] cardlist)
+	{
+		boolean result = true;
+		for(Card card : cardlist)
+		{
+			if(!(card instanceof ClubCard))
+				return false;
+		}
+		return result;
+	}
+	private static boolean checkAllSpade(Card[] cardlist)
+	{
+		boolean result = true;
+		for(Card card : cardlist)
+		{
+			if(!(card instanceof SpadeCard))
+				return false;
+		}
+		return result;
+	}
+	private static boolean checkAllDiamond(Card[] cardlist)
+	{
+		boolean result = true;
+		for(Card card : cardlist)
+		{
+			if(!(card instanceof DiamondCard))
+				return false;
+		}
+		return result;
+	}
+	private static boolean checkAllHearts(Card[] cardlist)
+	{
+		boolean result = true;
+		for(Card card : cardlist)
+		{
+			if(!(card instanceof HeartCard))
+				return false;
+		}
+		return result;
+	}
 
 }

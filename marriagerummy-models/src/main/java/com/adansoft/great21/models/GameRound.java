@@ -242,5 +242,17 @@ public class GameRound implements Serializable{
 		this.currentStatus = currentStatus;
 	}
     
+	
+	public void updateDeck(Card droppedcard)
+	{
+		for(Card card : deckcards)
+		{
+			if(card.getCardInstanceID().equals(droppedcard.getCardInstanceID()))
+					{
+				      droppedcard.setStatus(Card.STATUS_DROPPED);
+				      card = droppedcard;
+					}
+		}
+	}
     
 }

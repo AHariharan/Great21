@@ -58,4 +58,8 @@ public interface Player extends Serializable {
 	
 	public ArrayList<Card> getPlayerCards();
 	
+	public void turnPlayed(Card pickupcard,Card droppedcard);
+	
+	
+	
 }

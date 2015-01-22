@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
       @JsonSubTypes.Type(value=DiamondCard.class, name="DiamondCard"),
       @JsonSubTypes.Type(value=SpadeCard.class, name="SpadeCard")
   }) 
-public interface Card extends Serializable{
+public interface Card extends Serializable,Comparable{
 	
 	public static final String FLOWER_SPADE = "SPADE";
 	public static final String FLOWER_HEART = "HEART";
@@ -21,6 +21,7 @@ public interface Card extends Serializable{
 	public static final String STATUS_UNASSIGNED = "UNASSIGNED";
 	public static final String STATUS_ASSIGNED = "ASSIGNED";
 	public static final String STATUS_JOKER = "JOKER";
+	public static final String STATUS_DROPPED = "DROPPED";
 	public static final String STATUS_OPEN = "OPEN";
 	public static final String STATUS_DEAD = "DEAD";
 	public static final String STATUS_CLOSE = "CLOSE";
