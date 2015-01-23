@@ -8,6 +8,7 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.helpers.GameBrowserHelper;
+import com.adansoft.great21.helpers.GamePlayHelper;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
@@ -88,7 +89,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request)
 	{
-		ArrayList<Card> result = GameBrowserHelper.getCards(request);
+		ArrayList<Card> result = GamePlayHelper.getCards(request);
 		Message<ArrayList<Card>> reply = MessageBuilder.withPayload(result).build();
 		return reply;
 	}
@@ -97,7 +98,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	public Message<GetSingleCardResponse> handleMessage(GetNextCardFromDeckRequest request)
 	{
 		
-		GetSingleCardResponse response = GameBrowserHelper.getNextCardFromDeck(request);
+		GetSingleCardResponse response = GamePlayHelper.getNextCardFromDeck(request);
 		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
@@ -105,7 +106,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request)
 	{
-		GetSingleCardResponse response = GameBrowserHelper.getJokerForGame(request);
+		GetSingleCardResponse response = GamePlayHelper.getJokerForGame(request);
 		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
@@ -113,7 +114,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(GetOpenCardRequest request)
 	{
-		GetSingleCardResponse response = GameBrowserHelper.getOpenCard(request);
+		GetSingleCardResponse response = GamePlayHelper.getOpenCard(request);
 		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
