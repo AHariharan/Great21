@@ -163,7 +163,7 @@ public class CardUtility {
 		{
 			if(cardlist[i] == null)
 				continue;
-			if(inputcard.getCardInstanceID().equals(cardlist[i].getCardInstanceID()))
+			if(inputcard.getInstanceID().equals(cardlist[i].getInstanceID()))
 			{
 				result = true;
 				break;

@@ -125,4 +125,19 @@ public class DiamondCard implements Card {
 		return 0;
 	}
 
+	public String getCardInstanceId() {
+		return cardInstanceId;
+	}
+
+	public void setCardInstanceId(String cardInstanceId) {
+		this.cardInstanceId = cardInstanceId;
+	}
+
+	public String getInstanceID() {
+		// TODO Auto-generated method stub
+		return this.getCardInstanceId();
+	}
+	
+	
+
 }

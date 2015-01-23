@@ -186,6 +186,12 @@ public class GameRound implements Serializable{
     	deckcards = CardUtility.shuffleCards(noofdecks);
     	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);
     	currentindexincard++;
+    	/* adding debug ...*/
+    	
+    	for(int i=0;i<deckcards.length;i++)
+    	{
+    		System.out.println("Deck is : " + deckcards[i].getInstanceID());
+    	}
     	while(!opencardset)
     	{
     	Card card = deckcards[currentindexincard];
@@ -247,12 +253,15 @@ public class GameRound implements Serializable{
 	{
 		for(Card card : deckcards)
 		{
-			if(card.getCardInstanceID().equals(droppedcard.getCardInstanceID()))
+			if(card.getInstanceID().equals(droppedcard.getInstanceID()))
 					{
 				      droppedcard.setStatus(Card.STATUS_DROPPED);
 				      card = droppedcard;
 					}
 		}
 	}
+	
+	
     
+
 }

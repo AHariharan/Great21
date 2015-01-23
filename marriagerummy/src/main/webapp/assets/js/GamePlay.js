@@ -19,11 +19,6 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$("body").css("padding-top","10px");
 	};
 	
-	/*self.getJoker = function()
-	{
-		
-	};*/
-	
 	self.renderCards = function(data) {
 		var cardlist = data.cardlist;
 		for (var i = 0; i < cardlist.length; i++) {			
@@ -43,9 +38,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var datacardvalue = classname;
 			$(divid).addClass(datacardvalue);
 			$(divid).attr("data-cardvalue", datacardvalue);
+			$(divid).attr("data-cardinstanceid",currentcard.cardInstanceId);
 			
 		}
-		//init();
+	
 	};
 	
 	
@@ -103,6 +99,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			    var classname = flower + "-" + card.displayValue;
 			    divid.addClass(classname);
 			    divid.addClass("jokerdimension");
+			    divid.attr("data-cardvalue",classname);
+			    divid.attr("data-cardinstanceid",card.cardInstanceId);
 			}
 		else
 			{
@@ -120,6 +118,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			    var classname = flower + "-" + card.displayValue;
 			    divid.addClass(classname);
 			    divid.addClass("opencarddimension");
+			    divid.attr("data-cardvalue",classname);
+			    divid.attr("data-cardinstanceid",card.cardInstanceId);
 			    
 			}
 	};
@@ -135,6 +135,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			    divid.addClass(classname);
 			    divid.css("display","block");
 			    divid.attr("data-cardvalue",classname);
+			    divid.attr("data-cardinstanceid",card.cardInstanceId);
 			}
 	};
 	
@@ -152,44 +153,47 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		return currentcard;
 	};
 
-	var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue) {
+	var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue,dragcardInstanceID) {
 		var arr = new Array();
 		for (var i = startpos; i < endpos; i++) {
 			var cardvalue = $('#' + prefix + "-" + i).attr("data-cardvalue");
-			arr.push(cardvalue);
-		}
+			var cardInstanceID = $('#' + prefix + "-" + i).attr("data-cardinstanceid");
+			arr.push({"cardvalue":cardvalue,"cardInstanceID":cardInstanceID});			
+			}
+		
 		for (var i = 0, j = startpos + 1; i < arr.length; i++, j++) {
-			var existingValue = $('#' + prefix + "-" + j)
-					.attr("data-cardvalue");
+			var existingValue = $('#' + prefix + "-" + j).attr("data-cardvalue");
+		
 			$('#' + prefix + "-" + j).removeClass(existingValue);
-			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i]);
-			$('#' + prefix + "-" + j).addClass(arr[i]);
+			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i].cardvalue);
+			$('#' + prefix + "-" + j).attr("data-cardinstanceid", arr[i].cardInstanceID);
+			$('#' + prefix + "-" + j).addClass(arr[i].cardvalue);
 		}
-		var replacecardexisting = $('#' + prefix + "-" + startpos).attr(
-				"data-cardvalue");
+		var replacecardexisting = $('#' + prefix + "-" + startpos).attr("data-cardvalue");
 		$('#' + prefix + "-" + startpos).removeClass(replacecardexisting);
 		$('#' + prefix + "-" + startpos).attr("data-cardvalue", dragcardvalue);
+		$('#' + prefix + "-" + startpos).attr("data-cardinstanceid", dragcardInstanceID);
 		$('#' + prefix + "-" + startpos).addClass(dragcardvalue);
 	};
 
-	var switchCardBefore = function(prefix, startpos, endpos, dragcardvalue) {
+	var switchCardBefore = function(prefix, startpos, endpos, dragcardvalue,dragcardInstanceID) {
 		var arr = new Array();
 		for (var i = endpos + 1; i < startpos; i++) {
 			var cardvalue = $('#' + prefix + "-" + i).attr("data-cardvalue");
-			arr.push(cardvalue);
+			var cardInstanceID = $('#' + prefix + "-" + i).attr("data-cardinstanceid");
+			arr.push({"cardvalue":cardvalue,"cardInstanceID":cardInstanceID});		
 		}
 		for (var i = 0, j = endpos; i < arr.length; i++, j++) {
-			var existingValue = $('#' + prefix + "-" + j)
-					.attr("data-cardvalue");
+			var existingValue = $('#' + prefix + "-" + j).attr("data-cardvalue");
 			$('#' + prefix + "-" + j).removeClass(existingValue);
-			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i]);
-			$('#' + prefix + "-" + j).addClass(arr[i]);
+			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i].cardvalue);
+			$('#' + prefix + "-" + j).attr("data-cardinstanceid", arr[i].cardInstanceID);
+			$('#' + prefix + "-" + j).addClass(arr[i].cardvalue);
 		}
-		var replacecardexisting = $('#' + prefix + "-" + (startpos - 1)).attr(
-				"data-cardvalue");
+		var replacecardexisting = $('#' + prefix + "-" + (startpos - 1)).attr("data-cardvalue");
 		$('#' + prefix + "-" + (startpos - 1)).removeClass(replacecardexisting);
-		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardvalue",
-				dragcardvalue);
+		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardvalue",dragcardvalue);
+		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardinstanceid",dragcardInstanceID);
 		$('#' + prefix + "-" + (startpos - 1)).addClass(dragcardvalue);
 	};
 
@@ -285,14 +289,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var startpos = parseInt(id.split("-")[1]);
 			var endpos = parseInt(source.attr("id").split(
 					"-")[1]);
-			var dragcardvalue = source.attr(
-					"data-cardvalue");
+			var dragcardvalue = source.attr("data-cardvalue");
+			var dragcardInstanceID = source.attr("data-cardinstanceid");
 			if (startpos < endpos)
 				switchCardAfter(prefix, startpos, endpos,
-						dragcardvalue);
+						dragcardvalue,dragcardInstanceID);
 			else
 				switchCardBefore(prefix, startpos, endpos,
-						dragcardvalue);
+						dragcardvalue,dragcardInstanceID);
 
 			source.css("transform", "");
 			source.css("left", "");
@@ -324,12 +328,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			   endpos = 8;
 			$('#'+prefix+"-"+endpos).css("display","block");
 			var dragcardvalue = source.attr("data-cardvalue");
+			var dragcardInstanceID = source.attr("data-cardinstanceid");
 			if (startpos < endpos)
 				switchCardAfter(prefix, startpos, endpos,
-						dragcardvalue);
+						dragcardvalue,dragcardInstanceID);
 			else
 				switchCardBefore(prefix, startpos, endpos,
-						dragcardvalue);
+						dragcardvalue,dragcardInstanceID);
 
 			source.removeClass().addClass("card-picked");
 			source.css("top", "-115px");

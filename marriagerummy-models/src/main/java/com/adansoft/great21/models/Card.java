@@ -50,7 +50,7 @@ public interface Card extends Serializable,Comparable{
 	
 	public int getDecKID();
 	
-	public String getCardInstanceID();
+	public String getInstanceID();
 	
 	public void setStatus(String status);	
 	

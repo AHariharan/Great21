@@ -241,14 +241,14 @@ public class HumanPlayer implements Player{
 	
 	public void turnPlayed(Card pickedupcard,Card droppedCard)
 	{
-		if(pickedupcard.getCardInstanceID().equals(droppedCard.getCardInstanceID()))
+		if(pickedupcard.getInstanceID().equals(droppedCard.getInstanceID()))
 		{
 			return;
 		}		
 		droppedCard.setStatus(Card.STATUS_DROPPED);
 		for(Card card : this.getCards())
 		{
-			if(card.getCardInstanceID().equals(droppedCard.getCardInstanceID()))
+			if(card.getInstanceID().equals(droppedCard.getInstanceID()))
 			{
 				card = pickedupcard;
 			}
