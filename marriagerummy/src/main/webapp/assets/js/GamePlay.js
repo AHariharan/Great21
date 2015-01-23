@@ -272,6 +272,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		
 		$(".card").attr("data-replacecard", "false");
 		showIndicator();
+		enableDroppable();
 	};
 	
 	var dragStop = function(event,ui,source)
@@ -311,6 +312,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	var dragstopopencard = function(event,ui,source)
 	{
+		disableDroppable();
 		removeIndicator();
 		if ($(".card[data-replacecard=true]").length > 0) {
 			var id = $(".card[data-replacecard=true]")
@@ -348,6 +350,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	};
 	
+	var disableDroppable = function()
+	{
+		$('.dropcardarea').droppable('destroy');
+	};
+	
 	var enableDroppable = function()
 	{
 		$('.dropcardarea').droppable({
@@ -356,10 +363,28 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				$(this).css("border","1px solid");
 				$(this).css("box-shadow","0px 0px 10px 2px red");
 			},
+			"deactivate": function(event,ui)
+			{
+				$(this).css("border","3px dashed rgb(221, 151, 151)");
+				$(this).css("box-shadow","");
+			},
 		    "drop":function(event,ui)
 		    {
 		    	var draggedobject = ui.draggable; 
 		    	var id = draggedobject.attr("id");
+		    	if(id == "pickedcard")
+		    		{
+		    		  onNextCardSelect();
+		    		  var classname = draggedobject.attr("data-cardvalue");
+				    	$('#droppedcard').css("display","block");
+				    	$('#droppedcard').removeClass().addClass("card-dropped " + classname);
+				    	$('#pickedcard').removeClass().addClass("card-picked");
+				    	$('#pickedcard').css("top", "-115px");
+				    	$('#pickedcard').css("display", "none");
+				    	$('#pickedcard').css("left", "");
+		    		  return;
+		    		}
+		    		
 		    	var classname = draggedobject.attr("data-cardvalue");
 		    	$('#droppedcard').css("display","block");
 		    	$('#droppedcard').removeClass().addClass("card-dropped " + classname);

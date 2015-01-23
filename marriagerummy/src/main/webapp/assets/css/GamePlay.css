@@ -5,9 +5,9 @@
 }
 
 .GameSetup {
-	top: 93px;
+	top: 140px;
 	position: relative;
-	left: 36px;
+	left: -50px;
 }
 
 .bedsheet {
@@ -44,8 +44,8 @@
 	height: 118px;
 	transform: rotate(77deg);
 	position: relative;
-	left: 75px;
-	top: -120px;
+	left: 211px;
+	top: -183px;
 	background: url('../images/Cards/DiamondCards/3.png');
 	background-size: 74px 118px;
 	background-repeat: no-repeat;
