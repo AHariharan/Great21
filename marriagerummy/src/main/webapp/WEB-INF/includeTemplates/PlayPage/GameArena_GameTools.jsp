@@ -162,8 +162,26 @@
 	</div>
 </div>
 <!-- Show Joker -->
-<div class="showJoker">
-  <div class="toolheading"> Show Joker </div>
-  <div class="actionarea"> </div>  
+<div class="showJoker" style="display:block">
+	<div class="windowtooling">
+		Show Joker
+		<button type="button" class="close" data-dismiss="modal"
+			style="margin-right: 11px;">
+			<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+		</button>
+	</div>
+	<div class="windowcontent">
+	    <h4> Please select cards from hand to retreive Joker</h4>
+		<div id="showcard1" class="jokershowcard"></div>
+		<div id="showcard2" class="jokershowcard"></div>
+		<div id="showcard3" class="jokershowcard"></div>
+		<h4> Click on the cards above to remove from Show Joker</h4>
+	</div>
+	<div class="actionarea">
+		<button id="onShowJokerCancel" class="btn btn-tool">Cancel</button>
+		<button id="onShowJoker" class="btn btn-tool">Show Joker</button>
+	</div>
 </div>
-<script>$('.showJoker').draggable();</script>
+<script>
+	$('.showJoker').draggable();
+</script>
