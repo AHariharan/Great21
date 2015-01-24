@@ -22,6 +22,7 @@ public interface Card extends Serializable,Comparable{
 	public static final String STATUS_ASSIGNED = "ASSIGNED";
 	public static final String STATUS_JOKER = "JOKER";
 	public static final String STATUS_DROPPED = "DROPPED";
+	public static final String STATUS_PICKED = "PICKED";
 	public static final String STATUS_OPEN = "OPEN";
 	public static final String STATUS_DEAD = "DEAD";
 	public static final String STATUS_CLOSE = "CLOSE";

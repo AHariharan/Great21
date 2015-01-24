@@ -578,3 +578,23 @@
 	background: url('../images/Cards/ClubCards/7.png');
 	background-size: 74px 118px;
 }
+
+.showJoker {
+	width: 500px;
+	height: 300px;
+	position: fixed;
+	left: 300px;
+	top: 100px;
+	background: rgb(23, 22, 22);
+	z-index: 1000;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
+}
+
+.actionarea {
+	height: 40px;
+	position: relative;
+	bottom: -228px;
+	border-radius: 10px;
+	background: rgb(46, 44, 42);
+}

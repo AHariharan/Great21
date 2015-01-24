@@ -10,10 +10,12 @@ import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
+import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
+import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
@@ -49,4 +51,7 @@ public interface GameManagerDelegate {
 	
 	public Message<GetSingleCardResponse> handleMessage(GetOpenCardRequest request);
 	
+	public Message<String> handleMessage(AddCardToHandRequest request);
+	
+	public Message<String> handleMessage(DropCardFromHandRequest request);	
 }

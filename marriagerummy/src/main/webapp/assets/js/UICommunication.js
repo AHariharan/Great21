@@ -50,6 +50,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Get";
 	self.getOpenCard = "/marriagerummy/IndexerServices/GamePlay/OpenCard/Get";
 	self.getNextCardFromDeck = "/marriagerummy/IndexerServices/GamePlay/NextCardFromDeck/Get";
+	self.addCardToHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Add";
+	self.dropCardFromHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Remove";
 	
 };
 
@@ -190,6 +192,19 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		return formdata;
 	};
 
+	self.cardInHandRequest = function(lobbyType, gameInstanceID, gameType,cardInstanceID)
+	{
+		var formdata = {
+			  "card": {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+				"cardInstanceID" : cardInstanceID
+			    }
+			};
+		return formdata;
+	};
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -264,6 +279,26 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onGetNextCardFromDeckFailure = function(data)
     {
         console.log("Failed to get Open Card : " + data);
+    };
+    
+    self.onAddCardToHandSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("Success on Card to Hand : " + data);
+    };
+    
+    self.onAddCardToHandFailure = function(data, textstatus, Jhxr, requestObj)
+    {
+    	 console.log("Failed on Card to Hand : " + data);
+    };
+    
+    self.onDropCardFromHandSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("Success on Drop Card From Hand : " + data);
+    };
+    
+    self.onDropCardFromHandFailure = function(data, textstatus, Jhxr, requestObj)
+    {
+    	 console.log("Failed on Drop Card From Hand : " + data);
     };
 };
 

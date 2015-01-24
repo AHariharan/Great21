@@ -20,5 +20,7 @@ public class FacadeControllerURLs {
 	public final static String GETNEXTCARDFROMDECK = "/NextCardFromDeck/Get";
 	public final static String GETJOKER = "/JokerCard/Get";
 	public final static String GETOPENCARD = "/OpenCard/Get";
+	public final static String ADDCARDTOHAND = "/HandCard/Add";
+	public final static String DROPCARDFROMHAND = "/HandCard/Remove";
 	
 }

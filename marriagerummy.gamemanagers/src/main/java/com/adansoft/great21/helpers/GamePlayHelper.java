@@ -8,6 +8,8 @@ import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.models.Player;
+import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -73,6 +75,24 @@ public class GamePlayHelper {
 		response.setCard(card);response.setAvaialble(true);
 	    response.setCardtype(GetSingleCardResponse.CARDTYPE_OPEN);
 		return response;
+	}
+	
+	public static String addCardToHand(AddCardToHandRequest request)
+	{
+		String result = "Success";
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getCard().getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getCard().getGameInstanceID(), request.getCard().getGameType());
+		result = game.getCurrentGameRound().addCardToHand(request.getCard(), request.getCard().getNickName());		
+		return result;
+	}
+	
+	public static String dropCardFromHand(DropCardFromHandRequest request)
+	{
+		String result = "Success";
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getCard().getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getCard().getGameInstanceID(), request.getCard().getGameType());
+		result = game.getCurrentGameRound().dropCardFromHand(request.getCard(), request.getCard().getNickName());		
+		return result;
 	}
 
 }

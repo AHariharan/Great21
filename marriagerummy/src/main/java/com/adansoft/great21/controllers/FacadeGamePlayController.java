@@ -19,6 +19,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
+import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -143,5 +145,49 @@ public class FacadeGamePlayController {
 		return result;
 		
 	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.ADDCARDTOHAND, method = RequestMethod.POST)
+	public @ResponseBody String addCardToHand(@RequestBody AddCardToHandRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		String result = null;
+		String nickname = authentication.getName();
+		request.getCard().setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.ADDCARDTOHAND);
+			result = restTemplate.postForEntity(url, request, String.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.DROPCARDFROMHAND, method = RequestMethod.POST)
+	public @ResponseBody String addCardToHand(@RequestBody DropCardFromHandRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		String result = null;
+		String nickname = authentication.getName();
+		request.getCard().setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.DROPCARDFROMHAND);
+			result = restTemplate.postForEntity(url, request, String.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	
+	
+	
 
 }

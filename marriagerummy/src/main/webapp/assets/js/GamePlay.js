@@ -88,6 +88,26 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
 	
+	self.addCardToHand = function(cardInstanceID)
+	{
+		 var url = marriageRummy.urls.addCardToHand;
+		 var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onAddCardToHandSuccess;
+		 var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onAddCardToHandFailure;
+		 var formdata = marriageRummy.request.cardInHandRequest(stateobject.lobbyName,stateobject.gameInstanceID,stateobject.gameType,cardInstanceID);
+		 var requestObj = {"formdata":formdata};
+		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	self.dropCardFromHand = function(cardInstanceID)
+	{
+		 var url = marriageRummy.urls.dropCardFromHand;
+		 var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDropCardFromHandSuccess;
+		 var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDropCardFromHandFailure;
+		 var formdata = marriageRummy.request.cardInHandRequest(stateobject.lobbyName,stateobject.gameInstanceID,stateobject.gameType,cardInstanceID);
+		 var requestObj = {"formdata":formdata};
+		 marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
 	
 	self.renderJokerCard = function(data)
 	{
@@ -269,6 +289,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		curleft = ui.position.left;
 		$(".card").attr("data-replacecard", "false");
 		showIndicator();
+		if($('#pickedcard').css("display") == "block")
+		   disableDroppable();
 	};
 	
 	var dragPickedStart = function(event,ui,source)
@@ -302,6 +324,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			source.css("left", "");
 			source.css("top", "");
 			source.css("z-index", "");
+			
 			return;
 		}
 		console.log("Selected replace card ", $(
@@ -316,7 +339,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	var dragstopopencard = function(event,ui,source)
 	{
-		disableDroppable();
+		//disableDroppable();
 		removeIndicator();
 		if ($(".card[data-replacecard=true]").length > 0) {
 			var id = $(".card[data-replacecard=true]")
@@ -340,6 +363,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			source.css("top", "-115px");
 			source.css("display", "none");
 			source.css("left", "");
+			self.addCardToHand(dragcardInstanceID);
 			enableDroppable();
 			
 			return;
@@ -357,7 +381,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	var disableDroppable = function()
 	{
-		$('.dropcardarea').droppable('destroy');
+		if($('.dropcardarea').is('.ui-droppable'))
+		     $('.dropcardarea').droppable('destroy');
 	};
 	
 	var enableDroppable = function()
@@ -375,18 +400,24 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			},
 		    "drop":function(event,ui)
 		    {
+		    	
 		    	var draggedobject = ui.draggable; 
+		    	
 		    	var id = draggedobject.attr("id");
+		    	var cardInstanceID = draggedobject.attr("data-cardinstanceid");
 		    	if(id == "pickedcard")
 		    		{
 		    		  onNextCardSelect();
 		    		  var classname = draggedobject.attr("data-cardvalue");
+		    		 
 				    	$('#droppedcard').css("display","block");
 				    	$('#droppedcard').removeClass().addClass("card-dropped " + classname);
 				    	$('#pickedcard').removeClass().addClass("card-picked");
 				    	$('#pickedcard').css("top", "-115px");
 				    	$('#pickedcard').css("display", "none");
 				    	$('#pickedcard').css("left", "");
+				    	disableDroppable();
+				    	self.dropCardFromHand(cardInstanceID);
 		    		  return;
 		    		}
 		    		
@@ -399,7 +430,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		    	if(prefix == "Sevencard")
 		    		endposition = 8;
 		    	slideCardLeft(prefix,startposition,endposition);
-		    	onNextCardSelect(); // to be fixed later
+		    	self.dropCardFromHand(cardInstanceID);
+		    	onNextCardSelect();// to be fixed later
+		    	disableDroppable();
+		    	
 		    }
 		});
 	};

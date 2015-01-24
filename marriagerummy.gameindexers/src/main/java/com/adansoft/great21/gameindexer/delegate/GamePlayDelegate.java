@@ -9,6 +9,8 @@ import org.springframework.messaging.support.MessageBuilder;
 
 import com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache;
 import com.adansoft.great21.models.Card;
+import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -95,6 +97,45 @@ public class GamePlayDelegate {
 			Message<GetOpenCardRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<GetSingleCardResponse> reply =  (Message<GetSingleCardResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public String addCardToHand(AddCardToHandRequest request)
+	{
+		String result = null;
+		try
+		{
+			String gameinstanceid = request.getCard().getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<AddCardToHandRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public String dropCardFromHand(DropCardFromHandRequest request)
+	{
+		String result = null;
+		try
+		{
+			String gameinstanceid = request.getCard().getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<DropCardFromHandRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

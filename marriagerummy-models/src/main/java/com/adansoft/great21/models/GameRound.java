@@ -7,6 +7,7 @@ import java.util.HashMap;
 import com.adansoft.great21.exceptions.GameNotFoundException;
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.RummyArena;
+import com.adansoft.great21.uischemas.UICard;
 import com.adansoft.great21.ulitity.CardUtility;
 
 public class GameRound implements Serializable{
@@ -224,7 +225,7 @@ public class GameRound implements Serializable{
     public Card getNextCardFromDeck()
     {
     	Card card = deckcards[currentindexincard];
-    	card.setStatus(Card.STATUS_ASSIGNED);
+    	card.setStatus(Card.STATUS_PICKED);
     	currentindexincard++;
     	return card;
     }
@@ -262,6 +263,64 @@ public class GameRound implements Serializable{
 	}
 	
 	
+    public String addCardToHand(UICard inputcard,String nickname)
+    {
+    	String result = "Failure";
+    	for(Card card : deckcards)
+		{
+    		if(card.getInstanceID().equals(inputcard.getCardInstanceID()))
+    		{
+    			for(Player player : getPlayerlist())
+    			{
+    				if(player.getNickName().equals(nickname))
+    				{
+    					card.setStatus(Card.STATUS_ASSIGNED);
+    					player.getPlayerCards().add(card);
+    					result = "Success";    					
+    					System.out.println("************************************************************************");
+    		    		System.out.println("Player Name :- " + player.getNickName());
+    		    		System.out.println("************************************************************************");
+    		    		player.showCards();
+    		    		System.out.println("************************************************************************");
+    				}
+    			}
+    		}
+		}
+    	return result;
+    }
     
+    public String dropCardFromHand(UICard inputcard,String nickname)
+    {
+    	String result = "Failure";
+    	for(Card card : deckcards)
+		{
+    		if(card.getInstanceID().equals(inputcard.getCardInstanceID()))
+    		{
+    			for(Player player : getPlayerlist())
+    			{
+    				if(player.getNickName().equals(nickname))
+    				{    					
+    					player.getPlayerCards().remove(card);
+    					card.setStatus(Card.STATUS_DROPPED);
+    					result = "Success";    		
+    					System.out.println("************************************************************************");
+    		    		System.out.println("Player Name :- " + player.getNickName());
+    		    		System.out.println("************************************************************************");
+    		    		player.showCards();
+    		    		System.out.println("************************************************************************");
+    				}
+    			}
+    			if(result != "Success")
+    			{
+    				if(card.getStatus().equals(Card.STATUS_DROPPED))
+    				{
+    				   card.setStatus(Card.STATUS_DROPPED);
+				 	  result = "Success";
+    				}
+    			}
+    		}
+		}
+    	return result;
+    }
 
 }

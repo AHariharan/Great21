@@ -161,3 +161,9 @@
 		</div>
 	</div>
 </div>
+<!-- Show Joker -->
+<div class="showJoker">
+  <div class="toolheading"> Show Joker </div>
+  <div class="actionarea"> </div>  
+</div>
+<script>$('.showJoker').draggable();</script>
