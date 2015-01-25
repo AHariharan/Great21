@@ -14,7 +14,9 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
+import com.adansoft.great21.ulitity.CardUtility;
 
 public class GamePlayHelper {
 
@@ -93,6 +95,31 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getCard().getGameInstanceID(), request.getCard().getGameType());
 		result = game.getCurrentGameRound().dropCardFromHand(request.getCard(), request.getCard().getNickName());		
 		return result;
+	}
+	
+	public static GetSingleCardResponse showJoker(ShowJokerRequest request)
+	{
+		GetSingleCardResponse response = new GetSingleCardResponse();
+		Card card = null;
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		ArrayList<Card> cardlist = new ArrayList<Card>();
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		for(int i=0;i<request.getCardInstanceList().length;i++)
+		{
+			card = UtilityHelper.getCardforPlayerFromUICard(player,request.getCardInstanceList()[i]);
+			cardlist.add(card);
+		}
+		boolean result = CardUtility.checkSequence(cardlist.toArray(new Card[cardlist.size()]));
+		if(result == true)
+		{
+			player.setJokerKnown(result);
+			Card jokercard = game.getCurrentGameRound().getJoker();
+			response.setAvaialble(true);
+			response.setCard(jokercard);
+			response.setCardtype(GetSingleCardResponse.CARDTYPE_JOKER);    		
+		}
+		return response;
 	}
 
 }

@@ -2,7 +2,9 @@ package com.adansoft.great21.helpers;
 
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
+import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.Player;
 
 public class UtilityHelper {
 
@@ -41,4 +43,28 @@ public class UtilityHelper {
 		return game;
 	}
 	
+	public static Player getPlayerinGame(Game game,String nickname)
+	{
+		for(Player player : game.getCurrentGameRound().getPlayerlist())
+		{
+			if(player.getNickName().equals(nickname))
+				return player;
+		}
+		return null;
+	}
+	
+	
+	public static Card getCardforPlayerFromUICard(Player player , String cardinstanceid)
+	{
+		Card card = null;
+		for(Card cucard : player.getPlayerCards())
+		{
+			if(cucard.getInstanceID().equals(cardinstanceid))
+			{
+				card = cucard;
+				return card;
+			}
+		}
+		return card;
+	}
 }

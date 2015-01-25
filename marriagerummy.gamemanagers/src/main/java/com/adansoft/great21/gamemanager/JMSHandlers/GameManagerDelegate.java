@@ -25,6 +25,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public interface GameManagerDelegate {
@@ -54,4 +55,6 @@ public interface GameManagerDelegate {
 	public Message<String> handleMessage(AddCardToHandRequest request);
 	
 	public Message<String> handleMessage(DropCardFromHandRequest request);	
+	
+	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request);
 }

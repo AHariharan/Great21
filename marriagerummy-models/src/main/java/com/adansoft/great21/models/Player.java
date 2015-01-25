@@ -60,6 +60,8 @@ public interface Player extends Serializable {
 	
 	public void turnPlayed(Card pickupcard,Card droppedcard);
 	
+	public void setJokerKnown(boolean result);
+	
 	
 	
 }

@@ -179,7 +179,7 @@
 	</div>
 	<div class="actionarea">
 		<button id="onShowJokerCancel" class="btn btn-tool">Cancel</button>
-		<button id="onShowJoker" class="btn btn-tool">Show Joker</button>
+		<button id="onShowJoker" class="btn btn-tool" disabled>Show Joker</button>
 	</div>
 </div>
 <script>

@@ -52,6 +52,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getNextCardFromDeck = "/marriagerummy/IndexerServices/GamePlay/NextCardFromDeck/Get";
 	self.addCardToHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Add";
 	self.dropCardFromHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Remove";
+	self.showJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Show";
 	
 };
 
@@ -205,6 +206,19 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			};
 		return formdata;
 	};
+
+    self.showJokerRequest = function(lobbyType, gameInstanceID, gameType,cardInstanceList)
+    {
+    	var formdata = {
+    	
+    			"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+				"cardInstanceList":cardInstanceList
+    	};
+    	return formdata;
+    };
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -299,6 +313,18 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onDropCardFromHandFailure = function(data, textstatus, Jhxr, requestObj)
     {
     	 console.log("Failed on Drop Card From Hand : " + data);
+    };
+    
+    self.onShowJokerSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("Success on showJoker : " + JSON.stringify(data));
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderJokerCard(data);
+    };
+    
+    self.onShowJokerFailure = function(data)
+    {
+    	console.log("Failure on showJoker : " + data);
     };
 };
 

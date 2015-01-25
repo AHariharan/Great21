@@ -25,6 +25,7 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
@@ -186,7 +187,25 @@ public class FacadeGamePlayController {
 		
 	}
 	
-	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.SHOWJOKER, method = RequestMethod.POST)
+	public @ResponseBody GetSingleCardResponse showJoker(@RequestBody ShowJokerRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		GetSingleCardResponse result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.SHOWJOKER);
+			result = restTemplate.postForEntity(url, request, GetSingleCardResponse.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
 	
 	
 

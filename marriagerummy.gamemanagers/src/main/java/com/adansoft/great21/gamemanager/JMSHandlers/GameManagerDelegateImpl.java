@@ -27,6 +27,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
@@ -135,6 +136,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		String response = GamePlayHelper.dropCardFromHand(request);
 		Message<String> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request)
+	{
+		GetSingleCardResponse response = GamePlayHelper.showJoker(request);
+		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	

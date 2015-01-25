@@ -73,6 +73,21 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	self.showJoker = function(cardInstanceList) {
+		var url = marriageRummy.urls.showJoker;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerFailure;
+		var formdata = marriageRummy.request.showJokerRequest(
+				stateobject.lobbyName, stateobject.gameInstanceID,
+				stateobject.gameType,cardInstanceList);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+
 
 	self.getOpenCard = function() {
 		var url = marriageRummy.urls.getOpenCard;
@@ -470,13 +485,18 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var nextpos = i + 1;
 			var curid = "#" + prefix + "-" + i;
 			var nextid = "#" + prefix + "-" + nextpos;
-			var curvalue = $(curid).attr("data-cardvalue");
+			var curvalue = $(curid).attr("data-cardvalue");//cardinstanceid
+			//var curinstid = $(curid).attr("data-cardinstanceid");
 			var nextvalue = $(nextid).attr("data-cardvalue");
+			var nextinstid = $(nextid).attr("data-cardinstanceid");
 			$(curid).removeClass(curvalue);
 			$(curid).addClass(nextvalue);
 			$(curid).attr("data-cardvalue", nextvalue);
+			$(curid).attr("data-cardinstanceid", nextinstid);
 		}
 		$('#' + prefix + "-" + endposition).css("display", "none");
+		$('#' + prefix + "-" + endposition).removeAttr("data-cardvalue");
+		$('#' + prefix + "-" + endposition).removeAttr("data-cardinstanceid");
 	};
 
 	var whichAnimationEnd = function() {
@@ -507,10 +527,32 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			});
 		});
 	};
+	
+	var evaluateShowJoker = function()
+	{
+		var countofcards = 0;
+		$('.showJoker .jokershowcard').each(function(){
+			var cardinstaceid = $(this).attr("data-cardinstanceid");
+			if(cardinstaceid != undefined && cardinstaceid != null && cardinstaceid != "")
+				countofcards++;
+		});
+		if(countofcards == 3)
+			$('#onShowJoker').removeAttr("disabled");
+		else
+			$('#onShowJoker').attr("disabled","disabled");
+	};
 
 	var onClickCardforShowJoker = function() {
 		$('#onShowJokerCancel').on("click",function(){
 			$('.showJoker').hide();
+		});
+		$('#onShowJoker').on("click",function(){
+			var cardInstanceList = new Array();
+			$('.showJoker .jokershowcard').each(function(){
+				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				cardInstanceList.push(cardinstanceid);
+			});
+			self.showJoker(cardInstanceList);
 		});
 		$('.card').on(
 				"click",
@@ -557,7 +599,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 										return;
 									}
 								});
-					}
+						evaluateShowJoker();							
+					} // End of IF			
 				});
 	};
 	
@@ -568,6 +611,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$(this).removeClass(cardvalue);
 			$(this).attr("data-cardinstanceid","");
 			$(this).attr("data-cardvalue","");
+			evaluateShowJoker();
 		});
 	};
 
