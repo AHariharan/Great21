@@ -616,7 +616,6 @@
 	border-bottom-right-radius: 10px;
 }
 
-
 .actionarea button {
 	float: right;
 	margin-top: 8px;
@@ -632,4 +631,19 @@
 	border-radius: 9px;
 	display: inline-block;
 	position: relative;
+}
+
+.timer {
+	width: 56px;
+	height: 56px;
+	position: relative;
+	left: 7px;
+	top: -102px;
+	border: 3px solid rgb(50, 57, 50);
+	border-radius: 40px;
+	background: rgb(239, 201, 75);
+	text-align: center;
+	font-size: 24px;
+	padding-top: 7px;
+	color: rgb(52, 48, 40);
 }

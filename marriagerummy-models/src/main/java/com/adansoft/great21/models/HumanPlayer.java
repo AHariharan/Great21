@@ -54,6 +54,7 @@ public class HumanPlayer implements Player{
 		
 	}
 	
+	@JsonIgnore
 	public ArrayList<Card> getPlayerCards()
 	{
 		return cards;
@@ -105,7 +106,7 @@ public class HumanPlayer implements Player{
 		}
 	}
 
-	
+	@JsonIgnore
 	public ArrayList<Card> getCards() {
 		return cards;
 	}

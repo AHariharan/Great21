@@ -326,6 +326,18 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     {
     	console.log("Failure on showJoker : " + data);
     };
+    
+    self.onGetPlayerListSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("Player List success : " + JSON.stringify(data));
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderGameParticipants(data);
+    };
+    
+    self.onGetPlayerListFailure = function(data)
+    {
+    	console.log("Player List Failure : " + data);
+    };
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()

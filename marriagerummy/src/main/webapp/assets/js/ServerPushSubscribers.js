@@ -170,6 +170,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		   gameObject.getCards();
 		   gameObject.getJoker();
 		   gameObject.getOpenCard();
+		   gameObject.getPlayerList();
 	};
 	
 	self.handleCancelGame = function(data)

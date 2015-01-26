@@ -224,11 +224,21 @@ public class GameRound implements Serializable{
     
     public Card getNextCardFromDeck()
     {
-    	Card card = deckcards[currentindexincard];
-    	card.setStatus(Card.STATUS_PICKED);
-    	currentindexincard++;
+    	Card card = null;
+        boolean isCardfromDeckSet = false;
+        while(!isCardfromDeckSet)
+        {
+        	card = deckcards[currentindexincard];
+    	    if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
+    	     {
+    	      isCardfromDeckSet = true;
+    	      card.setStatus(Card.STATUS_PICKED);
+    	      currentindexincard++;
+    	     }
+        }
     	return card;
     }
+    
     
     public Card getJoker()
     {

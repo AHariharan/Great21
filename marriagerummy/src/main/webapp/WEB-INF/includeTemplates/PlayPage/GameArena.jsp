@@ -22,54 +22,61 @@
 					<%@include file="./GameArena_SevenCard.jsp"%>
 				</div>
 			</div>
-			<div id="player2" class="player player2-position">
+			<div id="player2" class="player player2-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 2</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop2"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player3" class="player player3-position">
+			<div id="player3" class="player player3-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 3</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop3"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player4" class="player player4-position">
+			<div id="player4" class="player player4-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 4</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop4"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player5" class="player player5-position">
+			<div id="player5" class="player player5-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 5</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop5"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player6" class="player player6-position">
+			<div id="player6" class="player player6-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 6</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop6"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player7" class="player player7-position">
+			<div id="player7" class="player player7-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 7</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop7"></div>
+				<div class="timer"></div>
 			</div>
-			<div id="player8" class="player player8-position">
+			<div id="player8" class="player player8-position" style="visibility: hidden;">
 				<div class="indicator">
 					<p>Player 8</p>
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop8"></div>
+				<div class="timer"></div>
 			</div>
 		</div>
 	</div>
