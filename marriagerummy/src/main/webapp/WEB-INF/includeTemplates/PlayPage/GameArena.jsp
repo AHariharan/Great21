@@ -21,6 +21,7 @@
 					<div class="pointDisplayer">-20</div>
 					<%@include file="./GameArena_SevenCard.jsp"%>
 				</div>
+				<div class="timer timerhost"></div>
 			</div>
 			<div id="player2" class="player player2-position" style="visibility: hidden;">
 				<div class="indicator">

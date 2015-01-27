@@ -15,6 +15,7 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
@@ -156,6 +157,25 @@ public class GamePlayDelegate {
 			Message<ShowJokerRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<GetSingleCardResponse> reply =  (Message<GetSingleCardResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Integer getPlayerTurn(GetPlayerTurnRequest request)
+	{
+		Integer result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<GetPlayerTurnRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<Integer> reply =  (Message<Integer>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

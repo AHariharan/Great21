@@ -53,6 +53,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.addCardToHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Add";
 	self.dropCardFromHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Remove";
 	self.showJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Show";
+	self.getWhoseTurn = "/marriagerummy/IndexerServices/GamePlay/WhoseTurn/Get";
 	
 };
 
@@ -219,6 +220,18 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
     	};
     	return formdata;
     };
+   
+    self.getWhoseTurnRequest = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+			};
+		return formdata;
+	}; 
+
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -337,6 +350,17 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onGetPlayerListFailure = function(data)
     {
     	console.log("Player List Failure : " + data);
+    };
+
+    self.onGetWhoseTurnSuccess = function(data,textstatus, Jhxr, requestObj)
+    {
+    	console.log("Success on onGetWhoseTurn: " + JSON.stringify(data));
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderTurns(data);
+    };
+    self.onGetWhoseTurnFailure = function(data)
+    {
+    	console.log("Failure on onGetWhoseTurn : " + data);
     };
 };
 

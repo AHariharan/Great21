@@ -23,5 +23,6 @@ public class FacadeControllerURLs {
 	public final static String ADDCARDTOHAND = "/HandCard/Add";
 	public final static String DROPCARDFROMHAND = "/HandCard/Remove";
 	public final static String SHOWJOKER = "/JokerCard/Show";
+	public final static String PLAYERTURN = "/WhoseTurn/Get";
 	
 }

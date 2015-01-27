@@ -24,6 +24,7 @@ import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -144,6 +145,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		GetSingleCardResponse response = GamePlayHelper.showJoker(request);
 		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<Integer> handleMessage(GetPlayerTurnRequest request)
+	{
+		int response = GamePlayHelper.getTurn(request);
+		Message<Integer> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	

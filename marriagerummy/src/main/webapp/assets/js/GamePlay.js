@@ -12,6 +12,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var curtop = 0;
 	var curleft = 0;
 	var stateobject = GameObject;
+	var playerposmap = new Array();
 
 	var onStartup = function() {
 		$(".navigation").css("display", "none");
@@ -129,6 +130,21 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	self.getWhoseTurn = function()
+	{
+		var url = marriageRummy.urls.getWhoseTurn;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnFailure;
+		var formdata = marriageRummy.request.getWhoseTurnRequest(
+				stateobject.lobbyName, stateobject.gameInstanceID,
+				stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
 
 	self.addCardToHand = function(cardInstanceID) {
 		var url = marriageRummy.urls.addCardToHand;
@@ -205,6 +221,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	self.renderGameParticipants = function(data)
 	{
+		cleanPosMap();
 		var positionlist = getPlayerPosition(data.playerlist);
 		var mypos = getMyPosition(data.playerlist);
 		for(var i=0,j=mypos-1;i<positionlist.positions.length;i++,j++)
@@ -212,13 +229,40 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			    if(j >= positionlist.positions.length)
 	    		  j=0;
 			    if(data.playerlist[j].hasOwnProperty("HumanPlayer"))
-			    	{
-			    	 
+			    	{			    	 
 			    	  var nickname =  data.playerlist[j].HumanPlayer.nickName;
+			    	  var playerpos = data.playerlist[j].HumanPlayer.playerPosition;
+			    	  var currentplayermap = {"PlayerName" : nickname,
+			    			                  "PlayerPosition" : playerpos,
+			    			                  "PositionUI":positionlist.positions[i]};
+			    	  playerposmap.push(currentplayermap);
 			    	  $('#'+positionlist.positions[i]).css("visibility","visible");
 			    	  $('#'+positionlist.positions[i]+' p').html(nickname);
 			    	}
 			}
+		self.getWhoseTurn();
+	};
+	
+	self.renderTurns = function(data)
+	{
+		for(var i=0;i<playerposmap.length;i++)
+			{
+			   if(playerposmap[i].PlayerPosition == data)
+				   {
+				      $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","block");
+				   }
+			   else
+				   {
+				   $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","none");
+				   }
+			}
+	};
+	
+	var cleanPosMap = function()
+	{
+		while(playerposmap.length > 0) {
+			playerposmap.pop();
+		}
 	};
 	
 	var getMyPosition = function(playerlist)

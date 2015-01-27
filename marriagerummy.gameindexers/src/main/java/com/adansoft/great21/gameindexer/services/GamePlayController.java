@@ -17,6 +17,7 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
@@ -67,9 +68,15 @@ public class GamePlayController {
 	
 	
 	@RequestMapping(value = GameIndexerServiceURLs.SHOWJOKER, method = RequestMethod.POST)
-	public GetSingleCardResponse dropCardFromHand(@RequestBody ShowJokerRequest request)
+	public GetSingleCardResponse showJoker(@RequestBody ShowJokerRequest request)
 	{
 		return delegate.showJoker(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.PLAYERTURN, method = RequestMethod.POST)
+	public Integer getPlayerTurn(@RequestBody GetPlayerTurnRequest request)
+	{
+		return delegate.getPlayerTurn(request);
 	}
 	
 	

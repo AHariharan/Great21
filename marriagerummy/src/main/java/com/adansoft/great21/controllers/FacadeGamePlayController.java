@@ -25,6 +25,7 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
@@ -207,6 +208,25 @@ public class FacadeGamePlayController {
 		
 	}
 	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.PLAYERTURN, method = RequestMethod.POST)
+	public @ResponseBody Integer getPlayerTurn(@RequestBody GetPlayerTurnRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		Integer result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.PLAYERTURN);
+			result = restTemplate.postForEntity(url, request, Integer.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
 	
 
 }

@@ -647,3 +647,9 @@
 	padding-top: 7px;
 	color: rgb(52, 48, 40);
 }
+
+.timerhost
+{
+	left: 10px !important;
+    top: -376px !important;
+}
