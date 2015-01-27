@@ -4,7 +4,7 @@
     -webkit-animation: pickNextCard 1s; 
     animation: pickNextCard 1s;
     -moz-animation: pickNextCard 1s;
-    -o-animation: move_eye 4s linear 0s infinite alternate;
+    -o-animation: pickNextCard 1s;
 }
 
 @-webkit-keyframes pickNextCard {
