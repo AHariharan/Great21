@@ -121,5 +121,10 @@ public class GamePlayHelper {
 		}
 		return response;
 	}
+	
+	public int getTurn()
+	{
+		return 0;
+	}
 
 }

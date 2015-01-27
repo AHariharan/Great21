@@ -1,7 +1,10 @@
 package com.adansoft.great21.models;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import com.adansoft.great21.exceptions.GameNotFoundException;
@@ -228,6 +231,9 @@ public class GameRound implements Serializable{
     
     public Card getNextCardFromDeck()
     {
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Calendar cal = Calendar.getInstance();
+    	System.out.println("Incoming request next card .. " + dateFormat.format(cal.getTime())); 
     	Card card = null;
         boolean isCardfromDeckSet = false;
         while(!isCardfromDeckSet)
@@ -235,14 +241,21 @@ public class GameRound implements Serializable{
         	card = deckcards[currentindexincard];
     	    if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
     	     {
+    	      if(currentindexincard >= this.noofdecks*52)
+    	      {
+    	    	  //update code here.
+    	      }
     	      isCardfromDeckSet = true;
     	      card.setStatus(Card.STATUS_PICKED);
     	      currentindexincard++;
     	     }
         }
+        System.out.println("Next Card Request Came : " + card);
     	return card;
     }
     
+    
+        
     
     public Card getJoker()
     {
@@ -344,5 +357,16 @@ public class GameRound implements Serializable{
     	if(currenturn > this.getPlayerlist().size())
     		currenturn = 1;
     }
+
+	public int getCurrenturn() {
+		return currenturn;
+	}
+
+	public void setCurrenturn(int currenturn) {
+		this.currenturn = currenturn;
+	}
+    
+    
+    
 
 }
