@@ -33,8 +33,10 @@ public class GameRound implements Serializable{
     private int currentindexincard;
     private Card Joker;
     private Card OpenCard;
+    private int startTurnpos;
+    private int currenturn;
 
-    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks)
+    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn)
     {
     	this.parentGameId = gameid;
     	this.isPointsEnabled = isPointsEnabled;
@@ -45,6 +47,8 @@ public class GameRound implements Serializable{
     	this.gameType = gameType;
     	this.noofdecks = noofdecks;
     	setCurrentStatus(GameRound.STATUS_CREATED);
+    	this.startTurnpos = startturn;
+    	this.currenturn = this.startTurnpos;
     	
     }
 
@@ -330,7 +334,15 @@ public class GameRound implements Serializable{
     			}
     		}
 		}
+    	updateTurn();
     	return result;
+    }
+    
+    private void updateTurn()
+    {
+    	currenturn++;
+    	if(currenturn > this.getPlayerlist().size())
+    		currenturn = 1;
     }
 
 }
