@@ -13,6 +13,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var curleft = 0;
 	var stateobject = GameObject;
 	var playerposmap = new Array();
+	var timerJob = {};
+	var sec_counter = 60;
+	var selected_timer = {};
 
 	var onStartup = function() {
 		$(".navigation").css("display", "none");
@@ -173,6 +176,18 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	self.onDropHandSuccess = function(data)
+	{
+		  var notificationdata = marriageRummy.notificationRequest.dropCardNotification("onDropHandSuccess", data.formdata);
+		   marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+	};
+	
+	self.onDropNotificationSuccess = function(data)
+	{
+		stopTimer();
+		self.getWhoseTurn();
+	};
 
 	self.renderJokerCard = function(data) {
 		var divid = $('#Joker');
@@ -245,17 +260,51 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	self.renderTurns = function(data)
 	{
+		var mynick = marriageRummy.loggedinUser;
 		for(var i=0;i<playerposmap.length;i++)
 			{
 			   if(playerposmap[i].PlayerPosition == data)
 				   {
 				      $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","block");
+				      selected_timer=$('#'+ playerposmap[i].PositionUI+"  .timer .seconds");
+				      if(playerposmap[i].PlayerName == mynick)
+				    	  onNextCardSelect();
 				   }
 			   else
 				   {
 				   $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","none");
 				   }
 			}
+		startTimer();
+		
+	};
+	
+	
+	var startTimer = function()
+	{		
+		sec_counter = 60;
+		timerCallBack();
+		timerJob = setInterval(timerCallBack, 1000);
+	};
+	
+	var timerCallBack = function()
+	{
+		if(sec_counter > 30)
+			selected_timer.css("color","rgb(9, 103, 8);");
+		if(sec_counter > 15 && sec_counter <= 30)
+			selected_timer.css("color","rgb(221, 150, 11);");
+		if(sec_counter < 15 && sec_counter <= 30)
+			selected_timer.css("color","rgb(223, 0, 0);");
+		selected_timer.html(sec_counter);
+		sec_counter--;
+		if(sec_counter == 0)
+			stopTimer();
+	};
+	
+	var stopTimer = function()
+	{
+		clearInterval(timerJob);
+		selected_timer.parent().hide();
 	};
 	
 	var cleanPosMap = function()
@@ -556,7 +605,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 						var cardInstanceID = draggedobject
 								.attr("data-cardinstanceid");
 						if (id == "pickedcard") {
-							onNextCardSelect();
+							//onNextCardSelect();
 							var classname = draggedobject
 									.attr("data-cardvalue");
 
@@ -584,7 +633,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 							endposition = 8;
 						slideCardLeft(prefix, startposition, endposition);
 						self.dropCardFromHand(cardInstanceID);
-						onNextCardSelect();// to be fixed later
+						//onNextCardSelect();// to be fixed later
 						disableDroppable();
 
 					}
@@ -757,7 +806,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		
 		initGameTools();
 		onStartup();
-		onNextCardSelect();
+		//onNextCardSelect();
 		$(".card").each(function() {
 			var left = $(this).position.left;
 			var top = $(this).position.top;

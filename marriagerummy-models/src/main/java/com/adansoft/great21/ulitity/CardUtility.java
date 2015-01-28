@@ -192,7 +192,7 @@ public class CardUtility {
 	public static Card pickJoker(Card[] cardlist,int numberofDecks)
 	{
 		Card card = null;
-	    int jokerid = NumberUtility.generateRandomNumber(0, numberofDecks*52);
+	    int jokerid = NumberUtility.generateRandomNumber(0, numberofDecks*52 - 1);
 	    boolean jokerpicked = false;
 	    while(!jokerpicked)
 	    {

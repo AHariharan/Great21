@@ -100,8 +100,9 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 		 if(type == "KICKPLAYER")
 			 callback.handleKickPlayer(jsonobj);
 		 if(type == "LAUNCHGAME")
-			 callback.handleLaunchGame(jsonobj)
-		
+			 callback.handleLaunchGame(jsonobj);
+		 if(type == "CARDDROPPED")
+		     callback.handleCardDropped(jsonobj);
 	 }; 
 	 
 	 self.sendNotificationEvent = function(data)
@@ -192,6 +193,12 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	                 }
 			   }
 	};
+
+    self.handleCardDropped = function(data)
+    {
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.onDropNotificationSuccess(data);
+    };
 };
 
 
@@ -246,6 +253,17 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
      {
     	 var formdata = {
     			 notificationType : "LAUNCHGAME",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	 };
+    	 return formdata;
+     };
+     
+     self.dropCardNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "CARDDROPPED",
     			 notificationSource : source,
     			 notificationObject : object,
     			 notifiedBy : "Auto"

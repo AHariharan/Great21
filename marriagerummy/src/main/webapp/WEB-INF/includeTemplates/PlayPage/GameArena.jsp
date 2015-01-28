@@ -21,7 +21,9 @@
 					<div class="pointDisplayer">-20</div>
 					<%@include file="./GameArena_SevenCard.jsp"%>
 				</div>
-				<div class="timer timerhost"></div>
+				<div class="timer timerhost">
+				   <div class="seconds"></div>
+				</div>
 			</div>
 			<div id="player2" class="player player2-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -29,7 +31,9 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop2"></div>
-				<div class="timer"></div>
+				<div class="timer">
+				 <div class="seconds"></div>
+				</div>
 			</div>
 			<div id="player3" class="player player3-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -37,7 +41,9 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop3"></div>
-				<div class="timer"></div>
+				<div class="timer">
+				 <div class="seconds"></div>
+				 </div>
 			</div>
 			<div id="player4" class="player player4-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -45,7 +51,9 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop4"></div>
-				<div class="timer"></div>
+				<div class="timer">
+				 <div class="seconds"></div>
+				 </div>
 			</div>
 			<div id="player5" class="player player5-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -53,7 +61,9 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop5"></div>
-				<div class="timer"></div>
+				<div class="timer">
+				 <div class="seconds"></div>
+				 </div>
 			</div>
 			<div id="player6" class="player player6-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -61,7 +71,8 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop6"></div>
-				<div class="timer"></div>
+				<div class="timer"> <div class="seconds"></div>
+				</div>
 			</div>
 			<div id="player7" class="player player7-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -69,7 +80,7 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop7"></div>
-				<div class="timer"></div>
+				<div class="timer"> <div class="seconds"></div></div>
 			</div>
 			<div id="player8" class="player player8-position" style="visibility: hidden;">
 				<div class="indicator">
@@ -77,7 +88,7 @@
 				</div>
 				<i class="fa fa-user"></i>
 				<div class="PlayerDropCard drop8"></div>
-				<div class="timer"></div>
+				<div class="timer"> <div class="seconds"></div></div>
 			</div>
 		</div>
 	</div>
