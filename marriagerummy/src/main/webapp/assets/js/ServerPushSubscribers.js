@@ -197,6 +197,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     self.handleCardDropped = function(data)
     {
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.notifyDroppedCard(data.notificationObject.card);    	
     	gameObj.onDropNotificationSuccess(data);
     };
 };
@@ -270,6 +271,8 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
     	 };
     	 return formdata;
      };
+     
+    
 };
 
 marriageRummy = marriageRummy || {};

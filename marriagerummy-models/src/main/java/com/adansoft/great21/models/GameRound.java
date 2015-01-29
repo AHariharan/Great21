@@ -238,17 +238,19 @@ public class GameRound implements Serializable{
         boolean isCardfromDeckSet = false;
         while(!isCardfromDeckSet)
         {
+        	System.out.println("Current Index : " + currentindexincard);
         	card = deckcards[currentindexincard];
     	    if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
     	     {
-    	      if(currentindexincard >= this.noofdecks*52)
+    	      if(currentindexincard >= this.noofdecks*52 - 1)
     	      {
     	    	  //update code here.
     	      }
     	      isCardfromDeckSet = true;
     	      card.setStatus(Card.STATUS_PICKED);
-    	      currentindexincard++;
+    	      
     	     }
+    	    currentindexincard++;
         }
         System.out.println("Next Card Request Came : " + card);
     	return card;

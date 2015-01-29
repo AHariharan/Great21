@@ -16,6 +16,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var timerJob = {};
 	var sec_counter = 60;
 	var selected_timer = {};
+	var init_turn = true;
 
 	var onStartup = function() {
 		$(".navigation").css("display", "none");
@@ -48,19 +49,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	};
 
-	self.getPlayerList = function()
-	{
-			var url = marriageRummy.urls.getPlayersinGame;
-			var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListSuccess;
-			var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListFailure;
-			var formdata = marriageRummy.request.getPlayersinGameRequest(stateobject.gameInstanceID,stateobject.lobbyName,stateobject.gameType);
-			var requestObj = {
-				"formdata" : formdata
-			};
-			marriageRummy.httpComm.invokeAsyncRequest(url, formdata, onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	self.getPlayerList = function() {
+		var url = marriageRummy.urls.getPlayersinGame;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListFailure;
+		var formdata = marriageRummy.request.getPlayersinGameRequest(
+				stateobject.gameInstanceID, stateobject.lobbyName,
+				stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	
+
 	self.getCards = function() {
 
 		var url = marriageRummy.urls.getCards;
@@ -90,21 +92,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
+
 	self.showJoker = function(cardInstanceList) {
 		var url = marriageRummy.urls.showJoker;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerFailure;
 		var formdata = marriageRummy.request.showJokerRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
-				stateobject.gameType,cardInstanceList);
+				stateobject.gameType, cardInstanceList);
 		var requestObj = {
 			"formdata" : formdata
 		};
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-
 
 	self.getOpenCard = function() {
 		var url = marriageRummy.urls.getOpenCard;
@@ -133,9 +134,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	self.getWhoseTurn = function()
-	{
+
+	self.getWhoseTurn = function() {
 		var url = marriageRummy.urls.getWhoseTurn;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnFailure;
@@ -176,15 +176,35 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	self.onDropHandSuccess = function(data)
+
+	self.onDropHandSuccess = function(data,requestObj) {
+		var notificationdata = marriageRummy.notificationRequest
+				.dropCardNotification("onDropHandSuccess", requestObj.formdata);
+		marriageRummy.notificationManager
+				.sendNotificationEvent(notificationdata);
+	};
+
+	self.notifyDroppedCard = function(card)
 	{
-		  var notificationdata = marriageRummy.notificationRequest.dropCardNotification("onDropHandSuccess", data.formdata);
-		   marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		$(".player .timer").each(function(){
+			if($(this).css("display") == "block")
+				{
+				   var existingcardvalue = $(this).prev().attr("data-cardvalue");
+				   if(existingcardvalue != undefined && existingcardvalue != null)
+					   {
+					   $(this).prev().removeClass(existingcardvalue);
+					   $(this).prev().removeAttr("data-cardvalue");
+					   $(this).prev().removeAttr("data-cardinstanceid");
+					   }
+				   $(this).prev().attr("data-cardinstanceid",card.cardInstanceID);
+				   var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
+				   $(this).prev().attr("data-cardvalue",cardvalue);
+				   $(this).prev().addClass(cardvalue);
+				}
+		});
 	};
 	
-	self.onDropNotificationSuccess = function(data)
-	{
+	self.onDropNotificationSuccess = function(data) {
 		stopTimer();
 		self.getWhoseTurn();
 	};
@@ -233,121 +253,149 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
 		}
 	};
-	
-	self.renderGameParticipants = function(data)
-	{
+
+	self.renderGameParticipants = function(data) {
 		cleanPosMap();
 		var positionlist = getPlayerPosition(data.playerlist);
 		var mypos = getMyPosition(data.playerlist);
-		for(var i=0,j=mypos-1;i<positionlist.positions.length;i++,j++)
-			{
-			    if(j >= positionlist.positions.length)
-	    		  j=0;
-			    if(data.playerlist[j].hasOwnProperty("HumanPlayer"))
-			    	{			    	 
-			    	  var nickname =  data.playerlist[j].HumanPlayer.nickName;
-			    	  var playerpos = data.playerlist[j].HumanPlayer.playerPosition;
-			    	  var currentplayermap = {"PlayerName" : nickname,
-			    			                  "PlayerPosition" : playerpos,
-			    			                  "PositionUI":positionlist.positions[i]};
-			    	  playerposmap.push(currentplayermap);
-			    	  $('#'+positionlist.positions[i]).css("visibility","visible");
-			    	  $('#'+positionlist.positions[i]+' p').html(nickname);
-			    	}
+		for (var i = 0, j = mypos - 1; i < positionlist.positions.length; i++, j++) {
+			if (j >= positionlist.positions.length)
+				j = 0;
+			if (data.playerlist[j].hasOwnProperty("HumanPlayer")) {
+				var nickname = data.playerlist[j].HumanPlayer.nickName;
+				var playerpos = data.playerlist[j].HumanPlayer.playerPosition;
+				var currentplayermap = {
+					"PlayerName" : nickname,
+					"PlayerPosition" : playerpos,
+					"PositionUI" : positionlist.positions[i]
+				};
+				playerposmap.push(currentplayermap);
+				$('#' + positionlist.positions[i]).css("visibility", "visible");
+				$('#' + positionlist.positions[i] + ' p').html(nickname);
 			}
+		}
 		self.getWhoseTurn();
 	};
-	
-	self.renderTurns = function(data)
-	{
+
+	self.renderTurns = function(data) {
 		var mynick = marriageRummy.loggedinUser;
-		for(var i=0;i<playerposmap.length;i++)
-			{
-			   if(playerposmap[i].PlayerPosition == data)
-				   {
-				      $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","block");
-				      selected_timer=$('#'+ playerposmap[i].PositionUI+"  .timer .seconds");
-				      if(playerposmap[i].PlayerName == mynick)
-				    	  onNextCardSelect();
-				   }
-			   else
-				   {
-				   $('#'+ playerposmap[i].PositionUI+"  .timer").css("display","none");
-				   }
+		for (var i = 0; i < playerposmap.length; i++) {
+			if (playerposmap[i].PlayerPosition == data) {
+				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
+						"block");
+				selected_timer = $('#' + playerposmap[i].PositionUI
+						+ "  .timer .seconds");
+				if (playerposmap[i].PlayerName == mynick)
+					onNextCardSelect();
+				if (init_turn)
+					{
+					   $('#OpenCard').addClass("pickable");
+					   enablePickable();
+					   init_turn = false;
+					}
+			} else {
+				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
+						"none");
+				/*var playerpos = $('#' + playerposmap[i].PositionUI);
+				if(playerpos.hasClass("pickable"))
+					{
+					   
+					}*/
 			}
+		}
 		startTimer();
-		
+
+	};
+
+	var convertCardInstancetoCardValue = function(cardinstanceid)
+	{
+		var tmp = cardinstanceid.replace(" ","");
+		var flower = tmp.split("-")[1].trim();
+		var value = tmp.split("-")[2].trim();
+		var cardvalue = flower[0].toUpperCase() + flower.slice(1).toLowerCase()+"-"+value;
+		return cardvalue;
 	};
 	
-	
-	var startTimer = function()
-	{		
+	var startTimer = function() {
 		sec_counter = 60;
 		timerCallBack();
 		timerJob = setInterval(timerCallBack, 1000);
 	};
-	
-	var timerCallBack = function()
-	{
-		if(sec_counter > 30)
-			selected_timer.css("color","rgb(9, 103, 8);");
-		if(sec_counter > 15 && sec_counter <= 30)
-			selected_timer.css("color","rgb(221, 150, 11);");
-		if(sec_counter < 15 && sec_counter <= 30)
-			selected_timer.css("color","rgb(223, 0, 0);");
+
+	var timerCallBack = function() {
+		if (sec_counter > 30)
+			selected_timer.css("color", "rgb(9, 103, 8);");
+		if (sec_counter > 15 && sec_counter <= 30)
+			selected_timer.css("color", "rgb(221, 150, 11);");
+		if (sec_counter < 15 && sec_counter <= 30)
+			selected_timer.css("color", "rgb(223, 0, 0);");
 		selected_timer.html(sec_counter);
 		sec_counter--;
-		if(sec_counter == 0)
+		if (sec_counter == 0)
 			stopTimer();
 	};
-	
-	var stopTimer = function()
-	{
+
+	var stopTimer = function() {
 		clearInterval(timerJob);
 		selected_timer.parent().hide();
 	};
-	
-	var cleanPosMap = function()
-	{
-		while(playerposmap.length > 0) {
+
+	var cleanPosMap = function() {
+		while (playerposmap.length > 0) {
 			playerposmap.pop();
 		}
 	};
-	
-	var getMyPosition = function(playerlist)
-	{
+
+	var getMyPosition = function(playerlist) {
 		var mynick = marriageRummy.loggedinUser;
-		for(var i=0;i<playerlist.length;i++)
-			{
-			  if(playerlist[i].hasOwnProperty("HumanPlayer"))
-				  {
-				  var nickname =  playerlist[i].HumanPlayer.nickName;
-				  if(nickname == mynick)
-					  return playerlist[i].HumanPlayer.playerPosition;
-				  }
+		for (var i = 0; i < playerlist.length; i++) {
+			if (playerlist[i].hasOwnProperty("HumanPlayer")) {
+				var nickname = playerlist[i].HumanPlayer.nickName;
+				if (nickname == mynick)
+					return playerlist[i].HumanPlayer.playerPosition;
 			}
+		}
 		return 0;
 	};
-	
-	var getPlayerPosition = function(playerlist)
-	{
-		if(playerlist.length == 1)
-			  return {"positions" : ["player1"]};
-		if(playerlist.length == 2)
-		  return {"positions" : ["player1","player5"]};
-	    if(playerlist.length == 3)
-		  return {"positions" : ["player1","player3","player7"]};
-	    if(playerlist.length == 4)
-		  return {"positions" : ["player1","player3","player5","player7"]};
-		if(playerlist.length == 5)
-		  return {"positions" : ["player1","player3","player4","player5","player7"]};
-		if(playerlist.length == 6)
-		  return {"positions" : ["player1","player2","player4","player5","player6","player8"]};
-	    if(playerlist.length == 7)
-		 return {"positions" : ["player1","player2","player3","player4","player5","player6","player8"]};
-		 if(playerlist.length == 8)
-		 return {"positions" : ["player1","player2","player3","player4","player5","player6","player7","player8"]};
-			
+
+	var getPlayerPosition = function(playerlist) {
+		if (playerlist.length == 1)
+			return {
+				"positions" : [ "player1" ]
+			};
+		if (playerlist.length == 2)
+			return {
+				"positions" : [ "player1", "player5" ]
+			};
+		if (playerlist.length == 3)
+			return {
+				"positions" : [ "player1", "player3", "player7" ]
+			};
+		if (playerlist.length == 4)
+			return {
+				"positions" : [ "player1", "player3", "player5", "player7" ]
+			};
+		if (playerlist.length == 5)
+			return {
+				"positions" : [ "player1", "player3", "player4", "player5",
+						"player7" ]
+			};
+		if (playerlist.length == 6)
+			return {
+				"positions" : [ "player1", "player2", "player4", "player5",
+						"player6", "player8" ]
+			};
+		if (playerlist.length == 7)
+			return {
+				"positions" : [ "player1", "player2", "player3", "player4",
+						"player5", "player6", "player8" ]
+			};
+		if (playerlist.length == 8)
+			return {
+				"positions" : [ "player1", "player2", "player3", "player4",
+						"player5", "player6", "player7", "player8" ]
+			};
+
 	};
 
 	var getCardObject = function(inputcard) {
@@ -439,6 +487,27 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					$(this).attr("data-replacecard", "false");
 					$(this).children().filter('.cardindicator').css("display",
 							"none");
+				});
+		$(".card").bind(
+				"touchstart touchend",
+				function(e) {
+					'use strict';
+					var card = $(this);
+					card.addClass("hover");
+					/*if (card.hasClass('hover')) {
+						$(this).attr("data-replacecard", "true");
+						$(this).children().filter('.cardindicator').css(
+								"display", "block");
+						return true;
+					} else {
+						card.addClass("hover");
+						$(this).attr("data-replacecard", "false");
+						$(this).children().filter('.cardindicator').css(
+								"display", "none");
+						$(".card").not(this).removeClass('hover');
+				        e.preventDefault();
+				        return false; 
+					}*/
 				});
 	};
 
@@ -605,7 +674,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 						var cardInstanceID = draggedobject
 								.attr("data-cardinstanceid");
 						if (id == "pickedcard") {
-							//onNextCardSelect();
+							// onNextCardSelect();
 							var classname = draggedobject
 									.attr("data-cardvalue");
 
@@ -633,7 +702,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 							endposition = 8;
 						slideCardLeft(prefix, startposition, endposition);
 						self.dropCardFromHand(cardInstanceID);
-						//onNextCardSelect();// to be fixed later
+						// onNextCardSelect();// to be fixed later
 						disableDroppable();
 
 					}
@@ -645,8 +714,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var nextpos = i + 1;
 			var curid = "#" + prefix + "-" + i;
 			var nextid = "#" + prefix + "-" + nextpos;
-			var curvalue = $(curid).attr("data-cardvalue");//cardinstanceid
-			//var curinstid = $(curid).attr("data-cardinstanceid");
+			var curvalue = $(curid).attr("data-cardvalue");// cardinstanceid
+			// var curinstid = $(curid).attr("data-cardinstanceid");
 			var nextvalue = $(nextid).attr("data-cardvalue");
 			var nextinstid = $(nextid).attr("data-cardinstanceid");
 			$(curid).removeClass(curvalue);
@@ -654,7 +723,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$(curid).attr("data-cardvalue", nextvalue);
 			$(curid).attr("data-cardinstanceid", nextinstid);
 		}
-		var classname = $('#' + prefix + "-" + endposition).attr("data-cardvalue");
+		var classname = $('#' + prefix + "-" + endposition).attr(
+				"data-cardvalue");
 		$('#' + prefix + "-" + endposition).removeClass(classname);
 		$('#' + prefix + "-" + endposition).css("display", "none");
 		$('#' + prefix + "-" + endposition).removeAttr("data-cardvalue");
@@ -689,90 +759,105 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			});
 		});
 	};
-	
-	var evaluateShowJoker = function()
-	{
+
+	var evaluateShowJoker = function() {
 		var countofcards = 0;
-		$('.showJoker .jokershowcard').each(function(){
-			var cardinstaceid = $(this).attr("data-cardinstanceid");
-			if(cardinstaceid != undefined && cardinstaceid != null && cardinstaceid != "")
-				countofcards++;
-		});
-		if(countofcards == 3)
+		$('.showJoker .jokershowcard').each(
+				function() {
+					var cardinstaceid = $(this).attr("data-cardinstanceid");
+					if (cardinstaceid != undefined && cardinstaceid != null
+							&& cardinstaceid != "")
+						countofcards++;
+				});
+		if (countofcards == 3)
 			$('#onShowJoker').removeAttr("disabled");
 		else
-			$('#onShowJoker').attr("disabled","disabled");
+			$('#onShowJoker').attr("disabled", "disabled");
 	};
 
 	var onClickCardforShowJoker = function() {
-		$('#onShowJokerCancel').on("click",function(){
+		$('#onShowJokerCancel').on("click", function() {
 			$('.showJoker').hide();
 		});
-		$('#onShowJoker').on("click",function(){
+		$('#onShowJoker').on("click", function() {
 			var cardInstanceList = new Array();
-			$('.showJoker .jokershowcard').each(function(){
+			$('.showJoker .jokershowcard').each(function() {
 				var cardinstanceid = $(this).attr("data-cardinstanceid");
 				cardInstanceList.push(cardinstanceid);
 			});
 			self.showJoker(cardInstanceList);
 		});
-		$('.card').on(
-				"click",
-				function() {
+		$('.card')
+				.on(
+						"click",
+						function() {
 
-					if ($('.showJoker').css("display") == "block") {
-						var cardvalue = $(this).attr("data-cardvalue");
-						var cardinstanceid = $(this)
-								.attr("data-cardinstanceid");
-						var cardassigned = false;
-						var existingcards = new Array();
-						$('.showJoker .jokershowcard').each(
-								function() {
-									var cardinstanceid = $(this).attr("data-cardinstanceid");
-									var id = $(this).attr("id");
-									existingcards.push({"Id":id,"CardInstanceID":cardinstanceid});
-									//$(this).removeClass("animated pulse");
-								});
-						for (var i = 0; i < existingcards.length; i++) {
-							if (cardinstanceid == existingcards[i].CardInstanceID)
-								{
-								   $('#'+existingcards[i].Id).addClass("animated tada").one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-									   $(this).removeClass("animated tada");
-								   });
-								   
-								   return;
-								}
-						}
-						$('.showJoker .jokershowcard').each(
-								function() {
-									if (cardassigned == true)
-										return;
-									var existing = $(this).attr(
-											"data-cardinstanceid");
-									if (existing == undefined
-											|| existing == null
-											|| existing == "") {
-										$(this).addClass(cardvalue);
-										$(this).attr("data-cardvalue",
-												cardvalue);
-										$(this).attr("data-cardinstanceid",
-												cardinstanceid);
-										cardassigned = true;
+							if ($('.showJoker').css("display") == "block") {
+								var cardvalue = $(this).attr("data-cardvalue");
+								var cardinstanceid = $(this).attr(
+										"data-cardinstanceid");
+								var cardassigned = false;
+								var existingcards = new Array();
+								$('.showJoker .jokershowcard')
+										.each(
+												function() {
+													var cardinstanceid = $(this)
+															.attr(
+																	"data-cardinstanceid");
+													var id = $(this).attr("id");
+													existingcards
+															.push({
+																"Id" : id,
+																"CardInstanceID" : cardinstanceid
+															});
+													// $(this).removeClass("animated
+													// pulse");
+												});
+								for (var i = 0; i < existingcards.length; i++) {
+									if (cardinstanceid == existingcards[i].CardInstanceID) {
+										$('#' + existingcards[i].Id)
+												.addClass("animated tada")
+												.one(
+														'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+														function() {
+															$(this)
+																	.removeClass(
+																			"animated tada");
+														});
+
 										return;
 									}
-								});
-						evaluateShowJoker();							
-					} // End of IF			
-				});
+								}
+								$('.showJoker .jokershowcard').each(
+										function() {
+											if (cardassigned == true)
+												return;
+											var existing = $(this).attr(
+													"data-cardinstanceid");
+											if (existing == undefined
+													|| existing == null
+													|| existing == "") {
+												$(this).addClass(cardvalue);
+												$(this).attr("data-cardvalue",
+														cardvalue);
+												$(this).attr(
+														"data-cardinstanceid",
+														cardinstanceid);
+												cardassigned = true;
+												return;
+											}
+										});
+								evaluateShowJoker();
+							} // End of IF
+						});
 	};
-	
-	var onClickShownCard = function()
-	{
-		$('.jokershowcard').on("click",function(){
+
+	var onClickShownCard = function() {
+		$('.jokershowcard').on("click", function() {
 			var cardvalue = $(this).attr("data-cardvalue");
 			$(this).removeClass(cardvalue);
-			$(this).attr("data-cardinstanceid","");
-			$(this).attr("data-cardvalue","");
+			$(this).attr("data-cardinstanceid", "");
+			$(this).attr("data-cardvalue", "");
 			evaluateShowJoker();
 		});
 	};
@@ -781,9 +866,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		onClickCardforShowJoker();
 		onClickShownCard();
 	};
-	
-	var initGameTools = function()
-	{
+
+	var initGameTools = function() {
 		$('.GameTools').draggable();
 		// $('.GameTools').css("top", $('#player1').position().top + "px");
 		$('#changetoolcompress').on("click", function() {
@@ -803,17 +887,17 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	var init = function() {
-		
+
 		initGameTools();
 		onStartup();
-		//onNextCardSelect();
+		// onNextCardSelect();
 		$(".card").each(function() {
 			var left = $(this).position.left;
 			var top = $(this).position.top;
 			var classlist = $(this).attr("class").split(" ");
 			console.log($(this).attr("id"), left, top, classlist);
 		});
-		
+
 		$(".card").draggable({
 			opacity : 0.88,
 			start : function(event, ui) {
@@ -835,38 +919,46 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 
 	};
+	
+	
+	
+	
+	
+	var enablePickable = function()
+	{
+		$(".pickable").on("click",function(){
+			var divid = $('#pickedcard');
+				var classname = $(this).attr("data-cardvalue");
+				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				$(this).css("visibility","hidden");
+				divid.addClass(classname);
+				divid.css("display", "block");
+				divid.attr("data-cardvalue", classname);
+				divid.attr("data-cardinstanceid",cardinstanceid);
+				$("#DeckNextCard").unbind();
+				$("#DeckNextCard").removeClass("nextCardAnimation");
+		});
+	};
 
 	init();
 
 };
 
-/*MarriageRummy.Utilities.GameUtilities.Player = function() {
-	var self = this;
-
-	self.getCards = function(url, formdata) {
-		var token = $("meta[name='_csrf']").attr("content");
-		var header = $("meta[name='_csrf_header']").attr("content");
-		$.ajax({
-			type : "POST",
-			url : url,
-			contentType : "application/json",
-			data : JSON.stringify(formdata),
-			consumes : "application/json",
-			beforeSend : function(request) // This is to include CSRF token.
-			{
-				request.setRequestHeader(header, token);
-			},
-			success : function(data, textStatus, jqXHR) {
-				renderCards(data);
-			},
-			error : function(data) {
-				console.log("Failed to get data from server");
-			}
-
-		});
-	};
-
-};
-
-var player = new MarriageRummy.Utilities.GameUtilities.Player();
-player.getCards("./assets/SampleJson/7CardSample.json", "");*/
+/*
+ * MarriageRummy.Utilities.GameUtilities.Player = function() { var self = this;
+ * 
+ * self.getCards = function(url, formdata) { var token =
+ * $("meta[name='_csrf']").attr("content"); var header =
+ * $("meta[name='_csrf_header']").attr("content"); $.ajax({ type : "POST", url :
+ * url, contentType : "application/json", data : JSON.stringify(formdata),
+ * consumes : "application/json", beforeSend : function(request) // This is to
+ * include CSRF token. { request.setRequestHeader(header, token); }, success :
+ * function(data, textStatus, jqXHR) { renderCards(data); }, error :
+ * function(data) { console.log("Failed to get data from server"); }
+ * 
+ * }); };
+ *  };
+ * 
+ * var player = new MarriageRummy.Utilities.GameUtilities.Player();
+ * player.getCards("./assets/SampleJson/7CardSample.json", "");
+ */

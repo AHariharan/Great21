@@ -322,7 +322,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     {
     	console.log("Success on Drop Card From Hand : " + data);
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
-    	gameObj.onDropHandSuccess(data);
+    	gameObj.onDropHandSuccess(data,requestObj);
     };
     
     self.onDropCardFromHandFailure = function(data, textstatus, Jhxr, requestObj)
