@@ -187,6 +187,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	self.notifyDroppedCard = function(card)
 	{
 		$(".player .timer").each(function(){
+			if(!($(this).prev().hasClass("PlayerDropCard")))
+					{
+				        return;
+					}
 			if($(this).css("display") == "block")
 				{
 				   var existingcardvalue = $(this).prev().attr("data-cardvalue");
@@ -199,7 +203,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				   $(this).prev().attr("data-cardinstanceid",card.cardInstanceID);
 				   var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
 				   $(this).prev().attr("data-cardvalue",cardvalue);
+				   
 				   $(this).prev().addClass(cardvalue);
+				   $(this).prev().addClass("dropcarddimension");
+				   $(this).prev().addClass("pickable");
 				}
 		});
 	};
@@ -304,6 +311,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			}
 		}
 		startTimer();
+		
 
 	};
 
@@ -933,7 +941,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				var cardinstanceid = $(this).attr("data-cardinstanceid");
 				$(this).css("visibility","hidden");
 				divid.addClass(classname);
-				divid.addClass("dropcarddimension");
+				
 				divid.css("display", "block");
 				divid.attr("data-cardvalue", classname);				
 				divid.attr("data-cardinstanceid",cardinstanceid);
