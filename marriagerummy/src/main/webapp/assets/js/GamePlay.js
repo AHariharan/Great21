@@ -287,7 +287,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 						+ "  .timer .seconds");
 				if (playerposmap[i].PlayerName == mynick)
 					onNextCardSelect();
-				if (init_turn)
+				if (init_turn && playerposmap[i].PlayerName == mynick)
 					{
 					   $('#OpenCard').addClass("pickable");
 					   enablePickable();
@@ -337,7 +337,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	var stopTimer = function() {
 		clearInterval(timerJob);
-		selected_timer.parent().hide();
+		//selected_timer.parent().hide();
+		selected_timer.parent().css("display","none");
 	};
 
 	var cleanPosMap = function() {
@@ -932,8 +933,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				var cardinstanceid = $(this).attr("data-cardinstanceid");
 				$(this).css("visibility","hidden");
 				divid.addClass(classname);
+				divid.addClass("dropcarddimension");
 				divid.css("display", "block");
-				divid.attr("data-cardvalue", classname);
+				divid.attr("data-cardvalue", classname);				
 				divid.attr("data-cardinstanceid",cardinstanceid);
 				$("#DeckNextCard").unbind();
 				$("#DeckNextCard").removeClass("nextCardAnimation");
