@@ -2,11 +2,14 @@ package com.adansoft.great21.ulitity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
+import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.ClubCard;
 import com.adansoft.great21.models.Deck;
 import com.adansoft.great21.models.DiamondCard;
+import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.HeartCard;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
@@ -303,4 +306,149 @@ public class CardUtility {
 		return result;
 	}
 
+	public static String checkDeclareGame(HashMap<String,Card[]> meldlist,Card jokerCard,String gameType)
+	{
+		String outputMessage = "";
+		boolean isOrigSeqPresent = false;
+		for(String key : meldlist.keySet())
+		{
+			boolean result = CardUtility.checkSequence(meldlist.get(key));
+			if(result == true)
+				isOrigSeqPresent = true;
+		}
+		if(!isOrigSeqPresent)
+			return "No Original sequence present";
+		
+		if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
+		{
+			
+		}
+		
+		return outputMessage;
+	}
+	
+	
+	public static boolean checkTripletorQuadraplets(Card[] cardlist)
+	{
+		boolean isclub = false,isheart = false,isdiamond = false,isspade = false;
+		int countoftrue = 0;
+		if(checkCardwithSameValue(cardlist))
+		{
+			if(cardlist.length < 3 || cardlist.length > 4)
+				return false;
+			for(Card card :cardlist)
+			{
+				if(card.getFlower().equals(Card.FLOWER_CLUBS))
+					isclub = true;
+				if(card.getFlower().equals(Card.FLOWER_HEART))
+					isheart = true;
+				if(card.getFlower().equals(Card.FLOWER_DIAMOND))
+					isdiamond = true;
+				if(card.getFlower().equals(Card.FLOWER_SPADE))
+					isspade = true;
+			}
+			if(isclub)countoftrue++;if(isheart)countoftrue++;if(isdiamond)countoftrue++;if(isspade)countoftrue++;
+			if(cardlist.length == 3 && countoftrue == 3 )
+				return true;
+			if(cardlist.length == 4 && countoftrue == 4 )
+				return true;
+		 }
+		
+		return false;
+	}
+	
+	private static boolean checkCardwithSameValue(Card[] cardlist)
+	{
+		if(cardlist == null || cardlist.length == 0)
+			return false;
+		String firstcardValue = cardlist[0].getDisplayValue();
+		for(Card curcard : cardlist)
+		{
+			String curcardvalue = curcard.getDisplayValue();
+			if(firstcardValue.equals(curcardvalue))
+				continue;
+			else
+				return false;
+		}
+		return true;
+	}
+	
+	public static void interpretJoker(Card[] cardlist,Card jokerCard)
+	{
+		String jokerValue =  jokerCard.getDisplayValue();
+		System.out.println("Excluded Cards : ");
+		showCards(excludeJokerfromCardList(cardlist,jokerValue));
+		Card[] excludedCardList = excludeJokerfromCardList(cardlist,jokerValue);
+		if (excludedCardList.length > 1 )
+		{
+			if(checkCardwithSameFlower(excludedCardList))
+			{
+				System.out.println("Will be interpreted as Sequence number");
+				int gap = checkGap(excludedCardList);
+				if(gap == 1 || gap == 2)
+					System.out.println("valid sequence" + gap);
+				else
+					System.out.println("Invalid sequence" + gap);
+				
+				//System.out.println(" Check Gap Result : - " + checkGap(excludedCardList));
+			}
+			else if(checkCardwithSameValue(excludedCardList))
+			{
+				System.out.println("Will be interpreted as Triplet/Quatraplet number");
+			}
+			else
+			{
+				System.out.println("Invalid Usage");
+			}
+		}
+	}
+	
+	
+	private static int checkGap(Card[] cardlist)
+	{
+		int gap = -1;
+		Arrays.sort(cardlist);
+		for(int i=0;i<cardlist.length-1;i++)
+		{
+			gap = cardlist[i+1].getInstrinsicValue() - cardlist[i].getInstrinsicValue();
+			if(gap > 1)
+			{
+				if(cardlist[i].getInstrinsicValue() == 1 && cardlist[i+1].getInstrinsicValue() == 12)
+				{
+					gap = 1;
+					continue;
+				}
+				if(cardlist[i].getInstrinsicValue() == 1 && cardlist[i+1].getInstrinsicValue() == 11)
+				{
+					gap = 2;
+					continue;
+				}
+				return gap;
+			}
+				
+		}
+		return gap;
+	}
+	
+	private static Card[] excludeJokerfromCardList(Card[] cardlist,String jokerValue)
+	{
+		ArrayList<Card> excludedCardList = new ArrayList<Card>();
+		for(Card card : cardlist)
+		{
+			if(!card.getDisplayValue().equals(jokerValue))
+			{
+				excludedCardList.add(card);
+			}
+		}
+		return excludedCardList.toArray(new Card[excludedCardList.size()]);
+	}
+	
+	private static void showCards(Card[] cardlist)
+	{
+	   for(Card card : cardlist)
+	   {
+		   System.out.println("Card : " + card.getInstanceID());
+	   }
+	}
+	
 }

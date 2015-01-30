@@ -303,11 +303,6 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			} else {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
 						"none");
-				/*var playerpos = $('#' + playerposmap[i].PositionUI);
-				if(playerpos.hasClass("pickable"))
-					{
-					   
-					}*/
 			}
 		}
 		startTimer();
