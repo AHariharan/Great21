@@ -1,4 +1,4 @@
-<div class="cardpickuparea">
+<div class="cardpickuparea" style="visibility: hidden;">
 	picked cards area
 	<div id="pickedcard" class="card-picked" style="top:-115px;display:none"></div>
 </div>

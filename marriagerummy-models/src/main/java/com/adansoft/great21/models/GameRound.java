@@ -38,6 +38,7 @@ public class GameRound implements Serializable{
     private Card OpenCard;
     private int startTurnpos;
     private int currenturn;
+    private ArrayList<Integer> skipturnarray = new ArrayList<Integer>();
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn)
     {
@@ -356,6 +357,10 @@ public class GameRound implements Serializable{
     private void updateTurn()
     {
     	currenturn++;
+    	while(isPosistionSkippable(currenturn))
+    	{
+    		currenturn++;
+    	}
     	if(currenturn > this.getPlayerlist().size())
     		currenturn = 1;
     }
@@ -368,7 +373,22 @@ public class GameRound implements Serializable{
 		this.currenturn = currenturn;
 	}
     
+    public void addSkipTurn(int position)
+    {
+    	skipturnarray.add(position);
+    }
     
+    private boolean isPosistionSkippable(int posistion)
+    {
+    	boolean result = false;
+    	for(Integer curpos : skipturnarray)
+    	{
+    		if(curpos == posistion)
+    			result = true;
+    	}
+    	
+    	return result;
+    }
     
 
 }

@@ -3,6 +3,7 @@ package com.adansoft.great21.gamemanager.JMSHandlers;
 import java.util.ArrayList;
 
 import org.springframework.messaging.Message;
+
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
@@ -23,6 +24,7 @@ import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
+import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public interface GameManagerDelegate {
@@ -56,4 +58,6 @@ public interface GameManagerDelegate {
 	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request);
 	
 	public Message<Integer> handleMessage(GetPlayerTurnRequest request);
+	
+	public Message<String> handleMessage(SkipTurnRequest request);
 }

@@ -177,40 +177,81 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
 
-	self.onDropHandSuccess = function(data,requestObj) {
+	self.onDropHandSuccess = function(data, requestObj) {
 		var notificationdata = marriageRummy.notificationRequest
 				.dropCardNotification("onDropHandSuccess", requestObj.formdata);
 		marriageRummy.notificationManager
 				.sendNotificationEvent(notificationdata);
 	};
 
-	self.notifyDroppedCard = function(card)
-	{
-		$(".player .timer").each(function(){
-			if(!($(this).prev().hasClass("PlayerDropCard")))
-					{
-				        return;
-					}
-			if($(this).css("display") == "block")
-				{
-				   var existingcardvalue = $(this).prev().attr("data-cardvalue");
-				   if(existingcardvalue != undefined && existingcardvalue != null)
-					   {
-					   $(this).prev().removeClass(existingcardvalue);
-					   $(this).prev().removeAttr("data-cardvalue");
-					   $(this).prev().removeAttr("data-cardinstanceid");
-					   }
-				   $(this).prev().attr("data-cardinstanceid",card.cardInstanceID);
-				   var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
-				   $(this).prev().attr("data-cardvalue",cardvalue);
-				   
-				   $(this).prev().addClass(cardvalue);
-				   $(this).prev().addClass("dropcarddimension");
-				   $(this).prev().addClass("pickable");
-				}
-		});
+	self.notifyDroppedCard = function(card) {
+		$('#OpenCard').unbind();init_turn = false;
+		removeexistingpickable();
+        var referredcard = card;
+		console.log("notifyDroppedCardnotifyDroppedCardnotifyDroppedCard  : " ,JSON.stringify(card));
+		$(".player").each(function(card) {
+			console.log("notifyDropped player" , JSON.stringify(referredcard));
+			if ($(this).css("visibility") == "visible") {
+				$(this).children().filter(".timer").each(function(card) {
+					console.log("notifyDropped timer" , JSON.stringify(referredcard));
+					if($(this).css("display") == "block")
+					    renderdroppedcard($(this),referredcard);
+				});
+			}
+		});		
 	};
 	
+	var onSelectofPickableCard = function(data)
+	{
+		var cardpos = "";
+		if(stateobject.gameType == "SEVENCARD_CLOSED" || stateobject.gameType == "SEVENCARD_OPEN")
+				cardpos = "Sevencard-8";
+		
+		var divid = $('#'+cardpos);
+		if (data.avaialble) {
+			var card = getCardObject(data.card);
+			var flower = card.flower[0].toUpperCase()
+					+ card.flower.slice(1).toLowerCase();
+			var classname = flower + "-" + card.displayValue;
+			divid.addClass(classname);
+			divid.css("display", "block");
+			divid.attr("data-cardvalue", classname);
+			divid.attr("data-cardinstanceid", card.cardInstanceId);
+			self.addCardToHand(card.cardInstanceId);
+		}
+	};
+	
+	var removeexistingpickable = function()
+	{
+		$('.pickable').each(function(){
+			$(this).unbind();
+			$(this).removeClass("pickable");
+		});
+	};
+
+	var renderdroppedcard = function(source,card) {
+		
+		if (!(source.prev().hasClass("PlayerDropCard"))) {
+			return;
+		}
+		if (source.css("display") == "block") {
+			var existingcardvalue = source.prev().attr("data-cardvalue");
+			if (existingcardvalue != undefined && existingcardvalue != null) {
+				source.prev().removeClass(existingcardvalue);
+				source.prev().removeAttr("data-cardvalue");
+				source.prev().removeAttr("data-cardinstanceid");
+			}
+			source.prev().attr("data-cardinstanceid", card.cardInstanceID);
+			var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
+			source.prev().attr("data-cardvalue", cardvalue);
+
+			source.prev().addClass(cardvalue);
+			source.prev().addClass("dropcarddimension");
+			source.prev().addClass("pickable");
+			source.prev().css("visibility", "visible");
+		}
+	};
+
 	self.onDropNotificationSuccess = function(data) {
 		stopTimer();
 		self.getWhoseTurn();
@@ -248,7 +289,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	self.renderNextCardFromDeck = function(data) {
-		var divid = $('#pickedcard');
+		/*var divid = $('#pickedcard');
 		if (data.avaialble) {
 			var card = getCardObject(data.card);
 			var flower = card.flower[0].toUpperCase()
@@ -258,7 +299,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			divid.css("display", "block");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
-		}
+		}*/
+		onSelectofPickableCard(data);enableDroppable();
 	};
 
 	self.renderGameParticipants = function(data) {
@@ -290,35 +332,42 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			if (playerposmap[i].PlayerPosition == data) {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
 						"block");
+				$('#' + playerposmap[i].PositionUI).addClass("activePlayerAnimation");
 				selected_timer = $('#' + playerposmap[i].PositionUI
 						+ "  .timer .seconds");
-				if (playerposmap[i].PlayerName == mynick)
+				if (playerposmap[i].PlayerName == mynick) {
 					onNextCardSelect();
-				if (init_turn && playerposmap[i].PlayerName == mynick)
-					{
-					   $('#OpenCard').addClass("pickable");
-					   enablePickable();
-					   init_turn = false;
-					}
+					enablePickable();
+				}
+				if (init_turn && playerposmap[i].PlayerName == mynick) {
+					$('#OpenCard').addClass("pickable");
+					enablePickable();
+					init_turn = false;
+				} else {
+					$('#OpenCard').unbind();
+				}
 			} else {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
 						"none");
+				if($('#' + playerposmap[i].PositionUI).hasClass("activePlayerAnimation"))
+					{
+					  $('#' + playerposmap[i].PositionUI).removeClass("activePlayerAnimation");
+					}
 			}
 		}
 		startTimer();
-		
 
 	};
 
-	var convertCardInstancetoCardValue = function(cardinstanceid)
-	{
-		var tmp = cardinstanceid.replace(" ","");
+	var convertCardInstancetoCardValue = function(cardinstanceid) {
+		var tmp = cardinstanceid.replace(" ", "");
 		var flower = tmp.split("-")[1].trim();
 		var value = tmp.split("-")[2].trim();
-		var cardvalue = flower[0].toUpperCase() + flower.slice(1).toLowerCase()+"-"+value;
+		var cardvalue = flower[0].toUpperCase() + flower.slice(1).toLowerCase()
+				+ "-" + value;
 		return cardvalue;
 	};
-	
+
 	var startTimer = function() {
 		sec_counter = 60;
 		timerCallBack();
@@ -340,8 +389,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	var stopTimer = function() {
 		clearInterval(timerJob);
-		//selected_timer.parent().hide();
-		selected_timer.parent().css("display","none");
+		// selected_timer.parent().hide();
+		selected_timer.parent().css("display", "none");
 	};
 
 	var cleanPosMap = function() {
@@ -492,27 +541,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					$(this).children().filter('.cardindicator').css("display",
 							"none");
 				});
-		$(".card").bind(
-				"touchstart touchend",
-				function(e) {
-					'use strict';
-					var card = $(this);
-					card.addClass("hover");
-					/*if (card.hasClass('hover')) {
-						$(this).attr("data-replacecard", "true");
-						$(this).children().filter('.cardindicator').css(
-								"display", "block");
-						return true;
-					} else {
-						card.addClass("hover");
-						$(this).attr("data-replacecard", "false");
-						$(this).children().filter('.cardindicator').css(
-								"display", "none");
-						$(".card").not(this).removeClass('hover');
-				        e.preventDefault();
-				        return false; 
-					}*/
-				});
+		$(".card").bind("touchstart touchend", function(e) {
+			'use strict';
+			var card = $(this);
+			card.addClass("hover");
+			/*
+			 * if (card.hasClass('hover')) { $(this).attr("data-replacecard",
+			 * "true"); $(this).children().filter('.cardindicator').css(
+			 * "display", "block"); return true; } else {
+			 * card.addClass("hover"); $(this).attr("data-replacecard",
+			 * "false"); $(this).children().filter('.cardindicator').css(
+			 * "display", "none"); $(".card").not(this).removeClass('hover');
+			 * e.preventDefault(); return false; }
+			 */
+		});
 	};
 
 	var removeIndicator = function() {
@@ -880,6 +922,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('#changetoolexpand').on("click", function() {
 			switchtoolMode("EXPAND");
 		});
+		$('#minitool-showJoker').on("click",function(){
+			$('.showJoker').toggle();
+			
+		});
+		$('#tool-showJoker').on("click",function(){
+			$('.showJoker').toggle();
+			
+		});
 		$('#dropgame').on("click", function() {
 			dropgame();
 		});
@@ -923,25 +973,36 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 
 	};
-	
-	
-	
-	
-	
-	var enablePickable = function()
-	{
-		$(".pickable").on("click",function(){
-			var divid = $('#pickedcard');
-				var classname = $(this).attr("data-cardvalue");
-				var cardinstanceid = $(this).attr("data-cardinstanceid");
-				$(this).css("visibility","hidden");
-				divid.addClass(classname);
-				
-				divid.css("display", "block");
-				divid.attr("data-cardvalue", classname);				
-				divid.attr("data-cardinstanceid",cardinstanceid);
-				$("#DeckNextCard").unbind();
-				$("#DeckNextCard").removeClass("nextCardAnimation");
+
+	var enablePickable = function() {
+		$(".pickable").on("click", function() {
+			/*var divid = $('#pickedcard');
+			var classname = $(this).attr("data-cardvalue");
+			var cardinstanceid = $(this).attr("data-cardinstanceid");
+			$(this).css("visibility", "hidden");
+			divid.addClass(classname);
+
+			divid.css("display", "block");
+			divid.attr("data-cardvalue", classname);
+			divid.attr("data-cardinstanceid", cardinstanceid);
+			$("#DeckNextCard").unbind();
+			$("#DeckNextCard").removeClass("nextCardAnimation");*/
+			var cardpos = "";
+			if(stateobject.gameType == "SEVENCARD_CLOSED" || stateobject.gameType == "SEVENCARD_OPEN")
+					cardpos = "Sevencard-8";
+			
+			var divid = $('#'+cardpos);
+			var classname = $(this).attr("data-cardvalue");
+			var cardinstanceid = $(this).attr("data-cardinstanceid");
+			$(this).css("visibility", "hidden");
+			divid.addClass(classname);
+			divid.css("display", "block");
+			divid.attr("data-cardvalue", classname);
+			divid.attr("data-cardinstanceid", cardinstanceid);
+			$("#DeckNextCard").unbind();
+			$("#DeckNextCard").removeClass("nextCardAnimation");
+			self.addCardToHand(cardinstanceid);
+			enableDroppable();
 		});
 	};
 
@@ -961,8 +1022,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
  * function(data, textStatus, jqXHR) { renderCards(data); }, error :
  * function(data) { console.log("Failed to get data from server"); }
  * 
- * }); };
- *  };
+ * }); }; };
  * 
  * var player = new MarriageRummy.Utilities.GameUtilities.Player();
  * player.getCards("./assets/SampleJson/7CardSample.json", "");

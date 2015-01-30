@@ -50,7 +50,7 @@
 		</div>
 		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				id="tool-showJoker" data-toggle="dropdown" aria-expanded="true">
 				<i class="fa fa-umbrella"></i>&nbsp; Show Joker
 			</button>
 		</div>
@@ -126,7 +126,7 @@
 
 		<div class="tool tool-mini">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="tooltip" data-placement="bottom"
+				id="minitool-showJoker" data-toggle="tooltip" data-placement="bottom"
 				title="Show Joker">
 				<i class="fa fa-umbrella"></i>&nbsp;
 			</button>
@@ -162,7 +162,7 @@
 	</div>
 </div>
 <!-- Show Joker -->
-<div class="showJoker" style="display:block">
+<div class="showJoker" style="display:none">
 	<div class="windowtooling">
 		Show Joker
 		<button type="button" class="close" data-dismiss="modal"

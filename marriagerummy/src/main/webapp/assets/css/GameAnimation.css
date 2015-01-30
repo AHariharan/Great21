@@ -194,3 +194,45 @@ transform: rotate(0deg);
        }
        
 }
+
+.activePlayerAnimation
+{
+	-webkit-animation-name: activeplayer;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+    animation-name: activeplayer;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+}
+
+@-webkit-keyframes activeplayer 
+{
+	from
+	{
+	  box-shadow: 0px 0px 0px 6px rgb(245, 246, 240);
+	}
+	to
+	{
+	   box-shadow: 0px 0px 4px 6px rgb(147, 174, 12);
+	}
+}
+
+@keyframes activeplayer
+{
+	from
+	{
+	   box-shadow: 0px 0px 0px 6px rgb(245, 246, 240);
+	}
+	to
+	{
+	   box-shadow: 0px 0px 4px 6px rgb(147, 174, 12);
+	}
+}

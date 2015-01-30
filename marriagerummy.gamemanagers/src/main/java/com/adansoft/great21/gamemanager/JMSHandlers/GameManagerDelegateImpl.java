@@ -29,6 +29,7 @@ import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
+import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
@@ -153,6 +154,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		int response = GamePlayHelper.getTurn(request);
 		Message<Integer> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<String> handleMessage(SkipTurnRequest request)
+	{
+		String response = GamePlayHelper.skipPlayerTurn(request);
+		Message<String> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	

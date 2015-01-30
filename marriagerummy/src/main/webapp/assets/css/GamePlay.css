@@ -578,7 +578,7 @@ transform: rotate(49deg);
 	width: 74px;
 	height: 118px;
 	position: relative;
-	background: url('../images/Cards/DiamondCards/3.png');
+	/* background: url('../images/Cards/DiamondCards/3.png'); */
 	background-size: 74px 118px;
 	background-repeat: no-repeat;
 	box-shadow: 0px 0px 10px 2px gray;
@@ -611,8 +611,8 @@ transform: rotate(77deg);
 transform: rotate(94deg);
 	left: 111px;
 	top: -64px;
-	background: url('../images/Cards/SpadeCards/3.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/SpadeCards/3.png');
+	background-size: 74px 118px; */
 }
 
 .drop4 {
@@ -623,8 +623,8 @@ transform: rotate(94deg);
 transform: rotate(0deg);
 	left: -85px;
 	top: -97px;
-	background: url('../images/Cards/SpadeCards/A.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/SpadeCards/A.png');
+	background-size: 74px 118px; */
 }
 
 .drop5 {
@@ -635,8 +635,8 @@ transform: rotate(0deg);
 transform: rotate(0deg);
 	left: -85px;
 	top: -97px;
-	background: url('../images/Cards/SpadeCards/A.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/SpadeCards/A.png');
+	background-size: 74px 118px; */
 }
 
 .drop6 {
@@ -647,8 +647,8 @@ transform: rotate(0deg);
 transform: rotate(-85deg);
 	left: -119px;
 	top: -64px;
-	background: url('../images/Cards/HeartCards/10.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/HeartCards/10.png');
+	background-size: 74px 118px; */
 }
 
 .drop7 {
@@ -659,8 +659,8 @@ transform: rotate(-85deg);
 transform: rotate(-135deg);
 	left: -119px;
 	top: -64px;
-	background: url('../images/Cards/HeartCards/5.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/HeartCards/5.png');
+	background-size: 74px 118px; */
 }
 
 .drop8 {
@@ -671,8 +671,8 @@ transform: rotate(-135deg);
 transform: rotate(-51deg);
 	left: -101px;
 	top: -64px;
-	background: url('../images/Cards/ClubCards/7.png');
-	background-size: 74px 118px;
+	/* background: url('../images/Cards/ClubCards/7.png');
+	background-size: 74px 118px; */
 }
 
 .showJoker {

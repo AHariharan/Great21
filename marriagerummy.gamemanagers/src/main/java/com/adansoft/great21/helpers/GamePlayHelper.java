@@ -16,6 +16,7 @@ import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
+import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 import com.adansoft.great21.ulitity.CardUtility;
 
@@ -129,6 +130,15 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		int result = game.getCurrentGameRound().getCurrenturn();
 		return new Integer(result);
+	}
+	
+	public static String skipPlayerTurn(SkipTurnRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
+		return "Success";
 	}
 
 }
