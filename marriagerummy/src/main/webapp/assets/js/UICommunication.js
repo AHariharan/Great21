@@ -54,6 +54,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.dropCardFromHand = "/marriagerummy/IndexerServices/GamePlay/HandCard/Remove";
 	self.showJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Show";
 	self.getWhoseTurn = "/marriagerummy/IndexerServices/GamePlay/WhoseTurn/Get";
+	self.skipPlayerTurn = "/marriagerummy/IndexerServices/GamePlay/PlayerTurn/Skip";
 	
 };
 
@@ -231,6 +232,17 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			};
 		return formdata;
 	}; 
+	
+	  self.skipPlayerTurnRequest = function(lobbyType, gameInstanceID, gameType)
+		{
+			var formdata = {
+					"nickname" : "Auto",
+					"gameInstanceID" : gameInstanceID,
+					"lobbyName" : lobbyType,
+					"gameType" : gameType,
+				};
+			return formdata;
+		};
 
 };
 
@@ -363,6 +375,15 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onGetWhoseTurnFailure = function(data)
     {
     	console.log("Failure on onGetWhoseTurn : " + data);
+    };
+    self.onSkipPlayerTurnSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("Success onSkipPlayerTurnSuccess : " + data);
+    };
+    
+    self.onSkipPlayerTurnFailure = function(data, textstatus, Jhxr, requestObj)
+    {
+    	 console.log("Failure  onSkipPlayerTurnFailure : " + data);
     };
 };
 

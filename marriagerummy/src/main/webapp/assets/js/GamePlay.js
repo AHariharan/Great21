@@ -358,6 +358,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		startTimer();
 
 	};
+	
+	
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {
 		var tmp = cardinstanceid.replace(" ", "");
@@ -567,42 +569,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 	};
 
-	var dropgame = function() {
-		$('#cardContent')
-				.children()
-				.each(
-						function() {
-							$(this)
-									.css("background",
-											"url('assets/images/Cards/BackShades/bg-red.png')");
-							$(this).css("background-size", "110px 160px");
-							$(this).css("margin-left", "0px");
-							$(this).css("margin-top", "0px");
-							$(this).addClass("animated tada");
-
-						});
-		$(".pointDisplayer").css("display", "block");
-		$(".pointDisplayer").addClass("animated rollIn");
-
-	};
-
-	var switchtoolMode = function(mode) {
-		if (mode == "COMPRESS") {
-			$('#gametoolminimized').css("display", "block");
-			var top = $('#gametool').css("top");
-			var left = $('#gametool').css("left");
-			$('#gametool').css("display", "none");
-			$('#gametoolminimized').css("top", top);
-			$('#gametoolminimized').css("left", left);
-		} else {
-			$('#gametool').css("display", "block");
-			var top = $('#gametoolminimized').css("top");
-			var left = $('#gametoolminimized').css("left");
-			$('#gametoolminimized').css("display", "none");
-			$('#gametool').css("top", top);
-			$('#gametool').css("left", left);
-		}
-	};
+	
+	
 
 	var dragStart = function(event, ui, source) {
 		source.css("transform", "rotate(0deg)");
@@ -806,7 +774,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 	};
 
-	var evaluateShowJoker = function() {
+/*	var evaluateShowJoker = function() {
 		var countofcards = 0;
 		$('.showJoker .jokershowcard').each(
 				function() {
@@ -833,43 +801,27 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			});
 			self.showJoker(cardInstanceList);
 		});
-		$('.card')
-				.on(
-						"click",
-						function() {
-
+		$('.card').on("click",function() {
 							if ($('.showJoker').css("display") == "block") {
 								var cardvalue = $(this).attr("data-cardvalue");
-								var cardinstanceid = $(this).attr(
-										"data-cardinstanceid");
+								var cardinstanceid = $(this).attr("data-cardinstanceid");
 								var cardassigned = false;
 								var existingcards = new Array();
-								$('.showJoker .jokershowcard')
-										.each(
-												function() {
-													var cardinstanceid = $(this)
-															.attr(
-																	"data-cardinstanceid");
+								$('.showJoker .jokershowcard').each(function() {
+													var cardinstanceid = $(this).attr("data-cardinstanceid");
 													var id = $(this).attr("id");
-													existingcards
-															.push({
+													existingcards.push({
 																"Id" : id,
 																"CardInstanceID" : cardinstanceid
 															});
-													// $(this).removeClass("animated
-													// pulse");
-												});
+								});
 								for (var i = 0; i < existingcards.length; i++) {
 									if (cardinstanceid == existingcards[i].CardInstanceID) {
-										$('#' + existingcards[i].Id)
-												.addClass("animated tada")
-												.one(
-														'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
-														function() {
-															$(this)
-																	.removeClass(
-																			"animated tada");
-														});
+										$('#' + existingcards[i].Id).addClass("animated tada")
+												                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+														                function() {
+															                       $(this).removeClass("animated tada");
+														                           });
 
 										return;
 									}
@@ -878,17 +830,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 										function() {
 											if (cardassigned == true)
 												return;
-											var existing = $(this).attr(
-													"data-cardinstanceid");
-											if (existing == undefined
-													|| existing == null
-													|| existing == "") {
+											var existing = $(this).attr("data-cardinstanceid");
+											if (existing == undefined || existing == null || existing == "") {
 												$(this).addClass(cardvalue);
-												$(this).attr("data-cardvalue",
-														cardvalue);
-												$(this).attr(
-														"data-cardinstanceid",
-														cardinstanceid);
+												$(this).attr("data-cardvalue",cardvalue);
+												$(this).attr("data-cardinstanceid",cardinstanceid);
 												cardassigned = true;
 												return;
 											}
@@ -939,10 +885,12 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		initShowJoker();
 
 	};
+	
+	*/
 
 	var init = function() {
 
-		initGameTools();
+		new MarriageRummy.Utilities.GameUtilities.GameToolInit();
 		onStartup();
 		// onNextCardSelect();
 		$(".card").each(function() {
@@ -1010,20 +958,173 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 };
 
-/*
- * MarriageRummy.Utilities.GameUtilities.Player = function() { var self = this;
- * 
- * self.getCards = function(url, formdata) { var token =
- * $("meta[name='_csrf']").attr("content"); var header =
- * $("meta[name='_csrf_header']").attr("content"); $.ajax({ type : "POST", url :
- * url, contentType : "application/json", data : JSON.stringify(formdata),
- * consumes : "application/json", beforeSend : function(request) // This is to
- * include CSRF token. { request.setRequestHeader(header, token); }, success :
- * function(data, textStatus, jqXHR) { renderCards(data); }, error :
- * function(data) { console.log("Failed to get data from server"); }
- * 
- * }); }; };
- * 
- * var player = new MarriageRummy.Utilities.GameUtilities.Player();
- * player.getCards("./assets/SampleJson/7CardSample.json", "");
- */
+MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
+{
+   var self = this;
+   var stateobject = GameObject;
+   
+   var evaluateShowJoker = function() {
+		var countofcards = 0;
+		$('.showJoker .jokershowcard').each(
+				function() {
+					var cardinstaceid = $(this).attr("data-cardinstanceid");
+					if (cardinstaceid != undefined && cardinstaceid != null
+							&& cardinstaceid != "")
+						countofcards++;
+				});
+		if (countofcards == 3)
+			$('#onShowJoker').removeAttr("disabled");
+		else
+			$('#onShowJoker').attr("disabled", "disabled");
+	};
+
+	var onClickCardforShowJoker = function() {
+		$('#onShowJokerCancel').on("click", function() {
+			$('.showJoker').hide();
+		});
+		$('#onShowJoker').on("click", function() {
+			var cardInstanceList = new Array();
+			$('.showJoker .jokershowcard').each(function() {
+				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				cardInstanceList.push(cardinstanceid);
+			});
+			self.showJoker(cardInstanceList);
+		});
+		$('.card').on("click",function() {
+							if ($('.showJoker').css("display") == "block") {
+								var cardvalue = $(this).attr("data-cardvalue");
+								var cardinstanceid = $(this).attr("data-cardinstanceid");
+								var cardassigned = false;
+								var existingcards = new Array();
+								$('.showJoker .jokershowcard').each(function() {
+													var cardinstanceid = $(this).attr("data-cardinstanceid");
+													var id = $(this).attr("id");
+													existingcards.push({
+																"Id" : id,
+																"CardInstanceID" : cardinstanceid
+															});
+								});
+								for (var i = 0; i < existingcards.length; i++) {
+									if (cardinstanceid == existingcards[i].CardInstanceID) {
+										$('#' + existingcards[i].Id).addClass("animated tada")
+												                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+														                function() {
+															                       $(this).removeClass("animated tada");
+														                           });
+
+										return;
+									}
+								}
+								$('.showJoker .jokershowcard').each(
+										function() {
+											if (cardassigned == true)
+												return;
+											var existing = $(this).attr("data-cardinstanceid");
+											if (existing == undefined || existing == null || existing == "") {
+												$(this).addClass(cardvalue);
+												$(this).attr("data-cardvalue",cardvalue);
+												$(this).attr("data-cardinstanceid",cardinstanceid);
+												cardassigned = true;
+												return;
+											}
+										});
+								evaluateShowJoker();
+							} // End of IF
+						});
+	};
+
+	var onClickShownCard = function() {
+		$('.jokershowcard').on("click", function() {
+			var cardvalue = $(this).attr("data-cardvalue");
+			$(this).removeClass(cardvalue);
+			$(this).attr("data-cardinstanceid", "");
+			$(this).attr("data-cardvalue", "");
+			evaluateShowJoker();
+		});
+	};
+
+	var initShowJoker = function() {
+		onClickCardforShowJoker();
+		onClickShownCard();
+	};
+	
+	var switchtoolMode = function(mode) {
+		if (mode == "COMPRESS") {
+			$('#gametoolminimized').css("display", "block");
+			var top = $('#gametool').css("top");
+			var left = $('#gametool').css("left");
+			$('#gametool').css("display", "none");
+			$('#gametoolminimized').css("top", top);
+			$('#gametoolminimized').css("left", left);
+		} else {
+			$('#gametool').css("display", "block");
+			var top = $('#gametoolminimized').css("top");
+			var left = $('#gametoolminimized').css("left");
+			$('#gametoolminimized').css("display", "none");
+			$('#gametool').css("top", top);
+			$('#gametool').css("left", left);
+		}
+	};
+	
+	var initGameTools = function() {
+		$('.GameTools').draggable();
+		// $('.GameTools').css("top", $('#player1').position().top + "px");
+		$('#changetoolcompress').on("click", function() {
+			switchtoolMode("COMPRESS");
+		});
+		$('#changetoolexpand').on("click", function() {
+			switchtoolMode("EXPAND");
+		});
+		$('#minitool-showJoker').on("click",function(){
+			$('.showJoker').toggle();
+			
+		});
+		$('#tool-showJoker').on("click",function(){
+			$('.showJoker').toggle();
+			
+		});
+		$('#dropgame').on("click", function() {
+			dropgame();
+		});
+		$('#dropgamemini').on("click", function() {
+			dropgame();
+		});
+		initShowJoker();
+
+	};
+	
+	var dropgame = function() {
+		$('#cardContent')
+				.children()
+				.each(
+						function() {
+							$(this)
+									.css("background",
+											"url('assets/images/Cards/BackShades/bg-red.png')");
+							$(this).css("background-size", "110px 160px");
+							$(this).css("margin-left", "0px");
+							$(this).css("margin-top", "0px");
+							$(this).addClass("animated tada");
+
+						});
+		$(".pointDisplayer").css("display", "block");
+		$(".pointDisplayer").addClass("animated rollIn");
+		skipPlayerTurn();
+	};
+
+	var skipPlayerTurn = function()
+	{
+		var url = marriageRummy.urls.skipPlayerTurnRequest;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnFailure;
+		var formdata = marriageRummy.request.skipPlayerTurnRequest(
+				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	initGameTools();
+};
