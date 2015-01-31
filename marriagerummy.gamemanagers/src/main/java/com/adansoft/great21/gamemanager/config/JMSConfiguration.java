@@ -28,7 +28,7 @@ import com.adansoft.great21.gamemanager.JMSHandlers.JMSExceptionListener;
 import com.adansoft.great21.gamemanager.JMSHandlers.QueueListener;
 
 @Configuration
-@PropertySource("file:GameManager.properties")
+@PropertySource("classpath:GameManager.properties")
 public class JMSConfiguration {
 
 	

@@ -13,7 +13,7 @@ import com.adansoft.great21.jms.models.GameManagerHeartBeat;
 
 
 @Configuration
-@PropertySource("file:GameManager.properties")
+@PropertySource("classpath:GameManager.properties")
 public class DataConfiguration {
 	
 	@Value("${InstanceID}")
