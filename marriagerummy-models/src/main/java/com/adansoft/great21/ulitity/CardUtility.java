@@ -373,7 +373,7 @@ public class CardUtility {
 		return true;
 	}
 	
-	public static void interpretJoker(Card[] cardlist,Card jokerCard)
+	public static void interpretJokerandValidate(Card[] cardlist,Card jokerCard)
 	{
 		String jokerValue =  jokerCard.getDisplayValue();
 		System.out.println("Excluded Cards : ");
@@ -384,13 +384,13 @@ public class CardUtility {
 			if(checkCardwithSameFlower(excludedCardList))
 			{
 				System.out.println("Will be interpreted as Sequence number");
-				int gap = checkGap(excludedCardList);
-				if(gap == 1 || gap == 2)
-					System.out.println("valid sequence" + gap);
+				boolean result = isSequenceCantUseJoker(excludedCardList,(cardlist.length - excludedCardList.length));
+				if(!result)
+					System.out.println("valid sequence :");
 				else
-					System.out.println("Invalid sequence" + gap);
+					System.out.println("Invalid sequence :" );
 				
-				//System.out.println(" Check Gap Result : - " + checkGap(excludedCardList));
+				
 			}
 			else if(checkCardwithSameValue(excludedCardList))
 			{
@@ -404,30 +404,89 @@ public class CardUtility {
 	}
 	
 	
-	private static int checkGap(Card[] cardlist)
+	private static boolean isSequenceCantUseJoker(Card[] cardlist,int howmanyjokers)
 	{
 		int gap = -1;
+		boolean result = false;
 		Arrays.sort(cardlist);
+		PrelimenaryCheckResult output = isDuplicateCardpresent(cardlist);
+		if(output.isDuplicate())
+			return true;
 		for(int i=0;i<cardlist.length-1;i++)
 		{
+			
+			if(cardlist[i].getInstrinsicValue() == 1)
+				continue;
 			gap = cardlist[i+1].getInstrinsicValue() - cardlist[i].getInstrinsicValue();
-			if(gap > 1)
+		
+			if(gap >= 2)
 			{
-				if(cardlist[i].getInstrinsicValue() == 1 && cardlist[i+1].getInstrinsicValue() == 12)
+				if(gap > howmanyjokers+1 )
 				{
-					gap = 1;
-					continue;
+					result = true;
+					return result;
 				}
-				if(cardlist[i].getInstrinsicValue() == 1 && cardlist[i+1].getInstrinsicValue() == 11)
-				{
-					gap = 2;
-					continue;
-				}
-				return gap;
+				else 
+					howmanyjokers = howmanyjokers - (gap - 1);
+					
 			}
 				
 		}
-		return gap;
+		if(output.isAPresent())
+		{
+			if(output.isJQKPresent())
+			    gap = 14 - cardlist[cardlist.length-1].getInstrinsicValue();
+			else 
+				gap = cardlist[1].getInstrinsicValue() - 1;
+			if(gap > howmanyjokers+1)
+				result = true;
+		}
+		
+		return result;
+	}
+	
+	private static PrelimenaryCheckResult isDuplicateCardpresent(Card[] cardlist)
+	{
+		PrelimenaryCheckResult result = new PrelimenaryCheckResult();
+		for(int i=0;i<cardlist.length;i++)
+		{
+			int curvalue = cardlist[i].getInstrinsicValue();
+			if(i < cardlist.length -1)
+			{
+		        if(cardlist[i+1].getInstrinsicValue() - cardlist[i].getInstrinsicValue() == 0)
+		    	     result.setDuplicate(true);
+			}
+		    if(curvalue >= 10)
+		    	result.setJQKPresent(true);
+		    if(curvalue == 1)
+		    	result.setAPresent(true);
+		}
+		return result;
+	}
+
+	
+	private static void updateInstrinsicValeu(Card[] cardlist)
+	{
+		boolean cardlisthasA = false;boolean anyCardmorethan10 = false;
+		for(Card card : cardlist)
+		{
+			if(card.getInstrinsicValue() == 1)
+				cardlisthasA = true;
+			if(card.getInstrinsicValue() > 10)
+				anyCardmorethan10 = true;
+		}
+		
+		if(cardlisthasA && anyCardmorethan10)
+		{
+			for(int i=0;i<cardlist.length;i++)
+			{
+				if(cardlist[i].getInstrinsicValue() == 1)
+				{
+					
+				}
+			}
+		}
+		
 	}
 	
 	private static Card[] excludeJokerfromCardList(Card[] cardlist,String jokerValue)

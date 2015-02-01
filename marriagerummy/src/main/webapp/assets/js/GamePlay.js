@@ -171,6 +171,12 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.notificationManager
 				.sendNotificationEvent(notificationdata);
 	};
+	
+	self.onFoldHandSuccess = function(data, requestObj) {
+		var notificationdata = marriageRummy.notificationRequest
+				.foldHandNotification("onFoldHandSuccess", requestObj.formdata);
+		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+	};
 
 	self.notifyDroppedCard = function(card) {
 		$('#OpenCard').unbind();init_turn = false;
@@ -189,6 +195,21 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});		
 	};
 	
+	
+	self.notifyFoldCard = function(card) {
+		$('#OpenCard').unbind();init_turn = false;
+		removeexistingpickable();
+        var referredcard = card;
+		$(".player").each(function(card) {
+			console.log("notifyDropped player" , JSON.stringify(referredcard));
+			if ($(this).css("visibility") == "visible") {
+				$(this).children().filter(".timer").each(function(card) {
+					if($(this).css("display") == "block")
+					    renderfoldcard($(this),referredcard);
+				});
+			}
+		});		
+	};
 	var onSelectofPickableCard = function(data)
 	{
 		var cardpos = "";
@@ -239,8 +260,37 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			source.prev().css("visibility", "visible");
 		}
 	};
+	
+var renderfoldcard = function(source,card) {
+		
+		if (!(source.prev().hasClass("PlayerDropCard"))) {
+			return;
+		}
+		if (source.css("display") == "block") {
+			var existingcardvalue = source.prev().attr("data-cardvalue");
+			if (existingcardvalue != undefined && existingcardvalue != null) {
+				source.prev().removeClass(existingcardvalue);
+				source.prev().removeAttr("data-cardvalue");
+				source.prev().removeAttr("data-cardinstanceid");
+			}
+			//source.prev().attr("data-cardinstanceid", card.cardInstanceID);
+			//var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
+			//source.prev().attr("data-cardvalue", cardvalue);
+
+			source.prev().addClass("closedcard");
+			source.prev().addClass("dropcarddimension");
+			//source.prev().addClass("pickable");
+			source.prev().css("visibility", "visible");
+		}
+	};
+
 
 	self.onDropNotificationSuccess = function(data) {
+		stopTimer();
+		self.getWhoseTurn();
+	};
+	
+	self.onFoldNotificationSuccess = function(data) {
 		stopTimer();
 		self.getWhoseTurn();
 	};
@@ -1005,7 +1055,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 
 	var skipPlayerTurn = function()
 	{
-		var url = marriageRummy.urls.skipPlayerTurnRequest;
+		var url = marriageRummy.urls.skipPlayerTurn;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnFailure;
 		var formdata = marriageRummy.request.skipPlayerTurnRequest(

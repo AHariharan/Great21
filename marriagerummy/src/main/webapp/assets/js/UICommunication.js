@@ -379,6 +379,8 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onSkipPlayerTurnSuccess = function(data, textstatus, Jhxr, requestObj)
     {
     	console.log("Success onSkipPlayerTurnSuccess : " + data);
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.onFoldHandSuccess(data,requestObj);
     };
     
     self.onSkipPlayerTurnFailure = function(data, textstatus, Jhxr, requestObj)

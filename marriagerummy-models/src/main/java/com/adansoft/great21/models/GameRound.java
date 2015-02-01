@@ -357,12 +357,16 @@ public class GameRound implements Serializable{
     private void updateTurn()
     {
     	currenturn++;
+    	if(currenturn > this.getPlayerlist().size())
+    		currenturn = 1;
+    	
     	while(isPosistionSkippable(currenturn))
     	{
     		currenturn++;
+    		if(currenturn > this.getPlayerlist().size())
+        		currenturn = 1;
     	}
-    	if(currenturn > this.getPlayerlist().size())
-    		currenturn = 1;
+    	
     }
 
 	public int getCurrenturn() {
@@ -375,7 +379,9 @@ public class GameRound implements Serializable{
     
     public void addSkipTurn(int position)
     {
+    	System.out.println("Adding skip turn : " + position);
     	skipturnarray.add(position);
+    	updateTurn();
     }
     
     private boolean isPosistionSkippable(int posistion)
@@ -383,7 +389,7 @@ public class GameRound implements Serializable{
     	boolean result = false;
     	for(Integer curpos : skipturnarray)
     	{
-    		if(curpos == posistion)
+    		if(curpos.intValue() == posistion)
     			result = true;
     	}
     	
