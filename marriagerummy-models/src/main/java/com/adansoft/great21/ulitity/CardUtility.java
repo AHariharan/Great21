@@ -379,8 +379,8 @@ public class CardUtility {
 		System.out.println("Excluded Cards : ");
 		showCards(excludeJokerfromCardList(cardlist,jokerValue));
 		Card[] excludedCardList = excludeJokerfromCardList(cardlist,jokerValue);
-		if (excludedCardList.length > 1 )
-		{
+	/*	if (excludedCardList.length > 1 )
+		{*/
 			if(checkCardwithSameFlower(excludedCardList))
 			{
 				System.out.println("Will be interpreted as Sequence number");
@@ -392,15 +392,38 @@ public class CardUtility {
 				
 				
 			}
-			else if(checkCardwithSameValue(excludedCardList))
+			else if(cardlist.length  <= 4 && checkCardwithSameValue(excludedCardList))
 			{
-				System.out.println("Will be interpreted as Triplet/Quatraplet number");
+				if(!checkAnyDuplicateFlower(excludedCardList))
+				       System.out.println("Valid Triplet/Qudrapletr");
+				else
+					   System.out.println("Invalid Triplet/Qudraplet");
 			}
 			else
 			{
 				System.out.println("Invalid Usage");
 			}
+	//	}
+	}
+	
+	private static boolean checkAnyDuplicateFlower(Card[] cardlist)
+	{
+		int spadeflowercount = 0,diamondflowerCount = 0,clubflowercount = 0,heartflowercount = 0;
+		for(Card card : cardlist)
+		{
+			if(card.getFlower().equals(Card.FLOWER_CLUBS))
+				clubflowercount++;
+			if(card.getFlower().equals(Card.FLOWER_SPADE))
+				spadeflowercount++;
+			if(card.getFlower().equals(Card.FLOWER_DIAMOND))
+				diamondflowerCount++;
+			if(card.getFlower().equals(Card.FLOWER_HEART))
+				heartflowercount++;
 		}
+		if(clubflowercount > 1 || spadeflowercount > 1 || diamondflowerCount > 1 ||  heartflowercount > 1)
+			return true;
+		else
+			return false;
 	}
 	
 	
