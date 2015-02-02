@@ -26,6 +26,7 @@ public class GameIndexerServiceURLs {
 	public final static String SHOWJOKER = "/JokerCard/Show";
 	public final static String PLAYERTURN = "/WhoseTurn/Get";
 	public final static String SKIPPLAYERTURN = "/PlayerTurn/Skip";
+	public final static String DECLAREGAME = "/CurrentGame/Declare";
 	
 	
 }

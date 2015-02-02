@@ -126,8 +126,8 @@
 
 		<div class="tool tool-mini">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="minitool-showJoker" data-toggle="tooltip" data-placement="bottom"
-				title="Show Joker">
+				id="minitool-showJoker" data-toggle="tooltip"
+				data-placement="bottom" title="Show Joker">
 				<i class="fa fa-umbrella"></i>&nbsp;
 			</button>
 		</div>
@@ -162,7 +162,7 @@
 	</div>
 </div>
 <!-- Show Joker -->
-<div class="showJoker" style="display:none">
+<div class="showJoker" style="display: none">
 	<div class="windowtooling">
 		Show Joker
 		<button type="button" class="close" data-dismiss="modal"
@@ -171,17 +171,34 @@
 		</button>
 	</div>
 	<div class="windowcontent">
-	    <h4> Please select cards from hand to retreive Joker</h4>
+		<h4>Please select cards from hand to retreive Joker</h4>
 		<div id="showcard1" class="jokershowcard"></div>
 		<div id="showcard2" class="jokershowcard"></div>
 		<div id="showcard3" class="jokershowcard"></div>
-		<h4> Click on the cards above to remove from Show Joker</h4>
+		<h4>Click on the cards above to remove from Show Joker</h4>
 	</div>
 	<div class="actionarea">
 		<button id="onShowJokerCancel" class="btn btn-tool">Cancel</button>
-		<button id="onShowJoker" class="btn btn-tool" disabled>Show Joker</button>
+		<button id="onShowJoker" class="btn btn-tool" disabled>Show
+			Joker</button>
 	</div>
 </div>
 <script>
 	$('.showJoker').draggable();
 </script>
+
+<div class="declareGame" style="display: block;">
+	<div class="windowtooling">
+		Declare Game
+		<button type="button" class="close" data-dismiss="modal"
+			style="margin-right: 11px;">
+			<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+		</button>
+	</div>
+	<div class="windowcontent">
+	</div>
+	<div class="actionarea">
+		<button id="onShowJokerCancel" class="btn btn-tool">Cancel</button>
+		<button id="onShowJoker" class="btn btn-tool" disabled>Declare</button>
+	</div>
+</div>

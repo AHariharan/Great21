@@ -10,6 +10,8 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DeclareGameRequest;
+import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -205,6 +207,24 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
+	public DeclareGameResult declareGame(DeclareGameRequest request)
+	{
+		DeclareGameResult result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<DeclareGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<DeclareGameResult> reply =  (Message<DeclareGameResult>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	
 	

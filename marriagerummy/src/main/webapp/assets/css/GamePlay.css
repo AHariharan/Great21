@@ -729,6 +729,19 @@ transform: rotate(-51deg);
 	position: relative;
 }
 
+.declareGame {
+	width: 950px;
+	min-height: 336px;
+	position: fixed;
+	left: 30px;
+	top: 100px;
+	background: rgb(23, 22, 22);
+	z-index: 1000;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
+}
+
+
 .timer {
 	width: 64px;
 	height: 64px;

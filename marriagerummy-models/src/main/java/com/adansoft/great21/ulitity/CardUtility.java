@@ -14,9 +14,17 @@ import com.adansoft.great21.models.HeartCard;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.models.SpadeCard;
+import com.adansoft.great21.restschemas.DeclareGameResult;
 
 
 public class CardUtility {
+	
+	
+	public final static String JOKERINTERPRET_VALIDSEQUENCE = "Valid Sequence";
+	public final static String JOKERINTERPRET_INVALIDSEQUENCE = "InValid Sequence";
+	public final static String JOKERINTERPRET_VALIDTRIPQUADR = "Valid Triplet/Quadreplet";
+	public final static String JOKERINTERPRET_INVALIDTRIPQUADR = "InValid Triplet/Quadreplet";
+	public final static String JOKERINTERPRET_INVALIDGENERIC = "Improper Meld Group";
 	
 	private static SpadeCard[] createSpadeCardChunk(int Deckid)
 	{
@@ -306,25 +314,101 @@ public class CardUtility {
 		return result;
 	}
 
-	public static String checkDeclareGame(HashMap<String,Card[]> meldlist,Card jokerCard,String gameType)
+	public static DeclareGameResult checkDeclareGame(HashMap<String,Card[]> meldlist,Card jokerCard,String gameType)
 	{
-		String outputMessage = "";
+		DeclareGameResult gameresult = new DeclareGameResult();
+		
+		
+		// Check Original Sequence.
+		
 		boolean isOrigSeqPresent = false;
+	
 		for(String key : meldlist.keySet())
 		{
 			boolean result = CardUtility.checkSequence(meldlist.get(key));
 			if(result == true)
+			{
+				//origSequenceGroupName = key;
 				isOrigSeqPresent = true;
+				break;
+			}
 		}
 		if(!isOrigSeqPresent)
-			return "No Original sequence present";
+			{
+			    gameresult.setValid(false);
+			    gameresult.setMessage("No Original Sequence Present");
+			    return gameresult;
+			}
 		
 		if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
 		{
-			
+			   return validateSevenCardRummy(meldlist,jokerCard);
+			    
+		}
+		if(gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE) || gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE))
+		{
+			   return validateThirteenCardRummy(meldlist,jokerCard);
+			    
+		}	
+	
+		return gameresult;
+	}
+	
+	
+	private static DeclareGameResult validateSevenCardRummy(HashMap<String,Card[]> meldlist,Card jokerCard)
+	{
+		DeclareGameResult gameresult = new DeclareGameResult();
+		HashMap<String,String> groupresult = new HashMap<String, String>();
+		for(String key : meldlist.keySet())
+		{
+			 String validationResult = CardUtility.interpretJokerandValidate(meldlist.get(key), jokerCard);
+			 if(validationResult.equals(JOKERINTERPRET_INVALIDGENERIC) || 
+			    validationResult.equals(JOKERINTERPRET_INVALIDSEQUENCE) ||
+				validationResult.equals(JOKERINTERPRET_INVALIDTRIPQUADR))
+			 {
+				 gameresult.setValid(false);
+				 gameresult.setMessage("InCorrect Declaration , See individual Meld for specific errors");
+			 }				 
+			 groupresult.put(key, validationResult);
+		}
+		gameresult.setGroupresults(groupresult);
+		if(gameresult.isValid())
+			gameresult.setMessage("Successful declaration");
+		return gameresult;
+	}
+	
+	private static DeclareGameResult validateThirteenCardRummy(HashMap<String,Card[]> meldlist,Card jokerCard)
+	{
+		int sequencecount = 0;
+		DeclareGameResult gameresult = new DeclareGameResult();
+		HashMap<String,String> groupresult = new HashMap<String, String>();
+		for(String key : meldlist.keySet())
+		{
+			 String validationResult = CardUtility.interpretJokerandValidate(meldlist.get(key), jokerCard);
+			 if(validationResult.equals(JOKERINTERPRET_VALIDSEQUENCE))
+			 {
+				 sequencecount++;
+			 }
+			 if(validationResult.equals(JOKERINTERPRET_INVALIDGENERIC) || 
+			    validationResult.equals(JOKERINTERPRET_INVALIDSEQUENCE) ||
+				validationResult.equals(JOKERINTERPRET_INVALIDTRIPQUADR))
+			 {
+				 gameresult.setValid(false);
+				 gameresult.setMessage("InCorrect Declaration , See individual Meld for specific errors");
+			 }				 
+			 groupresult.put(key, validationResult);
+			 
 		}
 		
-		return outputMessage;
+		if(sequencecount < 2)
+		{
+			gameresult.setValid(false);
+			gameresult.setMessage("Thirteen Card Rummy requires atleast 2 sequences");
+		}
+		gameresult.setGroupresults(groupresult);
+		if(gameresult.isValid())
+			gameresult.setMessage("Successful declaration");
+		return gameresult;
 	}
 	
 	
@@ -373,37 +457,35 @@ public class CardUtility {
 		return true;
 	}
 	
-	public static void interpretJokerandValidate(Card[] cardlist,Card jokerCard)
+
+	
+	public static String interpretJokerandValidate(Card[] cardlist,Card jokerCard)
 	{
 		String jokerValue =  jokerCard.getDisplayValue();
 		System.out.println("Excluded Cards : ");
 		showCards(excludeJokerfromCardList(cardlist,jokerValue));
 		Card[] excludedCardList = excludeJokerfromCardList(cardlist,jokerValue);
-	/*	if (excludedCardList.length > 1 )
-		{*/
-			if(checkCardwithSameFlower(excludedCardList))
+		  if(checkCardwithSameFlower(excludedCardList))
 			{
 				System.out.println("Will be interpreted as Sequence number");
 				boolean result = isSequenceCantUseJoker(excludedCardList,(cardlist.length - excludedCardList.length));
 				if(!result)
-					System.out.println("valid sequence :");
+					return JOKERINTERPRET_VALIDSEQUENCE;
 				else
-					System.out.println("Invalid sequence :" );
-				
-				
+					return JOKERINTERPRET_INVALIDSEQUENCE;
 			}
 			else if(cardlist.length  <= 4 && checkCardwithSameValue(excludedCardList))
 			{
 				if(!checkAnyDuplicateFlower(excludedCardList))
-				       System.out.println("Valid Triplet/Qudrapletr");
+					    return JOKERINTERPRET_VALIDTRIPQUADR;
 				else
-					   System.out.println("Invalid Triplet/Qudraplet");
+					 return JOKERINTERPRET_INVALIDTRIPQUADR;
 			}
 			else
 			{
-				System.out.println("Invalid Usage");
+				 return JOKERINTERPRET_INVALIDGENERIC;
 			}
-	//	}
+	
 	}
 	
 	private static boolean checkAnyDuplicateFlower(Card[] cardlist)

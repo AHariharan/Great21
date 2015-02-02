@@ -11,6 +11,8 @@ import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
+import com.adansoft.great21.restschemas.DeclareGameRequest;
+import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
@@ -60,4 +62,6 @@ public interface GameManagerDelegate {
 	public Message<Integer> handleMessage(GetPlayerTurnRequest request);
 	
 	public Message<String> handleMessage(SkipTurnRequest request);
+	
+	public Message<DeclareGameResult> handleMessage(DeclareGameRequest request);
 }

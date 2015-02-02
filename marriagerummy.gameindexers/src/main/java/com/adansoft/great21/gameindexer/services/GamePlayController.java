@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adansoft.great21.gameindexer.delegate.GamePlayDelegate;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DeclareGameRequest;
+import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -84,6 +86,12 @@ public class GamePlayController {
 	public String skipPlayerTurn(@RequestBody SkipTurnRequest request)
 	{
 		return delegate.skipPlayerTurn(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.DECLAREGAME, method = RequestMethod.POST)
+	public DeclareGameResult declareGame(@RequestBody DeclareGameRequest request)
+	{
+		return delegate.declareGame(request);
 	}
 	
 	@ExceptionHandler

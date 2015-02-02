@@ -20,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
+import com.adansoft.great21.restschemas.DeclareGameRequest;
+import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -221,6 +223,26 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.PLAYERTURN);
 			result = restTemplate.postForEntity(url, request, Integer.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.DECLAREGAME, method = RequestMethod.POST)
+	public @ResponseBody DeclareGameResult declareGame(@RequestBody DeclareGameRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		DeclareGameResult result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.DECLAREGAME);
+			result = restTemplate.postForEntity(url, request, DeclareGameResult.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

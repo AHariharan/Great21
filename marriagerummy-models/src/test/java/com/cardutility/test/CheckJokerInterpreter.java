@@ -15,9 +15,9 @@ public class CheckJokerInterpreter {
 		// ARG4 is status doesn't matter
 		
 		SpadeCard card1 = new SpadeCard("2",2, 4, Card.STATUS_ASSIGNED);
-		DiamondCard card2 = new DiamondCard("2", 2, 0, Card.STATUS_ASSIGNED);
+		DiamondCard card2 = new DiamondCard("J", 10, 0, Card.STATUS_ASSIGNED);
 		HeartCard card3 = new HeartCard("2", 2, 0, Card.STATUS_ASSIGNED);
-		ClubCard card4 = new ClubCard("2", 2, 2, Card.STATUS_ASSIGNED);
+		HeartCard card4 = new HeartCard("2", 2, 2, Card.STATUS_ASSIGNED);
 		//SpadeCard card5 = new SpadeCard("4", 4, 2, Card.STATUS_ASSIGNED);
 		
 		DiamondCard jokerCard = new DiamondCard("J", 10, 2, Card.STATUS_JOKER);
@@ -27,7 +27,7 @@ public class CheckJokerInterpreter {
 		
 		//Card[] cardlist = {card1,card2,card3,card4,card5};
 		
-		CardUtility.interpretJokerandValidate(cardlist,jokerCard);
+		System.out.println("Status :  " + CardUtility.interpretJokerandValidate(cardlist,jokerCard));
 		
 
 	}
