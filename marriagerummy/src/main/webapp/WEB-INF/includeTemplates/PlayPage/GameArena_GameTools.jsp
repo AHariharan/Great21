@@ -196,9 +196,48 @@
 		</button>
 	</div>
 	<div class="windowcontent">
+		<div class="toolarea">
+			<span> Meld : </span>
+			<button id="onDeclareGameCancel" class="btn btn-tool">3
+				Cards</button>
+			<button id="onDeclareGame" class="btn btn-tool">4 Cards</button>
+			<button id="onDeclareGame" class="btn btn-tool">5 Cards</button>
+			<span class="toolsep"> | </span>
+		</div>
+		<div class="cardsarea">
+			<div class="meld">
+				<div id="showcard1" class="meldcard"></div>
+				<div id="showcard2" class="meldcard"></div>
+				<div id="showcard3" class="meldcard"></div>
+			</div>
+			<div class="meldgroup">
+			<div class="meldheading">Group 1</div>
+			<div class="meld">
+				<div id="showcard1" class="meldcard"></div>
+				<div id="showcard2" class="meldcard"></div>
+				<div id="showcard3" class="meldcard"></div>
+				<div id="showcard4" class="meldcard"></div>
+			</div>
+			</div>
+			<div class="meld">
+				<div id="showcard1" class="meldcard"></div>
+				<div id="showcard2" class="meldcard"></div>
+				<div id="showcard3" class="meldcard"></div>
+				<div id="showcard4" class="meldcard"></div>
+			</div>
+			<div class="meld">
+				<div id="showcard1" class="meldcard"></div>
+				<div id="showcard2" class="meldcard"></div>
+				<div id="showcard3" class="meldcard"></div>
+				
+			</div>
+		</div>
 	</div>
-	<div class="actionarea">
-		<button id="onShowJokerCancel" class="btn btn-tool">Cancel</button>
-		<button id="onShowJoker" class="btn btn-tool" disabled>Declare</button>
+	<div class="actionarea" style="top: 249px;">
+		<button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button>
+		<button id="onDeclareGame" class="btn btn-tool" disabled>Declare</button>
 	</div>
 </div>
+<script>
+	$('.declareGame').draggable();
+</script>

@@ -28,10 +28,10 @@
 	width: 87px;
 	height: 82px;
 	-moz-transform: rotate(-41deg);
--webkit-transform: rotate(-41deg);
--o-transform: rotate(-41deg);
--ms-transform: rotate(-41deg);
-transform: rotate(-41deg);
+	-webkit-transform: rotate(-41deg);
+	-o-transform: rotate(-41deg);
+	-ms-transform: rotate(-41deg);
+	transform: rotate(-41deg);
 	position: relative;
 	/* left: 564px; */
 	top: 81px;
@@ -240,9 +240,11 @@ transform: rotate(-41deg);
 	margin-top:-20px;
 } */
 .card1-pos {
-	-moz-transform: rotate(-24deg); -webkit-transform : rotate( -24deg);
-	-o-transform : rotate( -24deg); -ms-transform : rotate( -24deg);
-	transform : rotate( -24deg);
+	-moz-transform: rotate(-24deg);
+	-webkit-transform: rotate(-24deg);
+	-o-transform: rotate(-24deg);
+	-ms-transform: rotate(-24deg);
+	transform: rotate(-24deg);
 	margin-left: -5px;
 	z-index: 10;
 	-webkit-transform: rotate(-24deg);
@@ -252,9 +254,11 @@ transform: rotate(-41deg);
 }
 
 .card2-pos {
-	-moz-transform: rotate(-9deg); -webkit-transform : rotate( -9deg);
-	-o-transform : rotate( -9deg); -ms-transform : rotate( -9deg);
-	transform : rotate( -9deg);
+	-moz-transform: rotate(-9deg);
+	-webkit-transform: rotate(-9deg);
+	-o-transform: rotate(-9deg);
+	-ms-transform: rotate(-9deg);
+	transform: rotate(-9deg);
 	margin-left: 14px;
 	margin-top: 5px;
 	z-index: 20;
@@ -331,9 +335,11 @@ transform: rotate(-41deg);
 }
 
 .Sevencard-1-pos {
-	-moz-transform: rotate(-49deg); -webkit-transform : rotate( -49deg);
-	-o-transform : rotate( -49deg); -ms-transform : rotate( -49deg);
-	transform : rotate( -49deg);
+	-moz-transform: rotate(-49deg);
+	-webkit-transform: rotate(-49deg);
+	-o-transform: rotate(-49deg);
+	-ms-transform: rotate(-49deg);
+	transform: rotate(-49deg);
 	margin-left: -38px;
 	margin-top: -3px;
 	z-index: 1;
@@ -346,9 +352,11 @@ transform: rotate(-41deg);
 }
 
 .Sevencard-2-pos {
-	-moz-transform: rotate(-35deg); -webkit-transform : rotate( -35deg);
-	-o-transform : rotate( -35deg); -ms-transform : rotate( -35deg);
-	transform : rotate( -35deg);
+	-moz-transform: rotate(-35deg);
+	-webkit-transform: rotate(-35deg);
+	-o-transform: rotate(-35deg);
+	-ms-transform: rotate(-35deg);
+	transform: rotate(-35deg);
 	margin-left: -24px;
 	margin-top: -3px;
 	z-index: 5;
@@ -375,10 +383,10 @@ transform: rotate(-41deg);
 
 .Sevencard-4-pos {
 	-moz-transform: rotate(-9deg);
--webkit-transform: rotate(-9deg);
--o-transform: rotate(-9deg);
--ms-transform: rotate(-9deg);
-transform: rotate(-9deg);
+	-webkit-transform: rotate(-9deg);
+	-o-transform: rotate(-9deg);
+	-ms-transform: rotate(-9deg);
+	transform: rotate(-9deg);
 	margin-left: 14px;
 	margin-top: 5px;
 	z-index: 20;
@@ -388,10 +396,10 @@ transform: rotate(-9deg);
 
 .Sevencard-5-pos {
 	-moz-transform: rotate(5deg);
--webkit-transform: rotate(5deg);
--o-transform: rotate(5deg);
--ms-transform: rotate(5deg);
-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+	-o-transform: rotate(5deg);
+	-ms-transform: rotate(5deg);
+	transform: rotate(5deg);
 	margin-left: 33px;
 	margin-top: 9px;
 	z-index: 30;
@@ -401,10 +409,10 @@ transform: rotate(5deg);
 
 .Sevencard-6-pos {
 	-moz-transform: rotate(19deg);
--webkit-transform: rotate(19deg);
--o-transform: rotate(19deg);
--ms-transform: rotate(19deg);
-transform: rotate(19deg);
+	-webkit-transform: rotate(19deg);
+	-o-transform: rotate(19deg);
+	-ms-transform: rotate(19deg);
+	transform: rotate(19deg);
 	margin-left: 54px;
 	margin-top: 24px;
 	z-index: 40;
@@ -414,10 +422,10 @@ transform: rotate(19deg);
 
 .Sevencard-7-pos {
 	-moz-transform: rotate(35deg);
--webkit-transform: rotate(35deg);
--o-transform: rotate(35deg);
--ms-transform: rotate(35deg);
-transform: rotate(35deg);
+	-webkit-transform: rotate(35deg);
+	-o-transform: rotate(35deg);
+	-ms-transform: rotate(35deg);
+	transform: rotate(35deg);
 	margin-left: 64px;
 	margin-top: 39px;
 	z-index: 50;
@@ -427,10 +435,10 @@ transform: rotate(35deg);
 
 .Sevencard-8-pos {
 	-moz-transform: rotate(49deg);
--webkit-transform: rotate(49deg);
--o-transform: rotate(49deg);
--ms-transform: rotate(49deg);
-transform: rotate(49deg);
+	-webkit-transform: rotate(49deg);
+	-o-transform: rotate(49deg);
+	-ms-transform: rotate(49deg);
+	transform: rotate(49deg);
 	margin-left: 73px;
 	margin-top: -7px;
 	z-index: 50;
@@ -595,20 +603,20 @@ transform: rotate(49deg);
 
 .drop2 {
 	-moz-transform: rotate(77deg);
--webkit-transform: rotate(77deg);
--o-transform: rotate(77deg);
--ms-transform: rotate(77deg);
-transform: rotate(77deg);
+	-webkit-transform: rotate(77deg);
+	-o-transform: rotate(77deg);
+	-ms-transform: rotate(77deg);
+	transform: rotate(77deg);
 	left: 116px;
 	top: -92px;
 }
 
 .drop3 {
 	-moz-transform: rotate(94deg);
--webkit-transform: rotate(94deg);
--o-transform: rotate(94deg);
--ms-transform: rotate(94deg);
-transform: rotate(94deg);
+	-webkit-transform: rotate(94deg);
+	-o-transform: rotate(94deg);
+	-ms-transform: rotate(94deg);
+	transform: rotate(94deg);
 	left: 111px;
 	top: -64px;
 	/* background: url('../images/Cards/SpadeCards/3.png');
@@ -617,10 +625,10 @@ transform: rotate(94deg);
 
 .drop4 {
 	-moz-transform: rotate(0deg);
--webkit-transform: rotate(0deg);
--o-transform: rotate(0deg);
--ms-transform: rotate(0deg);
-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
 	left: -85px;
 	top: -97px;
 	/* background: url('../images/Cards/SpadeCards/A.png');
@@ -629,10 +637,10 @@ transform: rotate(0deg);
 
 .drop5 {
 	-moz-transform: rotate(0deg);
--webkit-transform: rotate(0deg);
--o-transform: rotate(0deg);
--ms-transform: rotate(0deg);
-transform: rotate(0deg);
+	-webkit-transform: rotate(0deg);
+	-o-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
 	left: -85px;
 	top: -97px;
 	/* background: url('../images/Cards/SpadeCards/A.png');
@@ -641,10 +649,10 @@ transform: rotate(0deg);
 
 .drop6 {
 	-moz-transform: rotate(-85deg);
--webkit-transform: rotate(-85deg);
--o-transform: rotate(-85deg);
--ms-transform: rotate(-85deg);
-transform: rotate(-85deg);
+	-webkit-transform: rotate(-85deg);
+	-o-transform: rotate(-85deg);
+	-ms-transform: rotate(-85deg);
+	transform: rotate(-85deg);
 	left: -119px;
 	top: -64px;
 	/* background: url('../images/Cards/HeartCards/10.png');
@@ -652,11 +660,11 @@ transform: rotate(-85deg);
 }
 
 .drop7 {
--moz-transform: rotate(-135deg);
--webkit-transform: rotate(-135deg);
--o-transform: rotate(-135deg);
--ms-transform: rotate(-135deg);
-transform: rotate(-135deg);
+	-moz-transform: rotate(-135deg);
+	-webkit-transform: rotate(-135deg);
+	-o-transform: rotate(-135deg);
+	-ms-transform: rotate(-135deg);
+	transform: rotate(-135deg);
 	left: -119px;
 	top: -64px;
 	/* background: url('../images/Cards/HeartCards/5.png');
@@ -664,11 +672,11 @@ transform: rotate(-135deg);
 }
 
 .drop8 {
--moz-transform: rotate(-51deg);
--webkit-transform: rotate(-51deg);
--o-transform: rotate(-51deg);
--ms-transform: rotate(-51deg);
-transform: rotate(-51deg);
+	-moz-transform: rotate(-51deg);
+	-webkit-transform: rotate(-51deg);
+	-o-transform: rotate(-51deg);
+	-ms-transform: rotate(-51deg);
+	transform: rotate(-51deg);
 	left: -101px;
 	top: -64px;
 	/* background: url('../images/Cards/ClubCards/7.png');
@@ -718,6 +726,26 @@ transform: rotate(-51deg);
 	margin-right: 7px;
 }
 
+.toolarea {
+	height: 40px;
+	position: relative;
+	background: rgb(46, 44, 42);
+}
+
+.toolarea button {
+	float: left;
+	margin-top: 4px;
+	margin-left: 3px;
+}
+
+.toolarea span {
+	float: left;
+	padding-top: 10px;
+	padding-right: 2px;
+	padding-left: 10px;
+	color: white;
+}
+
 .jokershowcard {
 	width: 110px;
 	height: 160px;
@@ -740,7 +768,6 @@ transform: rotate(-51deg);
 	border-radius: 10px;
 	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
 }
-
 
 .timer {
 	width: 64px;
@@ -771,4 +798,38 @@ transform: rotate(-51deg);
 	margin-left: 12px;
 	margin-top: 9px;
 	border-radius: 40px;
+}
+
+.meld {
+	display: inline-block;
+	border: 1px solid white;
+	padding: 17px;
+	margin-right: 32px;
+	border-radius: 11px;
+	margin-top: 30px;
+}
+
+.meldcard {
+	width: 107px;
+	height: 154px;
+	border: 1px solid rgb(180, 175, 175);
+	cursor: pointer;
+	box-shadow: 0px 0px 14px 0px rgb(125, 131, 141);
+	border-radius: 9px;
+	display: inline-block;
+	position: relative;
+}
+
+.cardarea {
+	text-align: left;
+	padding-left: 30px;
+}
+
+.toolsep {
+	font-size: 33px;
+	padding-top: 1px !important;
+	color: rgb(244, 244, 245) !important;
+	text-shadow: 2px -1px 4px rgba(125, 92, 171, 1);
+	margin-top: -8px;
+	font-weight: bold;
 }
