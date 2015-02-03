@@ -205,31 +205,39 @@
 			<span class="toolsep"> | </span>
 		</div>
 		<div class="cardsarea">
-			<div class="meld">
-				<div id="showcard1" class="meldcard"></div>
-				<div id="showcard2" class="meldcard"></div>
-				<div id="showcard3" class="meldcard"></div>
+			<div class="meldgroup">
+				<div class="meldheading">Group 1</div>
+				<div class="meld">
+					<div id="showcard1" class="meldcard"></div>
+					<div id="showcard2" class="meldcard"></div>
+					<div id="showcard3" class="meldcard"></div>					
+				</div>
 			</div>
 			<div class="meldgroup">
-			<div class="meldheading">Group 1</div>
-			<div class="meld">
-				<div id="showcard1" class="meldcard"></div>
-				<div id="showcard2" class="meldcard"></div>
-				<div id="showcard3" class="meldcard"></div>
-				<div id="showcard4" class="meldcard"></div>
+				<div class="meldheading">Group 2</div>
+				<div class="meld">
+					<div id="showcard1" class="meldcard"></div>
+					<div id="showcard2" class="meldcard"></div>
+					<div id="showcard3" class="meldcard"></div>
+					<div id="showcard4" class="meldcard"></div>
+				</div>
 			</div>
+			<div class="meldgroup">
+				<div class="meldheading">Group 3</div>
+				<div class="meld">
+					<div id="showcard1" class="meldcard"></div>
+					<div id="showcard2" class="meldcard"></div>
+					<div id="showcard3" class="meldcard"></div>
+					<div id="showcard4" class="meldcard"></div>
+				</div>
 			</div>
-			<div class="meld">
-				<div id="showcard1" class="meldcard"></div>
-				<div id="showcard2" class="meldcard"></div>
-				<div id="showcard3" class="meldcard"></div>
-				<div id="showcard4" class="meldcard"></div>
-			</div>
-			<div class="meld">
-				<div id="showcard1" class="meldcard"></div>
-				<div id="showcard2" class="meldcard"></div>
-				<div id="showcard3" class="meldcard"></div>
-				
+			<div class="meldgroup">
+				<div class="meldheading">Group 4</div>
+				<div class="meld">
+					<div id="showcard1" class="meldcard"></div>
+					<div id="showcard2" class="meldcard"></div>
+					<div id="showcard3" class="meldcard"></div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -802,11 +802,7 @@
 
 .meld {
 	display: inline-block;
-	border: 1px solid white;
 	padding: 17px;
-	margin-right: 32px;
-	border-radius: 11px;
-	margin-top: 30px;
 }
 
 .meldcard {
@@ -832,4 +828,20 @@
 	text-shadow: 2px -1px 4px rgba(125, 92, 171, 1);
 	margin-top: -8px;
 	font-weight: bold;
+}
+
+.meldheading {
+	background: none repeat scroll 0% 0% #6E6969;
+	height: 35px;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.meldgroup {
+	text-align: left;
+	display: inline-block;
+	border: 1px solid rgb(201, 201, 218);
+	border-radius: 7px;
 }
