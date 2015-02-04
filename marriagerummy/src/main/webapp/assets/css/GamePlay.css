@@ -769,7 +769,6 @@
 	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
 }
 
-
 .timer {
 	width: 64px;
 	height: 64px;
@@ -807,14 +806,21 @@
 }
 
 .meldcard {
-	width: 107px;
-	height: 154px;
+	width: 110px;
+	height: 160px;
 	border: 1px solid rgb(180, 175, 175);
 	cursor: pointer;
 	box-shadow: 0px 0px 14px 0px rgb(125, 131, 141);
 	border-radius: 9px;
 	display: inline-block;
 	position: relative;
+}
+
+.meldmessage {
+	position: relative;
+	top: -292px;
+	left: 65px;
+	border: 1px solid;
 }
 
 .cardarea {
@@ -847,4 +853,61 @@
 	border-radius: 7px;
 	margin-top: 20px;
 	margin-right: 20px;
+}
+
+.meld-3 {
+	width: 200px;
+	margin-top: 23px;
+	float: left;
+	height: 200px;
+}
+
+.meld-4 {
+	width: 300px;
+	margin-top: 23px;
+	float: left;
+	height: 200px;
+}
+
+.meld-3 .card1 {
+	transform: rotate(-23deg);
+	left: 70px;
+}
+
+.meld-3 .card2 {
+	left: 85px;
+	top: -159px;
+	transform: rotate(-9deg);
+}
+
+.meld-3 .card3 {
+	left: 103px;
+	top: -314px;
+	transform: rotate(3deg);
+}
+
+.meld-4 .card1 {
+	transform: rotate(-41deg);
+	left: 78px;
+}
+
+.meld-4 .card2 {
+	transform: rotate(-25deg);
+	left: -25px;
+}
+
+.meld-4 .card3 {
+	left: 103px;
+	top: -161px;
+	transform: rotate(-9deg);
+}
+
+.meld-4 .card4 {
+	left: 6px;
+	top: -155px;
+	transform: rotate(3deg);
+}
+
+.meld-4 .meldmessage {
+	top: -128px;
 }
