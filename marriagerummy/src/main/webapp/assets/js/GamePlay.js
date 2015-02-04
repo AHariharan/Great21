@@ -583,8 +583,11 @@ var renderfoldcard = function(source,card) {
 				});
 		$(".card").bind("touchstart touchend", function(e) {
 			'use strict';
+			e.preventDefault();
 			var card = $(this);
-			card.addClass("hover");
+			card.toggleClass("hover");
+			console.log("touchstart touchend called...." + $(this).attr("data-cardvalue"));
+			
 			/*
 			 * if (card.hasClass('hover')) { $(this).attr("data-replacecard",
 			 * "true"); $(this).children().filter('.cardindicator').css(
