@@ -872,7 +872,18 @@
 	cursor: pointer;
 }
 
-.meld-3:hover,.meld-4:hover,.meld-select {
+.meld-foldcard {
+	width: 155px;
+	margin-top: 23px;
+	float: left;
+	height: 200px;
+	border: 1px dashed rgb(60, 55, 55);
+	border-radius: 10px;
+	cursor: pointer;
+	text-align: center;
+}
+
+.meld-3:hover,.meld-4:hover,.meld-select,.meld-foldcard:hover {
 	border-radius: 11px;
 	box-shadow: 0px 0px 18px 2px rgb(172, 3, 3) inset;
 }
@@ -931,6 +942,10 @@
 
 .meld-4 .meldmessage {
 	top: -127px;
+}
+
+.meld-foldcard .card1 {
+	top: 4px;
 }
 
 /* .meld-select {

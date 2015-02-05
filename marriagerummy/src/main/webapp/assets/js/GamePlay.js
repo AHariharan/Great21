@@ -975,21 +975,29 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		});
 		for (var i = 0; i < existingcards.length; i++) {
 			if (cardinstanceid == existingcards[i].CardInstanceID) {
-				$('#' + existingcards[i].Id).addClass("meldcard-select");
-						                    /*.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+				$('#' + existingcards[i].Id).addClass("animated tada")
+						                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
 								                function() {
 									                       $(this).removeClass("animated tada");
-								                           });*/
+								                           });
 
 				return;
 			}
 		}
-		$('.declareGame .meldcard').each(
+		$('.declareGame .meld-select .meldcard').each(
 				function() {
 					if (cardassigned == true)
 						return;
 					var existing = $(this).attr("data-cardinstanceid");
 					if (existing == undefined || existing == null || existing == "") {
+						if($(this).attr("id") == "FOLD-CARD")
+							{
+							$(this).addClass("meld-closedcard");
+							$(this).attr("data-cardvalue",cardvalue);
+							$(this).attr("data-cardinstanceid",cardinstanceid);
+							cardassigned = true;
+							return;
+							}
 						$(this).addClass(cardvalue);
 						$(this).attr("data-cardvalue",cardvalue);
 						$(this).attr("data-cardinstanceid",cardinstanceid);
@@ -1003,6 +1011,10 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	var onClickDeclaredCard = function() {
 		$('.meldcard').on("click", function() {
 			var cardvalue = $(this).attr("data-cardvalue");
+			if($(this).attr("id") == "FOLD-CARD")
+				{
+				$(this).removeClass("meld-closedcard");
+				}
 			$(this).removeClass(cardvalue);
 			$(this).attr("data-cardinstanceid", "");
 			$(this).attr("data-cardvalue", "");
@@ -1121,6 +1133,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	
 	var initMeldPattern = function()
 	{
+		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
 		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard card1 "></div><div id="ID2" class="meldcard card2"></div>'+
 				           '<div id="ID3" class="meldcard card3"></div><div class="meldmessage"></div></div>';
 		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard card1"></div>'+
@@ -1129,12 +1142,14 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		
 		$('#meldpattern-34').on("click",function(){
 			$('.meldcardarea').empty();
+			$('.meldcardarea').append(meldfoldpattern);
 			meld3Pattern = meld3Pattern.replace("ID1","MELD3-1-CARD-1").replace("ID2","MELD3-1-CARD-2").replace("ID3","MELD3-1-CARD-3");
 			$('.meldcardarea').append(meld3Pattern);
 			meld4Pattern = meld4Pattern.replace("ID1","MELD4-1-CARD-1").replace("ID2","MELD4-1-CARD-2").replace("ID3","MELD4-1-CARD-3").replace("ID4","MELD4-1-CARD-4");
 			$('.meldcardarea').append(meld4Pattern);
 			enableMeldGroupSelect();
 			onClickDeclaredCard();
+			onClickDeclareGame();
 		});
 		
 		
@@ -1144,11 +1159,18 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	
 	var enableMeldGroupSelect = function()
 	{
-		$('.meld-3,.meld-4').on("click",function(){			
+		$('.meld-3,.meld-4,.meld-foldcard').on("click",function(){			
 			$('.meldcardarea').children().each(function(){
 				$(this).removeClass("meld-select");
 			});
 			$(this).addClass("meld-select");
+		});
+	};
+	
+	var onClickDeclareGame = function()
+	{
+		$('#onDeclareGame').on("click",function(){
+			
 		});
 	};
 	

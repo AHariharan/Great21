@@ -21,6 +21,12 @@
 	background-size: 89px 137px;
 }
 
+.meld-closedcard
+{
+	background: url('../images/Cards/BackShades/bg-red.png');
+	background-size:110px 160px;
+}
+
 .Spade-A
 {
 	background:url("../images/Cards/SpadeCards/A.png");
