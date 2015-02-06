@@ -18,6 +18,7 @@ import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
+import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
@@ -168,7 +169,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	}
 	
 	@Override
-	public Message<DeclareGameResult> handleMessage(DeclareGameRequest request)
+	public Message<DeclareGameResult> handleMessage(DeclareGameUIRequest request)
 	{
 		DeclareGameResult response = GamePlayHelper.declareGame(request);
 		Message<DeclareGameResult> reply = MessageBuilder.withPayload(response).build();

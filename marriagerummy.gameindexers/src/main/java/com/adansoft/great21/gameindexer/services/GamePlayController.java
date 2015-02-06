@@ -14,6 +14,7 @@ import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
+import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -89,7 +90,7 @@ public class GamePlayController {
 	}
 	
 	@RequestMapping(value = GameIndexerServiceURLs.DECLAREGAME, method = RequestMethod.POST)
-	public DeclareGameResult declareGame(@RequestBody DeclareGameRequest request)
+	public DeclareGameResult declareGame(@RequestBody DeclareGameUIRequest request)
 	{
 		return delegate.declareGame(request);
 	}

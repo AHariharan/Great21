@@ -1,6 +1,7 @@
 package com.adansoft.great21.helpers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
@@ -11,6 +12,7 @@ import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
+import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -143,12 +145,14 @@ public class GamePlayHelper {
 		return "Success";
 	}
 	
-	public static DeclareGameResult declareGame(DeclareGameRequest request)
+	public static DeclareGameResult declareGame(DeclareGameUIRequest request)
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card jokerCard = game.getCurrentGameRound().getJoker();
-		DeclareGameResult result = CardUtility.checkDeclareGame(request.getMeldlist(), jokerCard, request.getGameType());
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		DeclareGameRequest gamerequest = UtilityHelper.convert(request, player);	
+		DeclareGameResult result = CardUtility.checkDeclareGame(gamerequest.getMeldlist(), jokerCard, request.getGameType());
 		return result;
 	}
 

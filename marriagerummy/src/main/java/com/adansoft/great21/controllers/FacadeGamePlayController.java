@@ -22,6 +22,7 @@ import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
+import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -233,7 +234,7 @@ public class FacadeGamePlayController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.DECLAREGAME, method = RequestMethod.POST)
-	public @ResponseBody DeclareGameResult declareGame(@RequestBody DeclareGameRequest request,@AuthenticationPrincipal Authentication authentication)	
+	public @ResponseBody DeclareGameResult declareGame(@RequestBody DeclareGameUIRequest request,@AuthenticationPrincipal Authentication authentication)	
 	{
 		DeclareGameResult result = null;
 		String nickname = authentication.getName();

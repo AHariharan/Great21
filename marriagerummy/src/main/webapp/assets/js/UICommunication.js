@@ -55,6 +55,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.showJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Show";
 	self.getWhoseTurn = "/marriagerummy/IndexerServices/GamePlay/WhoseTurn/Get";
 	self.skipPlayerTurn = "/marriagerummy/IndexerServices/GamePlay/PlayerTurn/Skip";
+	self.declareGame = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Declare";
 	
 };
 
@@ -233,7 +234,7 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		return formdata;
 	}; 
 	
-	  self.skipPlayerTurnRequest = function(lobbyType, gameInstanceID, gameType)
+	self.skipPlayerTurnRequest = function(lobbyType, gameInstanceID, gameType)
 		{
 			var formdata = {
 					"nickname" : "Auto",
@@ -244,6 +245,19 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			return formdata;
 		};
 
+	self.declareGameRequest = function(lobbyType, gameInstanceID, gameType,meldlist,closedCardInstanceid)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+				"meldlist":meldlist,
+				"closedCardInstanceid":closedCardInstanceid
+			      };
+		return formdata;
+
+	};
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -372,10 +386,13 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
     	gameObj.renderTurns(data);
     };
+    
     self.onGetWhoseTurnFailure = function(data)
     {
     	console.log("Failure on onGetWhoseTurn : " + data);
     };
+    
+
     self.onSkipPlayerTurnSuccess = function(data, textstatus, Jhxr, requestObj)
     {
     	console.log("Success onSkipPlayerTurnSuccess : " + data);
@@ -383,10 +400,23 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     	gameObj.onFoldHandSuccess(data,requestObj);
     };
     
-    self.onSkipPlayerTurnFailure = function(data, textstatus, Jhxr, requestObj)
+    self.onSkipPlayerTurnFailure = function(data)
     {
     	 console.log("Failure  onSkipPlayerTurnFailure : " + data);
     };
+
+    
+    self.onDeclareGameSuccess = function(data,textstatus, Jhxr, requestObj)
+    {
+    	console.log("Declare Game Success : " + JSON.stringify(data));
+    };
+    
+    self.onDeclareGameFailure = function(data)
+    {
+    	console.log("Declare Game Failure : " + data);
+    };
+    
+
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()

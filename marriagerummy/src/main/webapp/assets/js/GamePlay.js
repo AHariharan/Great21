@@ -1168,11 +1168,46 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	};
 	
 	var onClickDeclareGame = function()
-	{
+	{		
 		$('#onDeclareGame').on("click",function(){
-			
+            var prepareddata = prepareMeldList();
+			console.log(" MELDLIST : " + JSON.stringify(prepareddata.meldlist));
+			console.log(" CLOSEDCARD : " + prepareddata.closedcardinstance);
+			declareGameNow(prepareddata.meldlist,prepareddata.closedcardinstance);
 		});
 	};
+	
+	var prepareMeldList = function()
+	{
+		var dataset = {};
+		var meldlist = new Object();
+		var closedcardinstance = "";
+		var prefix = "Group";
+		var grpno = 0;
+		$('.meldcardarea').children().each(function(){
+			 var groupname = prefix + "-"+grpno;
+			 var cardArray = new Array();
+			 $(this).children().filter(".meldcard").each(function(){
+				 var id = $(this).attr("id");
+				 if(id == "FOLD-CARD")
+					 {
+					   closedcardinstance = $(this).attr("data-cardinstanceid");
+					   return;
+					 }
+				 var cardinstanceid = $(this).attr("data-cardinstanceid");
+				 cardArray.push(cardinstanceid);
+			 });
+			 if(grpno >= 1)
+			    meldlist[groupname] = cardArray;
+			 grpno++;			
+		});
+		dataset = {
+			        "meldlist" : meldlist,
+			        "closedcardinstance" : closedcardinstance
+		   };
+		return dataset;
+	};
+	
 	
 	
 	
@@ -1202,6 +1237,20 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnFailure;
 		var formdata = marriageRummy.request.skipPlayerTurnRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	var declareGameNow = function(meldlist,closedCardInstanceid)
+	{
+		var url = marriageRummy.urls.declareGame;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameFailure;
+    	var formdata = marriageRummy.request.declareGameRequest(
+				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist,closedCardInstanceid);
 		var requestObj = {
 			"formdata" : formdata
 		};
