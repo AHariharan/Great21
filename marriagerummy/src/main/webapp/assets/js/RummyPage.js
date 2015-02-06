@@ -330,7 +330,7 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	};
 	self.showSuccessAlert = function(heading,message)
 	{
-		toastr.Success(heading,message);
+		toastr.success(heading,message);
 	};
 
 };

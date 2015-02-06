@@ -1,11 +1,11 @@
 @CHARSET "ISO-8859-1";
 
 #Arena {
-	min-height: 100vh;
+	height: 650px;
 }
 
 .GameSetup {
-	top: 140px;
+	top: 116px;
 	position: relative;
 	left: -50px;
 }
@@ -125,7 +125,7 @@
 
 .player1-position {
 	left: 50%;
-	top: 167px;
+	top: 103px;
 }
 
 .player2-position {
@@ -487,21 +487,22 @@
 }
 
 .GameTools {
-	position: absolute;
-	width: 522px;
+	position: relative;
+	width: 1083px;
 	z-index: 99999;
-	min-height: 123px;
+	min-height: 54px;
 	background: rgb(23, 22, 22);
 	box-shadow: 0px 0px 10px 3px gray;
 	float: right;
-	top: -54px;
-	left: 869px;
 	border-radius: 10px;
+	color: whitesmoke;
+	top: -562px;
+	left: 45px;
 }
 
 .GameTools-mini {
-	min-height: 87px;
-	width: 475px;
+	min-height: 59px;
+	width: 567px;
 }
 
 .toolheading {

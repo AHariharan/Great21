@@ -1,7 +1,7 @@
 
-<div id="gametool" class="GameTools">
-	<div class="toolheading">Game Tools</div>
-	<div class="toolcontent">
+<div id="gametool" class="GameTools"> 
+	<!-- <div class="toolheading">Game Tools</div> -->
+	<div class="toolcontent">Game Tools :
 		<div class="tool">
 			<div class="dropup">
 				<button class="btn btn-tool dropdown-toggle" type="button"
@@ -42,12 +42,7 @@
 				<i class="fa fa-times-circle"></i>&nbsp; Drop Game
 			</button>
 		</div>
-		<div class="tool">
-			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="changetoolcompress">
-				<i class="fa fa-compress"></i>
-			</button>
-		</div>
+		
 		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
 				id="tool-showJoker" data-toggle="dropdown" aria-expanded="true">
@@ -72,13 +67,19 @@
 				<i class="fa fa-power-off"></i>&nbsp; Exit Game
 			</button>
 		</div>
+	    <div class="tool">
+			<button class="btn btn-tool dropdown-toggle" type="button"
+				id="changetoolcompress">
+				<i class="fa fa-compress"></i>
+			</button>
+		</div>
 	</div>
 </div>
 
 <div id="gametoolminimized" class="GameTools GameTools-mini"
 	style="display: none">
-	<div class="toolheading">Game Tools</div>
-	<div class="toolcontent">
+	<!-- <div class="toolheading">Game Tools</div> -->
+	<div class="toolcontent">Game Tools :
 		<div class="tool tool-mini">
 			<div class="dropup">
 				<button class="btn btn-tool dropdown-toggle" type="button"
@@ -187,7 +188,7 @@
 	$('.showJoker').draggable();
 </script>
 
-<div class="declareGame" style="display: block;">
+<div class="declareGame" style="display: none;">
 	<div class="windowtooling">
 		Declare Game
 		<button type="button" class="close" data-dismiss="modal"

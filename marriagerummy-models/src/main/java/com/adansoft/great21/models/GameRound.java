@@ -39,6 +39,7 @@ public class GameRound implements Serializable{
     private int startTurnpos;
     private int currenturn;
     private ArrayList<Integer> skipturnarray = new ArrayList<Integer>();
+    private Card prevDroppedCard;
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn)
     {
@@ -245,7 +246,13 @@ public class GameRound implements Serializable{
     	     {
     	      if(currentindexincard >= this.noofdecks*52 - 1)
     	      {
-    	    	  //update code here.
+    	    	  for(int i=0;i<this.deckcards.length;i++)
+    	    	  {
+    	    		  if(deckcards[i].getStatus().equals(Card.STATUS_DEAD))
+    	    			  deckcards[i].setStatus(Card.STATUS_UNASSIGNED);
+    	    	  }
+    	    	  // Reshuffle and resetting the index on picking all cards.
+    	    	  currentindexincard = 0;
     	      }
     	      isCardfromDeckSet = true;
     	      card.setStatus(Card.STATUS_PICKED);
@@ -254,6 +261,10 @@ public class GameRound implements Serializable{
     	    currentindexincard++;
         }
         System.out.println("Next Card Request Came : " + card);
+        Card precard = getPrevDroppedCard();
+        if(precard.getStatus().equals(Card.STATUS_DROPPED))
+        	precard.setStatus(Card.STATUS_DEAD);
+       
     	return card;
     }
     
@@ -332,6 +343,7 @@ public class GameRound implements Serializable{
     				{    					
     					player.getPlayerCards().remove(card);
     					card.setStatus(Card.STATUS_DROPPED);
+    					setPrevDroppedCard(card);
     					result = "Success";    		
     					System.out.println("************************************************************************");
     		    		System.out.println("Player Name :- " + player.getNickName());
@@ -345,6 +357,7 @@ public class GameRound implements Serializable{
     				if(card.getStatus().equals(Card.STATUS_DROPPED))
     				{
     				   card.setStatus(Card.STATUS_DROPPED);
+    				   setPrevDroppedCard(card);
 				 	  result = "Success";
     				}
     			}
@@ -395,6 +408,16 @@ public class GameRound implements Serializable{
     	
     	return result;
     }
+
+	public Card getPrevDroppedCard() {
+		return prevDroppedCard;
+	}
+
+	public void setPrevDroppedCard(Card prevDroppedCard) {
+		this.prevDroppedCard = prevDroppedCard;
+	}
     
 
+    
+    
 }

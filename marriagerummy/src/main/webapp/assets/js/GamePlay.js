@@ -398,6 +398,17 @@ var renderfoldcard = function(source,card) {
 	};
 	
 	
+	self.onDeclareSuccess = function(data)
+	{
+		if(data.valid)
+			{
+			   marriageRummy.generalutility.showSuccessAlert("Declaration Successful", data.message);
+			}
+		else
+			{
+			 marriageRummy.generalutility.showRedAlert("Declaration Failure", data.message);
+			}
+	};
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {
 		var tmp = cardinstanceid.replace(" ", "");
@@ -1097,7 +1108,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	};
 	
 	var initGameTools = function() {
-		$('.GameTools').draggable();
+		//$('.GameTools').draggable();
 		// $('.GameTools').css("top", $('#player1').position().top + "px");
 		$('#changetoolcompress').on("click", function() {
 			switchtoolMode("COMPRESS");
@@ -1105,11 +1116,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#changetoolexpand').on("click", function() {
 			switchtoolMode("EXPAND");
 		});
-		$('#minitool-showJoker').on("click",function(){
-			$('.showJoker').toggle();
-			
-		});
-		$('#tool-showJoker').on("click",function(){
+		$('#minitool-showJoker,#tool-showJoker').on("click",function(){
 			$('.showJoker').toggle();
 			
 		});
