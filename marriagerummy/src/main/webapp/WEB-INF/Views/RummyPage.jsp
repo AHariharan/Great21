@@ -72,6 +72,11 @@
 </script>
 </head>
 <body style="padding-top: 83px;">
+
+    <div class="mask" style="display:none">
+         <div class="loadingmask"></div>
+    </div>
+    <div class="mask" style="display:none"></div>
 	<!--  Required Modals -->
 
 	<%@ include

@@ -26,7 +26,7 @@
 		</div>
 		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				id="toolSortCards" data-toggle="dropdown" aria-expanded="true">
 				<i class="fa fa-sort-amount-asc"></i>&nbsp; Sort Cards
 			</button>
 		</div>
@@ -105,7 +105,7 @@
 		</div>
 		<div class="tool tool-mini">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="tooltip" data-placement="bottom"
+				id="minitoolSortCards" data-toggle="tooltip" data-placement="bottom"
 				title="Sort Cards">
 				<i class="fa fa-sort-amount-asc"></i>&nbsp;
 			</button>

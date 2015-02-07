@@ -262,8 +262,11 @@ public class GameRound implements Serializable{
         }
         System.out.println("Next Card Request Came : " + card);
         Card precard = getPrevDroppedCard();
-        if(precard.getStatus().equals(Card.STATUS_DROPPED))
-        	precard.setStatus(Card.STATUS_DEAD);
+        if(precard != null)
+        {
+            if(precard.getStatus().equals(Card.STATUS_DROPPED))
+        	    precard.setStatus(Card.STATUS_DEAD);
+        }
        
     	return card;
     }

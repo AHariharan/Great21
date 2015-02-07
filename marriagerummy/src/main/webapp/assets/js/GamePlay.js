@@ -25,6 +25,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	self.renderCards = function(data) {
 		var cardlist = data.cardlist;
+		var prefix = "";
+		if(stateobject.gameType == "SEVENCARD_CLOSED" || stateobject.gameType == "SEVENCARD_OPEN")
+			prefix = "#Sevencard-";
 		for (var i = 0; i < cardlist.length; i++) {
 			var currentcard = {};
 			if (cardlist[i].hasOwnProperty("HeartCard"))
@@ -36,7 +39,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			if (cardlist[i].hasOwnProperty("ClubCard"))
 				currentcard = cardlist[i].ClubCard;
 			var pos = i + 1;
-			var divid = "#Sevencard-" + pos;
+			var divid = prefix + pos;
+			var existingcardval = $(divid).attr("data-cardvalue");
+			$(divid).removeClass(existingcardval);
+			$(divid).attr("data-cardvalue","");
+			$(divid).attr("data-cardinstanceid","");
 			var flower = currentcard.flower[0].toUpperCase()
 					+ currentcard.flower.slice(1).toLowerCase();
 			var classname = flower + "-" + currentcard.displayValue;
@@ -1120,6 +1127,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			$('.showJoker').toggle();
 			
 		});
+		$('#toolSortCards,#minitoolSortCards').on("click",function(){
+			sortCards();
+		});
 		$('#declareGame,#declareGamemini').on("click",function(){
 			$('.declareGame').toggle();
 		});
@@ -1258,6 +1268,20 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameFailure;
     	var formdata = marriageRummy.request.declareGameRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist,closedCardInstanceid);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	var sortCards = function()
+	{
+		var url = marriageRummy.urls.sortCardsInHand;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSortCardSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSortCardFailure;
+		var formdata = marriageRummy.request.sortCardsInHandRequest(
+				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
 		};
