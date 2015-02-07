@@ -23,6 +23,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
+import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
@@ -93,6 +94,12 @@ public class GamePlayController {
 	public DeclareGameResult declareGame(@RequestBody DeclareGameUIRequest request)
 	{
 		return delegate.declareGame(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.SORTCARDS, method = RequestMethod.POST)
+	public Card[] sortCards(@RequestBody SortCardinHandRequest request)
+	{
+		return delegate.sortCards(request);
 	}
 	
 	@ExceptionHandler

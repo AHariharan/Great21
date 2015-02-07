@@ -21,6 +21,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
+import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
@@ -220,6 +221,24 @@ public class GamePlayDelegate {
 			Message<DeclareGameResult> reply =  (Message<DeclareGameResult>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Card[] sortCards(SortCardinHandRequest request)
+	{
+		Card[] result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<SortCardinHandRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<Card[]> reply =  (Message<Card[]>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();			
 		}catch(Exception e)
 		{
 			e.printStackTrace();

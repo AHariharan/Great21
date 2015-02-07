@@ -21,6 +21,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
+import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 import com.adansoft.great21.ulitity.CardUtility;
 
@@ -153,6 +154,16 @@ public class GamePlayHelper {
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
 		DeclareGameRequest gamerequest = UtilityHelper.convert(request, player);	
 		DeclareGameResult result = CardUtility.checkDeclareGame(gamerequest.getMeldlist(), jokerCard, request.getGameType());
+		return result;
+	}
+	
+	public static Card[] sortCards(SortCardinHandRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		Card[] inputlist = player.getPlayerCards().toArray(new Card[player.getPlayerCards().size()]);
+		Card[] result = CardUtility.sortCards(inputlist);
 		return result;
 	}
 

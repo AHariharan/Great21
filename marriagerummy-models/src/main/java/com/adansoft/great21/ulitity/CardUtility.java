@@ -615,4 +615,41 @@ public class CardUtility {
 	   }
 	}
 	
+	
+	public static Card[] sortCards(Card[] inputcardlist)
+	{
+		if(inputcardlist == null || inputcardlist.length == 0)
+			return inputcardlist;
+		
+		ArrayList<Card> spadeCardList = new ArrayList<Card>();
+		ArrayList<Card> diamondCardList = new ArrayList<Card>();
+		ArrayList<Card> clubCardList = new ArrayList<Card>();
+		ArrayList<Card> heartCardList = new ArrayList<Card>();
+		
+		for(Card card : inputcardlist)
+		{
+			if(card.getFlower().equals(Card.FLOWER_CLUBS))
+				clubCardList.add(card);
+			if(card.getFlower().equals(Card.FLOWER_DIAMOND))
+				diamondCardList.add(card);
+			if(card.getFlower().equals(Card.FLOWER_HEART))
+				heartCardList.add(card);
+			if(card.getFlower().equals(Card.FLOWER_SPADE))
+				spadeCardList.add(card);
+		}
+		Card[] clubcards =  clubCardList.toArray(new Card[clubCardList.size()]);
+		Card[] diamondcards =  diamondCardList.toArray(new Card[diamondCardList.size()]);
+		Card[] heartcards =  heartCardList.toArray(new Card[heartCardList.size()]);
+		Card[] spadecards =  spadeCardList.toArray(new Card[spadeCardList.size()]);
+		
+		Arrays.sort(clubcards);Arrays.sort(diamondcards);
+		Arrays.sort(heartcards);Arrays.sort(spadecards);
+		
+		ArrayList<Card> outputlist = new ArrayList<Card>();
+		
+		outputlist.addAll(Arrays.asList(spadecards));outputlist.addAll(Arrays.asList(diamondcards));
+		outputlist.addAll(Arrays.asList(clubcards));outputlist.addAll(Arrays.asList(heartcards));
+		return outputlist.toArray(new Card[outputlist.size()]);
+	}
+	
 }
