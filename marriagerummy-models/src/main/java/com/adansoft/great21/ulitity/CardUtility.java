@@ -241,8 +241,21 @@ public class CardUtility {
 					}
 					else
 					{
-						if(curcard.getInstrinsicValue() == 1 && nextcard.getInstrinsicValue() == 12)
-							continue;
+						if(cardlist.length == 3)
+						{
+						   if(curcard.getInstrinsicValue() == 1 && nextcard.getInstrinsicValue() == 12)
+							   continue;
+						}
+						if(cardlist.length == 4)
+						{
+						   if(curcard.getInstrinsicValue() == 1 && nextcard.getInstrinsicValue() == 11)
+							   continue;
+						}
+						if(cardlist.length == 5)
+						{
+						   if(curcard.getInstrinsicValue() == 1 && nextcard.getInstrinsicValue() == 10)
+							   continue;
+						}
 						result = false;
 						break;
 					}

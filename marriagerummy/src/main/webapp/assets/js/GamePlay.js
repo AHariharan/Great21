@@ -953,6 +953,23 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			else				
 			    $('#onDeclareGame').removeAttr("disabled");
 		};
+		
+		 var evaluateShowCards = function() {
+				var countofcards = 0;
+				$('.declareshowCards .meldcard').each(
+						function() {
+							var cardinstaceid = $(this).attr("data-cardinstanceid");
+							if (cardinstaceid === undefined || cardinstaceid == null || cardinstaceid == "")
+								countofcards++;
+						});
+				if (countofcards > 0)
+					$('#onShowCardGame').attr("disabled", "disabled");
+				else
+					{
+				           
+					  $('#onShowCardGame').removeAttr("disabled");
+					}
+			};
 
 	var onClickCardforShowJoker = function() {
 		$('#onShowJokerCancel').on("click", function() {
@@ -973,8 +990,62 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 							if ($('.declareGame').css("display") == "block") {
 								onDeclareGameWindowOpen($(this));
 							} // End of IF
+							if ($('.declareshowCards').css("display") == "block") {
+								onShowCardsGame($(this));
+							} 
 						});
 	};
+	
+	var onShowCardsGame = function(source)
+	{
+		$('.declareshowCards .meldcard-select').removeClass("meldcard-select");
+		var cardvalue = source.attr("data-cardvalue");
+		var cardinstanceid = source.attr("data-cardinstanceid");
+		var cardassigned = false;
+		var existingcards = new Array();
+		$('.declareshowCards .meldcard').each(function() {
+							var cardinstanceid = $(this).attr("data-cardinstanceid");
+							var id = $(this).attr("id");
+							existingcards.push({
+										"Id" : id,
+										"CardInstanceID" : cardinstanceid
+									});
+		});
+		for (var i = 0; i < existingcards.length; i++) {
+			if (cardinstanceid == existingcards[i].CardInstanceID) {
+				$('#' + existingcards[i].Id).addClass("animated tada")
+						                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
+								                function() {
+									                       $(this).removeClass("animated tada");
+								                           });
+
+				return;
+			}
+		}
+		$('.declareshowCards .meld-select .meldcard').each(
+				function() {
+					if (cardassigned == true)
+						return;
+					var existing = $(this).attr("data-cardinstanceid");
+					if (existing == undefined || existing == null || existing == "") {
+						/*if($(this).attr("id") == "FOLD-CARD")
+							{
+							$(this).addClass("meld-closedcard");
+							$(this).attr("data-cardvalue",cardvalue);
+							$(this).attr("data-cardinstanceid",cardinstanceid);
+							cardassigned = true;
+							return;
+							}*/
+						$(this).addClass(cardvalue);
+						$(this).attr("data-cardvalue",cardvalue);
+						$(this).attr("data-cardinstanceid",cardinstanceid);
+						cardassigned = true;
+						return;
+					}
+				});
+		evaluateShowCards();
+	};
+	
 	
 	var onDeclareGameWindowOpen = function(source)
 	{
@@ -1144,6 +1215,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		});
 		initShowJoker();
 		initMeldPattern();
+		initShowCards();
 	};
 	
 	
@@ -1158,21 +1230,69 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				           '<div id="ID4" class="meldcard card4 "></div><div class="meldmessage"></div></div>';
 		
 		$('#meldpattern-34').on("click",function(){
-			$('.meldcardarea').empty();
-			$('.meldcardarea').append(meldfoldpattern);
+			$('.declareGame .meldcardarea').empty();
+			$('.declareGame .meldcardarea').append(meldfoldpattern);
 			meld3Pattern = meld3Pattern.replace("ID1","MELD3-1-CARD-1").replace("ID2","MELD3-1-CARD-2").replace("ID3","MELD3-1-CARD-3");
-			$('.meldcardarea').append(meld3Pattern);
+			$('.declareGame .meldcardarea').append(meld3Pattern);
 			meld4Pattern = meld4Pattern.replace("ID1","MELD4-1-CARD-1").replace("ID2","MELD4-1-CARD-2").replace("ID3","MELD4-1-CARD-3").replace("ID4","MELD4-1-CARD-4");
-			$('.meldcardarea').append(meld4Pattern);
+			$('.declareGame .meldcardarea').append(meld4Pattern);
 			enableMeldGroupSelect();
 			onClickDeclaredCard();
 			onClickDeclareGame();
+		});	
+	};
+	
+	
+	var initShowCards = function()
+	{
+		var meld3grp = 1;
+		var meld4grp = 1;
+		var restofCardsPattern = '<div class="restcards"><div id="ID1" class="restcard restcard1"></div>'+
+                                 '<div id="ID2" class="restcard restcard2"></div><div id="ID3" class="restcard restcard3 "></div>'+
+                                 '<div id="ID4" class="restcard restcard4 "></div><div class="meldmessage"></div>'+
+                                 '<div class="removemeldgrp-rest">x</div></div>';
+		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard card1 "></div><div id="ID2" class="meldcard card2"></div>'+
+				           '<div id="ID3" class="meldcard card3"></div><div class="meldmessage"></div>'+
+				           '<div class="removemeldgrp-3">x</div></div>';
+		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard card1"></div>'+
+				           '<div id="ID2" class="meldcard card2"></div><div id="ID3" class="meldcard card3 "></div>'+
+				           '<div id="ID4" class="meldcard card4 "></div><div class="meldmessage"></div>'+
+				           '<div class="removemeldgrp-4">x</div></div>';
+		$('.declareshowCards .meldcardarea').empty();
+		
+		$('#meldgroup-3').on("click",function(){
+			
+			var meld3 = meld3Pattern.replace("ID1","MELD3-"+meld3grp+"-CARD-1").replace("ID2","MELD3-"+meld3grp+"-CARD-2").replace("ID3","MELD3-"+meld3grp+"-CARD-3");
+			$('.declareshowCards .meldcardarea').append(meld3);
+			$('.removemeldgrp-4,.removemeldgrp-3,.removemeldgrp-rest').on("click",function(){
+				$(this).parent().remove();
+			});
+			enableMeldGroupSelect();meld3grp++;
+		});	
+		
+		$('#meldgroup-4').on("click",function(){
+			var meld4 = meld4Pattern.replace("ID1","MELD4-"+meld4grp+"-CARD-1").replace("ID2","MELD4-"+meld4grp+"-CARD-2").replace("ID3","MELD4-"+meld4grp+"-CARD-3").replace("ID3","MELD4-"+meld4grp+"-CARD-4");
+			$('.declareshowCards .meldcardarea').append(meld4);
+			$('.removemeldgrp-4,.removemeldgrp-3,.removemeldgrp-rest').on("click",function(){
+				$(this).parent().remove();
+			});
+			enableMeldGroupSelect();meld4grp++;
+		});	
+		
+		$('#meldrestgrp').on("click",function(){
+			if($('.restcards').length == 0)
+				{
+			     $('.declareshowCards .meldcardarea').append(restofCardsPattern);
+			     $('.removemeldgrp-4,.removemeldgrp-3,.removemeldgrp-rest').on("click",function(){
+						$(this).parent().remove();
+					});
+				}
 		});
 		
-		
-		
-		
+			
 	};
+	
+	
 	
 	var enableMeldGroupSelect = function()
 	{
@@ -1185,7 +1305,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	};
 	
 	var onClickDeclareGame = function()
-	{		
+	{
+		$('#onDeclareGame').unbind();
 		$('#onDeclareGame').on("click",function(){
             var prepareddata = prepareMeldList();
 			console.log(" MELDLIST : " + JSON.stringify(prepareddata.meldlist));

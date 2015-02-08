@@ -836,6 +836,7 @@
 	overflow: hidden;
 	min-height: 249px;
 	float: left;
+	clear: both;
 }
 
 .toolsep {
@@ -870,7 +871,7 @@
 	margin-top: 23px;
 	float: left;
 	height: 200px;
-	border: 1px dashed rgb(60, 55, 55);
+	border: 1px dashed rgb(237, 237, 237);
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -896,7 +897,7 @@
 	margin-top: 23px;
 	float: left;
 	height: 200px;
-	border: 1px dashed rgb(60, 55, 55);
+	border: 1px dashed rgb(237, 237, 237);
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -951,13 +952,130 @@
 	top: 4px;
 }
 
-
 .jokerseen {
-	background:  url('../images/icons/64x64/Joker-Seen.png');
+	background: url('../images/icons/64x64/Joker-Seen.png');
 	background-size: 40px 40px;
 	width: 40px;
 	height: 40px;
 	position: relative;
 	left: 95px;
 	top: -65px;
+}
+
+.declareshowCards {
+	width: 1200px;
+	min-height: 336px;
+	position: fixed;
+	left: 30px;
+	top: 100px;
+	background: rgb(23, 22, 22);
+	z-index: 1000;
+	border-radius: 10px;
+	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
+}
+
+.restcards .restcard1 {
+	top: 21px;
+	left: 14px;
+}
+
+.restcards .restcard2 {
+	left: -65px;
+	top: 21px;
+}
+
+.restcards .restcard3 {
+	left: 76px;
+	top: -144px;
+}
+
+.restcards .restcard4 {
+	left: -8px;
+	top: -143px;
+}
+
+.restcard {
+	width: 110px;
+	height: 160px;
+	border: 1px solid rgb(180, 175, 175);
+	cursor: pointer;
+	box-shadow: 0px 0px 14px 0px rgb(81, 86, 95);
+	border-radius: 9px;
+	display: inline-block;
+	position: relative;
+	background: url('../images/Cards/BackShades/bg-red.png');
+	background-size: 110px 160px;
+}
+
+.removemeldgrp-3 {
+	position: relative;
+	left: 180px;
+	margin-top: 45px;
+	width: 19px;
+	height: 19px;
+	padding: 0px;
+	padding-left: 6px;
+	color: white;
+	font-size: 13px;
+	top: -543px;
+	background: rgb(172, 3, 3);
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.removemeldgrp-4 {
+	position: relative;
+	left: 280px;
+	margin-top: 45px;
+	width: 19px;
+	height: 19px;
+	padding: 0px;
+	padding-left: 6px;
+	color: white;
+	font-size: 13px;
+	top: -375px;
+	background: rgb(172, 3, 3);
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.removemeldgrp-rest {
+	position: relative;
+	left: 200px;
+	margin-top: 45px;
+	width: 19px;
+	height: 19px;
+	padding: 0px;
+	padding-left: 6px;
+	color: white;
+	font-size: 13px;
+	top: -375px;
+	background: rgb(172, 3, 3);
+	border-radius: 50px;
+	cursor: pointer;
+}
+
+.removemeldgrp-3:hover {
+	background: white;
+	color: black;
+}
+
+.removemeldgrp-4:hover {
+	background: white;
+	color: black;
+}
+
+.removemeldgrp-rest:hover {
+	background: white;
+	color: black;
+}
+
+.restcards {
+	width: 222px;
+	margin-top: 23px;
+	float: left;
+	height: 200px;
+	border: 1px dashed rgb(237, 237, 237);
+	border-radius: 10px;
+	cursor: pointer
 }

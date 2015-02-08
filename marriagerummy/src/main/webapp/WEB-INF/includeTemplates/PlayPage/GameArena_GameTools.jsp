@@ -208,26 +208,6 @@
 			<span class="toolsep"> | </span>
 		</div>
 		<div class="meldcardarea">
-			<!-- <div class="meld-3">
-				<div class="meldcard card1 Club-A"></div>
-				<div class="meldcard card2 Club-K"></div>
-				<div class="meldcard card3 Club-Q"></div>
-				<div class="meldmessage"></div>
-			</div>
-			<div class="meld-3">
-				<div id="showcard1" class="meldcard card1 Diamond-7"></div>
-				<div id="showcard2" class="meldcard card2 Heart-7"></div>
-				<div id="showcard3" class="meldcard card3 Club-7"></div>
-				<div class="meldmessage">Valid Triplet</div>
-			</div>
-			<div class="meld-4">
-				<div id="showcard1" class="meldcard card1 Spade-5"></div>
-				<div id="showcard2" class="meldcard card2 Spade-6"></div>
-				<div id="showcard3" class="meldcard card3 Spade-7"></div>
-				<div id="showcard3" class="meldcard card4 Spade-8"></div>
-				<div class="meldmessage">Valid Sequence</div>
-			</div>
- -->
 		</div>
 	</div>
 	<div class="actionarea" >
@@ -238,4 +218,41 @@
 </div>
 <script>
 	$('.declareGame').draggable();
+</script>
+
+
+<div class="declareshowCards" style="display: none;">
+	<div class="windowtooling">
+		show Cards
+		<button type="button" class="close" data-dismiss="modal"
+			style="margin-right: 11px;">
+			<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+		</button>
+	</div>
+	<div class="windowcontent">
+		<div class="toolarea">
+			<span> Choose Declare Pattern : </span>
+			<button id="meldgroup-3" class="btn btn-tool">Group 3 Cards
+				</button>
+			<button id="meldgroup-4" class="btn btn-tool">Group 4 Cards
+				</button>
+		<!-- 	<button id="meldgroup-5" class="btn btn-tool">Group 5 Cards
+				</button> -->
+			<span class="toolsep"> | </span>
+			<button id="meldrestgrp" class="btn btn-tool">
+			Remaining Cards
+				</button>
+		</div>
+		<div class="meldcardarea">
+		</div>
+	</div>
+	<div class="actionarea" >
+	    <p style="margin-top: 14px;color: white;float: left;"> You must show all cards to get finish this round</p>
+		<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
+		<button id="onShowCardGame" class="btn btn-tool" disabled>Show Cards</button>
+	</div>
+</div>
+
+<script>
+	$('.declareshowCards').draggable();
 </script>
