@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class NotificationEvent implements Serializable {
 
-	private static final long serialVersionUID = -7860044125384329133L;
-
+	private static final long serialVersionUID = 6308832728716548274L;
 	private String notificationType;
 	private String notificationSource;
 	private Object notificationObject;
@@ -16,7 +15,6 @@ public class NotificationEvent implements Serializable {
 	
 	public NotificationEvent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public NotificationEvent(String notificationType,

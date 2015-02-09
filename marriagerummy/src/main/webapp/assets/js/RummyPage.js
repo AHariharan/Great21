@@ -332,6 +332,18 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	{
 		toastr.success(heading,message);
 	};
+	
+	self.setLoadingMask = function(message)
+	{
+		$(".mask .loadingmask").html(message);
+		$(".mask").show();       
+	};
+	
+	self.hideLoadingMask = function(message)
+	{
+		$(".mask .loadingmask").html("");
+		$(".mask").hide();       
+	};
 
 };
 

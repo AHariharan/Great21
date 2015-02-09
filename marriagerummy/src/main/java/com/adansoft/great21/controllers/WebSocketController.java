@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 
+
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.NotificationEvent;
@@ -32,7 +33,9 @@ public class WebSocketController {
 	@Autowired
 	public WebSocketController(SimpMessagingTemplate temp)
 	{
+		System.out.println("*********** WEB SOCKET TEMPLATE INVOKED **************");
 		this.template = temp;
+		
 	}
 	
 	@MessageMapping("/WebSocketChatMessages/Add/{gameInstanceID}")
@@ -54,11 +57,14 @@ public class WebSocketController {
 	}
 	
 	@MessageMapping("/WebSockets/Notifications/{gameInstanceID}")
-	public void receiveAndPublishNotification(NotificationEvent event,@DestinationVariable String gameInstanceID,@AuthenticationPrincipal Authentication authentication)
+	public void testNotification(NotificationEvent event,@DestinationVariable("gameInstanceID") String gameInstanceID,@AuthenticationPrincipal Authentication authentication )
 	{
-	     event.setNotifiedBy(authentication.getName());
+		 System.out.println("Web Socket Notification received :" + event.getNotifiedBy());
+		 System.out.println("Web Socket Notification received :" + gameInstanceID);
 	     System.out.println("Web Socket Notification received : " + event);
+	     event.setNotifiedBy(authentication.getName());
 	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
+	    
 	}
 	
 	

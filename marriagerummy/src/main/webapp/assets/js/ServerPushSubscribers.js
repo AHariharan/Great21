@@ -61,7 +61,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 	 var gameInstanceID = gid;
 	 var stompClient = null;
 	 var callback = new MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback();
-	 var notificationConnectDestination = '/marriagerummy/WebSockets/Notifications';
+	 var notificationConnectDestination = '/marriagerummy/WebSockets/Notifications/';
 	 var subscribeNotification = "/WebSockets/Notifications/";
 	
 	 var self = this;
@@ -105,11 +105,13 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 		     callback.handleCardDropped(jsonobj);
 		 if(type == "PLAYERFOLD")
 			 callback.handleFoldPlayer(jsonobj);
+		 if(type == "DECLARESUCCESS")
+			 callback.handleDeclareSuccess(jsonobj);
 	 }; 
 	 
 	 self.sendNotificationEvent = function(data)
 	 {
-		 stompClient.send(subscribeNotification+gameInstanceID,{},JSON.stringify(data));
+		 stompClient.send(notificationConnectDestination+gameInstanceID,{},JSON.stringify(data));
 	 };
 	 
 	 self.shutdown = function()
@@ -209,6 +211,23 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	gameObj.notifyFoldCard(data.notificationObject);    	
     	gameObj.onFoldNotificationSuccess(data);
     };
+    
+    self.handleDeclareSuccess = function(data)
+    {
+    	console.log("Test Data ... " + JSON.stringify(data));
+    	if(data.notifiedBy == marriageRummy.loggedinUser)
+    		{
+    		    marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards ");
+    		    return;
+    		}
+    	else
+    		{
+    		   marriageRummy.generalutility.showSuccessAlert("Game Declared",data.notifiedBy + " has declared the game. Please show your cards.." );
+    		   var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    		   gameObj.forceToShowCards();
+    		}
+    	console.log("Sent by ..,, " + data.notificationObject.nickname);
+    };
 };
 
 
@@ -292,6 +311,18 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
     	 return formdata;
      };
      
+     self.declareSuccessNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "DECLARESUCCESS",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	
+    	 };
+    	 return formdata;
+     };
+     
     
 };
 
@@ -302,6 +333,7 @@ marriageRummy.notificationRequest = new MarriageRummy.Utilities.PushServerSubscr
 /*try
 {
 marriageRummy.chatSubscriber.connect("GAMEINSTANCE123");
+marriageRummy.notificationManager =  new MarriageRummy.Utilities.PushServerSubscriber.NotificationManager("TEST123");
 }catch(e)
 {
    console.log(e);

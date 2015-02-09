@@ -1079,3 +1079,17 @@
 	border-radius: 10px;
 	cursor: pointer
 }
+
+.cardposind {
+	display: block;
+	width: 20px;
+	height: 20px;
+	font-size: 15px;
+	color: rgb(161, 160, 191);
+	position: relative;
+	top: -31px;
+	left: 16px;
+	border: 1px solid rgb(134, 134, 149);
+	border-radius: 50px;
+	background: white;
+}

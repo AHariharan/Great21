@@ -62,6 +62,10 @@
 	<bean id="uimapper" class="com.adansoft.great21.uimediation.UIMediationMapper"/>
 	
 	<!--  Websocket SimpleMessageTemplate -->
-	
+<!-- 	<bean id="simpMessagingTemplate" class="org.springframework.messaging.simp.SimpMessagingTemplate">
+	   <constructor-arg>
+	      <bean id="channel" class=""> </bean>
+	   </constructor-arg>
+	</bean> -->
 
 </beans>

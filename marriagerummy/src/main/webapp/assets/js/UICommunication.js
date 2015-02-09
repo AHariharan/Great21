@@ -421,7 +421,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     {
     	console.log("Declare Game Success : " + JSON.stringify(data));
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
-    	gameObj.onDeclareSuccess(data);
+    	gameObj.onDeclareSuccess(data,requestObj);
     };
     
     self.onDeclareGameFailure = function(data)

@@ -76,7 +76,7 @@
     <div class="mask" style="display:none">
          <div class="loadingmask"></div>
     </div>
-    <div class="mask" style="display:none"></div>
+   
 	<!--  Required Modals -->
 
 	<%@ include
@@ -136,6 +136,11 @@
 			<button class="btn btn-success"
 				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
 				Message</button>
+			<button class="btn btn-success"
+				onclick='var notificationdata = marriageRummy.notificationRequest.dropCardNotification("onDropHandSuccess",null);alert(notificationdata);
+					     
+		                 marriageRummy.notificationManager.sendNotificationEvent(notificationdata);'>Send
+				Notifications</button>	
 		</div>
 		<div class="page-content" style="padding: 50px; padding-top: 2px;">
 			<%@ include

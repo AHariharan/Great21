@@ -25,7 +25,7 @@
 	     <priority value="WARN"/>
 	</category>     
 
-   <category name="org.springframework.web.socket">
+    <category name="org.springframework.web.socket">
 	     <priority value="WARN"/>
 	</category> 
 	<category name="org.springframework.beans">

@@ -405,16 +405,23 @@ var renderfoldcard = function(source,card) {
 	};
 	
 	
-	self.onDeclareSuccess = function(data)
+	self.onDeclareSuccess = function(data,requestObj)
 	{
 		if(data.valid)
 			{
 			   marriageRummy.generalutility.showSuccessAlert("Declaration Successful", data.message);
+			   var notificationdata = marriageRummy.notificationRequest.declareSuccessNotification("onDropHandSuccess", requestObj.formdata);
+		       marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 			}
 		else
 			{
 			 marriageRummy.generalutility.showRedAlert("Declaration Failure", data.message);
 			}
+	};
+	
+	self.forceToShowCards = function(data,requestObj)
+	{
+		$('.declareshowCards').show();
 	};
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {
