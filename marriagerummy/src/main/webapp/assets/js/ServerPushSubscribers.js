@@ -224,7 +224,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     		{
     		   marriageRummy.generalutility.showSuccessAlert("Game Declared",data.notifiedBy + " has declared the game. Please show your cards.." );
     		   var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
-    		   gameObj.forceToShowCards();
+    		   gameObj.forceToShowCards(data);
     		}
     	console.log("Sent by ..,, " + data.notificationObject.nickname);
     };

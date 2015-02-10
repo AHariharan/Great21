@@ -831,7 +831,7 @@
 	/* border: 1px solid; */
 }
 
-.meldcardarea {
+.meldcardarea,.winnerdeclaredarea {
 	text-align: left;
 	padding-left: 30px;
 	overflow: hidden;

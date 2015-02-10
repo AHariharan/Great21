@@ -424,12 +424,48 @@ var renderfoldcard = function(source,card) {
 	self.forceToShowCards = function(data,requestObj)
 	{
 		$('.declareshowCards').show();
+		renderDeclareCards(data);
 		
 	};
 	
-	var renderDeclareCards = function(requestObj)
+	var renderDeclareCards = function(data)
 	{
-		
+		var meld3grp = 1;
+		var meld4grp = 1;
+		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 meld-closedcard"></div><div class="meldmessage"></div></div>';
+		var meld3Pattern = '<div id="GRP" class="meld-3"><div id="ID1" class="meldcard card1 CCARD1"></div><div id="ID2" class="meldcard card2 CCARD2"></div>'+
+				           '<div id="ID3" class="meldcard card3 CCARD3"></div><div class="meldmessage"></div></div>';
+		var meld4Pattern = '<div id="GRP" class="meld-4"><div id="ID1" class="meldcard card1 CCARD1"></div>'+
+				           '<div id="ID2" class="meldcard card2 CCARD2"></div><div id="ID3" class="meldcard card3 CCARD3"></div>'+
+				           '<div id="ID4" class="meldcard card4 CCARD4"></div><div class="meldmessage"></div></div>';
+		var keylist = Object.keys(data.notificationObject.meldlist);
+		var playerName = data.notifiedBy;
+		$('.winnerdeclaredarea h4').html("Player : " + playerName +  " has declared the game. Please submit your cards by selecting 'Show your Cards' tab to start next round");
+		$('.winnerdeclaredarea').append(meldfoldpattern);
+		for(var i=0;i<keylist.length;i++)
+		    {
+		      var output = data.notificationObject.meldlist[keylist[i]];
+		      if(output.length == 3)
+		    	  {
+		    	     var meld3 = meld3Pattern.replace("GRP",keylist[i]).
+		    	                replace("ID1","MELD3-"+meld3grp+"-CARD-1").replace("CCARD1",convertCardInstancetoCardValue(output[0])).
+		    	                replace("ID2","MELD3-"+meld3grp+"-CARD-2").replace("CCARD2",convertCardInstancetoCardValue(output[1])).
+		    	                replace("ID3","MELD3-"+meld3grp+"-CARD-3").replace("CCARD3",convertCardInstancetoCardValue(output[2]));
+		    	     $('.winnerdeclaredarea').append(meld3);
+		    	     meld3grp++;		    	     
+		    	  }
+		      if(output.length == 4)
+	    	  {
+	    	     var meld4 = meld4Pattern.replace("GRP",keylist[i]).
+	    	                replace("ID1","MELD4-"+meld4grp+"-CARD-1").replace("CCARD1",convertCardInstancetoCardValue(output[0])).
+	    	                replace("ID2","MELD4-"+meld4grp+"-CARD-2").replace("CCARD2",convertCardInstancetoCardValue(output[1])).
+	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-3").replace("CCARD3",convertCardInstancetoCardValue(output[2])).
+	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-4").replace("CCARD4",convertCardInstancetoCardValue(output[3]));
+	    	     $('.winnerdeclaredarea').append(meld4);
+	    	     meld4grp++;
+	    	     
+	    	  }
+		    }
 	};
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {

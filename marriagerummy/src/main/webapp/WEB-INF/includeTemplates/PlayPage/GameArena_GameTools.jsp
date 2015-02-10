@@ -223,7 +223,7 @@
 </script>
 
 
-<div class="declareshowCards" style="display: block;">
+<div class="declareshowCards" style="display: none;">
 	<div class="windowtooling">
 		Show Cards
 		<button type="button" class="close" data-dismiss="modal"
@@ -244,7 +244,11 @@
 			</ul>
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="winnershowcards">
-					Declared Area</div>
+					<div class="winnerdeclaredarea">
+					  <h4> Winner Message</h4>
+					
+					</div>
+				</div>
 				<div role="tabpanel" class="tab-pane" id="myshowcards">
 					<div class="toolarea">
 						<span> Choose Declare Pattern : </span>
