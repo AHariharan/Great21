@@ -1,7 +1,8 @@
 
-<div id="gametool" class="GameTools"> 
+<div id="gametool" class="GameTools">
 	<!-- <div class="toolheading">Game Tools</div> -->
-	<div class="toolcontent">Game Tools :
+	<div class="toolcontent">
+		Game Tools :
 		<div class="tool">
 			<div class="dropup">
 				<button class="btn btn-tool dropdown-toggle" type="button"
@@ -42,7 +43,7 @@
 				<i class="fa fa-times-circle"></i>&nbsp; Drop Game
 			</button>
 		</div>
-		
+
 		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
 				id="tool-showJoker" data-toggle="dropdown" aria-expanded="true">
@@ -67,7 +68,7 @@
 				<i class="fa fa-power-off"></i>&nbsp; Exit Game
 			</button>
 		</div>
-	    <div class="tool">
+		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
 				id="changetoolcompress">
 				<i class="fa fa-compress"></i>
@@ -79,7 +80,8 @@
 <div id="gametoolminimized" class="GameTools GameTools-mini"
 	style="display: none">
 	<!-- <div class="toolheading">Game Tools</div> -->
-	<div class="toolcontent">Game Tools :
+	<div class="toolcontent">
+		Game Tools :
 		<div class="tool tool-mini">
 			<div class="dropup">
 				<button class="btn btn-tool dropdown-toggle" type="button"
@@ -199,19 +201,19 @@
 	<div class="windowcontent">
 		<div class="toolarea">
 			<span> Choose Declare Pattern : </span>
-			<button id="meldpattern-34" class="btn btn-tool">3 & 4
-				Cards</button>
-			<button id="meldpattern-3334" class="btn btn-tool">3 & 3 & 3 &
-				4 Cards</button>
+			<button id="meldpattern-34" class="btn btn-tool">3 & 4 Cards</button>
+			<button id="meldpattern-3334" class="btn btn-tool">3 & 3 & 3
+				& 4 Cards</button>
 			<button id="meldpattern-445" class="btn btn-tool">4 & 4 & 5
 				Cards</button>
 			<span class="toolsep"> | </span>
 		</div>
-		<div class="meldcardarea">
-		</div>
+		<div class="meldcardarea"></div>
 	</div>
-	<div class="actionarea" >
-	    <p style="margin-top: 14px;color: white;float: left;"> Select the declare pattern to declare, then select card grouping and start selecting cards in hand to fillup</p>
+	<div class="actionarea">
+		<p style="margin-top: 14px; color: white; float: left;">Select the
+			declare pattern to declare, then select card grouping and start
+			selecting cards in hand to fillup</p>
 		<button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button>
 		<button id="onDeclareGame" class="btn btn-tool" disabled>Declare</button>
 	</div>
@@ -221,35 +223,52 @@
 </script>
 
 
-<div class="declareshowCards" style="display: none;">
+<div class="declareshowCards" style="display: block;">
 	<div class="windowtooling">
-		show Cards
+		Show Cards
 		<button type="button" class="close" data-dismiss="modal"
 			style="margin-right: 11px;">
 			<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 		</button>
 	</div>
 	<div class="windowcontent">
-		<div class="toolarea">
-			<span> Choose Declare Pattern : </span>
-			<button id="meldgroup-3" class="btn btn-tool">Group 3 Cards
-				</button>
-			<button id="meldgroup-4" class="btn btn-tool">Group 4 Cards
-				</button>
-		<!-- 	<button id="meldgroup-5" class="btn btn-tool">Group 5 Cards
-				</button> -->
-			<span class="toolsep"> | </span>
-			<button id="meldrestgrp" class="btn btn-tool">
-			Remaining Cards
-				</button>
+		<div role="tabpanel">
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active"><a
+					href="#winnershowcards" aria-controls="winnershowcards" role="tab"
+					data-toggle="tab">Winner Declared Cards</a></li>
+				<li role="presentation"><a href="#myshowcards"
+					aria-controls="myshowcards" role="tab" data-toggle="tab">Show
+						your Cards</a></li>
+
+			</ul>
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="winnershowcards">
+					Declared Area</div>
+				<div role="tabpanel" class="tab-pane" id="myshowcards">
+					<div class="toolarea">
+						<span> Choose Declare Pattern : </span>
+						<button id="meldgroup-3" class="btn btn-tool">Group 3
+							Cards</button>
+						<button id="meldgroup-4" class="btn btn-tool">Group 4
+							Cards</button>
+						<span class="toolsep"> | </span>
+						<button id="meldrestgrp" class="btn btn-tool">Remaining
+							Cards</button>
+					</div>
+
+					<div class="meldcardarea"></div>
+				</div>
+			</div>
 		</div>
-		<div class="meldcardarea">
-		</div>
+
 	</div>
-	<div class="actionarea" >
-	    <p style="margin-top: 14px;color: white;float: left;"> You must show all cards to get finish this round</p>
+	<div class="actionarea">
+		<p style="margin-top: 14px; color: white; float: left;">You must
+			show all cards to get finish this round</p>
 		<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
-		<button id="onShowCardGame" class="btn btn-tool" disabled>Show Cards</button>
+		<button id="onShowCardGame" class="btn btn-tool" disabled>Show
+			Cards</button>
 	</div>
 </div>
 

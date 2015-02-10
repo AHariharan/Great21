@@ -195,7 +195,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			if ($(this).css("visibility") == "visible") {
 				$(this).children().filter(".timer").each(function(card) {
 					console.log("notifyDropped timer" , JSON.stringify(referredcard));
-					if($(this).css("display") == "block")
+					if($(this).css("display") == "block" || $(this).attr("activetimer") == "yes")
 					    renderdroppedcard($(this),referredcard);
 				});
 			}
@@ -211,7 +211,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			console.log("notifyDropped player" , JSON.stringify(referredcard));
 			if ($(this).css("visibility") == "visible") {
 				$(this).children().filter(".timer").each(function(card) {
-					if($(this).css("display") == "block")
+					if($(this).css("display") == "block" || $(this).attr("activetimer") == "yes")
 					    renderfoldcard($(this),referredcard);
 				});
 			}
@@ -377,6 +377,7 @@ var renderfoldcard = function(source,card) {
 			if (playerposmap[i].PlayerPosition == data) {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
 						"block");
+				$('#' + playerposmap[i].PositionUI + "  .timer").attr("activetimer","yes");
 				$('#' + playerposmap[i].PositionUI).addClass("activePlayerAnimation");
 				selected_timer = $('#' + playerposmap[i].PositionUI
 						+ "  .timer .seconds");
@@ -394,6 +395,7 @@ var renderfoldcard = function(source,card) {
 			} else {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
 						"none");
+				$('#' + playerposmap[i].PositionUI + "  .timer").attr("activetimer","no");
 				if($('#' + playerposmap[i].PositionUI).hasClass("activePlayerAnimation"))
 					{
 					  $('#' + playerposmap[i].PositionUI).removeClass("activePlayerAnimation");
@@ -422,6 +424,12 @@ var renderfoldcard = function(source,card) {
 	self.forceToShowCards = function(data,requestObj)
 	{
 		$('.declareshowCards').show();
+		
+	};
+	
+	var renderDeclareCards = function(requestObj)
+	{
+		
 	};
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {
@@ -440,6 +448,7 @@ var renderfoldcard = function(source,card) {
 	};
 
 	var timerCallBack = function() {
+	
 		if (sec_counter > 30)
 			selected_timer.css("color", "rgb(9, 103, 8);");
 		if (sec_counter > 15 && sec_counter <= 30)
@@ -456,6 +465,7 @@ var renderfoldcard = function(source,card) {
 		clearInterval(timerJob);
 		// selected_timer.parent().hide();
 		selected_timer.parent().css("display", "none");
+		/*selected_timer.parent().attr("timerlaspsed","yes");*/
 	};
 
 	var cleanPosMap = function() {

@@ -711,6 +711,7 @@
 	text-align: center;
 	color: rgb(191, 194, 197);
 	overflow: hidden;
+	padding: 8px;
 }
 
 .actionarea {
