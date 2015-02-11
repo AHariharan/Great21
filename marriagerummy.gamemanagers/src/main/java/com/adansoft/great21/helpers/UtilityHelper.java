@@ -10,6 +10,9 @@ import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
+import com.adansoft.great21.restschemas.ShowGameRequest;
+import com.adansoft.great21.restschemas.ShowGameResult;
+import com.adansoft.great21.restschemas.ShowGameUIRequest;
 
 public class UtilityHelper {
 
@@ -78,6 +81,36 @@ public class UtilityHelper {
 		DeclareGameRequest gamerequest = new DeclareGameRequest();
 		Card closedcard = getCardforPlayerFromUICard(player, request.getClosedCardInstanceid());
 		gamerequest.setClosedCard(closedcard);
+		gamerequest.setGameInstanceID(request.getGameInstanceID());
+		gamerequest.setGameType(request.getGameType());
+		gamerequest.setLobbyName(request.getLobbyName());
+		gamerequest.setNickName(request.getNickName());
+		HashMap<String,Card[]> gamemeldlist = new HashMap<String,Card[]>();
+		for(String cardgroup : request.getMeldlist().keySet())			
+		{
+			ArrayList<Card> cardlist = new ArrayList<Card>();
+			for(String UiCardInstanceID : request.getMeldlist().get(cardgroup))
+			{
+				Card card = getCardforPlayerFromUICard(player,UiCardInstanceID);
+				if(card == null)
+				{
+					System.out.println("******* WARN ****** PLAYER CARD INCONSISTENT STATE *********");
+				}
+				else
+				{
+					cardlist.add(card);
+				}
+			}
+			Card[] finalarrayofcards = cardlist.toArray(new Card[cardlist.size()]);
+			gamemeldlist.put(cardgroup,finalarrayofcards);
+		}
+		gamerequest.setMeldlist(gamemeldlist);	
+		return gamerequest;
+	}
+	
+	public static ShowGameRequest convert(ShowGameUIRequest request,Player player)
+	{
+		ShowGameRequest gamerequest = new ShowGameRequest();		
 		gamerequest.setGameInstanceID(request.getGameInstanceID());
 		gamerequest.setGameType(request.getGameType());
 		gamerequest.setLobbyName(request.getLobbyName());

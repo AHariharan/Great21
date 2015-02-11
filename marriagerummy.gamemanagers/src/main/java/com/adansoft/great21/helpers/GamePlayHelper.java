@@ -19,6 +19,9 @@ import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.ShowGameRequest;
+import com.adansoft.great21.restschemas.ShowGameResult;
+import com.adansoft.great21.restschemas.ShowGameUIRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.restschemas.SortCardinHandRequest;
@@ -164,6 +167,25 @@ public class GamePlayHelper {
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
 		Card[] inputlist = player.getPlayerCards().toArray(new Card[player.getPlayerCards().size()]);
 		Card[] result = CardUtility.sortCards(inputlist);
+		return result;
+	}
+	
+	public static ShowGameResult showGame(ShowGameUIRequest request)
+	{
+		ShowGameResult result = null;
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Card jokerCard = game.getCurrentGameRound().getJoker();
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		ShowGameRequest gamerequest = UtilityHelper.convert(request, player);	
+		if(game.isGameCardMoneyBased())
+		{
+			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_PERCARD, game.getPerCardMoneyValue(), jokerCard, 80);
+		}
+		if(game.isGamePointsBased())
+		{
+			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_POINTS, game.getPerCardMoneyValue(), jokerCard, 80);
+		}
 		return result;
 	}
 

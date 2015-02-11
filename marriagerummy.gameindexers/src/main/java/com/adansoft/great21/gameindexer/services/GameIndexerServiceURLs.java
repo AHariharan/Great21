@@ -28,6 +28,7 @@ public class GameIndexerServiceURLs {
 	public final static String SKIPPLAYERTURN = "/PlayerTurn/Skip";
 	public final static String DECLAREGAME = "/CurrentGame/Declare";
 	public final static String SORTCARDS = "/Player/Cards/Sort";
+	public final static String SHOWMYCARDS = "/CurrentGame/Cards/Show";
 	
 	
 }

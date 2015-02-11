@@ -31,6 +31,8 @@ import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
+import com.adansoft.great21.restschemas.ShowGameResult;
+import com.adansoft.great21.restschemas.ShowGameUIRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.restschemas.SortCardinHandRequest;
@@ -182,6 +184,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		Card[] response = GamePlayHelper.sortCards(request);
 		Message<Card[]> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request)
+	{
+		ShowGameResult response = GamePlayHelper.showGame(request);
+		Message<ShowGameResult> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	

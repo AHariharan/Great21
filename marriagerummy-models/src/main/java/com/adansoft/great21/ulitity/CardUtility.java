@@ -15,6 +15,7 @@ import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.models.SpadeCard;
 import com.adansoft.great21.restschemas.DeclareGameResult;
+import com.adansoft.great21.restschemas.ShowGameResult;
 
 
 public class CardUtility {
@@ -475,8 +476,8 @@ public class CardUtility {
 	public static String interpretJokerandValidate(Card[] cardlist,Card jokerCard)
 	{
 		String jokerValue =  jokerCard.getDisplayValue();
-		System.out.println("Excluded Cards : ");
-		showCards(excludeJokerfromCardList(cardlist,jokerValue));
+		//System.out.println("Excluded Cards : ");
+		//showCards(excludeJokerfromCardList(cardlist,jokerValue));
 		Card[] excludedCardList = excludeJokerfromCardList(cardlist,jokerValue);
 		  if(checkCardwithSameFlower(excludedCardList))
 			{
@@ -663,6 +664,119 @@ public class CardUtility {
 		outputlist.addAll(Arrays.asList(spadecards));outputlist.addAll(Arrays.asList(diamondcards));
 		outputlist.addAll(Arrays.asList(clubcards));outputlist.addAll(Arrays.asList(heartcards));
 		return outputlist.toArray(new Card[outputlist.size()]);
+	}
+	
+	
+	public static ShowGameResult showCards(HashMap<String,Card[]> meldlist,String gameMode,float perCardValue,Card JokerCard,int maxPoints)
+	{
+		// Check Original Sequence.
+		        ShowGameResult output = new ShowGameResult();
+				boolean isOrigSeqPresent = false;
+			
+				for(String key : meldlist.keySet())
+				{
+					boolean result = CardUtility.checkSequence(meldlist.get(key));
+					if(result == true)
+					{
+						isOrigSeqPresent = true;
+						break;
+					}
+				}
+				
+				if(gameMode.equals(Game.GAME_MODE_PERCARD))
+				{
+					output.setGameMode(Game.GAME_MODE_PERCARD);
+					output.setMoney(calcMoney(isOrigSeqPresent, meldlist, perCardValue,JokerCard));
+				}
+				if(gameMode.equals(Game.GAME_MODE_POINTS))
+				{
+					output.setGameMode(Game.GAME_MODE_POINTS);
+					output.setPoints(calcPoints(isOrigSeqPresent, meldlist,JokerCard,maxPoints));
+				}
+				
+				return output;
+	}
+	
+	
+	private static float calcMoney(boolean isOrigSeqPresent,HashMap<String,Card[]> meldlist,float perCardValue,Card JokerCard)
+	{
+		if(!isOrigSeqPresent)
+		{
+			ArrayList<Card> calculatablecardlist = new ArrayList<Card>();
+			for(String key : meldlist.keySet())
+			{
+				Card[] list = excludeJokerfromCardList(meldlist.get(key), JokerCard.getDisplayValue());
+				calculatablecardlist.addAll(Arrays.asList(list));
+			}
+			return calculatablecardlist.size()*perCardValue;
+		}
+		else
+		{
+			ArrayList<Card> calculatablecardlist = new ArrayList<Card>();
+			for(String key : meldlist.keySet())
+			{
+				Card[] cardlist = meldlist.get(key); 
+				String validationResult = interpretJokerandValidate(cardlist,JokerCard);
+				       if(validationResult.equals(JOKERINTERPRET_INVALIDGENERIC) || 
+					    validationResult.equals(JOKERINTERPRET_INVALIDSEQUENCE) ||
+						validationResult.equals(JOKERINTERPRET_INVALIDTRIPQUADR))
+						{
+				    	   calculatablecardlist.addAll(Arrays.asList(cardlist));
+						}
+			}
+			Card[] finalcardlist = excludeJokerfromCardList(calculatablecardlist.toArray(new Card[calculatablecardlist.size()]), JokerCard.getDisplayValue());
+			return finalcardlist.length*perCardValue;
+		}
+	
+	}
+	
+	private static int calcPoints(boolean isOrigSeqPresent,HashMap<String,Card[]> meldlist,Card JokerCard,int maxPoints)
+	{
+		if(!isOrigSeqPresent)
+		{
+			ArrayList<Card> calculatablecardlist = new ArrayList<Card>();
+			for(String key : meldlist.keySet())
+			{
+				Card[] list = excludeJokerfromCardList(meldlist.get(key), JokerCard.getDisplayValue());
+				calculatablecardlist.addAll(Arrays.asList(list));
+			}
+			int points = 0;
+			for(Card card : calculatablecardlist)
+			{
+				points = points + card.getCountValue();
+			}
+			if(points > maxPoints)
+				return maxPoints;
+			else
+				return points;
+			
+		}
+		else
+		{
+			ArrayList<Card> calculatablecardlist = new ArrayList<Card>();
+			for(String key : meldlist.keySet())
+			{
+				Card[] cardlist = meldlist.get(key); 
+				String validationResult = interpretJokerandValidate(cardlist,JokerCard);
+				       if(validationResult.equals(JOKERINTERPRET_INVALIDGENERIC) || 
+					    validationResult.equals(JOKERINTERPRET_INVALIDSEQUENCE) ||
+						validationResult.equals(JOKERINTERPRET_INVALIDTRIPQUADR))
+						{
+				    	   calculatablecardlist.addAll(Arrays.asList(cardlist));
+						}
+			}
+			Card[] finalcardlist = excludeJokerfromCardList(calculatablecardlist.toArray(new Card[calculatablecardlist.size()]), JokerCard.getDisplayValue());
+			int points = 0;
+			for(int i=0;i<finalcardlist.length;i++)
+			{
+				points = points + finalcardlist[i].getCountValue();
+			}
+			if(points > maxPoints)
+				return maxPoints;
+			else
+				return points;
+		}
+	
 	}
 	
 }

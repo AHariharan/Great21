@@ -19,7 +19,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
 	
 	
-	
+	$(".shrinker").unbind();
 	$(".shrinker").click(function() {
 		var delay = 500;
 		var sidebar = $(".sidebar");
@@ -57,6 +57,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 		});
 	};
 
+	$(".sidebar ul>li").unbind();
 	$(".sidebar ul>li").click(function() {
 		self.resetNavigation();
 		$(this).addClass("selected");
@@ -78,6 +79,7 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 	var gameLobby = "";
 	var init = function(validation)
 	{
+		$('#optionsRadios1').unbind();
 		$('#optionsRadios1').on("click", function() {
 			if ($(this).prop("checked")) {
 				$('#PointsBasedDiv').css("display", "block");
@@ -85,6 +87,7 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 				validation.updateMode("PointsMade");
 			}
 		});
+		$('#optionsRadios2').unbind();
 		$('#optionsRadios2').on("click", function() {
 			if ($(this).prop("checked")) {
 				$('#PointsBasedDiv').css("display", "none");
@@ -115,6 +118,7 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 	
 	
 
+	$("#createGameBtn").unbind();
 	$("#createGameBtn")
 			.click(	function() {
 				        var validation = jQuery.data( $("#creategamemodal")[0], "validation");
@@ -277,6 +281,7 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 
 	var self = this;
 
+	$('.joinGameBtn').unbind();
 	$('.joinGameBtn').click(function() {
 		alert("This is invoked");
 	});

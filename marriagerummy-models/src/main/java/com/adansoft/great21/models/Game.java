@@ -24,6 +24,9 @@ public interface Game {
 	public static final String POSITION_AVAILABLE = "AVAILABLE";
 	public static final String POSITION_NOTAVAILABLE = "NOTAVAILABLE";
 	
+	public static final String GAME_MODE_PERCARD = "MONEY_BASED";
+	public static final String GAME_MODE_POINTS = "POINTS";
+	
 	
 	/* gets Which GameLobby this belongs to */
 	
