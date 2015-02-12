@@ -57,6 +57,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.skipPlayerTurn = "/marriagerummy/IndexerServices/GamePlay/PlayerTurn/Skip";
 	self.declareGame = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Declare";
 	self.sortCardsInHand = "/marriagerummy/IndexerServices/GamePlay/Player/Cards/Sort";
+	self.showCards = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Cards/Show";
 	
 };
 
@@ -259,6 +260,7 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 		return formdata;
 
 	};
+	
 	self.sortCardsInHandRequest = function(lobbyType, gameInstanceID, gameType)
 	{
 		var formdata = {
@@ -268,6 +270,19 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 				"gameType" : gameType,
 			};
 		return formdata;
+	};
+ 
+	self.showCards = function(lobbyType, gameInstanceID, gameType,meldlist)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+				"meldlist":meldlist				
+			    };
+		return formdata;
+
 	};
 };
 
@@ -442,6 +457,18 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
         console.log("Failed to get Card : " + data);
     };
 
+    self.onShowCardSuccess = function(data,textstatus, Jhxr, requestObj)
+    {
+    	console.log("Declare Game Success : " + JSON.stringify(data));
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.onShowCardSuccess(data,requestObj);
+    };
+    
+    self.onShowCardFailure = function(data)
+    {
+    	console.log("Declare Game Failure : " + data);
+    };
+    
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()

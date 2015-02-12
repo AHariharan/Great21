@@ -428,6 +428,12 @@ var renderfoldcard = function(source,card) {
 		
 	};
 	
+	
+	self.onShowCardSuccess = function(data,requestObj)
+	{
+		console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
+	};
+	
 	var renderDeclareCards = function(data)
 	{
 		var meld3grp = 1;
@@ -1492,6 +1498,19 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	var showCards = function(meldlist) //onShowCardGame
+	{
+		var url = marriageRummy.urls.showCards;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowCardSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowCardFailure;
+		var formdata = marriageRummy.request.showCards(stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist);
+		var requestObj = {
+				"formdata" : formdata
+			};
+			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	}
 	
 	initGameTools();
 };
