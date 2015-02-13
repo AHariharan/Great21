@@ -217,7 +217,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	console.log("Test Data ... " + JSON.stringify(data));
     	if(data.notifiedBy == marriageRummy.loggedinUser)
     		{
-    		    marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards ");
+    		    marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
     		    return;
     		}
     	else
@@ -227,6 +227,13 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     		   gameObj.forceToShowCards(data);
     		}
     	console.log("Sent by ..,, " + data.notificationObject.nickname);
+    };
+    
+    self.handleShowCardPlayerNotification = function(data)
+    {
+    	console.log("handleShowCardPlayerNotification Data ... " + JSON.stringify(data));
+    	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+		gameObj.getPlayerShowStatus(data);
     };
 };
 
@@ -323,6 +330,17 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
     	 return formdata;
      };
      
+     self.showCardPlayerNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "SHOWCARDSUCCESS",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	
+    	 };
+    	 return formdata;
+     };
     
 };
 

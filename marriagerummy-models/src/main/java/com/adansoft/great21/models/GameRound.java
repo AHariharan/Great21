@@ -470,4 +470,9 @@ public class GameRound implements Serializable{
     	showstatusMap.put(nickname, status);
     }
     
+    
+    public HashMap<String,String> getPlayersShowStatus()
+    {
+    	return this.showstatusMap;
+    }
 }

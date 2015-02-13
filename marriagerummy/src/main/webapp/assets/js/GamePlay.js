@@ -217,6 +217,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			}
 		});		
 	};
+	
+	self.getPlayerShowStatus = function() {
+		var url = marriageRummy.urls.showStatusPlayer;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowStatusforPlayerSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowStatusforPlayerFailure;
+		var formdata = marriageRummy.request.showStatusforPlayers(
+				stateobject.gameInstanceID, stateobject.lobbyName,stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
 	var onSelectofPickableCard = function(data)
 	{
 		var cardpos = "";
@@ -412,7 +426,7 @@ var renderfoldcard = function(source,card) {
 		if(data.valid)
 			{
 			   marriageRummy.generalutility.showSuccessAlert("Declaration Successful", data.message);
-			   var notificationdata = marriageRummy.notificationRequest.declareSuccessNotification("onDropHandSuccess", requestObj.formdata);
+			   var notificationdata = marriageRummy.notificationRequest.declareSuccessNotification("Declare Game", requestObj.formdata);
 		       marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 			}
 		else
@@ -424,17 +438,20 @@ var renderfoldcard = function(source,card) {
 	self.forceToShowCards = function(data,requestObj)
 	{
 		$('.declareshowCards').show();
-		renderDeclareCards(data);
+		renderWinnerDeclaredCards(data);
 		
 	};
 	
 	
 	self.onShowCardSuccess = function(data,requestObj)
 	{
-		console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
+		  console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
+		  marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
+		  var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
+	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 	};
 	
-	var renderDeclareCards = function(data)
+	var renderWinnerDeclaredCards = function(data)
 	{
 		var meld3grp = 1;
 		var meld4grp = 1;

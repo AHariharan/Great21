@@ -3,6 +3,10 @@ package com.adansoft.great21.helpers;
 import java.util.ArrayList;
 
 
+
+
+import java.util.HashMap;
+
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.models.Card;
@@ -19,6 +23,8 @@ import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -207,6 +213,17 @@ public class GamePlayHelper {
 			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_POINTS, game.getPerCardMoneyValue(), jokerCard, 80);
 			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(), result.getPoints(),GameRound.PLAYER_STATUS_SHOWNCARDS);
 		}
+		return result;
+	}
+	
+	public static PlayerShowStatusResponse showPlayerStatus(PlayerShowStatusRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		HashMap<String,String> showplayerstatus = game.getCurrentGameRound().getPlayersShowStatus();
+		PlayerShowStatusResponse result = new PlayerShowStatusResponse();
+		result.setGameInstanceID(request.getGameInstanceID());
+		result.setPlayerShowStatus(showplayerstatus);
 		return result;
 	}
 

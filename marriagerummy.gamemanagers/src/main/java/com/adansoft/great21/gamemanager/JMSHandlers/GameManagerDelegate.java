@@ -25,6 +25,8 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -72,4 +74,6 @@ public interface GameManagerDelegate {
 	public Message<Card[]> handleMessage(SortCardinHandRequest request);
 	
 	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request);
+	
+	public Message<PlayerShowStatusResponse> handleMessage(PlayerShowStatusRequest request);
 }

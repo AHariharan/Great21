@@ -30,6 +30,8 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
+import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -192,6 +194,14 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	{
 		ShowGameResult response = GamePlayHelper.showGame(request);
 		Message<ShowGameResult> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
+	
+	@Override
+	public Message<PlayerShowStatusResponse> handleMessage(PlayerShowStatusRequest request)
+	{
+		PlayerShowStatusResponse response = GamePlayHelper.showPlayerStatus(request);
+		Message<PlayerShowStatusResponse> reply = MessageBuilder.withPayload(response).build();
 		return reply;
 	}
 	
