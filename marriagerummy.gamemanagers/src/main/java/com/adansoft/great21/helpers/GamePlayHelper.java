@@ -1,7 +1,7 @@
 package com.adansoft.great21.helpers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
@@ -103,7 +103,7 @@ public class GamePlayHelper {
 		String result = "Success";
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getCard().getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getCard().getGameInstanceID(), request.getCard().getGameType());
-		result = game.getCurrentGameRound().dropCardFromHand(request.getCard(), request.getCard().getNickName());		
+		result = game.getCurrentGameRound().dropCardFromHand(request.getCard(), request.getCard().getNickName());
 		return result;
 	}
 	
@@ -146,6 +146,14 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
 		game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
+		if(game.isGameCardMoneyBased())
+		{
+			game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),game.getPerCardMoneyValue()*3,GameRound.PLAYER_STATUS_INITDROPPED);
+		}
+		if(game.isGamePointsBased())
+		{
+			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),20,GameRound.PLAYER_STATUS_INITDROPPED);
+		}
 		return "Success";
 	}
 	
@@ -157,6 +165,17 @@ public class GamePlayHelper {
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
 		DeclareGameRequest gamerequest = UtilityHelper.convert(request, player);	
 		DeclareGameResult result = CardUtility.checkDeclareGame(gamerequest.getMeldlist(), jokerCard, request.getGameType());
+		if(result.isValid())
+		{
+			if(game.isGameCardMoneyBased())
+			{
+				game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),0.0F,GameRound.PLAYER_STATUS_DECLARED);
+			}
+			if(game.isGamePointsBased())
+			{
+				game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),0,GameRound.PLAYER_STATUS_DECLARED);
+			}
+		}
 		return result;
 	}
 	
@@ -181,10 +200,12 @@ public class GamePlayHelper {
 		if(game.isGameCardMoneyBased())
 		{
 			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_PERCARD, game.getPerCardMoneyValue(), jokerCard, 80);
+			game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(), result.getMoney(),GameRound.PLAYER_STATUS_SHOWNCARDS);
 		}
 		if(game.isGamePointsBased())
 		{
 			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_POINTS, game.getPerCardMoneyValue(), jokerCard, 80);
+			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(), result.getPoints(),GameRound.PLAYER_STATUS_SHOWNCARDS);
 		}
 		return result;
 	}

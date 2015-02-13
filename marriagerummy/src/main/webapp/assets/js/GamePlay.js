@@ -1377,8 +1377,63 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				}
 		});
 		
-			
+		onClickShowCards();	
 	};
+	
+	var onClickShowCards = function()
+	{
+		$('#onShowCardGame').unbind();
+		$('#onShowCardGame').on("click",function(){
+            var prepareddata = prepareShowCardMeldList();
+			console.log(" MELDLIST : " + JSON.stringify(prepareddata.meldlist));
+			showCardsNow(prepareddata.meldlist);
+		});
+	};
+	
+	
+	var prepareShowCardMeldList = function()
+	{
+		var dataset = {};
+		var meldlist = new Object();
+		var prefix = "Group";
+		var grpno = 0;
+		var existingcardslist = new Array();
+		$('.declareshowCards .meldcardarea').children().each(function(){
+			 var groupname = prefix + "-"+grpno;
+			 var cardArray = new Array();
+			 $(this).children().filter(".meldcard").each(function(){
+				 var cardinstanceid = $(this).attr("data-cardinstanceid");
+				 if(cardinstanceid === undefined || cardinstanceid == null || cardinstanceid.trim().length == 0)
+					 return;
+				 cardArray.push(cardinstanceid);
+				 existingcardslist.push(cardinstanceid);
+			 });
+			 if(grpno >= 1 && cardArray.length > 0)
+			    meldlist[groupname] = cardArray;
+			 grpno++;	
+			
+		});
+		// Grabbing rest of cards in hand
+		 var cardArray = new Array();
+		 $('.card').each(function()
+				 {
+			        var cardinstanceid = $(this).attr("data-cardinstanceid");
+			        if(cardinstanceid === undefined)
+			        	return;
+			        if(jQuery.inArray( cardinstanceid, existingcardslist ) == -1)
+			        	{
+			        	   cardArray.push(cardinstanceid);
+			        	}
+				 });
+		 meldlist["RESTOFCARDS"] = cardArray;
+		 
+		dataset = {
+			        "meldlist" : meldlist			        
+		          };
+		return dataset;
+	};
+	
+	
 	
 	
 	
@@ -1411,7 +1466,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var closedcardinstance = "";
 		var prefix = "Group";
 		var grpno = 0;
-		$('.meldcardarea').children().each(function(){
+		$('.declareGame .meldcardarea').children().each(function(){
 			 var groupname = prefix + "-"+grpno;
 			 var cardArray = new Array();
 			 $(this).children().filter(".meldcard").each(function(){
@@ -1499,7 +1554,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
 	
-	var showCards = function(meldlist) //onShowCardGame
+	var showCardsNow = function(meldlist) //onShowCardGame
 	{
 		var url = marriageRummy.urls.showCards;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowCardSuccess;
@@ -1510,7 +1565,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			};
 			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
-	}
+	};
 	
 	initGameTools();
 };

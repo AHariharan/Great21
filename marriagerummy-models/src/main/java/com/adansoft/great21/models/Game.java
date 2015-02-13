@@ -89,4 +89,6 @@ public interface Game {
 	/* Start the game */
 	public void startGame();
 	
+	public GameContentHolder getGameContent();
+	
 }

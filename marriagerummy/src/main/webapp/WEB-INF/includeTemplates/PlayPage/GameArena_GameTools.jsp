@@ -223,7 +223,7 @@
 </script>
 
 
-<div class="declareshowCards" style="display: none;">
+<div class="declareshowCards" style="display: block;">
 	<div class="windowtooling">
 		Show Cards
 		<button type="button" class="close" data-dismiss="modal"
@@ -271,7 +271,7 @@
 		<p style="margin-top: 14px; color: white; float: left;">You must
 			show all cards to get finish this round</p>
 		<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
-		<button id="onShowCardGame" class="btn btn-tool" disabled>Show
+		<button id="onShowCardGame" class="btn btn-tool">Show
 			Cards</button>
 	</div>
 </div>

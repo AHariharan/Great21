@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.adansoft.great21.models.Game;
+import com.adansoft.great21.models.GameContentHolder;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
@@ -44,6 +45,7 @@ public class SevenCardRummy implements Game,Serializable {
 	private int buyinValue;
 	private GameRound currentGameRound;
 	private int currentRoundnum = 1;
+	private GameContentHolder gameContentHolder;
 	
 	
 	public SevenCardRummy()
@@ -60,8 +62,18 @@ public class SevenCardRummy implements Game,Serializable {
 		this.gameType = gametype;
 		this.gameName = gameName;
 		initAvailablePosition();
+		this.gameContentHolder = new GameContentHolder(this.gameInstanceId,this.gameType,getCurrentGameMode());
 	}
 	
+	private String getCurrentGameMode()
+	{
+		if(isGameMoneyBased())
+			return Game.GAME_MODE_PERCARD;
+		if(isGamePointsBased())
+			return Game.GAME_MODE_POINTS;
+		else
+			return null;
+	}
 	
 
 	public SevenCardRummy(int noofdecks, int maxplayers,
@@ -89,6 +101,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.buyinValue = buyinValue;
 		this.status = Game.GAME_STATUS_OPEN;
 		initAvailablePosition();
+		this.gameContentHolder = new GameContentHolder(this.gameInstanceId,this.gameType,getCurrentGameMode());
 	}
 
 	
@@ -147,24 +160,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.lobbyName = lobbyName;
 	}
 
-	private void createNewGameRound(int startturnpos)
-	{
-		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,startturnpos);	
-		round.setPlayerlist(getPlayers());
-		round.startRound();
-		currentGameRound = round;
-	}
 	
-	public void startGame()
-	{
-		createNewGameRound(currentRoundnum);
-	}
-
-	public void nextRound()
-	{
-		currentRoundnum++;
-		createNewGameRound(currentRoundnum);
-	}
 
 	public String getStatus() {
 		return status;
@@ -343,7 +339,26 @@ public class SevenCardRummy implements Game,Serializable {
 		}
 		return 0;
 	}
+	
+	
+	@JsonIgnore
+	public GameContentHolder getGameContentHolder() {
+		return gameContentHolder;
+	}
 
+	public void setGameContentHolder(GameContentHolder gameContentHolder) {
+		this.gameContentHolder = gameContentHolder;
+	}
+	
+	public int getBuyinValue() {
+		return buyinValue;
+	}
+
+	public void setBuyinValue(int buyinValue) {
+		this.buyinValue = buyinValue;
+	}
+	
+	
 	public void addPlayertoGame(Player player) {
 		int nexpost = getNextAvailablePlayerPosition();
 		if(player instanceof HumanPlayer)
@@ -367,15 +382,43 @@ public class SevenCardRummy implements Game,Serializable {
 		}
 	}
 
-	public int getBuyinValue() {
-		return buyinValue;
+	
+	
+	
+	private void createNewGameRound(int startturnpos)
+	{
+		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,startturnpos);	
+		round.setPlayerlist(getPlayers());
+		round.startRound();
+		currentGameRound = round;
+	}
+	
+	public void startGame()
+	{
+		createNewGameRound(currentRoundnum);
 	}
 
-	public void setBuyinValue(int buyinValue) {
-		this.buyinValue = buyinValue;
+	private void nextRound()
+	{
+		currentRoundnum++;
+		createNewGameRound(currentRoundnum);
 	}
 	
-	
+	public void finishRound()
+	{
+		
+		String roundname = "Round : " + this.currentRoundnum;
+		if(getCurrentGameMode().equals(Game.GAME_MODE_POINTS))
+ 	          this.getGameContentHolder().getPlayerPointsMap().put(roundname,this.getCurrentGameRound().getPointsMap());
+		if(getCurrentGameMode().equals(Game.GAME_MODE_PERCARD))
+			this.getGameContentHolder().getPlayerCashMap().put(roundname, this.getCurrentGameRound().getCashMap());		
+		nextRound();
+	}
+
+	@JsonIgnore
+	public GameContentHolder getGameContent() {
+		return this.getGameContentHolder();		
+	}
 	
 	
 }

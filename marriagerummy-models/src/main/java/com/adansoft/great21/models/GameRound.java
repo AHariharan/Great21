@@ -21,6 +21,12 @@ public class GameRound implements Serializable{
 	public final static String STATUS_INPROGRESS = "Inprogress";
 	public final static String STATUS_COMPLETED = "Completed";
 	
+	public final static String PLAYER_STATUS_DECLARED = "Declared";
+	public final static String PLAYER_STATUS_INITDROPPED = "InitDropped";
+	public final static String PLAYER_STATUS_HALFDROPPED = "HalfDropped";
+	public final static String PLAYER_STATUS_SHOWNCARDS = "Shown cards";
+	public final static String PLAYER_STATUS_PLAYING = "Playing";
+	
 	private String parentGameId;
 	private boolean isPointsEnabled;
 	private boolean isMoneyEnabled;
@@ -28,6 +34,8 @@ public class GameRound implements Serializable{
 	private ArrayList<Player> playerlist;
     private Player currentPlayerTurn;
     private HashMap<String,Integer> pointsMap;
+    private HashMap<String,Float> cashMap;
+    private HashMap<String,String> showstatusMap;
     private String lobbyName;
     private String gameType;
     private int noofdecks;
@@ -54,9 +62,22 @@ public class GameRound implements Serializable{
     	setCurrentStatus(GameRound.STATUS_CREATED);
     	this.startTurnpos = startturn;
     	this.currenturn = this.startTurnpos;
-    	
+    	pointsMap = new HashMap<String, Integer>();
+    	cashMap = new HashMap<String, Float>();
+    	showstatusMap = new HashMap<String, String>();
     }
 
+    
+    private void initshowStatusMap()
+    {
+    	for(Player player : this.getPlayerlist())
+    	{
+    		showstatusMap.put(player.getNickName(), PLAYER_STATUS_PLAYING);
+    	}
+    }
+    
+    
+    
     // Add Players to Gameround
     public void addPlayerstoRound(ArrayList<Player> players)
     {
@@ -180,6 +201,22 @@ public class GameRound implements Serializable{
 
 	public void setPointsMap(HashMap<String, Integer> pointsMap) {
 		this.pointsMap = pointsMap;
+	}
+	
+	public HashMap<String, Float> getCashMap() {
+		return cashMap;
+	}
+
+	public void setCashMap(HashMap<String, Float> cashMap) {
+		this.cashMap = cashMap;
+	}
+	
+	public HashMap<String, String> getStatusMap() {
+		return showstatusMap;
+	}
+
+	public void setShowStatusMap(HashMap<String, String> showstatusMap) {
+		this.showstatusMap = showstatusMap;
 	}
 
 	public int getNoofdecks() {
@@ -421,6 +458,16 @@ public class GameRound implements Serializable{
 	}
     
 
+    public void addPointsToPlayer(String nickname,int points,String status)
+    {
+    	pointsMap.put(nickname, points);
+    	showstatusMap.put(nickname, status);
+    }
     
+    public void deductCashFromPlayer(String nickname,Float money,String status)
+    {
+    	cashMap.put(nickname, money);
+    	showstatusMap.put(nickname, status);
+    }
     
 }
