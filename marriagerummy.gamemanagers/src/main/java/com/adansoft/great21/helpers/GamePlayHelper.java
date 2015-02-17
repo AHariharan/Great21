@@ -18,6 +18,7 @@ import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
+import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -227,4 +228,12 @@ public class GamePlayHelper {
 		return result;
 	}
 
+	
+	public static String finishRound(FinishGameRoundRequest request)
+	{
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		game.completeRound();
+		return "Success";
+	}
 }

@@ -19,11 +19,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
+import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
+import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -40,6 +42,7 @@ import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
+import com.adansoft.great21.uischemas.NotificationEvent;
 
 @RestController
 @RequestMapping(FacadeControllerURLs.GAMEPLAY_BASE)
@@ -55,6 +58,9 @@ public class FacadeGamePlayController {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	WebSocketController notifier;
 	
 	@PostConstruct
 	public void verifyGameIndexerConfig()
@@ -308,6 +314,13 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.SHOWMYCARDS);
 			result = restTemplate.postForEntity(url, request, ShowGameResult.class).getBody();
+			PlayerShowStatusRequest intimateRequest = new PlayerShowStatusRequest();
+			intimateRequest.setGameInstanceID(request.getGameInstanceID());
+			intimateRequest.setGameType(request.getGameType());
+			intimateRequest.setLobbyName(request.getLobbyName());
+			intimateRequest.setNickName(request.getNickName());
+			PlayerShowStatusResponse response = showPlayerStatus(intimateRequest, authentication);
+			NotifyNewRoundStart(response,request);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -336,5 +349,51 @@ public class FacadeGamePlayController {
 		
 	}
 	
+	private void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)
+	{
+		boolean needtoIntimate = true;
+		for(String key : response.getPlayerShowStatus().keySet())
+		{
+			String status = response.getPlayerShowStatus().get(key);
+			if(status.equals(GameRound.PLAYER_STATUS_PLAYING))
+			{
+				needtoIntimate = false;
+				break;
+			}
+		}
+		if(needtoIntimate)
+		{
+			FinishGameRoundRequest gamecomprequest = new FinishGameRoundRequest();
+			gamecomprequest.setGameInstanceID(request.getGameInstanceID());
+			gamecomprequest.setGameType(request.getGameType());
+			gamecomprequest.setLobbyName(request.getLobbyName());
+			finishGameRound(gamecomprequest);
+			
+			
+			NotificationEvent event = new NotificationEvent();
+			event.setNotificationSource("SERVER");
+			event.setNotifiedBy("NotifyNewRoundStart");
+			event.setNotificationType("NEWGAMENOTIFY");
+			event.setNotificationObject(response);
+			notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+		}
+	}
+	
+	
+	private String finishGameRound(FinishGameRoundRequest request)	
+	{
+		String result = null;
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.FINISHROUND);
+			result = restTemplate.postForEntity(url, request, String.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
 
 }

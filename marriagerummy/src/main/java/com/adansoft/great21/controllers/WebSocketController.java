@@ -57,7 +57,7 @@ public class WebSocketController {
 	}
 	
 	@MessageMapping("/WebSockets/Notifications/{gameInstanceID}")
-	public void testNotification(NotificationEvent event,@DestinationVariable("gameInstanceID") String gameInstanceID,@AuthenticationPrincipal Authentication authentication )
+	public void handleAllNotifications(NotificationEvent event,@DestinationVariable("gameInstanceID") String gameInstanceID,@AuthenticationPrincipal Authentication authentication )
 	{
 		 System.out.println("Web Socket Notification received :" + event.getNotifiedBy());
 		 System.out.println("Web Socket Notification received :" + gameInstanceID);
@@ -65,6 +65,12 @@ public class WebSocketController {
 	     event.setNotifiedBy(authentication.getName());
 	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	    
+	}
+	
+	public void sendNotificationFromBackend(NotificationEvent event,String gameInstanceID)
+	{
+		 System.out.println("Send Notification From Backend");
+		template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	}
 	
 	

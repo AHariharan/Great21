@@ -286,7 +286,7 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 
 	};
 
-	self.showStatusforPlayers = function(lobbyType, gameInstanceID, gameType)
+	self.showStatusforPlayers = function(gameInstanceID,lobbyType , gameType)
 	{
 		var formdata = {
 				"nickname" : "Auto",

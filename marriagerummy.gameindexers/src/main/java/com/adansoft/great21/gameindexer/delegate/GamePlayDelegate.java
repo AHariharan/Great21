@@ -14,6 +14,7 @@ import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
+import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -288,6 +289,25 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
+	
+	public String finishGameRound(FinishGameRoundRequest request)
+	{
+		String result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<FinishGameRoundRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
 

@@ -404,7 +404,7 @@ public class SevenCardRummy implements Game,Serializable {
 		createNewGameRound(currentRoundnum);
 	}
 	
-	public void finishRound()
+	private void finishRound()
 	{
 		
 		String roundname = "Round : " + this.currentRoundnum;
@@ -421,4 +421,8 @@ public class SevenCardRummy implements Game,Serializable {
 	}
 	
 	
+	public void completeRound()
+	{
+		finishRound();
+	}
 }

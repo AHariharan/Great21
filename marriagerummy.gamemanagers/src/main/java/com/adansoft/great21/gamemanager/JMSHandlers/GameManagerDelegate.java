@@ -16,6 +16,7 @@ import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
+import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
@@ -76,4 +77,6 @@ public interface GameManagerDelegate {
 	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request);
 	
 	public Message<PlayerShowStatusResponse> handleMessage(PlayerShowStatusRequest request);
+	
+	public Message<String> handleMessage(FinishGameRoundRequest request);
 }

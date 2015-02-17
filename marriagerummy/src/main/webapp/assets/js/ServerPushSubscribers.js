@@ -107,6 +107,10 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleFoldPlayer(jsonobj);
 		 if(type == "DECLARESUCCESS")
 			 callback.handleDeclareSuccess(jsonobj);
+		 if(type == "SHOWCARDSUCCESS")
+			 callback.handleShowCardPlayerNotification(jsonobj);
+		 if(type == "NEWGAMENOTIFY")
+			 callback.handleNewGameRoundNotification(jsonobj);
 	 }; 
 	 
 	 self.sendNotificationEvent = function(data)
@@ -235,6 +239,18 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
 		gameObj.getPlayerShowStatus(data);
     };
+    
+    self.handleNewGameRoundNotification = function(data)
+    {
+    	console.log("handleNewGameRoundNotification Data ... " + JSON.stringify(data));
+    	marriageRummy.generalutility.hideLoadingMask("Starting new round");
+    	var gameObject = jQuery.data( $("#GameArena")[0], "GameObj");
+		   gameObject.getCards();
+		   gameObject.getJoker();
+		   gameObject.getOpenCard();
+		   gameObject.getPlayerList();
+    };
+    
 };
 
 

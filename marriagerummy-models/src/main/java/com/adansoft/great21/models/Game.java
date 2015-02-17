@@ -91,4 +91,6 @@ public interface Game {
 	
 	public GameContentHolder getGameContent();
 	
+	public void completeRound();
+	
 }

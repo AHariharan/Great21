@@ -16,6 +16,7 @@ import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
+import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
@@ -118,6 +119,13 @@ public class GamePlayController {
 	{
 		return delegate.showPlayerStatus(request);
 	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.FINISHROUND, method = RequestMethod.POST)
+	public String completeRound(@RequestBody FinishGameRoundRequest request)
+	{
+		return delegate.finishGameRound(request);
+	}
+	
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

@@ -264,7 +264,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		if (!(source.prev().hasClass("PlayerDropCard"))) {
 			return;
 		}
-		if (source.css("display") == "block") {
+		if (source.css("display") == "block" || source.attr("activetimer") == "yes" ) {
 			var existingcardvalue = source.prev().attr("data-cardvalue");
 			if (existingcardvalue != undefined && existingcardvalue != null) {
 				source.prev().removeClass(existingcardvalue);
@@ -447,8 +447,8 @@ var renderfoldcard = function(source,card) {
 	{
 		  console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
 		  marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
-		  var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
-	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		 /* var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
+	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);*/
 	};
 	
 	var renderWinnerDeclaredCards = function(data)
@@ -907,6 +907,7 @@ var renderfoldcard = function(source,card) {
 				$("#DeckNextCard").unbind();
 				$("#DeckNextCard").removeClass("nextCardAnimation");
 				$("#OpenCard").unbind();
+				removeexistingpickable();
 			});
 		});
 	};
@@ -1040,8 +1041,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 							if (cardinstaceid === undefined || cardinstaceid == null || cardinstaceid == "")
 								countofcards++;
 						});
-				if (countofcards > 0)
-					$('#onShowCardGame').attr("disabled", "disabled");
+				if (countofcards > 1)
+					//$('#onShowCardGame').attr("disabled", "disabled");
+					 $('#onShowCardGame').removeAttr("disabled");
 				else
 					{
 				           

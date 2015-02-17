@@ -223,7 +223,7 @@
 </script>
 
 
-<div class="declareshowCards" style="display: block;">
+<div class="declareshowCards" style="display: none;">
 	<div class="windowtooling">
 		Show Cards
 		<button type="button" class="close" data-dismiss="modal"
