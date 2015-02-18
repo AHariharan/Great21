@@ -26,7 +26,7 @@ public class CalcMoneyPerHand {
 		SpadeCard grp3_card2 = new SpadeCard("3",3, 4, Card.STATUS_ASSIGNED);
 		SpadeCard grp3_card3 = new SpadeCard("9",9, 4, Card.STATUS_ASSIGNED);
 		
-		SpadeCard grp4_card1 = new SpadeCard("2",2, 4, Card.STATUS_ASSIGNED);
+		SpadeCard grp4_card1 = new SpadeCard("A",10, 4, Card.STATUS_ASSIGNED);
 		SpadeCard grp4_card2 = new SpadeCard("3",3, 4, Card.STATUS_ASSIGNED);
 		SpadeCard grp4_card3 = new SpadeCard("4",4, 4, Card.STATUS_ASSIGNED);
 		
@@ -35,7 +35,7 @@ public class CalcMoneyPerHand {
 		Card[] group1 = new Card[] {grp1_card1,grp1_card2,grp1_card3};
 		Card[] group2 = new Card[] {grp2_card1,grp2_card2,grp2_card3,grp2_card4};
 		Card[] group3 = new Card[] {grp3_card1,grp3_card2,grp3_card3};
-		Card[] group4 = new Card[] {grp4_card1,grp4_card2,grp4_card3};
+		Card[] group4 = new Card[] {grp4_card1};
 		
 		HashMap<String,Card[]> meldlist = new HashMap<String, Card[]>();
 		meldlist.put("Group1", group1);meldlist.put("Group2", group2);

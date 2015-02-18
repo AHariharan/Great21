@@ -245,11 +245,17 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	console.log("handleNewGameRoundNotification Data ... " + JSON.stringify(data));
     	marriageRummy.generalutility.setLoadingMask("Starting new round");
     	var gameObject = jQuery.data( $("#GameArena")[0], "GameObj");
-    	   gameObject.onNewRound();
+        gameObject.onNewRound();
+        var stateobject = gameObject.getStateObject();
+        
+        var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(stateobject);
+		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
 		   gameObject.getCards();
 		   gameObject.getJoker();
 		   gameObject.getOpenCard();
 		   gameObject.getPlayerList();
+        
+		 
 		marriageRummy.generalutility.hideLoadingMask("Starting new round");
     };
     

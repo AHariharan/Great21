@@ -20,6 +20,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var init_turn = true;
 
 	
+	self.getStateObject = function()
+	{
+		return stateobject;
+	};
+	
 	
 	
 	var onStartup = function() {
@@ -455,7 +460,7 @@ var renderfoldcard = function(source,card) {
 	self.onShowCardSuccess = function(data,requestObj)
 	{
 		  console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
-		  marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
+		 
 		 /* var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
 	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);*/
 	};
@@ -1436,7 +1441,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				 cardArray.push(cardinstanceid);
 				 existingcardslist.push(cardinstanceid);
 			 });
-			 if(grpno >= 1 && cardArray.length > 0)
+			 if(/*grpno >= 1 &&*/ cardArray.length > 0)
 			    meldlist[groupname] = cardArray;
 			 grpno++;	
 			
@@ -1593,6 +1598,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			};
 			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+			 marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");	
 	};
 	
 	initGameTools();

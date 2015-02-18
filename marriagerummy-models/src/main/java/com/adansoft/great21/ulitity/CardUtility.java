@@ -479,7 +479,7 @@ public class CardUtility {
 		//System.out.println("Excluded Cards : ");
 		//showCards(excludeJokerfromCardList(cardlist,jokerValue));
 		Card[] excludedCardList = excludeJokerfromCardList(cardlist,jokerValue);
-		  if(checkCardwithSameFlower(excludedCardList))
+		  if(cardlist.length >=3 && checkCardwithSameFlower(excludedCardList))
 			{
 				System.out.println("Will be interpreted as Sequence number");
 				boolean result = isSequenceCantUseJoker(excludedCardList,(cardlist.length - excludedCardList.length));
@@ -488,7 +488,7 @@ public class CardUtility {
 				else
 					return JOKERINTERPRET_INVALIDSEQUENCE;
 			}
-			else if(cardlist.length  <= 4 && checkCardwithSameValue(excludedCardList))
+			else if(cardlist.length >=3 && cardlist.length  <= 4 && checkCardwithSameValue(excludedCardList))
 			{
 				if(!checkAnyDuplicateFlower(excludedCardList))
 					    return JOKERINTERPRET_VALIDTRIPQUADR;

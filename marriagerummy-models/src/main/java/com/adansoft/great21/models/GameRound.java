@@ -69,11 +69,11 @@ public class GameRound implements Serializable{
     }
 
     
-    private void initshowStatusMap()
+    public void initshowStatusMap()
     {
     	for(Player player : this.getPlayerlist())
     	{
-    		showstatusMap.put(player.getNickName(), PLAYER_STATUS_PLAYING);
+    		showstatusMap.put(player.getNickName(), GameRound.PLAYER_STATUS_PLAYING);
     	}
     }
     
@@ -233,6 +233,7 @@ public class GameRound implements Serializable{
 		for(Player player : playerlist)
 		{
 			player.resetCards();
+			player.setJokerKnown(false);
 		}
 	}
     

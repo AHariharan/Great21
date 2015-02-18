@@ -389,6 +389,7 @@ public class SevenCardRummy implements Game,Serializable {
 	{
 		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,startturnpos);	
 		round.setPlayerlist(getPlayers());
+		round.initshowStatusMap();
 		round.startRound();
 		currentGameRound = round;
 	}

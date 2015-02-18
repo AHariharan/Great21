@@ -349,7 +349,7 @@ public class FacadeGamePlayController {
 		
 	}
 	
-	private void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)
+	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)
 	{
 		boolean needtoIntimate = true;
 		for(String key : response.getPlayerShowStatus().keySet())
