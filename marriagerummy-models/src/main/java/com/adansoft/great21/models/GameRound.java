@@ -65,6 +65,7 @@ public class GameRound implements Serializable{
     	pointsMap = new HashMap<String, Integer>();
     	cashMap = new HashMap<String, Float>();
     	showstatusMap = new HashMap<String, String>();
+    	initshowStatusMap();
     }
 
     
@@ -226,9 +227,18 @@ public class GameRound implements Serializable{
 	public void setNoofdecks(int noofdecks) {
 		this.noofdecks = noofdecks;
 	}
+	
+	private void resetAllCardsforPlayers()
+	{
+		for(Player player : playerlist)
+		{
+			player.resetCards();
+		}
+	}
     
     public void startRound()
     {
+    	resetAllCardsforPlayers();
     	boolean opencardset = false;
     	deckcards = CardUtility.shuffleCards(noofdecks);
     	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);

@@ -62,6 +62,8 @@ public interface Player extends Serializable {
 	
 	public void setJokerKnown(boolean result);
 	
+	public void resetCards();
+	
 	
 	
 }

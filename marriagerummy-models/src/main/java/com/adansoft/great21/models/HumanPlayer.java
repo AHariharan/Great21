@@ -255,6 +255,13 @@ public class HumanPlayer implements Player{
 			}
 		}
 	}
+
+
+	public void resetCards() {
+		cards = new ArrayList<Card>();		
+	}
 	
 
+	
+	
 }

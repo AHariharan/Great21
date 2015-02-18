@@ -8,6 +8,7 @@ MarriageRummy.Utilities.GameUtilities = MarriageRummy.Utilities.GameUtilities
 		|| {};
 
 MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
+	var statepreserver = $("#GameArena").html();
 	var self = this;
 	var curtop = 0;
 	var curleft = 0;
@@ -18,9 +19,17 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var selected_timer = {};
 	var init_turn = true;
 
+	
+	
+	
 	var onStartup = function() {
 		$(".navigation").css("display", "none");
 		$("body").css("padding-top", "10px");
+	};
+	
+	self.onNewRound =  function()
+	{
+		$("#GameArena").html(statepreserver);
 	};
 
 	self.renderCards = function(data) {
