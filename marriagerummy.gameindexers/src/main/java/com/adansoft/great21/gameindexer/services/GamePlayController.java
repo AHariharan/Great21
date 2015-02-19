@@ -21,7 +21,10 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
@@ -124,6 +127,12 @@ public class GamePlayController {
 	public String completeRound(@RequestBody FinishGameRoundRequest request)
 	{
 		return delegate.finishGameRound(request);
+	}
+	
+	@RequestMapping(value = GameIndexerServiceURLs.GETPOINTS, method = RequestMethod.POST)
+	public GetPlayerPointsResponse completeRound(@RequestBody GetPlayerPointsRequest request)
+	{
+		return delegate.getPointsTable(request);
 	}
 	
 	

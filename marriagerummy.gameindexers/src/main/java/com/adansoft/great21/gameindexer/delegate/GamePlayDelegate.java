@@ -19,7 +19,10 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
@@ -300,6 +303,25 @@ public class GamePlayDelegate {
 			Message<FinishGameRoundRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<String> reply =  (Message<String>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public GetPlayerPointsResponse getPointsTable(GetPlayerPointsRequest request)
+	{
+		GetPlayerPointsResponse result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<GetPlayerPointsRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<GetPlayerPointsResponse> reply =  (Message<GetPlayerPointsResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

@@ -245,8 +245,8 @@
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="winnershowcards">
 					<div class="winnerdeclaredarea">
-					  <h4> Winner Message</h4>
-					
+						<h4>Winner Message</h4>
+
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="myshowcards">
@@ -271,11 +271,38 @@
 		<p style="margin-top: 14px; color: white; float: left;">You must
 			show all cards to get finish this round</p>
 		<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
-		<button id="onShowCardGame" class="btn btn-tool">Show
-			Cards</button>
+		<button id="onShowCardGame" class="btn btn-tool">Show Cards</button>
 	</div>
 </div>
 
 <script>
 	$('.declareshowCards').draggable();
 </script>
+
+<div class="showPoints" style="display: none;">
+	<div class="windowtooling">
+		Points Table
+		<button type="button" class="close" data-dismiss="modal"
+			style="margin-right: 11px;">
+			<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+		</button>
+	</div>
+	<div class="windowcontent">
+		<table class="table table-striped">
+			<thead>
+				<tr id="pointHeader">
+					<th>Round #</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<!--<td>20</td>-->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="actionarea">
+		<button id="onPointsTableCancel" class="btn btn-tool">Cancel</button>
+	</div>
+</div>

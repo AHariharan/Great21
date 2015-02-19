@@ -28,6 +28,8 @@ import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
@@ -214,5 +216,12 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		return reply;
 	}
 	
+	@Override
+	public Message<GetPlayerPointsResponse> handleMessage(GetPlayerPointsRequest request)
+	{
+		GetPlayerPointsResponse response = GamePlayHelper.getPointsTable(request);
+		Message<GetPlayerPointsResponse> reply = MessageBuilder.withPayload(response).build();
+		return reply;
+	}
 	
 }

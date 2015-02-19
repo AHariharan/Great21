@@ -30,6 +30,8 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
@@ -341,6 +343,27 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.PLAYERSHOWSTATUS);
 			result = restTemplate.postForEntity(url, request, PlayerShowStatusResponse.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETPOINTS, method = RequestMethod.POST)
+	public @ResponseBody GetPlayerPointsResponse getPointsTable(@RequestBody GetPlayerPointsRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		GetPlayerPointsResponse result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETPOINTS);
+			result = restTemplate.postForEntity(url, request, GetPlayerPointsResponse.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

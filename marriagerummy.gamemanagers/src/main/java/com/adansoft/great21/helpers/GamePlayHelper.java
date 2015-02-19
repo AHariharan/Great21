@@ -23,6 +23,8 @@ import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
+import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
@@ -235,5 +237,15 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		game.completeRound();
 		return "Success";
+	}
+	
+	public static GetPlayerPointsResponse getPointsTable(GetPlayerPointsRequest request)
+	{
+		GetPlayerPointsResponse result = new GetPlayerPointsResponse();
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		result.setGameInstanceID(request.getGameInstanceID());
+		result.setPointsTable(game.getGameContent().getPlayerPointsMap());
+		return result;
 	}
 }
