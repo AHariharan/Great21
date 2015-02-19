@@ -59,6 +59,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.sortCardsInHand = "/marriagerummy/IndexerServices/GamePlay/Player/Cards/Sort";
 	self.showCards = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Cards/Show";
 	self.showStatusPlayer = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/ShowStatus/Get";
+	self.getPlayerPoints = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Points/Get";
 	
 };
 
@@ -296,6 +297,17 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 			};
 		return formdata;
 	};
+	
+	self.getPlayerPoints = function(lobbyType, gameInstanceID, gameType)
+	{
+		var formdata = {
+				"nickname" : "Auto",
+				"gameInstanceID" : gameInstanceID,
+				"lobbyName" : lobbyType,
+				"gameType" : gameType,
+			};
+		return formdata;
+	};
  
 };
 
@@ -493,6 +505,18 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function()
     self.onShowStatusforPlayerFailure = function(data)
     {
         console.log("onShowStatusforPlayerSuccess : " + data);
+    };
+    
+    self.getPlayerPointsSuccess = function(data, textstatus, Jhxr, requestObj)
+    {
+    	console.log("getPlayerPointsSuccess : " + JSON.stringify(data));
+       	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObj.renderPointsTable(data);
+    };
+    
+    self.getPlayerPointsFailure = function(data)
+    {
+        console.log("Failed to getPlayerPointsFailure : " + data);
     };
     
 };

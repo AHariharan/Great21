@@ -36,6 +36,35 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	{
 		$("#GameArena").html(statepreserver);
 	};
+	
+	self.renderPointsTable = function(data)
+	{
+		var obj = data.pointsTable;
+		console.log("Render Point Table : " + JSON.stringify(obj));
+		var keys  = Object.keys(obj).sort();
+		var playernicklist = Object.keys(obj[keys[0]]);
+		for(var i=0;i<playernicklist.length;i++)
+		{
+		    $('.showPoints #pointHeader').append('<th>'+playernicklist[i]+'</th>');
+		}
+
+		for(var i = 0;i<keys.length;i++)
+		{
+		    var content  = '<tr>';
+		    roundno = keys[i].split(":")[1].trim();
+		    var subcontent = '<th scope="row">'+ roundno + '</th>';
+		    var datacontent = "";
+		    var playernicklist = Object.keys(obj[keys[i]]);
+		    for(var j=0;j<playernicklist.length;j++)
+		    {
+		        var val = obj[keys[i]][playernicklist[j]];
+		       datacontent = datacontent + '<td>'+val+'</td>';
+		    } 
+		     content = content + subcontent + datacontent + '</tr>';
+		    $('.showPoints table>tbody').append(content);
+		}
+		$('.showPoints').css("display","block");
+	};
 
 	self.renderCards = function(data) {
 		var cardlist = data.cardlist;
@@ -1299,13 +1328,17 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		
 		$('#minitool-showJoker,#tool-showJoker').unbind();
 		$('#minitool-showJoker,#tool-showJoker').on("click",function(){
-			$('.showJoker').toggle();
-			
+			$('.showJoker').toggle();			
 		});
 		
 		$('#toolSortCards,#minitoolSortCards').unbind();
 		$('#toolSortCards,#minitoolSortCards').on("click",function(){
 			sortCards();
+		});
+		
+		$('#tool-showPointsTable,#minitool-showPointsTable').unbind();
+		$('#tool-showPointsTable,#minitool-showPointsTable').on("click",function(){
+			showPlayerPoints();
 		});
 		
 		$('#declareGame,#declareGamemini').unbind();
@@ -1566,6 +1599,21 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameFailure;
     	var formdata = marriageRummy.request.declareGameRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist,closedCardInstanceid);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	
+	var showPlayerPoints = function()
+	{
+		var url = marriageRummy.urls.getPlayerPoints;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getPlayerPointsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getPlayerPointsFailure;
+		var formdata = marriageRummy.request.getPlayerPoints(
+				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
 		};

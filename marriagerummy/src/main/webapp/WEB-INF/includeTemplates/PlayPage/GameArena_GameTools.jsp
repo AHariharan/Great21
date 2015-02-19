@@ -52,7 +52,7 @@
 		</div>
 		<div class="tool">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+				id="tool-showPointsTable" data-toggle="dropdown" aria-expanded="true">
 				<i class="fa fa-table"></i>&nbsp; Points Table
 			</button>
 		</div>
@@ -136,7 +136,7 @@
 		</div>
 		<div class="tool tool-mini">
 			<button class="btn btn-tool dropdown-toggle" type="button"
-				id="dropdownMenu1" data-toggle="tooltip" data-placement="bottom"
+				id="minitool-showPointsTable" data-toggle="tooltip" data-placement="bottom"
 				title="Show Points Table">
 				<i class="fa fa-table"></i>&nbsp;
 			</button>
@@ -295,10 +295,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<!--<td>20</td>-->
-				</tr>
+				
 			</tbody>
 		</table>
 	</div>
