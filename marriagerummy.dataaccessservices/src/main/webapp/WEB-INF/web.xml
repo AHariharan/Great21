@@ -1,0 +1,36 @@
+<web-app xmlns="
+       http://java.sun.com/xml/ns/javaee"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://java.sun.com/xml/ns/javaee 
+       http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="rest" version="3.0">
+
+	<display-name>DataAccessServices Restful services</display-name>
+
+<!-- 	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener> -->
+
+	<!-- <context-param>
+		<param-name>log4jConfigLocationIndexer</param-name>
+		<param-value>/WEB-INF/Spring-config/log4j.xml</param-value>
+	</context-param>
+ -->
+	<servlet>
+		<servlet-name>spring-restservlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/Spring-config/GameIndexer.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-restservlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
