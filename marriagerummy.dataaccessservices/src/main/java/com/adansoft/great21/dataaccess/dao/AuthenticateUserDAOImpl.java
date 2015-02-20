@@ -4,18 +4,21 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 
-import com.adansoft.great21.dataaccess.dao.AuthenticateUserDAO;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 
-
 public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
+	
+	public AuthenticateUserDAOImpl()
+	{
+		super();
+	}
 	
 	private SessionFactory sessionFactory;
 
 	@SuppressWarnings("unchecked")
 	public UserAccounts finduserbyEmail(String emailid) {
 		List<UserAccounts> list = sessionFactory.getCurrentSession().
-		createQuery("from USER_ACCOUNTS where EMAIL_ADDR = ?").
+		createQuery("from UserAccounts where emailAddr = ?").
 		setParameter(0, emailid)
 		.list();
 		
@@ -38,5 +41,15 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 				   return null;
 
 	}
+
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+	
+	
 
 }

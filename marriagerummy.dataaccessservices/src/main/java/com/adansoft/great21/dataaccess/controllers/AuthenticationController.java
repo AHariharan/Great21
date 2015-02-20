@@ -1,6 +1,7 @@
 package com.adansoft.great21.dataaccess.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticateUserDAOImpl authdao;
 	
+	@Transactional
 	@RequestMapping( value = DataAccessServiceURLs.FINDUSER, method = RequestMethod.POST)
 	public @ResponseBody UserAccounts Authenticate(@RequestBody String name)
 	{
