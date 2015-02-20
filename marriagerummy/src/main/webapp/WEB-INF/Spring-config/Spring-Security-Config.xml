@@ -48,9 +48,15 @@
 				<user name="phoutty" password="phoutty" authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
+		<authentication-provider>
+		   <jdbc-user-service data-source-ref="datadbsource"
+		    users-by-username-query="select nick_name,password,enabled from user_accounts where nick_name = ?"
+		    authorities-by-username-query="select nick_name,granted_role from user_roles where nick_name = ?"
+		   />		   
+		</authentication-provider>		
 	</authentication-manager>
 
-
+   
 
 	<beans:bean id="authsuccesshandler"
 		class="com.adansoft.great21.security.AuthSuccessHandler" />

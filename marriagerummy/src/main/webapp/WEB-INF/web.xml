@@ -29,6 +29,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/Spring-config/Great21MVC.xml
+		             /WEB-INF/Spring-config/Spring-DBConfig.xml
                      /WEB-INF/Spring-config/Spring-Security-Config.xml                 
         </param-value>
 	</context-param>
@@ -58,7 +59,8 @@
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/Spring-config/Great21MVC.xml
-				/WEB-INF/Spring-config/Spring-Security-Config.xml
+			             /WEB-INF/Spring-config/Spring-DBConfig.xml
+				         /WEB-INF/Spring-config/Spring-Security-Config.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

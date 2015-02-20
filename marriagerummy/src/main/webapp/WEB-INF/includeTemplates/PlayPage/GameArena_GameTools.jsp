@@ -303,3 +303,6 @@
 		<button id="onPointsTableCancel" class="btn btn-tool">Cancel</button>
 	</div>
 </div>
+<script>
+	$('.showPoints').draggable();
+</script>
