@@ -1,10 +1,11 @@
-package com.adansoft.great21.controllers;
+package com.adansoft.great21.router;
 
 
+import com.adansoft.great21.exceptions.DataAccessConfigException;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 
 
-public class FacadetoIndexerMapper {
+public class FacadetoDataAccessMapper {
 
 	
 	private String hostname = null;
@@ -16,7 +17,7 @@ public class FacadetoIndexerMapper {
 	
 	
 	
-	public FacadetoIndexerMapper(String hostname, String port, String baseURL) {
+	public FacadetoDataAccessMapper(String hostname, String port, String baseURL) {
 		super();
 		this.hostname = hostname;
 		this.port = port;
@@ -28,7 +29,7 @@ public class FacadetoIndexerMapper {
 
 
 
-	public FacadetoIndexerMapper() {
+	public FacadetoDataAccessMapper() {
 		super();
 	
 	}
@@ -92,11 +93,11 @@ public class FacadetoIndexerMapper {
 
 
 
-	public String getIndexerURI() throws Exception
+	public String getDataAccessURI() throws Exception
 	{
 		String GI_URL = null;
 		if(hostname == null || port == null || baseURL == null)
-			throw new GameIndexerConfigException("Invalid Game Indexer Config Exception , hostname = " + hostname + " , port = " + port + " , baseURL : " + baseURL);
+			throw new DataAccessConfigException("Invalid DataAccess Service Config Exception , hostname = " + hostname + " , port = " + port + " , baseURL : " + baseURL);
 		else
 			GI_URL = "http://"+hostname+":"+port+"/"+baseURL;
 		return GI_URL;

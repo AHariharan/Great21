@@ -6,6 +6,6 @@ Officeloc :-
 
 filename:- Great21Models.jar
 
-cd C:\Documents and Settings\a4hs3bg\My Documents\Downloads\apache-maven-3.2.2-bin\apache-maven-3.2.2\bin\
+cd C:\Temp\apache-maven-3.2.5-bin\apache-maven-3.2.5\bin
 
 C:\Documents and Settings\a4hs3bg\My Documents\Downloads\apache-maven-3.2.2-bin\apache-maven-3.2.2\bin\

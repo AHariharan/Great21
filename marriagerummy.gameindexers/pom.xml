@@ -7,6 +7,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>marriagerummy.gameindexers Maven Webapp</name>
 	<url>http://maven.apache.org</url>
+	<properties>
+		<java.version>1.7</java.version>
+		<spring.jmx.enabled>false</spring.jmx.enabled>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>

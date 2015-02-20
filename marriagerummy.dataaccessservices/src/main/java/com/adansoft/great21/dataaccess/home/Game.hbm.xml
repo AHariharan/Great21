@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.Game" table="game" catalog="Rummy">
+        <id name="gameInstanceId" type="string">
+            <column name="GAME_INSTANCE_ID" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="gameLobby" type="string">
+            <column name="GAME_LOBBY" length="45" not-null="true" />
+        </property>
+        <property name="gameType" type="string">
+            <column name="GAME_TYPE" length="45" not-null="true" />
+        </property>
+        <property name="hostedBy" type="string">
+            <column name="HOSTED_BY" length="45" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CREATED_DATE" length="19" not-null="true" />
+        </property>
+        <property name="isActive" type="java.lang.Boolean">
+            <column name="IS_ACTIVE" />
+        </property>
+        <property name="cancelledDate" type="timestamp">
+            <column name="CANCELLED_DATE" length="19" />
+        </property>
+        <property name="completedDate" type="timestamp">
+            <column name="COMPLETED_DATE" length="19" />
+        </property>
+        <property name="pointsBased" type="java.lang.Boolean">
+            <column name="POINTS_BASED" />
+        </property>
+        <property name="percardBased" type="java.lang.Boolean">
+            <column name="PERCARD_BASED" />
+        </property>
+    </class>
+</hibernate-mapping>

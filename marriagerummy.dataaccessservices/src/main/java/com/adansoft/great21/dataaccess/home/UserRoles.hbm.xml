@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.UserRoles" table="user_roles" catalog="Rummy">
+        <id name="nickName" type="string">
+            <column name="NICK_NAME" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="grantedRole" type="string">
+            <column name="GRANTED_ROLE" length="150" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

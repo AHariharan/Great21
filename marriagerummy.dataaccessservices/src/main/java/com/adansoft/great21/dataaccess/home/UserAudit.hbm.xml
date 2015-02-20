@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.UserAudit" table="user_audit" catalog="Rummy">
+        <id name="logInstanceId" type="java.lang.Long">
+            <column name="LOG_INSTANCE_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="nickname" type="string">
+            <column name="NICKNAME" length="45" not-null="true" />
+        </property>
+        <property name="lastLoggedinDate" type="timestamp">
+            <column name="LAST_LOGGEDIN_DATE" length="19" />
+        </property>
+        <property name="lastLoggedoutDate" type="timestamp">
+            <column name="LAST_LOGGEDOUT_DATE" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

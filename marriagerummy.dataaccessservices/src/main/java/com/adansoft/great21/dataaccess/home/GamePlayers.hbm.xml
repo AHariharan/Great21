@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.GamePlayers" table="game_players" catalog="Rummy">
+        <id name="gameInstanceId" type="string">
+            <column name="GAME_INSTANCE_ID" length="45" />
+            <generator class="assigned" />
+        </id>
+        <property name="numOfPlayers" type="java.lang.Integer">
+            <column name="NUM_OF_PLAYERS" />
+        </property>
+        <property name="player1Nick" type="string">
+            <column name="PLAYER1_NICK" length="45" />
+        </property>
+        <property name="player2Nick" type="string">
+            <column name="PLAYER2_NICK" length="45" />
+        </property>
+        <property name="player3Nick" type="string">
+            <column name="PLAYER3_NICK" length="45" />
+        </property>
+        <property name="player4Nick" type="string">
+            <column name="PLAYER4_NICK" length="45" />
+        </property>
+        <property name="player5Nick" type="string">
+            <column name="PLAYER5_NICK" length="45" />
+        </property>
+        <property name="player6Nick" type="string">
+            <column name="PLAYER6_NICK" length="45" />
+        </property>
+        <property name="player7Nick" type="string">
+            <column name="PLAYER7_NICK" length="45" />
+        </property>
+        <property name="player8Nick" type="string">
+            <column name="PLAYER8_NICK" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

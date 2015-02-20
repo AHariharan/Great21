@@ -49,10 +49,16 @@
 	</bean>
 
 	<!-- custom class beans -->
-	<bean id="GIMapper" class="com.adansoft.great21.controllers.FacadetoIndexerMapper"
+	<bean id="GIMapper" class="com.adansoft.great21.router.FacadetoIndexerMapper"
 		p:hostname="${GameIndexer.HOST}"
 		p:port="${GameIndexer.PORT}"
 		p:baseURL="${GameIndexer.BASEURI}">
+	</bean>
+	
+	<bean id="DAMapper" class="com.adansoft.great21.router.FacadetoDataAccessMapper"
+	    p:hostname="${DataAccess.HOST}"
+		p:port="${DataAccess.PORT}"
+		p:baseURL="${DataAccess.BASEURI}">
 	</bean>
 	
 	<!--  Create Rest Client Template -->
