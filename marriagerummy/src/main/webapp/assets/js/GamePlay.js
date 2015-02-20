@@ -58,6 +58,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		    for(var j=0;j<playernicklist.length;j++)
 		    {
 		        var val = obj[keys[i]][playernicklist[j]];
+		        if(val == 0)
+		        	val = "-";
 		       datacontent = datacontent + '<td>'+val+'</td>';
 		    } 
 		     content = content + subcontent + datacontent + '</tr>';
@@ -1339,6 +1341,11 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#tool-showPointsTable,#minitool-showPointsTable').unbind();
 		$('#tool-showPointsTable,#minitool-showPointsTable').on("click",function(){
 			showPlayerPoints();
+		});
+		
+		$('#onPointsTableCancel').unbind();
+		$('#onPointsTableCancel').on("click",function(){
+			$('.showPoints').css("display","none");
 		});
 		
 		$('#declareGame,#declareGamemini').unbind();

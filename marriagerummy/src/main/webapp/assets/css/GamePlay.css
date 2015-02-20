@@ -1107,8 +1107,8 @@
 	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
 }
 
-.showPoints .windowContent {
-	text-align: center;
+.showPoints .windowcontent {
+	/* text-align: center; */
 	color: rgb(191, 194, 197);
 	overflow: auto;
 	padding: 8px;
