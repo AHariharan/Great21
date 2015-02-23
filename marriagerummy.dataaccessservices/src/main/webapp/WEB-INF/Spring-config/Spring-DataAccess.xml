@@ -19,7 +19,10 @@
 	<context:property-placeholder
 		location="WEB-INF/Spring-config/DBConfig.properties" />
 
-	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+
+	
+
+	<bean id="dataSource" class="com.adansoft.great21.encrypt.utilities.EncryptResolverDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
@@ -70,10 +73,8 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- <aop:config> 
-	 <aop:pointcut id="userServicePointCut" expression="execution(*com.adansoft.great21.dataaccess.dao.*Impl.*)" /> 
-	 <aop:advisor advice-ref="txAdvice" 
-		pointcut-ref="userServicePointCut" /> 
-	</aop:config> -->
+	<!-- <aop:config> <aop:pointcut id="userServicePointCut" expression="execution(*com.adansoft.great21.dataaccess.dao.*Impl.*)" 
+		/> <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" 
+		/> </aop:config> -->
 
 </beans>

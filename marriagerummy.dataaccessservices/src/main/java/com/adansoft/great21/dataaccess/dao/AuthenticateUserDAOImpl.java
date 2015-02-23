@@ -5,6 +5,9 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
+import com.adansoft.great21.dataaccess.entities.UserRoles;
+import com.adansoft.great21.dataaccess.schemas.SignupRequest;
+import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 
 public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	
@@ -31,7 +34,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	@SuppressWarnings("unchecked")
 	public UserAccounts findUserbyNickName(String nickname) {
 		List<UserAccounts> list = sessionFactory.getCurrentSession().
-				createQuery("from USER_ACCOUNTS where NICK_NAME = ?").
+				createQuery("from UserAccounts where nickName = ?").
 				setParameter(0, nickname)
 				.list();
 				
@@ -42,12 +45,52 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 
 	}
 
+	
+	
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	public SignupResponse signupRequest(SignupRequest request) {
+		
+		SignupResponse response = new SignupResponse();
+		
+		if(finduserbyEmail(request.getEmailAddress()) == null)
+		{
+			if(findUserbyNickName(request.getNickName()) == null)
+					{
+				        UserRoles roles = new UserRoles();
+				        roles.setNickName(request.getNickName());
+				        roles.setGrantedRole("ROLE_USER");
+				        UserAccounts account = new UserAccounts();
+				        account.setEmailAddr(request.getEmailAddress());
+				        account.setNickName(request.getNickName());
+				        account.setPassword(request.getPassword());
+				        account.setEnabled(true);
+				        sessionFactory.getCurrentSession().persist(roles);
+				        sessionFactory.getCurrentSession().persist(account);
+				        response.setValid(true);
+				        response.setMessage("Signup Successful");
+				        
+					}
+			else
+			{
+			response.setValid(false);
+	        response.setMessage("Nick Name already taken");
+			}
+		}
+		else
+		{
+		response.setValid(false);
+        response.setMessage("Email address already exits.");
+		}
+		
+		return response;
 	}
 	
 	

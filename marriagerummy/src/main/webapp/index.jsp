@@ -16,8 +16,8 @@
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
-
 <meta name="description" content="">
+
 </head>
 <body>
 	<div id="profile"></div>
@@ -35,7 +35,7 @@
 
 		<div id="howto" class="section2"></div>
 		<div class="container">
-		   <%@ include file="./WEB-INF/includeTemplates/HomePage/Rules.jsp" %>
+			<%@ include file="./WEB-INF/includeTemplates/HomePage/Rules.jsp"%>
 		</div>
 		<div id="footer" class="section4"></div>
 	</div>
@@ -46,8 +46,18 @@
 		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 		type="text/javascript"></script>
 	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
+	<script src="./assets/js/UIHomeComm.js" type="text/javascript"></script>
 	<%@ include
 		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
 	<%@ include
 		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%>
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							var loadPage = new MarriageRummy.Utilities.UIUtilities.onMainPageLoad();
+							loadPage.initMainPage();
+						});
+	</script>
 </body>

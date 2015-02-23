@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.AuthenticateUserDAOImpl;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
+import com.adansoft.great21.dataaccess.schemas.SignupRequest;
+import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 
 @RestController
 @RequestMapping(DataAccessServiceURLs.DATAACCESS_AUTHBASE)
@@ -25,6 +27,15 @@ public class AuthenticationController {
 		System.out.println("Data access Service request receive for user :- " + name);
 		UserAccounts account = authdao.finduserbyEmail(name);
 		return account;
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.SIGNUP, method = RequestMethod.POST)
+	public @ResponseBody SignupResponse signUp(@RequestBody SignupRequest request)
+	{
+		System.out.println("Signup Request Received :- " + request.getEmailAddress());
+		SignupResponse response = authdao.signupRequest(request);
+		return response;
 	}
 
 }

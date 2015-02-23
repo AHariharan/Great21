@@ -49,6 +49,7 @@
 			</user-service>
 		</authentication-provider>
 		<authentication-provider user-service-ref="AuthenticationService">
+		    <password-encoder hash="bcrypt"></password-encoder>
 		</authentication-provider>
 	
 		<!-- <authentication-provider>
