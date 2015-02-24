@@ -65,6 +65,10 @@ MarriageRummy.Utilities.Validators.StringValidator = function() {
 		"GTHANMAXLENGTH" : {
 			"CODE" : "GTHANMAXLENGTH",
 			"DESCRIPTION" : "Content length is greater than maximum length"
+		},
+		"INVALIDEMAIL":{
+			"CODE" : "INVALIDEMAIL",
+			"DESCRIPTION" : "Invalid email address"
 		}
 	};
 
@@ -114,6 +118,32 @@ MarriageRummy.Utilities.Validators.StringValidator = function() {
 			return new MarriageRummy.Utilities.Validators.ValidationResult(
 					true, null, null, "StringValidator");
 
+	};
+	
+	self.isEmailAddress = function(content)
+	{
+		  var sQtext = '[^\\x0d\\x22\\x5c\\x80-\\xff]';
+		  var sDtext = '[^\\x0d\\x5b-\\x5d\\x80-\\xff]';
+		  var sAtom = '[^\\x00-\\x20\\x22\\x28\\x29\\x2c\\x2e\\x3a-\\x3c\\x3e\\x40\\x5b-\\x5d\\x7f-\\xff]+';
+		  var sQuotedPair = '\\x5c[\\x00-\\x7f]';
+		  var sDomainLiteral = '\\x5b(' + sDtext + '|' + sQuotedPair + ')*\\x5d';
+		  var sQuotedString = '\\x22(' + sQtext + '|' + sQuotedPair + ')*\\x22';
+		  var sDomain_ref = sAtom;
+		  var sSubDomain = '(' + sDomain_ref + '|' + sDomainLiteral + ')';
+		  var sWord = '(' + sAtom + '|' + sQuotedString + ')';
+		  var sDomain = sSubDomain + '(\\x2e' + sSubDomain + ')*';
+		  var sLocalPart = sWord + '(\\x2e' + sWord + ')*';
+		  var sAddrSpec = sLocalPart + '\\x40' + sDomain; // complete RFC822 email address spec
+		  var sValidEmail = '^' + sAddrSpec + '$'; // as whole string
+		  var reValidEmail = new RegExp(sValidEmail);
+		  if (reValidEmail.test(content)) {
+			  return new MarriageRummy.Utilities.Validators.ValidationResult(
+						true, null, null, "StringValidator");
+		  }
+		  return new MarriageRummy.Utilities.Validators.ValidationResult(
+					false, codedescmap.INVALIDEMAIL.CODE,
+					codedescmap.INVALIDEMAIL.DESCRIPTION,
+					"StringValidator");
 	};
 
 };
@@ -262,6 +292,8 @@ MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler = function(panel) {
 	var errorPanel = '#' + panel;
 
 	self.string_isEmptyFn = "marriageRummy.validator.getStringValidator().isNotEmpty";
+	self.string_isMinLength = "marriageRummy.validator.getStringValidator().isWithinMinLength"
+	self.string_isEmailAddress = "marriageRummy.validator.getStringValidator().isEmailAddress";
 	self.number_isNumber = "marriageRummy.validator.getNumberValidator().isNumber";
 	self.number_isMininum = "marriageRummy.validator.getNumberValidator().isGreaterthanMinValue";
 	self.number_isWithinRange = "marriageRummy.validator.getNumberValidator().isGreaterthanMinValue";
@@ -423,3 +455,43 @@ MarriageRummy.Utilities.Validation.CreateGameValidation = function(panel) {
 	};
 
 };
+
+MarriageRummy.Utilities.Validation.CreateSignupValidation = function(panel) {
+	var uiErrorHandler = new MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler(panel);
+	var self = this;
+	
+	self.validate = function() {
+		var result = true;
+		uiErrorHandler.cleanUpAllErrors();
+		var validation1 = uiErrorHandler.validateField('#SignupEmail',marriageRummy.ErrorMessages.signup.EMAILADDRESS,
+				uiErrorHandler.string_isEmailAddress, 1, 'BLUR', []);
+		var mininumlength = 8;
+		var validation2 = uiErrorHandler.validateField('#SignupNickName',marriageRummy.ErrorMessages.signup.NICKNAMEGT8,
+				uiErrorHandler.string_isMinLength, 1, 'BLUR',[ mininumlength ], undefined);
+		var validation3 = uiErrorHandler.validateField('#SignupPassword',marriageRummy.ErrorMessages.signup.PASSWORDEMPTY,
+				uiErrorHandler.string_isEmptyFn, 1, 'BLUR', []);
+		result = validation1 && validation2 && validation3;
+		return result;
+	};
+	
+};
+
+
+MarriageRummy.Utilities.Validation.CreateSignInValidation = function(panel) {
+	var uiErrorHandler = new MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler(panel);
+	var self = this;
+	
+	self.validate = function() {
+		var result = true;
+		uiErrorHandler.cleanUpAllErrors();
+		var validation1 = uiErrorHandler.validateField('#SigninEmail',marriageRummy.ErrorMessages.signup.EMAILADDRESS,
+				uiErrorHandler.string_isEmailAddress, 1, 'BLUR', []);
+		var validation2 = uiErrorHandler.validateField('#SigninPassword',marriageRummy.ErrorMessages.signup.PASSWORDEMPTY,
+				uiErrorHandler.string_isEmptyFn, 1, 'BLUR', []);
+		result = validation1 && validation2;
+		return result;
+	};
+	
+};
+
+marriageRummy.signinValidation = new MarriageRummy.Utilities.Validation.CreateSignInValidation('SignInErrorPanel');

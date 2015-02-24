@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainController {
 	
 	@Secured("ROLE_USER")
-	@RequestMapping( value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping( value = "/rummy", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView afterLogin(@AuthenticationPrincipal Authentication authentication)
 	{
 		String username = authentication.getName();

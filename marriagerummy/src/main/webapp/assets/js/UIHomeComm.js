@@ -91,6 +91,9 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function()
 	{
 		$('#signupSubmit').unbind();
 		$('#signupSubmit').on('click',function(){
+		   var validation = new MarriageRummy.Utilities.Validation.CreateSignupValidation('SignUpErrorPanel');
+		   if(!validation.validate())
+	        	return;
 		   var emailadd = $('#SignupEmail').val();
 		   var nickname = $('#SignupNickName').val();
 		   var passwd = $('#SignupPassword').val();

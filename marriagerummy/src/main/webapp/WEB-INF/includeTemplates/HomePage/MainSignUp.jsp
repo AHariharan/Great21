@@ -1,10 +1,6 @@
 <div role="tabpanel" class="tab-pane" id="signup">
-	<div class="errorPanel" style="display:none">
-		<ul>
-			
-		</ul>
-	</div>
 	<div class="form-horizontal" role="form">
+	    <div id="SignUpErrorPanel" class="ErrorPanel"></div>
 		<div class="form-group">
 			<label for="NickName" class="col-sm-3 control-label"><span
 				class="required">*</span>Nickname</label>

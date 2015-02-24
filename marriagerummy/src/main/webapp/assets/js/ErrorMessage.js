@@ -9,5 +9,12 @@ marriageRummy.ErrorMessages = {
 	    		"BUYINGT0" :   "Buy in amount must be greater than VAL",
 	    		"MAXPTSGT0" :   "Per card amount must be greater than MINVAL and less than MAXVAL",
 	    	    
-	      }	
+	      },	
+
+         "signup" : {
+        	 "EMAILADDRESS" : "Invalid Email address specified",
+        	 "NICKNAMEGT8" : "Nickname must contain atleast 8 characters",
+        	 "PASSWORDEMPTY" : "Password cannot be empty"
+        	 
+         }
 };

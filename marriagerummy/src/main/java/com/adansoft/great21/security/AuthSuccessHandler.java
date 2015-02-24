@@ -19,7 +19,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 			HttpServletResponse resp, Authentication auth) throws IOException,
 			ServletException {
 		System.out.println(auth.getPrincipal().getClass());
-		String targetURL = "/login";
+		String targetURL = "/rummy";
 		redirectStrategy.sendRedirect(req,resp,targetURL);
 	}
 

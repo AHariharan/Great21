@@ -89,3 +89,14 @@ hr {
 	filter: alpha(opacity=0);
 }
 
+.ErrorPanel p {
+	text-align: left;
+	color: #a94442;
+	font-size: 14px;
+	padding-left: 118px;
+}
+
+.ErrorPanel p a {
+	color: #a94442;
+	text-decoration: none
+}

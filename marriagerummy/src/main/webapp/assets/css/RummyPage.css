@@ -334,17 +334,7 @@
 	opacity: 0.99;
 }
 
-.ErrorPanel p {
-	text-align: left;
-	color: #a94442;
-	font-size: 14px;
-	padding-left: 118px;
-}
 
-.ErrorPanel p a {
-	color: #a94442;
-	text-decoration: none
-}
 
 #GameLauncherContainer {
 	box-shadow: 1px 1px 10px 5px gray;
