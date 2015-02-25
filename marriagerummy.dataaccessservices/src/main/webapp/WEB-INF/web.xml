@@ -9,7 +9,7 @@ xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.co
 		</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>/WEB-INF/Spring-config/Spring-DataAccess.xml</param-value>
+      <param-value>/WEB-INF/Spring-config/Spring-DataAccess.xml /WEB-INF/Spring-config/Spring-Mail.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

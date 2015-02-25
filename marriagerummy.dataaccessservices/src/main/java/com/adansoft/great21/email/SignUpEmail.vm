@@ -1,0 +1,14 @@
+<!doctype html>
+<html>
+
+<body>
+<h2> Welcome to IPlayRummy.com</h2>
+<p>Hi $!fname,</p><ln>
+<p>Thank you for Signing up with us.</p><ln>
+<p>Please  <a href="$!activationurl">click here </a>on the following link to activate your account.<p>
+<ln>
+
+<p>Thanks,</p>
+<p><i>IPlayRummy.com</i></p>
+</body>
+</html>

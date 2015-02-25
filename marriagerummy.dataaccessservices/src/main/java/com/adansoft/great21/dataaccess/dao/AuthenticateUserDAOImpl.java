@@ -1,15 +1,29 @@
 package com.adansoft.great21.dataaccess.dao;
 
+import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserRoles;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
+import com.adansoft.great21.email.EmailHelper;
+import com.adansoft.great21.email.EmailManagerDao;
+import com.adansoft.great21.ulitity.HashingUtility;
 
 public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
+	
+	
+	@Autowired
+	private EmailManagerDao emailManager;
+	
+	@Autowired
+	private EmailHelper emailHelper;
 	
 	public AuthenticateUserDAOImpl()
 	{
@@ -76,7 +90,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 				        sessionFactory.getCurrentSession().persist(account);
 				        response.setValid(true);
 				        response.setMessage("Signup Successful");
-				        
+				        sendEmail(request.getEmailAddress(),request.getNickName());				        
 					}
 			else
 			{
@@ -94,5 +108,25 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	}
 	
 	
+	
+	private void sendEmail(String emailaddress,String nickName)
+	{
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("activationurl", generateActivationURL(emailaddress) );
+		map.put("fname", nickName);
+		 emailManager.SendEmail(emailaddress, emailHelper.CreateSignUpEmail(map), "Signup Confirmation !!!");
+	}
+	
+	
+	private String generateActivationURL(String emailaddress)
+	{
+		String baseActivationUrl = "http://localhost:48080";
+		String message = UUID.randomUUID().toString() + UUID.randomUUID().toString();
+		String activationCode = HashingUtility.encodeMessage(message);
+		String stringActivationUrl = MessageFormat.format(baseActivationUrl
+				+ "/marriagerummy/activate/account?id={0}&authtoken={1}", emailaddress,
+				activationCode);
+		return stringActivationUrl;
+	}
 
 }
