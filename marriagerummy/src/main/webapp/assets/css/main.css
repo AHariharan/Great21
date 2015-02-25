@@ -297,3 +297,63 @@
 	position: relative;
 	z-index: 10;
 }
+
+.block-info {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: rgba(249, 245, 242, 1);
+	border: 2px solid #F9A995;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	color: rgb(213, 72, 39);
+	text-align: center;
+	border-radius: 9px;
+	box-shadow: 0px 0px 6px 2px #F9A995;
+}
+
+.block-info a {
+	color: rgb(213, 72, 39);
+	font-weight: 600;
+}
+
+.block-info-success {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: rgba(236, 255, 242, 1);
+	border: 2px solid #A0CDAC;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	color: rgb(55, 160, 100);
+	text-align: center;
+	border-radius: 9px;
+	
+}
+
+.block-info-success a {
+	color: rgb(55, 160, 100);
+	font-weight: 600;
+}
+
+.block-info-warn {
+	min-height: 20px;
+	padding: 19px;
+	margin-bottom: 20px;
+	background-color: rgba(247, 250, 231, 1);
+	border: 2px solid #ECEA25;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	color: rgb(140, 144, 8);
+	text-align: center;
+	border-radius: 9px;
+	
+}
+
+.block-info-warn a {
+	color: rgb(140, 144, 8);
+	font-weight: 600;
+}

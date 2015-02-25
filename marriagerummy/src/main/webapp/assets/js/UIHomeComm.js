@@ -64,6 +64,10 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function()
     self.onSignUpSuccess = function(data, textstatus, Jhxr, requestObj)
     {
     	console.log("Signup Response :- " + JSON.stringify(data));
+    	if(data.valid)
+    		{
+    		    $("#signupsuccessful").slideDown();
+    		}
     };
     
     self.onSignUpFailure = function(data)
