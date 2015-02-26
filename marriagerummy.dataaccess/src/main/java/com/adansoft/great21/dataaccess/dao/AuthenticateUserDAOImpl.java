@@ -85,7 +85,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 				        account.setEmailAddr(request.getEmailAddress());
 				        account.setNickName(request.getNickName());
 				        account.setPassword(request.getPassword());
-				        account.setEnabled(true);
+				        account.setEnabled(false);
 				        sessionFactory.getCurrentSession().persist(roles);
 				        sessionFactory.getCurrentSession().persist(account);
 				        response.setValid(true);
