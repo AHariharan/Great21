@@ -29,8 +29,13 @@
 			</ul>
 			<div class="navbar-form navbar-right quicktools" role="form"
 				style="">
-				<i class="fa fa-bell-o"></i> <i class="fa fa-sign-out"
-					style="padding-left: 20px;"></i> Logout
+				<i id="logout" class="fa fa-bell-o"></i><span id="rummylogout"> 
+				    <form:form id="formlogout" action="/marriagerummy/logout" role="form" method="post" ctype="application/x-www-form-urlencoded" style="display:none"> 
+				          <button class="btn btn-success" type="submit"> Logout </button>
+				          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				    </form:form>
+				    <i class="fa fa-sign-out"
+					style="padding-left: 20px;"></i> Logout </span>
 
 			</div>
 		</div>

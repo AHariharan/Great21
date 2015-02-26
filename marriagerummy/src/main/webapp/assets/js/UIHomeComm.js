@@ -4,7 +4,8 @@ var MarriageRummy = MarriageRummy || {};
 MarriageRummy.Utilities = MarriageRummy.Utilities || {};
 
 // UIUtilites Namespace
-MarriageRummy.Utilities.CommunicationUtilities = MarriageRummy.Utilities.CommunicationUtilities || {};
+MarriageRummy.Utilities.CommunicationUtilities = MarriageRummy.Utilities.CommunicationUtilities
+		|| {};
 
 MarriageRummy.Utilities.CommunicationUtilities.HomePageCommunicator = function() {
 	var self = this;
@@ -33,47 +34,58 @@ MarriageRummy.Utilities.CommunicationUtilities.HomePageCommunicator = function()
 	};
 };
 
-MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS = function()
-{
-    var self = this;
-    self.signUp = "/marriagerummy/UserAccess/User/Signup";
+MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS = function() {
+	var self = this;
+	self.signUp = "/marriagerummy/UserAccess/User/Signup";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = function() {
- 
+
 	var self = this;
-	
-	self.signUpRequest = function(emailaddress,nickname,password)
-	{
+
+	self.signUpRequest = function(emailaddress, nickname, password) {
 		var formdata = {
-					  "emailAddress":emailaddress,
-					  "nickName":nickname,
-					  "password":password 
-						
-		 };
+			"emailAddress" : emailaddress,
+			"nickName" : nickname,
+			"password" : password
+
+		};
 		return formdata;
 	};
-	
+
 };
 
+MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function() {
+	var self = this;
 
-MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function()
-{
-    var self = this;
-    
-    self.onSignUpSuccess = function(data, textstatus, Jhxr, requestObj)
-    {
-    	console.log("Signup Response :- " + JSON.stringify(data));
-    	if(data.valid)
-    		{
-    		    $("#signupsuccessful").slideDown();
-    		}
-    };
-    
-    self.onSignUpFailure = function(data)
-    {
-    	console.log("Signup Response :- " + JSON.stringify(data));
-    };
+	var addErrorToPanel = function(panel, message) {
+		var content = '<p><a><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;'
+				+ message + '</a></p>';
+		$('#' + panel).empty();
+		$('#' + panel).append(content);
+	};
+
+	self.onSignUpSuccess = function(data, textstatus, Jhxr, requestObj) {
+		console.log("Signup Response :- " + JSON.stringify(data));
+		if (data.valid) {
+			$("#signupsuccessful").slideDown();
+		} else {
+			$('#signupsuccessful').hide();
+			$('#accountnotactive').hide();
+			if (data.message.indexOf("Nick") != -1) {
+				addErrorToPanel('SignUpErrorPanel',
+						"Nickname is already in use. Please use a different nick");
+			}
+			if (data.message.indexOf("Email") != -1) {
+				addErrorToPanel('SignUpErrorPanel',
+						"Email address is already in use. Did you forgot your password ?");
+			}
+		}
+	};
+
+	self.onSignUpFailure = function(data) {
+		console.log("Signup Response :- " + JSON.stringify(data));
+	};
 };
 
 MarriageRummy.Utilities.UIUtilities.onMainPageLoad = function() {
@@ -82,43 +94,45 @@ MarriageRummy.Utilities.UIUtilities.onMainPageLoad = function() {
 		marriageRummy.usercallback = new MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks();
 		marriageRummy.requestpreparer = new MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer();
 		marriageRummy.requesturl = new MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS();
-        marriageRummy.httpComm = new MarriageRummy.Utilities.CommunicationUtilities.HomePageCommunicator();
-        new MarriageRummy.Utilities.UIUtilities.InitMainPage();
+		marriageRummy.httpComm = new MarriageRummy.Utilities.CommunicationUtilities.HomePageCommunicator();
+		new MarriageRummy.Utilities.UIUtilities.InitMainPage();
 	};
 };
 
+MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 
-MarriageRummy.Utilities.UIUtilities.InitMainPage = function()
-{
-	
-	var init = function()
-	{
+	var init = function() {
 		$('#signupSubmit').unbind();
-		$('#signupSubmit').on('click',function(){
-		   var validation = new MarriageRummy.Utilities.Validation.CreateSignupValidation('SignUpErrorPanel');
-		   if(!validation.validate())
-	        	return;
-		   var emailadd = $('#SignupEmail').val();
-		   var nickname = $('#SignupNickName').val();
-		   var passwd = $('#SignupPassword').val();
-		   signup(emailadd,nickname,passwd);
-		});
+		$('#signupSubmit')
+				.on(
+						'click',
+						function() {
+							var validation = new MarriageRummy.Utilities.Validation.CreateSignupValidation(
+									'SignUpErrorPanel');
+							if (!validation.validate())
+								return;
+							var emailadd = $('#SignupEmail').val();
+							var nickname = $('#SignupNickName').val();
+							var passwd = $('#SignupPassword').val();
+							signup(emailadd, nickname, passwd);
+						});
 	};
-	
+
 	init();
 
-	var signup = function(emailaddress,nickname,password) //onShowCardGame
+	var signup = function(emailaddress, nickname, password) // onShowCardGame
 	{
 		var url = marriageRummy.requesturl.signUp;
 		var onSuccessCallbackfn = marriageRummy.usercallback.onSignUpSuccess;
 		var onFailureCallbackfn = marriageRummy.usercallback.onSignUpFailure;
-		var formdata = marriageRummy.requestpreparer.signUpRequest(emailaddress,nickname,password);
+		var formdata = marriageRummy.requestpreparer.signUpRequest(
+				emailaddress, nickname, password);
 		var requestObj = {
-				"formdata" : formdata
-			};
-			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
-					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
-			 
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+
 	};
 
 };

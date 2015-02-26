@@ -18,6 +18,20 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities ||
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
 	
+	$('#rummylogout').unbind();
+	$('#rummylogout').on("click",function(){
+		/*var url = "/marriagerummy/logout";
+		var requestObj = {  };
+		var successcall = function(data,textStatus)
+		{
+			            window.location.replace(data);			   
+		};
+		var failurecall = {};
+		var formdata = {};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);*/
+		$( "#formlogout" ).submit();
+		
+	});
 	
 	$(".shrinker").unbind();
 	$(".shrinker").click(function() {

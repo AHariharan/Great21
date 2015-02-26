@@ -16,9 +16,9 @@
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+<!-- 				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
 				<prop key="mail.smtp.socketFactory.port"></prop>
-				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop> -->
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.debug">${email.debug.mode}</prop>
 			</props>

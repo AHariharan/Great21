@@ -114,6 +114,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("activationurl", generateActivationURL(emailaddress) );
 		map.put("fname", nickName);
+		
 		 emailManager.SendEmail(emailaddress, emailHelper.CreateSignUpEmail(map), "Signup Confirmation !!!");
 	}
 	
@@ -123,10 +124,12 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 		String baseActivationUrl = "http://localhost:48080";
 		String message = UUID.randomUUID().toString() + UUID.randomUUID().toString();
 		String activationCode = HashingUtility.encodeMessage(message);
-		String stringActivationUrl = MessageFormat.format(baseActivationUrl
+		String activationUrl = MessageFormat.format(baseActivationUrl
 				+ "/marriagerummy/activate/account?id={0}&authtoken={1}", emailaddress,
 				activationCode);
-		return stringActivationUrl;
+		
+		System.out.println("activationURL : " + activationUrl);
+		return activationUrl;
 	}
 
 }
