@@ -79,6 +79,7 @@ public class MainController {
 	@RequestMapping( value = "/activate/account", method = {RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView activateAccount(@RequestParam(value="id") String emailid,@RequestParam(value="authtoken") String activationCode)
 	{
+		ModelAndView modelAndView = new ModelAndView("ActivateSuccess");
 		ActivateAccountRequest request = new ActivateAccountRequest(emailid,activationCode);
 		String result = null;
 		try {
@@ -86,6 +87,14 @@ public class MainController {
 					+ FacadeControllerURLs.DATAACCESS_AUTHBASE + "/"
 					+ FacadeControllerURLs.ACTIVATE_ACCOUNT);
 			result = restTemplate.postForEntity(url, request, String.class).getBody();
+			if(result.equals("Success"))
+			{
+				modelAndView.addObject("activationlink","Success");
+			}
+			else
+			{
+				modelAndView.addObject("activationlink","Failure");
+			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
