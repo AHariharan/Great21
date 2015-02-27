@@ -20,9 +20,10 @@
 		location="WEB-INF/Spring-config/DBConfig.properties" />
 
 
-	
 
-	<bean id="dataSource" class="com.adansoft.great21.encrypt.utilities.EncryptResolverDataSource"
+
+	<bean id="dataSource"
+		class="com.adansoft.great21.encrypt.utilities.EncryptResolverDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
@@ -73,8 +74,16 @@
 		</tx:attributes>
 	</tx:advice>
 
-	<!-- <aop:config> <aop:pointcut id="userServicePointCut" expression="execution(*com.adansoft.great21.dataaccess.dao.*Impl.*)" 
-		/> <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" 
-		/> </aop:config> -->
+	<!-- redis server configs -->
+	<bean id="jedisConnFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		p:use-pool="true" p:hostName="${CACHE_SERVER.HOST}" p:port="${CACHE_SERVER.PORT}" />
 
+	<!-- redis template definition -->
+	<bean id="gameInstanceRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
+		p:connection-factory-ref="jedisConnFactory" />
+
+    <bean id="CacheServerActivateAccountCache" class="com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache"/>
+    
+    
 </beans>

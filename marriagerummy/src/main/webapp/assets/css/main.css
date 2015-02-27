@@ -330,7 +330,6 @@
 	color: rgb(55, 160, 100);
 	text-align: center;
 	border-radius: 9px;
-	
 }
 
 .block-info-success a {
@@ -340,7 +339,7 @@
 
 .block-info-warn {
 	min-height: 20px;
-	padding: 19px;
+/* 	padding: 19px; */
 	margin-bottom: 20px;
 	background-color: rgba(247, 250, 231, 1);
 	border: 2px solid #ECEA25;
@@ -350,10 +349,28 @@
 	color: rgb(140, 144, 8);
 	text-align: center;
 	border-radius: 9px;
-	
 }
 
 .block-info-warn a {
 	color: rgb(140, 144, 8);
+	font-weight: 600;
+}
+
+.block-info-error {
+	min-height: 20px;
+	margin-bottom: 20px;
+	background-color: rgba(250, 237, 239, 1);
+	border: 2px solid rgb(197, 1, 68);
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+	color: rgb(197, 1, 68);
+	text-align: center;
+	border-radius: 9px;
+	box-shadow: 0px 0px 10px 3px gray;
+}
+
+.block-info-error a {
+	color: rgb(197, 1, 68);
 	font-weight: 600;
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
@@ -69,6 +70,23 @@ public class LoginController {
 					+ FacadeControllerURLs.DATAACCESS_AUTHBASE + "/"
 					+ FacadeControllerURLs.SIGNUP);
 			result = restTemplate.postForEntity(url, request, SignupResponse.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping( value = FacadeControllerURLs.ACTIVATE_ACCOUNT, method = RequestMethod.POST)
+	public @ResponseBody String activateAccount(@RequestBody ActivateAccountRequest request)
+	{
+	   
+		String result = null;
+		try {
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ FacadeControllerURLs.DATAACCESS_AUTHBASE + "/"
+					+ FacadeControllerURLs.ACTIVATE_ACCOUNT);
+			result = restTemplate.postForEntity(url, request, String.class).getBody();
 		
 		} catch (Exception e) {
 			e.printStackTrace();

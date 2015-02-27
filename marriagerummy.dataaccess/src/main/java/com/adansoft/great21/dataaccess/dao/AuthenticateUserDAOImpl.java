@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserRoles;
+import com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache;
+import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 import com.adansoft.great21.email.EmailHelper;
@@ -24,6 +26,9 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	
 	@Autowired
 	private EmailHelper emailHelper;
+	
+	@Autowired
+	private CacheServerActivateAccountCache cacheInstance;
 	
 	public AuthenticateUserDAOImpl()
 	{
@@ -116,6 +121,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 		map.put("fname", nickName);
 		
 		 emailManager.SendEmail(emailaddress, emailHelper.CreateSignUpEmail(map), "Signup Confirmation !!!");
+		 
 	}
 	
 	
@@ -127,9 +133,23 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 		String activationUrl = MessageFormat.format(baseActivationUrl
 				+ "/marriagerummy/activate/account?id={0}&authtoken={1}", emailaddress,
 				activationCode);
-		
+		cacheInstance.addEmailActivationtoCache(emailaddress, activationCode);
 		System.out.println("activationURL : " + activationUrl);
 		return activationUrl;
+	}
+	
+	public String activateAccount(ActivateAccountRequest request)
+	{
+		String email = request.getEmailAddress();
+		UserAccounts account = finduserbyEmail(email);
+		if(account == null)
+			return "Failure";
+		else
+		{
+			account.setEnabled(true);
+		    getSessionFactory().getCurrentSession().merge(account);
+		}
+		return "Success";
 	}
 
 }

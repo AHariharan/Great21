@@ -23,13 +23,18 @@
 		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/rummy" access="ROLE_USER" />
 		<intercept-url pattern="/IndexerServices/" access="ROLE_USER" />
+		<intercept-url pattern="/WebSocketGameLauncher/" access="ROLE_USER" />
+		<intercept-url pattern="/WebSocketChatMessages/" access="ROLE_USER" />
+		<intercept-url pattern="/WebSockets/Notifications" access="ROLE_USER" />
+		
+		
 		
 		<session-management session-fixation-protection="newSession">
 			<concurrency-control max-sessions="1"
 				error-if-maximum-exceeded="true" expired-url="/marriagerummy" />
 		</session-management>
 		
-		<form-login default-target-url="/rummy" login-page="/" authentication-failure-url="/loginFailure"
+		<form-login default-target-url="/rummy" login-page="/" authentication-failure-handler-ref="authfailurehandler"
 			login-processing-url="/login" username-parameter="emailid"
 			password-parameter="password" authentication-success-handler-ref="authsuccesshandler"
 			always-use-default-target="true" />
@@ -67,6 +72,9 @@
 
 	<beans:bean id="authsuccesshandler"
 		class="com.adansoft.great21.security.AuthSuccessHandler" />
+		
+		<beans:bean id="authfailurehandler"
+		class="com.adansoft.great21.security.AuthFailureHandler" />
 
 </beans:beans>
 

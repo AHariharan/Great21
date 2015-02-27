@@ -1,6 +1,8 @@
 
 package com.adansoft.great21.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -20,6 +22,17 @@ public class MainController {
 		System.out.println("USER Logged in as " + username);
 		ModelAndView modelAndView = new ModelAndView("RummyPage");
 		modelAndView.addObject("loggedinuser", username);
+		return modelAndView;
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = "/loginFailure", method = {RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView onLoginFailure(HttpServletRequest request)
+	{
+		String reason = (String) request.getSession().getAttribute("reason");
+		System.out.println("The reason inside Login Failure : " + reason);
+		ModelAndView modelAndView = new ModelAndView("LoginFailure");
+		modelAndView.addObject("FailReason",reason);
 		return modelAndView;
 	}
 
