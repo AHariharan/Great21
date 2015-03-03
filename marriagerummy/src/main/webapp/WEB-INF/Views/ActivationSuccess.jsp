@@ -12,35 +12,35 @@
 	href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin"
 	rel="stylesheet">
 <link
-	href="./assets/ThirdPartyLibs/bootstrap-dist/css/bootstrap.min.css"
+	href="../assets/ThirdPartyLibs/bootstrap-dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
-	href="./assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
+	href="../assets/ThirdPartyLibs/font-awesome-4.2.0/css/font-awesome.min.css"
 	rel="stylesheet">
-<link href="./assets/css/Common.css" rel="stylesheet">
-<link href="./assets/css/main.css" rel="stylesheet">
-<link href="./assets/css/navbarupdate.css" rel="stylesheet">
+<link href="../assets/css/Common.css" rel="stylesheet">
+<link href="../assets/css/main.css" rel="stylesheet">
+<link href="../assets/css/navbarupdate.css" rel="stylesheet">
 <meta name="description" content="">
 
 </head>
 <body>
 	<div id="profile"></div>
 	<%@ include
-		file="../includeTemplates/HomePage/Main-Navigation.jsp"%>
+		file="../includeTemplates/ActivateSuccessPage/Main-Navigation.jsp"%>
 	<div class="container-fluid maincontent">
 	    <%@ include file="../includeTemplates/ActivateSuccessPage/activate.jsp" %>
 		<div id="footer" class="section4"></div>
 	</div>
 	<!-- /.container -->
-	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
+	<script src="../assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
 		type="text/javascript"></script>
 	<script
-		src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
+		src="../assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 		type="text/javascript"></script>
-	<script src="./assets/js/CommonUtilities.js" type="text/javascript"></script>
-	<script src="./assets/js/ErrorMessage.js" type="text/javascript"></script>
-	<script src="./assets/js/UIHomeComm.js" type="text/javascript"></script>
-	<script src="./assets/js/Validator.js" type="text/javascript"></script>	
+	<script src="../assets/js/CommonUtilities.js" type="text/javascript"></script>
+	<script src="../assets/js/ErrorMessage.js" type="text/javascript"></script>
+	<script src="../assets/js/UIHomeComm.js" type="text/javascript"></script>
+	<script src="../assets/js/Validator.js" type="text/javascript"></script>	
 	<script>
 		$(document)
 				.ready(

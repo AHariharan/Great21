@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adansoft.great21.dataaccess.dao.AuthenticateUserDAOImpl;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
+import com.adansoft.great21.dataaccess.schemas.ResendActivationRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 
@@ -43,8 +44,17 @@ public class AuthenticationController {
 	@RequestMapping( value = DataAccessServiceURLs.ACTIVATE_ACCOUNT, method = RequestMethod.POST)
 	public @ResponseBody String activateAccount(@RequestBody ActivateAccountRequest request)
 	{
-		System.out.println("Signup Request Received :- " + request.getEmailAddress());
+		System.out.println("activation request Received :- " + request.getEmailAddress());
 		String response = authdao.activateAccount(request);
+		return response;
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.RESEND_ACTIVATION, method = RequestMethod.POST)
+	public @ResponseBody String resendActivationLink(@RequestBody ResendActivationRequest request)
+	{
+		System.out.println("resend activation link :- " + request.getEmailAddress());
+		String response = authdao.resendActivationLink(request);
 		return response;
 	}
 

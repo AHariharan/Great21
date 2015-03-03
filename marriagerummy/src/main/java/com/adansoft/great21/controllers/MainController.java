@@ -79,7 +79,7 @@ public class MainController {
 	@RequestMapping( value = "/activate/account", method = {RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView activateAccount(@RequestParam(value="id") String emailid,@RequestParam(value="authtoken") String activationCode)
 	{
-		ModelAndView modelAndView = new ModelAndView("ActivateSuccess");
+		ModelAndView modelAndView = new ModelAndView("ActivationSuccess");
 		ActivateAccountRequest request = new ActivateAccountRequest(emailid,activationCode);
 		String result = null;
 		try {

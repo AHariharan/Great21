@@ -94,6 +94,22 @@ public class LoginController {
 		return result;
 	}
 	
+	@RequestMapping( value = FacadeControllerURLs.RESEND_ACTIVATION, method = RequestMethod.POST)
+	public @ResponseBody String resendActivationLink(@RequestBody ActivateAccountRequest request)
+	{
+	   
+		String result = null;
+		try {
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ FacadeControllerURLs.DATAACCESS_AUTHBASE + "/"
+					+ FacadeControllerURLs.RESEND_ACTIVATION);
+			result = restTemplate.postForEntity(url, request, String.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	
 	@ExceptionHandler

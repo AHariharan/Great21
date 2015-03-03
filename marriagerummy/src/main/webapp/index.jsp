@@ -53,9 +53,8 @@
 	<script src="./assets/js/ErrorMessage.js" type="text/javascript"></script>
 	<script src="./assets/js/UIHomeComm.js" type="text/javascript"></script>
 	<script src="./assets/js/Validator.js" type="text/javascript"></script>
-
-	<%@ include
-		file="./WEB-INF/includeTemplates/HomePage/googleplusauth.jsp"%>
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+	
 	<%@ include
 		file="./WEB-INF/includeTemplates/HomePage/facebooklogin.jsp"%>
 

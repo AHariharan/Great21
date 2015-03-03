@@ -43,7 +43,7 @@
 		</form:form>
 	</c:if>
 
-	<c:if test="${activationlink == 'Faliure'}">
+	<c:if test="${activationlink == 'Failure'}">
 		<div id="accountnotactive" class="block-info-error">
 			<h3>
 				<i class="fa fa-lightbulb-o"></i> Account activation failed !!!

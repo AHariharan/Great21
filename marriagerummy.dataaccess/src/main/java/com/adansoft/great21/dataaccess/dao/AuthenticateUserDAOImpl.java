@@ -12,6 +12,7 @@ import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserRoles;
 import com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache;
 import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
+import com.adansoft.great21.dataaccess.schemas.ResendActivationRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
 import com.adansoft.great21.email.EmailHelper;
@@ -126,13 +127,14 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	
 	
 	private String generateActivationURL(String emailaddress)
-	{
+	{ 
 		String baseActivationUrl = "http://localhost:48080";
 		String message = UUID.randomUUID().toString() + UUID.randomUUID().toString();
 		String activationCode = HashingUtility.encodeMessage(message);
 		String activationUrl = MessageFormat.format(baseActivationUrl
 				+ "/marriagerummy/activate/account?id={0}&authtoken={1}", emailaddress,
 				activationCode);
+		System.out.println("adding email " + emailaddress + " with activationcode " + activationCode);
 		cacheInstance.addEmailActivationtoCache(emailaddress, activationCode);
 		System.out.println("activationURL : " + activationUrl);
 		return activationUrl;
@@ -146,10 +148,29 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 			return "Failure";
 		else
 		{
+			String activationcode = cacheInstance.lookupActivationbyEmail(request.getEmailAddress());
+			System.out.println("While Activating : " + activationcode + "  ::: request Activation  :" + request.getActivationCode());
+			
+			if(!activationcode.equals(request.getActivationCode()))
+				return "Failure";
 			account.setEnabled(true);
 		    getSessionFactory().getCurrentSession().merge(account);
 		}
 		return "Success";
 	}
+	
+	public String resendActivationLink(ResendActivationRequest request)
+	{
+		String email = request.getEmailAddress();
+		UserAccounts account = finduserbyEmail(email);
+		if(account == null)
+			 return "Failure";
+		if(account.isEnabled())
+			 return "Account already active";
+		sendEmail(email, account.getNickName());		
+		return "Success";
+		
+	}
+	
 
 }

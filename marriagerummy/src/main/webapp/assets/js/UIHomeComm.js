@@ -37,6 +37,7 @@ MarriageRummy.Utilities.CommunicationUtilities.HomePageCommunicator = function()
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS = function() {
 	var self = this;
 	self.signUp = "/marriagerummy/UserAccess/User/Signup";
+	self.resendActivation = "/marriagerummy/UserAccess/User/activation/resend";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = function() {
@@ -52,11 +53,26 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = funct
 		};
 		return formdata;
 	};
+	
+	self.resendActivationLinkRequest = function(emailaddress) {
+		var formdata = {
+			"emailAddress" : emailaddress
+			};
+		return formdata;
+	};
 
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function() {
 	var self = this;
+	
+	var enableResendActivationLink = function()
+	{
+		$('#signupsuccessful a').on("click",function(){
+			var emailadd = $('#signupsuccessful a').attr("data-emailid");
+			resendActivationLink(emailadd);
+		});
+	};
 
 	var addErrorToPanel = function(panel, message) {
 		var content = '<p><a><i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;'
@@ -64,11 +80,39 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function() 
 		$('#' + panel).empty();
 		$('#' + panel).append(content);
 	};
+	
+	self.onResendActivationSuccess = function()
+	{
+		$('#signupsuccessful').slideUp();
+		$('#resendSuccessful').slideDown();
+	};
+	
+	self.onResendActivationFailure = function()
+	{
+		$('#resendFailure').slideDown();
+	};
+	
+	var resendActivationLink = function(emailaddress) // 
+	{
+		var url = marriageRummy.requesturl.resendActivation;
+		var onSuccessCallbackfn = marriageRummy.usercallback.onResendActivationSuccess;
+		var onFailureCallbackfn = marriageRummy.usercallback.onResendActivationFailure;
+		var formdata = marriageRummy.requestpreparer.signUpRequest(
+				emailaddress);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+
+	};
 
 	self.onSignUpSuccess = function(data, textstatus, Jhxr, requestObj) {
 		console.log("Signup Response :- " + JSON.stringify(data));
 		if (data.valid) {
 			$("#signupsuccessful").slideDown();
+            $('#signupsuccessful a').attr("data-emailid",requestObj.formdata.emailAddress);
+            enableResendActivationLink();
 		} else {
 			$('#signupsuccessful').hide();
 			$('#accountnotactive').hide();
@@ -134,6 +178,8 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 
 	};
+	
+
 
 };
 

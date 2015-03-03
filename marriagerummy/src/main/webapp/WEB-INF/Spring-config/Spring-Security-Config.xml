@@ -41,6 +41,15 @@
 			
 		<logout logout-url="/logout"  success-handler-ref="rummyLogoutHandler"
 			 delete-cookies="JSESSIONID,SID" />
+			 
+		 <!-- <openid-login login-page="/" default-target-url="/rummy" login-processing-url="/login" user-service-ref="googleAuthenticationService">
+	          <attribute-exchange identifier-match="https://www.google.com">
+	              <openid-attribute name="axContextEmail" type="http://axschema.org/contact/email" required="true"/>
+	              <openid-attribute name="oiContactEmail" type="http://schema.openid.net/contact/email" required="true"/>
+	              <openid-attribute name="axNamePersonFullname" type="http://axschema.org/namePerson" required="true"/>
+	          </attribute-exchange>
+		 </openid-login> -->
+		 
 		<csrf />
 	</http>
 

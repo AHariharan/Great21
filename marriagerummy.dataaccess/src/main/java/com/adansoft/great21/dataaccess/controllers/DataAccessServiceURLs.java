@@ -6,5 +6,6 @@ public class DataAccessServiceURLs {
 	public final static String FINDUSER = "/UserDetails/Get";
 	public final static String SIGNUP = "/User/Signup";
 	public final static String ACTIVATE_ACCOUNT = "/User/Activate";
+	public final static String RESEND_ACTIVATION = "/User/activation/resend";
 	
 }
