@@ -1567,7 +1567,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	
 	
 	var dropgame = function() {
-		$('#cardContent')
+		$('.cardContent')
 				.children()
 				.each(
 						function() {
