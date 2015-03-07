@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 6, 2015 3:10:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.GamePlayers" table="game_players" catalog="Rummy">
         <id name="gameInstanceId" type="string">
@@ -11,29 +11,29 @@
         <property name="numOfPlayers" type="java.lang.Integer">
             <column name="NUM_OF_PLAYERS" />
         </property>
-        <property name="player1Nick" type="string">
-            <column name="PLAYER1_NICK" length="45" />
+        <property name="player1Idn" type="java.lang.Long">
+            <column name="PLAYER1_IDN" />
         </property>
-        <property name="player2Nick" type="string">
-            <column name="PLAYER2_NICK" length="45" />
+        <property name="player2Idn" type="java.lang.Long">
+            <column name="PLAYER2_IDN" />
         </property>
-        <property name="player3Nick" type="string">
-            <column name="PLAYER3_NICK" length="45" />
+        <property name="player3Idn" type="java.lang.Long">
+            <column name="PLAYER3_IDN" />
         </property>
-        <property name="player4Nick" type="string">
-            <column name="PLAYER4_NICK" length="45" />
+        <property name="player4Idn" type="java.lang.Long">
+            <column name="PLAYER4_IDN" />
         </property>
-        <property name="player5Nick" type="string">
-            <column name="PLAYER5_NICK" length="45" />
+        <property name="player5Idn" type="java.lang.Long">
+            <column name="PLAYER5_IDN" />
         </property>
-        <property name="player6Nick" type="string">
-            <column name="PLAYER6_NICK" length="45" />
+        <property name="player6Idn" type="java.lang.Long">
+            <column name="PLAYER6_IDN" />
         </property>
-        <property name="player7Nick" type="string">
-            <column name="PLAYER7_NICK" length="45" />
+        <property name="player7Idn" type="java.lang.Long">
+            <column name="PLAYER7_IDN" />
         </property>
-        <property name="player8Nick" type="string">
-            <column name="PLAYER8_NICK" length="45" />
+        <property name="player8Idn" type="java.lang.Long">
+            <column name="PLAYER8_IDN" />
         </property>
     </class>
 </hibernate-mapping>

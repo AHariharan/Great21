@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 6, 2015 3:10:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.GameRound" table="game_round" catalog="Rummy">
         <composite-id name="id" class="com.adansoft.great21.dataaccess.home.GameRoundId">
@@ -12,8 +12,8 @@
                 <column name="GAME_INSTANCE_ID" length="45" />
             </key-property>
         </composite-id>
-        <property name="status" type="timestamp">
-            <column name="STATUS" length="19" />
+        <property name="status" type="string">
+            <column name="STATUS" length="35" />
         </property>
         <property name="createdDate" type="timestamp">
             <column name="CREATED_DATE" length="19" />

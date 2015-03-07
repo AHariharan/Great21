@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Feb 20, 2015 11:53:50 AM by Hibernate Tools 3.4.0.CR1
+// Generated Mar 6, 2015 4:06:59 PM by Hibernate Tools 4.0.0
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ import java.util.Date;
 public class GameRound implements java.io.Serializable {
 
 	private GameRoundId id;
-	private Date status;
+	private String status;
 	private Date createdDate;
 	private Date completedDate;
 
@@ -21,7 +21,7 @@ public class GameRound implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public GameRound(GameRoundId id, Date status, Date createdDate,
+	public GameRound(GameRoundId id, String status, Date createdDate,
 			Date completedDate) {
 		this.id = id;
 		this.status = status;
@@ -37,11 +37,11 @@ public class GameRound implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Date getStatus() {
+	public String getStatus() {
 		return this.status;
 	}
 
-	public void setStatus(Date status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

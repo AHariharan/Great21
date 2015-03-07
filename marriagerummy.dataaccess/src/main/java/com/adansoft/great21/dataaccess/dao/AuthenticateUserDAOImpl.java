@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
+import com.adansoft.great21.dataaccess.entities.UserAccountsId;
 import com.adansoft.great21.dataaccess.entities.UserRoles;
 import com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache;
 import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
@@ -85,10 +86,11 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 			if(findUserbyNickName(request.getNickName()) == null)
 					{
 				        UserRoles roles = new UserRoles();
-				        roles.setNickName(request.getNickName());
 				        roles.setGrantedRole("ROLE_USER");
 				        UserAccounts account = new UserAccounts();
-				        account.setEmailAddr(request.getEmailAddress());
+				        UserAccountsId id = new UserAccountsId();
+				        id.setEmailAddr(request.getEmailAddress());
+				        account.setId(id);
 				        account.setNickName(request.getNickName());
 				        account.setPassword(request.getPassword());
 				        account.setEnabled(false);

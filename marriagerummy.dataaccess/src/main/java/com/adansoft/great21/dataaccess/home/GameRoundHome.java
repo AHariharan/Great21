@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.home;
 
-// Generated Feb 20, 2015 1:38:22 PM by Hibernate Tools 3.4.0.CR1
+// Generated Mar 6, 2015 3:10:36 PM by Hibernate Tools 4.0.0
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
 import com.adansoft.great21.dataaccess.entities.GameRound;
+import com.adansoft.great21.dataaccess.entities.GameRoundId;
 
 /**
  * Home object for domain model class GameRound.
@@ -94,7 +95,7 @@ public class GameRoundHome {
 	}
 
 	public GameRound findById(
-			GameRound id) {
+			GameRoundId id) {
 		log.debug("getting GameRound instance with id: " + id);
 		try {
 			GameRound instance = (GameRound) sessionFactory.getCurrentSession()
