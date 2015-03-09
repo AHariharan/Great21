@@ -87,7 +87,7 @@
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
-				<p>Neo Matrix test user</p>
+				<p>${BasicDetailResponse.nickname}</p>
 			</div>
 			<ul>
 				<li><i class="fa fa-user"></i></li>
@@ -104,7 +104,7 @@
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
 				<i class="fa fa-user"></i>
-				<p>Neo Matrix</p>
+				<p>${BasicDetailResponse.nickname}</p>
 			</div>
 			<ul>
 				<li data-divid="profileinfo"><div class="sidebar-arrow-left"></div>

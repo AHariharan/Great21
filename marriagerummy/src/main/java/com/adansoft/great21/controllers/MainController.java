@@ -17,9 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.adansoft.great21.controller.helpers.RestServiceHelper;
 import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
 import com.adansoft.great21.router.FacadetoDataAccessMapper;
+import com.adansoft.great21.security.RummyUser;
 
 @Controller
 public class MainController {
@@ -57,10 +61,13 @@ public class MainController {
 	@RequestMapping( value = "/rummy", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView afterLogin(@AuthenticationPrincipal Authentication authentication)
 	{
-		String username = authentication.getName();
-		System.out.println("USER Logged in as " + username);
+		RummyUser user = (RummyUser) authentication.getPrincipal();
+		System.out.println("USER Logged in class: " + authentication.getPrincipal().getClass());		
+		GetUserBasicDetailsRequest request = new GetUserBasicDetailsRequest(user.getUserid(), user.getEmailaddr());
+		GetUserBasicDetailsResponse response = RestServiceHelper.getBasicDetails(mapper, restTemplate, request);
 		ModelAndView modelAndView = new ModelAndView("RummyPage");
-		modelAndView.addObject("loggedinuser", username);
+		modelAndView.addObject("loggedinuser", response.getNickname());
+		modelAndView.addObject("BasicDetailResponse", response);
 		return modelAndView;
 	}
 	

@@ -3,8 +3,8 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 6, 2015 3:10:35 PM by Hibernate Tools 4.0.0 -->
 <hibernate-mapping>
-    <class name="com.adansoft.great21.dataaccess.home.UserAccounts" table="user_accounts" catalog="Rummy">
-        <composite-id name="id" class="com.adansoft.great21.dataaccess.home.UserAccountsId">
+    <class name="com.adansoft.great21.dataaccess.entities.UserAccounts" table="user_accounts" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.entities.UserAccountsId">
             <key-property name="userId" type="long">
                 <column name="USER_ID" />
             </key-property>

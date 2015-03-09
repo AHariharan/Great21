@@ -20,13 +20,13 @@
 					role="button" aria-expanded="false"><i class="fa fa-magic"></i>Create
 						Game <span class="caret"></span> </a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="SEVENCARD_CLOSED" >7 Card Rummy closed Joker</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="SEVENCARD_OPEN" >7 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal"  data-backdrop="static"  data-lobby="Beginner" data-gametype="SEVENCARD_CLOSED" >7 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-backdrop="static" data-lobby="Beginner" data-gametype="SEVENCARD_OPEN" >7 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="THIRTEEN_CLOSED">13 Card Rummy closed Joker</a></li>
-						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="THIRTEEN_OPEN">13 Card Rummy open Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-backdrop="static"  data-lobby="Beginner" data-gametype="THIRTEEN_CLOSED">13 Card Rummy closed Joker</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-backdrop="static"  data-lobby="Beginner" data-gametype="THIRTEEN_OPEN">13 Card Rummy open Joker</a></li>
 						<li class="divider"></li>
-						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-lobby="Beginner" data-gametype="TWENTYONE">21 Card marriage rummy</a></li>
+						<li><a href="#" data-toggle="modal" data-target="#creategamemodal" data-backdrop="static" data-lobby="Beginner" data-gametype="TWENTYONE">21 Card marriage rummy</a></li>
 					</ul></li>
 				<li role="presentation"><a href="#"><i
 						class="fa fa-dot-circle-o"></i>Quick Join</a></li>

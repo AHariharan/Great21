@@ -66,7 +66,7 @@ public class AuthenticationService implements UserDetailsService {
 			{
 			    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			    authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-			    User user = new User(result.getNickName(), result.getPassword(), result.isEnabled(), true, true, true, authorities);
+			    RummyUser user = new RummyUser(result.getNickName(), result.getPassword(), result.isEnabled(), true, true, true, authorities,result.getId().getUserId(),result.getNickName(),result.getId().getEmailAddr());
 			    return user;
 			}
 			

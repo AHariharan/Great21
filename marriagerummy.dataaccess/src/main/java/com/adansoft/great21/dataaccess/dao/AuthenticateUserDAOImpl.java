@@ -1,6 +1,7 @@
 package com.adansoft.great21.dataaccess.dao;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -8,6 +9,7 @@ import java.util.UUID;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAccountsId;
 import com.adansoft.great21.dataaccess.entities.UserRoles;
@@ -21,6 +23,7 @@ import com.adansoft.great21.email.EmailManagerDao;
 import com.adansoft.great21.ulitity.HashingUtility;
 
 public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
+	
 	
 	
 	@Autowired
@@ -42,7 +45,7 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	@SuppressWarnings("unchecked")
 	public UserAccounts finduserbyEmail(String emailid) {
 		List<UserAccounts> list = sessionFactory.getCurrentSession().
-		createQuery("from UserAccounts where emailAddr = ?").
+		createQuery("from UserAccounts where id.emailAddr = ?").
 		setParameter(0, emailid)
 		.list();
 		
@@ -85,7 +88,12 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 		{
 			if(findUserbyNickName(request.getNickName()) == null)
 					{
+				        
 				        UserRoles roles = new UserRoles();
+				        RummyStats stats = new RummyStats();
+				        stats.setRating(DatabaseValueConstants.RUMMY_STAT_RATING_DEFAULT);
+				        stats.setCash(DatabaseValueConstants.RUMMY_STAT_CASH_DEFAULT);
+				        stats.setWinPercent(DatabaseValueConstants.RUMMY_STAT_WIN_PERCENT);
 				        roles.setGrantedRole("ROLE_USER");
 				        UserAccounts account = new UserAccounts();
 				        UserAccountsId id = new UserAccountsId();
@@ -93,9 +101,18 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 				        account.setId(id);
 				        account.setNickName(request.getNickName());
 				        account.setPassword(request.getPassword());
+				        account.setCreatedDate(Calendar.getInstance().getTime());
 				        account.setEnabled(false);
-				        sessionFactory.getCurrentSession().persist(roles);
 				        sessionFactory.getCurrentSession().persist(account);
+				        UserAccounts accountnew = finduserbyEmail(request.getEmailAddress());
+				        if(accountnew != null)
+				        {
+				            System.out.println("Account userid :" + accountnew.getId().getUserId());
+				            roles.setUserId(accountnew.getId().getUserId());
+				            stats.setUserId(accountnew.getId().getUserId());
+				        }
+				        sessionFactory.getCurrentSession().persist(roles);
+				        sessionFactory.getCurrentSession().persist(stats);
 				        response.setValid(true);
 				        response.setMessage("Signup Successful");
 				        sendEmail(request.getEmailAddress(),request.getNickName());				        

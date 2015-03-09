@@ -39,6 +39,7 @@
 			<list>
 				<value>ORM/Hibernate-UserAccounts.hbm.xml</value>
 				<value>ORM/Hibernate-UserRoles.hbm.xml</value>
+				<value>ORM/Hibernate-RummyStats.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -59,6 +60,10 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
+	<bean id="basedataDAO"
+		class="com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 
 	<tx:annotation-driven />
 	<bean id="transactionManager"
@@ -83,7 +88,8 @@
 	<bean id="gameInstanceRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate"
 		p:connection-factory-ref="jedisConnFactory" />
 
-    <bean id="CacheServerActivateAccountCache" class="com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache"/>
-    
-    
+	<bean id="CacheServerActivateAccountCache"
+		class="com.adansoft.great21.dataaccess.helpers.CacheServerActivateAccountCache" />
+
+
 </beans>

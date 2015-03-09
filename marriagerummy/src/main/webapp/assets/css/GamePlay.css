@@ -458,6 +458,7 @@
 	left: 230px;
 	top: 5px;
 }
+
 .ThirteenCard-2-pos {
 	-moz-transform: rotate(-109deg);
 	-webkit-transform: rotate(-109deg);
@@ -470,6 +471,7 @@
 	left: 230px;
 	top: 5px;
 }
+
 .ThirteenCard-3-pos {
 	-moz-transform: rotate(-69deg);
 	-webkit-transform: rotate(-69deg);
@@ -481,8 +483,8 @@
 	z-index: 1;
 	left: 230px;
 	top: 5px;
-	
 }
+
 .ThirteenCard-4-pos {
 	-moz-transform: rotate(-49deg);
 	-webkit-transform: rotate(-49deg);
@@ -594,6 +596,7 @@
 	top: -1127px;
 	left: 232px
 }
+
 .ThirteenCard-12-pos {
 	-moz-transform: rotate(49deg);
 	-webkit-transform: rotate(49deg);
@@ -606,6 +609,7 @@
 	top: -1127px;
 	left: 232px
 }
+
 .ThirteenCard-13-pos {
 	-moz-transform: rotate(49deg);
 	-webkit-transform: rotate(49deg);
@@ -618,6 +622,7 @@
 	top: -1127px;
 	left: 232px
 }
+
 .ThirteenCard-14-pos {
 	-moz-transform: rotate(49deg);
 	-webkit-transform: rotate(49deg);
@@ -1307,4 +1312,14 @@
 
 .showPoints .table-striped>tbody>tr:nth-child(odd) {
 	background-color: #323232;
+}
+
+.clickopentag {
+	position: relative;
+	left: -45px;
+	transform: rotate(-77deg);
+	top: -133px;
+	font-size: 17px;
+	min-width: 221px;
+	color: rgb(193, 126, 85);
 }

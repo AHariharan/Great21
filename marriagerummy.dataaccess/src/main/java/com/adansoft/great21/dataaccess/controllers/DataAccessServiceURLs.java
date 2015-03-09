@@ -8,4 +8,7 @@ public class DataAccessServiceURLs {
 	public final static String ACTIVATE_ACCOUNT = "/User/Activate";
 	public final static String RESEND_ACTIVATION = "/User/activation/resend";
 	
+	public final static String DATAACCESS_BASE = "/DataAccess/Data";	
+	public final static String BASIC_DETAILS = "/BasicUserDetails/Get";
+	
 }
