@@ -12,16 +12,17 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import com.adansoft.great21.dataaccess.entities.GamePlayers;
+import com.adansoft.great21.dataaccess.entities.UserFriends;
+import com.adansoft.great21.dataaccess.entities.UserFriendsId;
 
 /**
- * Home object for domain model class GamePlayers.
- * @see com.adansoft.great21.dataaccess.home.GamePlayers
+ * Home object for domain model class UserFriends.
+ * @see com.adansoft.great21.dataaccess.home.UserFriends
  * @author Hibernate Tools
  */
-public class GamePlayersHome {
+public class UserFriendsHome {
 
-	private static final Log log = LogFactory.getLog(GamePlayersHome.class);
+	private static final Log log = LogFactory.getLog(UserFriendsHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -36,8 +37,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void persist(GamePlayers transientInstance) {
-		log.debug("persisting GamePlayers instance");
+	public void persist(UserFriends transientInstance) {
+		log.debug("persisting UserFriends instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -47,8 +48,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachDirty(GamePlayers instance) {
-		log.debug("attaching dirty GamePlayers instance");
+	public void attachDirty(UserFriends instance) {
+		log.debug("attaching dirty UserFriends instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -58,8 +59,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachClean(GamePlayers instance) {
-		log.debug("attaching clean GamePlayers instance");
+	public void attachClean(UserFriends instance) {
+		log.debug("attaching clean UserFriends instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -69,8 +70,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void delete(GamePlayers persistentInstance) {
-		log.debug("deleting GamePlayers instance");
+	public void delete(UserFriends persistentInstance) {
+		log.debug("deleting UserFriends instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -80,10 +81,10 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers merge(GamePlayers detachedInstance) {
-		log.debug("merging GamePlayers instance");
+	public UserFriends merge(UserFriends detachedInstance) {
+		log.debug("merging UserFriends instance");
 		try {
-			GamePlayers result = (GamePlayers) sessionFactory
+			UserFriends result = (UserFriends) sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -93,12 +94,13 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers findById(java.lang.String id) {
-		log.debug("getting GamePlayers instance with id: " + id);
+	public UserFriends findById(
+			UserFriendsId id) {
+		log.debug("getting UserFriends instance with id: " + id);
 		try {
-			GamePlayers instance = (GamePlayers) sessionFactory
+			UserFriends instance = (UserFriends) sessionFactory
 					.getCurrentSession().get(
-							"com.adansoft.great21.dataaccess.home.GamePlayers",
+							"com.adansoft.great21.dataaccess.home.UserFriends",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,13 +114,13 @@ public class GamePlayersHome {
 		}
 	}
 
-	public List findByExample(GamePlayers instance) {
-		log.debug("finding GamePlayers instance by example");
+	public List findByExample(UserFriends instance) {
+		log.debug("finding UserFriends instance by example");
 		try {
 			List results = sessionFactory
 					.getCurrentSession()
 					.createCriteria(
-							"com.adansoft.great21.dataaccess.home.GamePlayers")
+							"com.adansoft.great21.dataaccess.home.UserFriends")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

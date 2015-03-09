@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.GamejoinRequest" table="gamejoin_request" catalog="Rummy">
+        <id name="requestId" type="long">
+            <column name="REQUEST_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="requestorIdn" type="java.lang.Long">
+            <column name="REQUESTOR_IDN" />
+        </property>
+        <property name="gameInstanceId" type="string">
+            <column name="GAME_INSTANCE_ID" length="65" />
+        </property>
+    </class>
+</hibernate-mapping>

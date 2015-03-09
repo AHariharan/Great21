@@ -12,16 +12,16 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import com.adansoft.great21.dataaccess.entities.GamePlayers;
+import com.adansoft.great21.dataaccess.entities.FriendRequest;
 
 /**
- * Home object for domain model class GamePlayers.
- * @see com.adansoft.great21.dataaccess.home.GamePlayers
+ * Home object for domain model class FriendRequest.
+ * @see com.adansoft.great21.dataaccess.home.FriendRequest
  * @author Hibernate Tools
  */
-public class GamePlayersHome {
+public class FriendRequestHome {
 
-	private static final Log log = LogFactory.getLog(GamePlayersHome.class);
+	private static final Log log = LogFactory.getLog(FriendRequestHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -36,8 +36,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void persist(GamePlayers transientInstance) {
-		log.debug("persisting GamePlayers instance");
+	public void persist(FriendRequest transientInstance) {
+		log.debug("persisting FriendRequest instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -47,8 +47,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachDirty(GamePlayers instance) {
-		log.debug("attaching dirty GamePlayers instance");
+	public void attachDirty(FriendRequest instance) {
+		log.debug("attaching dirty FriendRequest instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -58,8 +58,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachClean(GamePlayers instance) {
-		log.debug("attaching clean GamePlayers instance");
+	public void attachClean(FriendRequest instance) {
+		log.debug("attaching clean FriendRequest instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -69,8 +69,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void delete(GamePlayers persistentInstance) {
-		log.debug("deleting GamePlayers instance");
+	public void delete(FriendRequest persistentInstance) {
+		log.debug("deleting FriendRequest instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -80,10 +80,10 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers merge(GamePlayers detachedInstance) {
-		log.debug("merging GamePlayers instance");
+	public FriendRequest merge(FriendRequest detachedInstance) {
+		log.debug("merging FriendRequest instance");
 		try {
-			GamePlayers result = (GamePlayers) sessionFactory
+			FriendRequest result = (FriendRequest) sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -93,12 +93,12 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers findById(java.lang.String id) {
-		log.debug("getting GamePlayers instance with id: " + id);
+	public FriendRequest findById(java.lang.Long id) {
+		log.debug("getting FriendRequest instance with id: " + id);
 		try {
-			GamePlayers instance = (GamePlayers) sessionFactory
-					.getCurrentSession().get(
-							"com.adansoft.great21.dataaccess.home.GamePlayers",
+			FriendRequest instance = (FriendRequest) sessionFactory
+					.getCurrentSession()
+					.get("com.adansoft.great21.dataaccess.home.FriendRequest",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,13 +112,13 @@ public class GamePlayersHome {
 		}
 	}
 
-	public List findByExample(GamePlayers instance) {
-		log.debug("finding GamePlayers instance by example");
+	public List findByExample(FriendRequest instance) {
+		log.debug("finding FriendRequest instance by example");
 		try {
 			List results = sessionFactory
 					.getCurrentSession()
 					.createCriteria(
-							"com.adansoft.great21.dataaccess.home.GamePlayers")
+							"com.adansoft.great21.dataaccess.home.FriendRequest")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

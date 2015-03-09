@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.GameStats" table="game_stats" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.home.GameStatsId">
+            <key-property name="gameInstanceId" type="string">
+                <column name="GAME_INSTANCE_ID" length="65" />
+            </key-property>
+            <key-property name="wonByUserid" type="long">
+                <column name="WON_BY_USERID" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

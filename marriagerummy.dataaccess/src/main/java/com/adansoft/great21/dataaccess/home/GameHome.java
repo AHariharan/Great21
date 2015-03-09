@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.home;
 
-// Generated Mar 6, 2015 3:10:36 PM by Hibernate Tools 4.0.0
+// Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.List;
 

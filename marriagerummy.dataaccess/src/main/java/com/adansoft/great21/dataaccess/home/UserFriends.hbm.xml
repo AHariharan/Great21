@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.UserFriends" table="user_friends" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.home.UserFriendsId">
+            <key-property name="linkId" type="long">
+                <column name="LINK_ID" />
+            </key-property>
+            <key-property name="userId" type="long">
+                <column name="USER_ID" />
+            </key-property>
+        </composite-id>
+        <property name="friendsIdn" type="java.lang.Long">
+            <column name="FRIENDS_IDN" />
+        </property>
+        <property name="establishedDate" type="timestamp">
+            <column name="ESTABLISHED_DATE" length="19" not-null="true" />
+        </property>
+        <property name="expirationDate" type="timestamp">
+            <column name="EXPIRATION_DATE" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

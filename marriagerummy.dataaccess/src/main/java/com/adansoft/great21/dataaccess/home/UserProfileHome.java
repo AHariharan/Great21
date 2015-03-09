@@ -12,16 +12,16 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import com.adansoft.great21.dataaccess.entities.GamePlayers;
+import com.adansoft.great21.dataaccess.entities.UserProfile;
 
 /**
- * Home object for domain model class GamePlayers.
- * @see com.adansoft.great21.dataaccess.home.GamePlayers
+ * Home object for domain model class UserProfile.
+ * @see com.adansoft.great21.dataaccess.home.UserProfile
  * @author Hibernate Tools
  */
-public class GamePlayersHome {
+public class UserProfileHome {
 
-	private static final Log log = LogFactory.getLog(GamePlayersHome.class);
+	private static final Log log = LogFactory.getLog(UserProfileHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -36,8 +36,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void persist(GamePlayers transientInstance) {
-		log.debug("persisting GamePlayers instance");
+	public void persist(UserProfile transientInstance) {
+		log.debug("persisting UserProfile instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -47,8 +47,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachDirty(GamePlayers instance) {
-		log.debug("attaching dirty GamePlayers instance");
+	public void attachDirty(UserProfile instance) {
+		log.debug("attaching dirty UserProfile instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -58,8 +58,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachClean(GamePlayers instance) {
-		log.debug("attaching clean GamePlayers instance");
+	public void attachClean(UserProfile instance) {
+		log.debug("attaching clean UserProfile instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -69,8 +69,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void delete(GamePlayers persistentInstance) {
-		log.debug("deleting GamePlayers instance");
+	public void delete(UserProfile persistentInstance) {
+		log.debug("deleting UserProfile instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -80,10 +80,10 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers merge(GamePlayers detachedInstance) {
-		log.debug("merging GamePlayers instance");
+	public UserProfile merge(UserProfile detachedInstance) {
+		log.debug("merging UserProfile instance");
 		try {
-			GamePlayers result = (GamePlayers) sessionFactory
+			UserProfile result = (UserProfile) sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -93,12 +93,12 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers findById(java.lang.String id) {
-		log.debug("getting GamePlayers instance with id: " + id);
+	public UserProfile findById(long id) {
+		log.debug("getting UserProfile instance with id: " + id);
 		try {
-			GamePlayers instance = (GamePlayers) sessionFactory
+			UserProfile instance = (UserProfile) sessionFactory
 					.getCurrentSession().get(
-							"com.adansoft.great21.dataaccess.home.GamePlayers",
+							"com.adansoft.great21.dataaccess.home.UserProfile",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,13 +112,13 @@ public class GamePlayersHome {
 		}
 	}
 
-	public List findByExample(GamePlayers instance) {
-		log.debug("finding GamePlayers instance by example");
+	public List findByExample(UserProfile instance) {
+		log.debug("finding UserProfile instance by example");
 		try {
 			List results = sessionFactory
 					.getCurrentSession()
 					.createCriteria(
-							"com.adansoft.great21.dataaccess.home.GamePlayers")
+							"com.adansoft.great21.dataaccess.home.UserProfile")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

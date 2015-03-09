@@ -12,16 +12,16 @@ import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 
-import com.adansoft.great21.dataaccess.entities.GamePlayers;
+import com.adansoft.great21.dataaccess.entities.GamejoinRequest;
 
 /**
- * Home object for domain model class GamePlayers.
- * @see com.adansoft.great21.dataaccess.home.GamePlayers
+ * Home object for domain model class GamejoinRequest.
+ * @see com.adansoft.great21.dataaccess.home.GamejoinRequest
  * @author Hibernate Tools
  */
-public class GamePlayersHome {
+public class GamejoinRequestHome {
 
-	private static final Log log = LogFactory.getLog(GamePlayersHome.class);
+	private static final Log log = LogFactory.getLog(GamejoinRequestHome.class);
 
 	private final SessionFactory sessionFactory = getSessionFactory();
 
@@ -36,8 +36,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void persist(GamePlayers transientInstance) {
-		log.debug("persisting GamePlayers instance");
+	public void persist(GamejoinRequest transientInstance) {
+		log.debug("persisting GamejoinRequest instance");
 		try {
 			sessionFactory.getCurrentSession().persist(transientInstance);
 			log.debug("persist successful");
@@ -47,8 +47,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachDirty(GamePlayers instance) {
-		log.debug("attaching dirty GamePlayers instance");
+	public void attachDirty(GamejoinRequest instance) {
+		log.debug("attaching dirty GamejoinRequest instance");
 		try {
 			sessionFactory.getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -58,8 +58,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void attachClean(GamePlayers instance) {
-		log.debug("attaching clean GamePlayers instance");
+	public void attachClean(GamejoinRequest instance) {
+		log.debug("attaching clean GamejoinRequest instance");
 		try {
 			sessionFactory.getCurrentSession().lock(instance, LockMode.NONE);
 			log.debug("attach successful");
@@ -69,8 +69,8 @@ public class GamePlayersHome {
 		}
 	}
 
-	public void delete(GamePlayers persistentInstance) {
-		log.debug("deleting GamePlayers instance");
+	public void delete(GamejoinRequest persistentInstance) {
+		log.debug("deleting GamejoinRequest instance");
 		try {
 			sessionFactory.getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -80,10 +80,10 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers merge(GamePlayers detachedInstance) {
-		log.debug("merging GamePlayers instance");
+	public GamejoinRequest merge(GamejoinRequest detachedInstance) {
+		log.debug("merging GamejoinRequest instance");
 		try {
-			GamePlayers result = (GamePlayers) sessionFactory
+			GamejoinRequest result = (GamejoinRequest) sessionFactory
 					.getCurrentSession().merge(detachedInstance);
 			log.debug("merge successful");
 			return result;
@@ -93,12 +93,12 @@ public class GamePlayersHome {
 		}
 	}
 
-	public GamePlayers findById(java.lang.String id) {
-		log.debug("getting GamePlayers instance with id: " + id);
+	public GamejoinRequest findById(long id) {
+		log.debug("getting GamejoinRequest instance with id: " + id);
 		try {
-			GamePlayers instance = (GamePlayers) sessionFactory
-					.getCurrentSession().get(
-							"com.adansoft.great21.dataaccess.home.GamePlayers",
+			GamejoinRequest instance = (GamejoinRequest) sessionFactory
+					.getCurrentSession()
+					.get("com.adansoft.great21.dataaccess.home.GamejoinRequest",
 							id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
@@ -112,13 +112,13 @@ public class GamePlayersHome {
 		}
 	}
 
-	public List findByExample(GamePlayers instance) {
-		log.debug("finding GamePlayers instance by example");
+	public List findByExample(GamejoinRequest instance) {
+		log.debug("finding GamejoinRequest instance by example");
 		try {
 			List results = sessionFactory
 					.getCurrentSession()
 					.createCriteria(
-							"com.adansoft.great21.dataaccess.home.GamePlayers")
+							"com.adansoft.great21.dataaccess.home.GamejoinRequest")
 					.add(Example.create(instance)).list();
 			log.debug("find by example successful, result size: "
 					+ results.size());

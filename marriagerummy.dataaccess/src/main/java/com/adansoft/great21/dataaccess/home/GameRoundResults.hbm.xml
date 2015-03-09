@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 6, 2015 3:10:35 PM by Hibernate Tools 4.0.0 -->
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.GameRoundResults" table="game_round_results" catalog="Rummy">
         <composite-id name="id" class="com.adansoft.great21.dataaccess.home.GameRoundResultsId">
@@ -9,10 +9,10 @@
                 <column name="GAME_ROUND_ID" length="20" />
             </key-property>
             <key-property name="gameInstanceId" type="string">
-                <column name="GAME_INSTANCE_ID" length="45" />
+                <column name="GAME_INSTANCE_ID" length="65" />
             </key-property>
-            <key-property name="nickName" type="string">
-                <column name="NICK_NAME" length="45" />
+            <key-property name="userId" type="long">
+                <column name="USER_ID" />
             </key-property>
         </composite-id>
         <property name="points" type="java.lang.Integer">
