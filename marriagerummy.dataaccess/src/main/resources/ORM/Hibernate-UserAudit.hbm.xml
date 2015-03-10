@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Mar 10, 2015 11:09:38 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.adansoft.great21.dataaccess.home.UserAudit" table="user_audit" catalog="Rummy">
+    <class name="com.adansoft.great21.dataaccess.entities.UserAudit" table="user_audit" catalog="Rummy">
         <id name="logInstanceId" type="java.lang.Long">
             <column name="LOG_INSTANCE_ID" />
             <generator class="identity" />

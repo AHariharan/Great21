@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 9, 2015 3:07:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Mar 10, 2015 11:09:38 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.UserProfile" table="user_profile" catalog="Rummy">
         <id name="userid" type="long">
@@ -16,6 +16,9 @@
         </property>
         <property name="country" type="string">
             <column name="COUNTRY" length="45" />
+        </property>
+        <property name="profilePic" type="binary">
+            <column name="PROFILE_PIC" />
         </property>
     </class>
 </hibernate-mapping>

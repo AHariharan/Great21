@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Mar 9, 2015 3:06:38 PM by Hibernate Tools 3.4.0.CR1
+// Generated Mar 10, 2015 11:08:35 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -10,22 +10,24 @@ import java.util.Date;
 public class UserAudit implements java.io.Serializable {
 
 	private Long logInstanceId;
-	private String nickname;
+	private long userId;
 	private Date lastLoggedinDate;
 	private Date lastLoggedoutDate;
+	private String device;
 
 	public UserAudit() {
 	}
 
-	public UserAudit(String nickname) {
-		this.nickname = nickname;
+	public UserAudit(long userId) {
+		this.userId = userId;
 	}
 
-	public UserAudit(String nickname, Date lastLoggedinDate,
-			Date lastLoggedoutDate) {
-		this.nickname = nickname;
+	public UserAudit(long userId, Date lastLoggedinDate,
+			Date lastLoggedoutDate, String device) {
+		this.userId = userId;
 		this.lastLoggedinDate = lastLoggedinDate;
 		this.lastLoggedoutDate = lastLoggedoutDate;
+		this.device = device;
 	}
 
 	public Long getLogInstanceId() {
@@ -36,12 +38,12 @@ public class UserAudit implements java.io.Serializable {
 		this.logInstanceId = logInstanceId;
 	}
 
-	public String getNickname() {
-		return this.nickname;
+	public long getUserId() {
+		return this.userId;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public Date getLastLoggedinDate() {
@@ -58,6 +60,14 @@ public class UserAudit implements java.io.Serializable {
 
 	public void setLastLoggedoutDate(Date lastLoggedoutDate) {
 		this.lastLoggedoutDate = lastLoggedoutDate;
+	}
+
+	public String getDevice() {
+		return this.device;
+	}
+
+	public void setDevice(String device) {
+		this.device = device;
 	}
 
 }

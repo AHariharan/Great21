@@ -5,6 +5,7 @@ import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
 import com.adansoft.great21.dataaccess.schemas.ResendActivationRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupRequest;
 import com.adansoft.great21.dataaccess.schemas.SignupResponse;
+import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 
 public interface AuthenticateUserDAO {
 	
@@ -16,5 +17,6 @@ public interface AuthenticateUserDAO {
 
 	public String activateAccount(ActivateAccountRequest request);
 	
-	public String resendActivationLink(ResendActivationRequest request);
+	public String resendActivationLink(ResendActivationRequest request);	
+	
 }

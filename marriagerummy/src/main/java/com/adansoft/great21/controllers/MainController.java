@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mobile.device.Device;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
@@ -18,9 +19,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.adansoft.great21.controller.helpers.RestServiceHelper;
+import com.adansoft.great21.controller.helpers.UtilityHelper;
 import com.adansoft.great21.dataaccess.schemas.ActivateAccountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
 import com.adansoft.great21.router.FacadetoDataAccessMapper;
 import com.adansoft.great21.security.RummyUser;
@@ -59,10 +62,13 @@ public class MainController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = "/rummy", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView afterLogin(@AuthenticationPrincipal Authentication authentication)
+	public ModelAndView afterLogin(@AuthenticationPrincipal Authentication authentication,Device device)
 	{
 		RummyUser user = (RummyUser) authentication.getPrincipal();
-		System.out.println("USER Logged in class: " + authentication.getPrincipal().getClass());		
+	
+		UserAuditRequest auditrequest = new UserAuditRequest(user.getUserid(), UtilityHelper.detectDevice(device));
+		RestServiceHelper.insertAudit(mapper, restTemplate, auditrequest);
+		//System.out.println("USER Logged in class: " + authentication.getPrincipal().getClass());		
 		GetUserBasicDetailsRequest request = new GetUserBasicDetailsRequest(user.getUserid(), user.getEmailaddr());
 		GetUserBasicDetailsResponse response = RestServiceHelper.getBasicDetails(mapper, restTemplate, request);
 		ModelAndView modelAndView = new ModelAndView("RummyPage");

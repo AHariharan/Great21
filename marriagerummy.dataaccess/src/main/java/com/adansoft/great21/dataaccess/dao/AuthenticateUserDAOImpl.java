@@ -45,8 +45,8 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	@SuppressWarnings("unchecked")
 	public UserAccounts finduserbyEmail(String emailid) {
 		List<UserAccounts> list = sessionFactory.getCurrentSession().
-		createQuery("from UserAccounts where id.emailAddr = ?").
-		setParameter(0, emailid)
+		createQuery("from UserAccounts where id.emailAddr = :var_email").
+		setString("var_email", emailid)
 		.list();
 		
 		if(list.size() > 0)
@@ -58,8 +58,8 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 	@SuppressWarnings("unchecked")
 	public UserAccounts findUserbyNickName(String nickname) {
 		List<UserAccounts> list = sessionFactory.getCurrentSession().
-				createQuery("from UserAccounts where nickName = ?").
-				setParameter(0, nickname)
+				createQuery("from UserAccounts where nickName = :var_nick").
+				setString("var_nick", nickname)
 				.list();
 				
 				if(list.size() > 0)

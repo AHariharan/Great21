@@ -9,6 +9,7 @@ public class GetUserBasicDetailsRequest implements Serializable{
   
 	private long userid;
 	private String emailadd;
+
 	
 	public GetUserBasicDetailsRequest() {
 		super();

@@ -10,5 +10,6 @@ public class DataAccessServiceURLs {
 	
 	public final static String DATAACCESS_BASE = "/DataAccess/Data";	
 	public final static String BASIC_DETAILS = "/BasicUserDetails/Get";
+	public final static String USER_AUDIT = "/BasicUserDetails/Audit/create";
 	
 }

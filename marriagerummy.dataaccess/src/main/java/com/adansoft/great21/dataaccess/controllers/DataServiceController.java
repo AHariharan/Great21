@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 
 @RestController
 @RequestMapping(DataAccessServiceURLs.DATAACCESS_BASE)
@@ -25,5 +26,13 @@ public class DataServiceController {
 	{
 		return basicdatadao.getBasicDetails(request);
 	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.USER_AUDIT, method = RequestMethod.POST)
+	public @ResponseBody String insertAuditInformation(@RequestBody UserAuditRequest request)
+	{
+		return basicdatadao.addAudit(request);
+	}
+
 
 }

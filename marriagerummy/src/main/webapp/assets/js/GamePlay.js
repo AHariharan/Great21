@@ -18,6 +18,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var sec_counter = 60;
 	var selected_timer = {};
 	var init_turn = true;
+	
+	
 
 	
 	self.getStateObject = function()
@@ -1034,7 +1036,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 {
    var self = this;
    var stateobject = GameObject;
-   
+   var internalcardselected = false;
+   var internalfirstselectedcard = {};
+	
    self.showJoker = function(cardInstanceList) {
 		var url = marriageRummy.urls.showJoker;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerSuccess;
@@ -1112,16 +1116,57 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		});
 		$('.card').unbind();
 		$('.card').on("click",function() {
+			         
+			    		     
+			    
 							if ($('.showJoker').css("display") == "block") {
 								onShowJokerWindowOpen($(this));
 							} 
-							if ($('.declareGame').css("display") == "block") {
+							else if ($('.declareGame').css("display") == "block") {
 								onDeclareGameWindowOpen($(this));
 							} // End of IF
-							if ($('.declareshowCards').css("display") == "block") {
+							else if ($('.declareshowCards').css("display") == "block") {
 								onShowCardsGame($(this));
 							} 
+							else
+								enableRearrange($(this));
 						});
+	};
+	
+	
+	var enableRearrange = function(source)
+	{
+		 if(!internalcardselected)
+    	 {
+        	    internalcardselected = true;
+        	    internalfirstselectedcard = source;	
+        	    source.addClass("src-selected-card");
+    	 }
+     else
+    	 {
+    	        source.addClass("dest-selected-card");
+    	        var id = source.attr("id");
+    	        var prefix = id.split("-")[0];
+    	        var startpos = parseInt(id.split("-")[1]);
+    	        var endpos = parseInt(internalfirstselectedcard.attr("id").split("-")[1]);
+    	        var dragcardvalue = internalfirstselectedcard.attr("data-cardvalue");
+	 			var dragcardInstanceID = internalfirstselectedcard.attr("data-cardinstanceid");
+	 			if (startpos < endpos)
+	 				switchCardAfter(prefix, startpos, endpos, dragcardvalue,
+	 						dragcardInstanceID);
+	 			else
+	 				switchCardBefore(prefix, startpos, endpos, dragcardvalue,
+	 						dragcardInstanceID);
+
+	 			source.css("transform", "");
+	 			source.css("left", "");
+	 			source.css("top", "");
+	 			source.css("z-index", "");
+	 			internalfirstselectedcard.removeClass("src-selected-card");
+	 			source.removeClass("dest-selected-card");
+	 			internalcardselected = false;
+	 			internalfirstselectedcard = {};
+    	 }
 	};
 	
 	var onShowCardsGame = function(source)
@@ -1657,4 +1702,67 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	};
 	
 	initGameTools();
+	
+	var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue,
+			dragcardInstanceID) {
+		var arr = new Array();
+		for (var i = startpos; i < endpos; i++) {
+			var cardvalue = $('#' + prefix + "-" + i).attr("data-cardvalue");
+			var cardInstanceID = $('#' + prefix + "-" + i).attr(
+					"data-cardinstanceid");
+			arr.push({
+				"cardvalue" : cardvalue,
+				"cardInstanceID" : cardInstanceID
+			});
+		}
+
+		for (var i = 0, j = startpos + 1; i < arr.length; i++, j++) {
+			var existingValue = $('#' + prefix + "-" + j)
+					.attr("data-cardvalue");
+
+			$('#' + prefix + "-" + j).removeClass(existingValue);
+			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i].cardvalue);
+			$('#' + prefix + "-" + j).attr("data-cardinstanceid",
+					arr[i].cardInstanceID);
+			$('#' + prefix + "-" + j).addClass(arr[i].cardvalue);
+		}
+		var replacecardexisting = $('#' + prefix + "-" + startpos).attr(
+				"data-cardvalue");
+		$('#' + prefix + "-" + startpos).removeClass(replacecardexisting);
+		$('#' + prefix + "-" + startpos).attr("data-cardvalue", dragcardvalue);
+		$('#' + prefix + "-" + startpos).attr("data-cardinstanceid",
+				dragcardInstanceID);
+		$('#' + prefix + "-" + startpos).addClass(dragcardvalue);
+	};
+
+	var switchCardBefore = function(prefix, startpos, endpos, dragcardvalue,
+			dragcardInstanceID) {
+		var arr = new Array();
+		for (var i = endpos + 1; i < startpos; i++) {
+			var cardvalue = $('#' + prefix + "-" + i).attr("data-cardvalue");
+			var cardInstanceID = $('#' + prefix + "-" + i).attr(
+					"data-cardinstanceid");
+			arr.push({
+				"cardvalue" : cardvalue,
+				"cardInstanceID" : cardInstanceID
+			});
+		}
+		for (var i = 0, j = endpos; i < arr.length; i++, j++) {
+			var existingValue = $('#' + prefix + "-" + j)
+					.attr("data-cardvalue");
+			$('#' + prefix + "-" + j).removeClass(existingValue);
+			$('#' + prefix + "-" + j).attr("data-cardvalue", arr[i].cardvalue);
+			$('#' + prefix + "-" + j).attr("data-cardinstanceid",
+					arr[i].cardInstanceID);
+			$('#' + prefix + "-" + j).addClass(arr[i].cardvalue);
+		}
+		var replacecardexisting = $('#' + prefix + "-" + (startpos - 1)).attr(
+				"data-cardvalue");
+		$('#' + prefix + "-" + (startpos - 1)).removeClass(replacecardexisting);
+		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardvalue",
+				dragcardvalue);
+		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardinstanceid",
+				dragcardInstanceID);
+		$('#' + prefix + "-" + (startpos - 1)).addClass(dragcardvalue);
+	};
 };

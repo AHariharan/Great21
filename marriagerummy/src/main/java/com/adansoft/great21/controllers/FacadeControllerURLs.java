@@ -2,6 +2,8 @@ package com.adansoft.great21.controllers;
 
 public class FacadeControllerURLs {
 
+	/* URLS for Game Indexers */
+	
 	public final static String GAMEBROWSER_BASE = "/IndexerServices/GameBrowser";
 	public final static String CREATEGAME = "createGame";
 	public final static String DELETEGAME = "removeGame";
@@ -32,6 +34,8 @@ public class FacadeControllerURLs {
 	public final static String FINISHROUND  = "/CurrentGame/Round/Complete";
 	public final static String GETPOINTS  = "/CurrentGame/Points/Get";
 	
+	/* URLS for DataAccess Services */
+	
 	public final static String DATAACCESS_AUTHBASE = "/DataAccess/Authenticate";
 	public final static String FINDUSER = "/UserDetails/Get";
 	public final static String SIGNUP = "/User/Signup";
@@ -42,5 +46,6 @@ public class FacadeControllerURLs {
 	
 	public final static String DATAACCESS_BASE = "/DataAccess/Data";	
 	public final static String BASIC_DETAILS = "/BasicUserDetails/Get";
+	public final static String USER_AUDIT = "/BasicUserDetails/Audit/create";
 	
 }

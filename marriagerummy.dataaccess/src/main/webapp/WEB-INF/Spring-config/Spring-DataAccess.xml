@@ -40,6 +40,7 @@
 				<value>ORM/Hibernate-UserAccounts.hbm.xml</value>
 				<value>ORM/Hibernate-UserRoles.hbm.xml</value>
 				<value>ORM/Hibernate-RummyStats.hbm.xml</value>
+				<value>ORM/Hibernate-UserAudit.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
