@@ -78,6 +78,14 @@ public class MainController {
 	}
 	
 	@Secured("ROLE_USER")
+	@RequestMapping( value = "/SigninHelp", method = {RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView onHelpSignin(HttpServletRequest request)
+	{
+		ModelAndView modelAndView = new ModelAndView("TroubleSignin");		
+		return modelAndView;
+	}
+	
+	@Secured("ROLE_USER")
 	@RequestMapping( value = "/loginFailure", method = {RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView onLoginFailure(HttpServletRequest request)
 	{

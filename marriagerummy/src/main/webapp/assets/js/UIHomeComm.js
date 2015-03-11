@@ -38,6 +38,7 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS = function() {
 	var self = this;
 	self.signUp = "/marriagerummy/UserAccess/User/Signup";
 	self.resendActivation = "/marriagerummy/UserAccess/User/activation/resend";
+	self.forgotPassword = "/marriagerummy/UserAccess/User/ResetPassword";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = function() {
@@ -130,6 +131,16 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessCallbacks = function() 
 	self.onSignUpFailure = function(data) {
 		console.log("Signup Response :- " + JSON.stringify(data));
 	};
+	
+	self.onForgotPasswordSubmitSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		
+	};
+	
+	self.onForgotPasswordSubmitFailure = function(data)
+	{
+		
+	};
 };
 
 MarriageRummy.Utilities.UIUtilities.onMainPageLoad = function() {
@@ -160,8 +171,15 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 							var passwd = $('#SignupPassword').val();
 							signup(emailadd, nickname, passwd);
 						});
+		
+		$('form #rummysignin,form #troubleSignin').unbind();
+		$('form #rummysignin,form #troubleSignin').on("click",function(){
+			$('form #rummysignin,form #troubleSignin').removeAttr("clicked");
+			$(this).attr("clicked","true");			
+		});
 	};
-
+	
+	
 	init();
 
 	var signup = function(emailaddress, nickname, password) // onShowCardGame
@@ -179,6 +197,21 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 
 	};
 	
+	
+	var forgotPassword = function(emailaddress) // 
+	{
+		var url = marriageRummy.requesturl.resendActivation;
+		var onSuccessCallbackfn = marriageRummy.usercallback.onResendActivationSuccess;
+		var onFailureCallbackfn = marriageRummy.usercallback.onResendActivationFailure;
+		var formdata = marriageRummy.requestpreparer.signUpRequest(
+				emailaddress);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+
+	};
 
 
 };

@@ -2,7 +2,7 @@
 	<form:form class="form-horizontal" role="form"
 		action="/marriagerummy/login" method="post"
 		enctype="application/x-www-form-urlencoded"
-		onsubmit="return marriageRummy.signinValidation.validate();">
+		onsubmit="return marriageRummy.signinValidation.validate(event);">
 		<div id="SignInErrorPanel" class="ErrorPanel"></div>
 		<div class="form-group">
 			<label for="SigninEmail" class="col-sm-3 control-label"><span
@@ -30,10 +30,10 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-3 col-sm-2">
-				<button type="submit" class="btn btn-primary">Sign in</button>
+				<button id="rummysignin" type="submit" value="signin"  class="btn btn-primary">Sign in</button>
 			</div>
 			<div class="col-sm-7">
-				<button type="" class="btn btn-link">Trouble signing in ?</button>
+				<button id="troubleSignin" value="troublesignin" type="submit" class="btn btn-link">Trouble signing in ?</button>
 			</div>
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"

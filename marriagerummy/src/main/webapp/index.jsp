@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="_csrf" content="${_csrf.token}" />
 <meta name="_csrf_header" content="${_csrf.headerName}" />
-<title>Great21</title>
+<title>Indian Rummy | I Play Rummy</title>
+<meta name="description" content="Play Indian rummy for free. Card Game"/>
+<meta name="keywords"  content="Rummy Game Indian play 13Card 7Card ClosedJoker OpenJoker Joker Pointbased Fun Free"/>
 <link
 	href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin"
 	rel="stylesheet">

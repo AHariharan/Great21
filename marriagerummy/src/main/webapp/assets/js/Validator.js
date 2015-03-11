@@ -481,7 +481,19 @@ MarriageRummy.Utilities.Validation.CreateSignInValidation = function(panel) {
 	var uiErrorHandler = new MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler(panel);
 	var self = this;
 	
-	self.validate = function() {
+	self.validate = function(event) {
+		if($('form #rummysignin').attr("clicked") === undefined)
+			{
+			   val = "troublesingin";
+			   $('form #rummysignin').parents("form").attr("action","/marriagerummy/SigninHelp");
+			   return true;
+			}
+		else
+			{
+			   val="signin";
+			   $('form #rummysignin').parents("form").attr("action","/marriagerummy/login");
+			}
+		
 		var result = true;
 		uiErrorHandler.cleanUpAllErrors();
 		var validation1 = uiErrorHandler.validateField('#SigninEmail',marriageRummy.ErrorMessages.signup.EMAILADDRESS,
