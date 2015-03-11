@@ -318,6 +318,9 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	{
 		toastr.options.closeButton = true;
 		toastr.options.preventDuplicates = true;
+		toastr.options.hideDuration = 1000;
+		toastr.options.timeOut =  5000;
+		toastr.options.extendedTimeOut = 1000;
 		/*toastr.options.timeOut = 40;
 		toastr.options.extendedTimeOut = 60;*/
 		toastr.options.progressBar = true; 
@@ -350,6 +353,10 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	self.showSuccessAlert = function(heading,message)
 	{
 		toastr.success(heading,message);
+	};
+	self.showInfo = function(heading,message)
+	{
+		toastr.info(message,heading);
 	};
 	
 	self.setLoadingMask = function(message)

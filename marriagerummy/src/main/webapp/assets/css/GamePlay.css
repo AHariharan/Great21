@@ -213,13 +213,11 @@
 	box-shadow: 0px 0px 10px 2px green;
 }
 
-.src-selected-card
-{
+.src-selected-card {
 	box-shadow: 0px 0px 1px 2px blue;
 }
 
-.dest-selected-card
-{
+.dest-selected-card {
 	box-shadow: 0px 0px 1px 2px red;
 }
 
@@ -1332,4 +1330,21 @@
 	font-size: 17px;
 	min-width: 221px;
 	color: rgb(193, 126, 85);
+}
+
+.click-selected-card {
+	width: 103px;
+	height: 20px;
+	margin-left: 29px;
+	margin-top: -60px;
+	font-size: 12px;
+	color: rgb(235, 229, 229);
+	background: rgb(73, 76, 77);
+	font-weight: 500;
+	padding: 1px;
+	border: 1px solid rgb(170, 171, 171);
+	box-shadow: 0px 0px 1px 0px rgb(98, 101, 105);
+	transform: rotate(-35deg);
+	border-radius: 20px;
+	cursor: pointer;
 }

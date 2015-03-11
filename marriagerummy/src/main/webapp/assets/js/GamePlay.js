@@ -464,6 +464,7 @@ var renderfoldcard = function(source,card) {
 			}
 		}
 		startTimer();
+		marriageRummy.generalutility.showInfo("Hint", "To rearrange cards select one card to pick and select other card to place");
 
 	};
 	
@@ -1151,6 +1152,12 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
     	        var endpos = parseInt(internalfirstselectedcard.attr("id").split("-")[1]);
     	        var dragcardvalue = internalfirstselectedcard.attr("data-cardvalue");
 	 			var dragcardInstanceID = internalfirstselectedcard.attr("data-cardinstanceid");
+	 			var currentdragInstanceID = source.attr("data-cardinstanceid");
+	 			if(currentdragInstanceID == dragcardInstanceID)
+	 				{
+	 				   source.removeClass("dest-selected-card");
+	 				   return;
+	 				}
 	 			if (startpos < endpos)
 	 				switchCardAfter(prefix, startpos, endpos, dragcardvalue,
 	 						dragcardInstanceID);
