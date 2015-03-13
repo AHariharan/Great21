@@ -138,7 +138,7 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 				        var validation = jQuery.data( $("#creategamemodal")[0], "validation");
 				        if(!validation.validate())
 				        	return;
-						var formdata = marriageRummy.request.getCreateGameRequest(gameLobby,gameType);
+						var formdata = marriageRummy.request.getGameBrowserRequest().getCreateGameRequest(gameLobby,gameType);
 						var url = marriageRummy.urls.createGame;
 						var requestObj = { "gameLobby" : gameLobby };
 						var successcall = marriageRummy.callbacks.getGameBrowserCallback().onCreateGameSucess;
@@ -303,7 +303,7 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 	self.joinGame = function(lobbyType, gameInstanceID, displayText) {
 		var url = marriageRummy.urls.joinGame; 
 		var gameType = marriageRummy.dataConvertor.convertDisplayTexttoGameType(displayText);
-		var formdata = marriageRummy.request.getJoinGameRequest(lobbyType, gameInstanceID, gameType);
+		var formdata = marriageRummy.request.getGameBrowserRequest().getJoinGameRequest(lobbyType, gameInstanceID, gameType);
 		var requestObj = {"gameLobby" : lobbyType , "formdata" : formdata};
 		var successcall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameSuccess;
 		var failurecall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameFailure;

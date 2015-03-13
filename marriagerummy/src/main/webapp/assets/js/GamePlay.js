@@ -18,7 +18,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var sec_counter = 60;
 	var selected_timer = {};
 	var init_turn = true;
-	
+	var pointstatePresever = $(".showPoints").html();
 	
 
 	
@@ -41,10 +41,16 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	self.renderPointsTable = function(data)
 	{
+	    $(".showPoints").html(pointstatePresever);
+	    $('#onPointsTableCancel').unbind();
+		$('#onPointsTableCancel').on("click",function(){
+			$('.showPoints').css("display","none");
+		});
 		var obj = data.pointsTable;
 		console.log("Render Point Table : " + JSON.stringify(obj));
 		var keys  = Object.keys(obj).sort();
 		var playernicklist = Object.keys(obj[keys[0]]);
+		
 		for(var i=0;i<playernicklist.length;i++)
 		{
 		    $('.showPoints #pointHeader').append('<th>'+playernicklist[i]+'</th>');
@@ -107,7 +113,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getPlayersinGame;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListFailure;
-		var formdata = marriageRummy.request.getPlayersinGameRequest(
+		var formdata = marriageRummy.request.getGameBrowserRequest().getPlayersinGameRequest(
 				stateobject.gameInstanceID, stateobject.lobbyName,
 				stateobject.gameType);
 		var requestObj = {
@@ -122,7 +128,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getCards;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetCardSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetCardFailure;
-		var formdata = marriageRummy.request.getCardRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().getCardRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType);
 		var requestObj = {
@@ -137,7 +143,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getJoker;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerFailure;
-		var formdata = marriageRummy.request.getCardRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().getCardRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType);
 		var requestObj = {
@@ -153,7 +159,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getOpenCard;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetOpenCardSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetOpenCardFailure;
-		var formdata = marriageRummy.request.getCardRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().getCardRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType);
 		var requestObj = {
@@ -167,7 +173,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getNextCardFromDeck;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetNextCardFromDeckSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetNextCardFromDeckFailure;
-		var formdata = marriageRummy.request.getCardRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().getCardRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType);
 		var requestObj = {
@@ -181,7 +187,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.getWhoseTurn;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetWhoseTurnFailure;
-		var formdata = marriageRummy.request.getWhoseTurnRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().getWhoseTurnRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType);
 		var requestObj = {
@@ -195,7 +201,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.addCardToHand;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onAddCardToHandSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onAddCardToHandFailure;
-		var formdata = marriageRummy.request.cardInHandRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().cardInHandRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType, cardInstanceID);
 		var requestObj = {
@@ -209,7 +215,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.dropCardFromHand;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDropCardFromHandSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDropCardFromHandFailure;
-		var formdata = marriageRummy.request.cardInHandRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().cardInHandRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType, cardInstanceID);
 		var requestObj = {
@@ -269,7 +275,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var url = marriageRummy.urls.showStatusPlayer;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowStatusforPlayerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowStatusforPlayerFailure;
-		var formdata = marriageRummy.request.showStatusforPlayers(
+		var formdata = marriageRummy.request.getGamePlayRequest().showStatusforPlayers(
 				stateobject.gameInstanceID, stateobject.lobbyName,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
@@ -883,7 +889,7 @@ var renderfoldcard = function(source,card) {
 							$('#pickedcard').css("top", "-115px");
 							$('#pickedcard').css("display", "none");
 							$('#pickedcard').css("left", "");
-							disableDroppable();
+							disableDroppable();gametoolinit.resetSelectedCardOnDrop();
 							self.dropCardFromHand(cardInstanceID);
 							return;
 						}
@@ -899,6 +905,7 @@ var renderfoldcard = function(source,card) {
 							endposition = 8;
 						slideCardLeft(prefix, startposition, endposition);
 						self.dropCardFromHand(cardInstanceID);
+						gametoolinit.resetSelectedCardOnDrop();
 						// onNextCardSelect();// to be fixed later
 						disableDroppable();
 
@@ -960,11 +967,11 @@ var renderfoldcard = function(source,card) {
 		});
 	};
 
-
+   var gametoolinit = {};
 
 	var init = function() {
 
-		new MarriageRummy.Utilities.GameUtilities.GameToolInit(stateobject);
+		gametoolinit = new MarriageRummy.Utilities.GameUtilities.GameToolInit(stateobject);
 		onStartup();
 		// onNextCardSelect();
 		$(".card").each(function() {
@@ -1044,7 +1051,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.showJoker;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowJokerFailure;
-		var formdata = marriageRummy.request.showJokerRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().showJokerRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,
 				stateobject.gameType, cardInstanceList);
 		var requestObj = {
@@ -1134,6 +1141,18 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 						});
 	};
 	
+	
+	self.resetSelectedCardOnDrop = function()
+	{
+		    internalcardselected = false;
+			internalfirstselectedcard = {};
+			$('.card').each(function(){ 
+				if($(this).hasClass("src-selected-card"))
+					{
+					$(this).removeClass("src-selected-card");
+					}
+			});
+	};
 	
 	var enableRearrange = function(source)
 	{
@@ -1642,7 +1661,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.skipPlayerTurn;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSkipPlayerTurnFailure;
-		var formdata = marriageRummy.request.skipPlayerTurnRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().skipPlayerTurnRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
@@ -1656,7 +1675,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.declareGame;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameFailure;
-    	var formdata = marriageRummy.request.declareGameRequest(
+    	var formdata = marriageRummy.request.getGamePlayRequest().declareGameRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist,closedCardInstanceid);
 		var requestObj = {
 			"formdata" : formdata
@@ -1671,7 +1690,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.getPlayerPoints;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getPlayerPointsSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getPlayerPointsFailure;
-		var formdata = marriageRummy.request.getPlayerPoints(
+		var formdata = marriageRummy.request.getGamePlayRequest().getPlayerPoints(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
@@ -1685,7 +1704,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.sortCardsInHand;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSortCardSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onSortCardFailure;
-		var formdata = marriageRummy.request.sortCardsInHandRequest(
+		var formdata = marriageRummy.request.getGamePlayRequest().sortCardsInHandRequest(
 				stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType);
 		var requestObj = {
 			"formdata" : formdata
@@ -1699,7 +1718,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		var url = marriageRummy.urls.showCards;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowCardSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onShowCardFailure;
-		var formdata = marriageRummy.request.showCards(stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist);
+		var formdata = marriageRummy.request.getGamePlayRequest().showCards(stateobject.lobbyName, stateobject.gameInstanceID,stateobject.gameType,meldlist);
 		var requestObj = {
 				"formdata" : formdata
 			};

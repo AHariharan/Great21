@@ -131,10 +131,10 @@
 		</div>
 		<div id="NotificationArea" style="display:none">
 			<button class="btn btn-success"
-				onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send
+				onclick="marriageRummy.chatSubscriber.sendAddPlayer(marriageRummy.request.getGameBrowserRequest().getJoinGameRequest('Beginner', 'TESTGAME123', 'SERVENCARD_CLOSED'));">Send
 				Add Player</button>
 			<button class="btn btn-success"
-				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
+				onclick="marriageRummy.chatSubscriber.sendMessage('TESTGAMEID',marriageRummy.request.getGameBrowserRequest().getAddChatMessage('TESTGAMEID','TestMessage','Auto',1));">Send
 				Message</button>
 			<button class="btn btn-success"
 				onclick='var notificationdata = marriageRummy.notificationRequest.dropCardNotification("onDropHandSuccess",null);alert(notificationdata);

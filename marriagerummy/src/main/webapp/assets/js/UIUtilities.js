@@ -50,7 +50,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 	var sendMessage = function(message) {
 		var gameInstanceID = stateobject.gameInstanceId;
-		var formdata = marriageRummy.request.getAddChatMessage(gameInstanceID,
+		var formdata = marriageRummy.request.getGameBrowserRequest().getAddChatMessage(gameInstanceID,
 				message, "Auto", stateobject.playerpos);
 		marriageRummy.chatSubscriber.sendMessage(gameInstanceID, formdata);
 		/*
@@ -66,7 +66,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	var getMessage = function() {
 		var gameInstanceID = stateobject.gameInstanceId;
 		var url = marriageRummy.urls.getChatMessage;
-		var formdata = marriageRummy.request.getChatMessage(gameInstanceID,
+		var formdata = marriageRummy.request.getGameBrowserRequest().getChatMessage(gameInstanceID,
 				currentChatCount);
 		var onSuccessCallbackfn = marriageRummy.callbacks
 				.getGameLauncherCallback().onGetChatMessageSuccess;
@@ -129,11 +129,11 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			$("#CancelGame").text("Cancel Game");
 			}
 		
-		
+		$('#LaunchGame').unbind();
 		$('#LaunchGame').on("click",function(){
 			var gameInstanceID = stateobject.gameInstanceId;
 			var url = marriageRummy.urls.launchGame;
-			var formdata = marriageRummy.request.getLauchGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
+			var formdata = marriageRummy.request.getGameBrowserRequest().getLauchGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
 			var onSuccessCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameSuccess;
 			var onFailureCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameFailure;
 			var requestObj = {"formdata":formdata};	
@@ -152,7 +152,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 							if (LauncherType == "JOINMODE") {
 								var gameInstanceID = stateobject.gameInstanceId;
 								var url = marriageRummy.urls.unjoinGame;
-								var formdata = marriageRummy.request.getUnjoinGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
+								var formdata = marriageRummy.request.getGameBrowserRequest().getUnjoinGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
 								var onSuccessCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onUnJoinGameSuccess;
 								var onFailureCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onUnJoinGameFailure;
 								var requestObj = {"formdata":formdata};	
@@ -185,7 +185,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	{
 		var gameInstanceID = stateobject.gameInstanceId;
 		var url = marriageRummy.urls.unjoinGame;
-		var formdata = marriageRummy.request.getKickPlayerRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType,nickname);
+		var formdata = marriageRummy.request.getGameBrowserRequest().getKickPlayerRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType,nickname);
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onKickPlayerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGameBrowserCallback().onKickPlayerFailure;
 		var requestObj = {"formdata":formdata};	
@@ -197,7 +197,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 	var removeGame = function() {
 		var url = marriageRummy.urls.deleteGame;
-		var formdata = marriageRummy.request.getDeleteGameRequest(
+		var formdata = marriageRummy.request.getGameBrowserRequest().getDeleteGameRequest(
 				stateobject.gameInstanceId, stateobject.lobbyName,
 				stateobject.gameType);
 		var successfn = marriageRummy.callbacks.getGameBrowserCallback().onDeleteGameSuccess;
@@ -213,7 +213,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	var playerCheckCallback = function() {
 
 		var url = marriageRummy.urls.getPlayersinGame;
-		var formdata = marriageRummy.request.getPlayersinGameRequest(
+		var formdata = marriageRummy.request.getGameBrowserRequest().getPlayersinGameRequest(
 				stateobject.gameInstanceId, stateobject.lobbyName,
 				stateobject.gameType);
 		var successfn = marriageRummy.callbacks.getGameLauncherCallback().onGetPlayersinGameSuccess;
@@ -320,6 +320,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		var curtopint = 328;
 		var desiredtop = curtopint - (data.playerlist.length -1 )*38;
 		$('#GameLauncherContainer .actionLauncher').css("top",desiredtop + "px");
+		$(".kickPlayer").unbind();
 		$(".kickPlayer").on("click",function(){
 			nickname = $(this).parent().text();
 			kickPlayer(nickname);
