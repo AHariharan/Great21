@@ -375,6 +375,7 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 
 
 
+
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
 

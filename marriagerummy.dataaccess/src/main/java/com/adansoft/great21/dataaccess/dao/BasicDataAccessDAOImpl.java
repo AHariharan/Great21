@@ -11,8 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAudit;
+import com.adansoft.great21.dataaccess.entities.UserProfile;
+import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 
 public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
@@ -76,4 +80,51 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		return "Success";
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	 public GetProfileInformationResponse getProfileInformation(GetProfileInformationRequest request)
+	 {
+		GetProfileInformationResponse response = new GetProfileInformationResponse();
+		List<UserProfile> list = sessionFactory.getCurrentSession().
+				                  createQuery("from UserProfile where userid = :userid").
+				                  setBigInteger("userid", BigInteger.valueOf(request.getUserid())).list();
+		if(list.size() == 1)
+		{
+			response.setEmailaddress(request.getEmailaddress());
+			response.setNickname(request.getNickname());
+			response.setCountry(list.get(0).getCountry());
+			response.setFirstname(list.get(0).getFirstname());
+			response.setLastname(list.get(0).getLastname());
+			return response;
+		}
+		 
+		 return null;
+		 
+	 };
+	
+	 
+	 @Override
+	 @SuppressWarnings("unchecked")
+	 public String updateProfileInformation(UpdateProfileInformationRequest request)
+	 {
+		String result = "Success";
+		try
+		{
+		List<UserProfile> list = sessionFactory.getCurrentSession().createQuery("from UserProfile where userid = :userid").
+				                  setBigInteger("userid", BigInteger.valueOf(request.getUserid())).list();
+		if(list.size() == 1)
+		{
+			UserProfile profile = list.get(0);
+			profile.setCountry(request.getCountry());
+			profile.setFirstname(request.getFirstname());
+			profile.setLastname(request.getLastname());
+			sessionFactory.getCurrentSession().merge(profile);
+		}
+		}catch(Exception e)
+		{
+			result = "failure";
+			e.printStackTrace();
+		}
+		return result;		 
+	 };
 }

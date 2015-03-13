@@ -36,6 +36,10 @@ MarriageRummy.Utilities.CommunicationUtilities.HttpCommunicator = function() {
 
 MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	var self = this;
+	
+	self.getProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/get";
+	self.updateProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/Udpate";
+	
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
 	self.unjoinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Remove";

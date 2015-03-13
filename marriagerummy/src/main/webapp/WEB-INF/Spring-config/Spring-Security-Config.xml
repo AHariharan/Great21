@@ -20,12 +20,14 @@
 			<frame-options />
 			<xss-protection />
 		</headers>
+	
 		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
 		<intercept-url pattern="/rummy" access="ROLE_USER" />
 		<intercept-url pattern="/IndexerServices/" access="ROLE_USER" />
 		<intercept-url pattern="/WebSocketGameLauncher/" access="ROLE_USER" />
 		<intercept-url pattern="/WebSocketChatMessages/" access="ROLE_USER" />
 		<intercept-url pattern="/WebSockets/Notifications" access="ROLE_USER" />
+		<intercept-url pattern="/DataAccess/Data" access="ROLE_USER" />
 		
 		
 		

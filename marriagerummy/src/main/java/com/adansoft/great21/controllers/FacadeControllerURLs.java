@@ -47,5 +47,7 @@ public class FacadeControllerURLs {
 	public final static String DATAACCESS_BASE = "/DataAccess/Data";	
 	public final static String BASIC_DETAILS = "/BasicUserDetails/Get";
 	public final static String USER_AUDIT = "/BasicUserDetails/Audit/create";
+	public final static String USER_PROFILE_GET = "/BasicUserDetails/ProfileInfo/get";
+	public final static String USER_PROFILE_UPDATE = "/BasicUserDetails/ProfileInfo/Update";
 	
 }
