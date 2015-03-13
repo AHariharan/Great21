@@ -373,6 +373,57 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 
 };
 
+MarriageRummy.Utilities.UIUtilities.ProfileData = function()
+{
+	var self = this;
+	
+	var init = function()
+	{
+		$("#ProfileSave").unbind();
+		$("#ProfileSave").on("click",function(){
+			  var firstname = $('#ProfileFirstname').val();
+			  var lastname = $('#ProfileLastname').val();
+			  var country = $('#ProfileCountry').val();
+			  self.updateProfileInformation(firstname, lastname, country);
+		});
+	};
+	
+	init();
+	
+	self.getProfileInformation = function()
+	{
+		var url = marriageRummy.urls.getProfileInformation; 
+		var formdata = marriageRummy.request.getDataRequest().getProfileInformationRequest();
+		var requestObj = {"srcObj":this,"formdata" : formdata};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().onGetProfileInformationSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onGetProfileInformationFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
+		console.log(url,formdata);
+	};
+	
+	self.renderProfileInformation = function(data)
+	{
+		if(data.firstname != null)
+			$('#ProfileFirstname').val(data.firstname);
+		if(data.lastname != null)
+			$('#ProfileLastname').val(data.lastname);
+		if(data.country != null)
+			$('#ProfileCountry').val(data.country);
+		$('#ProfileNickName').val(data.nickname);
+		$('#ProfileEmail').html(data.emailaddress);
+	};
+	
+	self.updateProfileInformation = function(firstname,lastname,country)
+	{
+		var url = marriageRummy.urls.updateProfileInformation; 
+		var formdata = marriageRummy.request.getDataRequest().updateProfileInformationRequest(firstname,lastname,country);
+		var requestObj = {"srcObj":this,"formdata" : formdata};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().onUpdateProfileInformationSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onUpdateProfileInformationFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
+		console.log(url,formdata);
+	};
+};
 
 
 
@@ -385,6 +436,8 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
+		var profiledatamanager = new  MarriageRummy.Utilities.UIUtilities.ProfileData();
+		profiledatamanager.getProfileInformation(); 
        
 	};
 };

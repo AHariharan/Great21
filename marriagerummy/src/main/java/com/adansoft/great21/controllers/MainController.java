@@ -68,7 +68,6 @@ public class MainController {
 	
 		UserAuditRequest auditrequest = new UserAuditRequest(user.getUserid(), UtilityHelper.detectDevice(device));
 		RestServiceHelper.insertAudit(mapper, restTemplate, auditrequest);
-		//System.out.println("USER Logged in class: " + authentication.getPrincipal().getClass());		
 		GetUserBasicDetailsRequest request = new GetUserBasicDetailsRequest(user.getUserid(), user.getEmailaddr());
 		GetUserBasicDetailsResponse response = RestServiceHelper.getBasicDetails(mapper, restTemplate, request);
 		ModelAndView modelAndView = new ModelAndView("RummyPage");

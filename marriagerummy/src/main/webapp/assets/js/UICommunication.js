@@ -38,7 +38,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	var self = this;
 
 	self.getProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/get";
-	self.updateProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/Udpate";
+	self.updateProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/Update";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -72,7 +72,7 @@ MarriageRummy.Utilities.CommunicationUtilities.RequestPreparer = function() {
 
 	var gamebrowserRequest = new MarriageRummy.Utilities.CommunicationUtilities.GameBrowserRequestPreparer();
 	var gameplayRequest = new MarriageRummy.Utilities.CommunicationUtilities.GamePlayRequestPreparer();
-	var dataaccessRequest = MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer();
+	var dataaccessRequest = new MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer();
 	
 	self.getGameBrowserRequest = function()
 	{
@@ -338,6 +338,22 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayRequestPreparer = functio
 MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() {
 	var self = this;
 
+	self.getProfileInformationRequest = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
+	self.updateProfileInformationRequest = function(firstname,lastname,country)
+	{
+		var formdata = {
+				"firstname" : firstname,
+				"lastname" : lastname,
+				"country" : country
+		};
+		
+		return formdata;
+	};
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
@@ -346,6 +362,7 @@ MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 	var gameBrowserCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback();
 	var gameLauncherCallback = new MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback();
 	var gamePlayCallback = new MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback();
+	var dataaccessCallback = new MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback();
 
 	self.getGameBrowserCallback = function() {
 		return gameBrowserCallback;
@@ -357,6 +374,11 @@ MarriageRummy.Utilities.CommunicationUtilities.Callbacks = function() {
 
 	self.getGamePlayCallback = function() {
 		return gamePlayCallback;
+	};
+	
+	self.getDataAccessCallback = function()
+	{
+		return dataaccessCallback;
 	};
 
 };
@@ -707,6 +729,41 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserCallback = function() 
 		console.log("Failed to delete game : ", data);
 	};
 
+};
+
+
+MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
+{
+	var self = this;
+	
+	self.onGetProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		console.log("******GET PROFILE INFORMATION ********* " + JSON.stringify(data)+ " , DATA :- " + data);
+		
+		if(data === undefined || data == null)
+			{
+			   return;
+			}
+		else
+			{
+			   requestObj.srcObj.renderProfileInformation(data);
+			}
+	};
+	
+	self.onGetProfileInformationFailure = function(data)
+	{
+		console.log("******GET PROFILE INFORMATION FAILURE********* " + JSON.stringify(data));
+	};
+	
+	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		console.log("******UPDATE PROFILE INFORMATION ******** " + JSON.stringify(data));
+	};
+	
+	self.onUpdateProfileInformationFailure = function(data)
+	{
+		console.log("******UPDATE PROFILE INFORMATION FAILURE ******** " + JSON.stringify(data));
+	};
 };
 
 var marriageRummy = marriageRummy || {};

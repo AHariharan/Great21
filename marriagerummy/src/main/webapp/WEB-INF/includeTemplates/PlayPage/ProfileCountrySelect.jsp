@@ -1,4 +1,4 @@
-<select class="form-control">
+<select id="ProfileCountry" class="form-control">
 	<option>Afghanistan</option>
 	<option>Åland Islands</option>
 	<option>Albania</option>

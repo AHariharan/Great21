@@ -12,7 +12,7 @@
 							<i class="fa  fa-inr fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">2.6 K</div>
+							<div id="DashboardCash" class="huge">${BasicDetailResponse.cash}</div>
 							<div>My Game Funds</div>
 						</div>
 					</div>
@@ -27,7 +27,7 @@
 							<i class="fa  fa-child fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">A+</div>
+							<div id="DashboardRating" class="huge">${BasicDetailResponse.rating}</div>
 							<div>Ranking</div>
 						</div>
 					</div>
@@ -42,7 +42,7 @@
 							<i class="fa  fa-star-o fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">70%</div>
+							<div id="DashboardWin" class="huge">${BasicDetailResponse.winpercent}%</div>
 							<div>Wins Percent</div>
 						</div>
 					</div>
@@ -57,7 +57,7 @@
 							<i class="fa  fa-users fa-5x"></i>
 						</div>
 						<div class="col-xs-9 text-right">
-							<div class="huge">23</div>
+							<div id="DashboardFriends" class="huge">${BasicDetailResponse.nooffriends}</div>
 							<div>My Friends</div>
 						</div>
 					</div>

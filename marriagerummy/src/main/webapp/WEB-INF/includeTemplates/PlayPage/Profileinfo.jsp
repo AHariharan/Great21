@@ -18,34 +18,34 @@
 			</div>
 		</div>
 		<div class="col-md-9">
-			<form class="form-horizontal" role="form">
+			<div class="form-horizontal" role="form">
 				<div class="form-group">
 					<label for="NickName" class="col-sm-2 control-label"><span
 						class="required">*</span>Nickname</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="NickName"
+						<input type="text" class="form-control" readonly id="ProfileNickName"
 							placeholder="Nickname">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="Firstname" class="col-sm-2 control-label"><span
+					<label for="ProfileFirstname" class="col-sm-2 control-label"><span
 						class="required">*</span>FirstName</label>
 					<div class="col-sm-4">
-						<input id="Firstname" type="text" class="form-control"
-							id="NickName" placeholder="Firstname">
+						<input id="ProfileFirstname" type="text" class="form-control"
+							 placeholder="Firstname">
 					</div>
-					<label for="Lastname" class="col-sm-2 control-label"><span
+					<label for="ProfileLastname" class="col-sm-2 control-label"><span
 						class="required">*</span>Lastname</label>
 					<div class="col-sm-4">
-						<input type="text" id="Lastname" class="form-control"
-							id="NickName" placeholder="Lastname">
+						<input type="text" id="ProfileLastname" class="form-control"
+							 placeholder="Lastname">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="Email" class="col-sm-2 control-label"><span
 						class="required">*</span>Email</label>
 					<div class="col-sm-4">
-						<p class="form-control-static">SampleEmail@emailserver.com</p>
+						<p class="form-control-static" id="ProfileEmail">SampleEmail@emailserver.com</p>
 					</div>
 					<label for="password" class="col-sm-2 control-label"><span
 						class="required">*</span>Password</label>
@@ -63,15 +63,15 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-2">
-						<button type="submit" class="btn btn-primary">Save
+						<button type="button" id="ProfileSave" class="btn btn-primary">Save
 							changes</button>
 					</div>
 					<div class="col-sm-3">
-						<button type="submit" class="btn btn-danger">Reset
+						<button type="button" id="ProfileReset" class="btn btn-danger">Reset
 							Information</button>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </div>

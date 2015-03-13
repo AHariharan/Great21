@@ -97,8 +97,15 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 			response.setLastname(list.get(0).getLastname());
 			return response;
 		}
+		else
+		{
+			response.setCountry(null);response.setEmailaddress(request.getEmailaddress());
+			response.setFirstname(null);response.setLastname(null);
+			response.setNickname(request.getNickname());
+			return response;
+		}
 		 
-		 return null;
+	
 		 
 	 };
 	
@@ -120,6 +127,13 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 			profile.setLastname(request.getLastname());
 			sessionFactory.getCurrentSession().merge(profile);
 		}
+		else
+		{
+			//Insert records...
+			UserProfile profile = new UserProfile(request.getUserid(), request.getFirstname(), request.getLastname(), request.getCountry(), null);
+			sessionFactory.getCurrentSession().persist(profile);
+		}
+		
 		}catch(Exception e)
 		{
 			result = "failure";
