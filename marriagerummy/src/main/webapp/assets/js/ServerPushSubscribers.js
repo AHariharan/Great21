@@ -176,6 +176,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 				$('#' + divid).slideDown();
 		   var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(data.notificationObject);
 		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
+		   // Add Card Distribution here
 		   gameObject.getCards();
 		   gameObject.getJoker();
 		   gameObject.getOpenCard();

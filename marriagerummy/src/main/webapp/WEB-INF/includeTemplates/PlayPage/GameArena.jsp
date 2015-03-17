@@ -1,9 +1,9 @@
-<div id="GameArena" style="display: none;height:94vh;">
+<div id="GameArena" style="display: none;">
 	<div class="row">
 		<div class="col-lg-12">
 			<%@include file="./GameArena_GameToolsUpdated.jsp"%>
 		</div>
-		<div id="Arena" class="col-lg-12" style="display:none">
+		<div id="Arena" class="col-lg-12">
 			<div class="GameSetup">
 				<div id="Joker" class="joker"></div>
 				<div id="centerstage" class="centerstage"></div>

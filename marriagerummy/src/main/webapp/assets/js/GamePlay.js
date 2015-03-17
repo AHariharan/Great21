@@ -42,10 +42,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	self.renderPointsTable = function(data)
 	{
 	    $(".showPoints").html(pointstatePresever);
-	    $('#onPointsTableCancel').unbind();
+	  /*  $('#onPointsTableCancel').unbind();
 		$('#onPointsTableCancel').on("click",function(){
 			$('.showPoints').css("display","none");
-		});
+		});*/
 		var obj = data.pointsTable;
 		console.log("Render Point Table : " + JSON.stringify(obj));
 		var keys  = Object.keys(obj).sort();
@@ -1127,9 +1127,10 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('.card').unbind();
 		$('.card').on("click",function() {
 			         
-			    		     
+			    		    var showJokerOpen = $('#onShowJokerGameTool').attr("aria-expanded");
+			    		    var declareGameOpen = $('#onDeclareGameTool').attr("aria-expanded");
 			    
-							if ($('.showJoker').css("display") == "block") {
+							/*if ($('.showJoker').css("display") == "block") {
 								onShowJokerWindowOpen($(this));
 							} 
 							else if ($('.declareGame').css("display") == "block") {
@@ -1139,7 +1140,22 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 								onShowCardsGame($(this));
 							} 
 							else
+								enableRearrange($(this));*/
+			    		    
+			    		    if (showJokerOpen == "true") {
+								onShowJokerWindowOpen($(this));
+							} 
+							else if (declareGameOpen == "true") {
+								onDeclareGameWindowOpen($(this));
+							} // End of IF
+							else if ($('.declareshowCards').css("display") == "block") {
+								onShowCardsGame($(this));
+							} 
+							else
 								enableRearrange($(this));
+			    		    
+			    		    
+			    		    
 						});
 	};
 	
@@ -1416,20 +1432,20 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			showPlayerPoints();
 		});
 		
-		$('#onPointsTableCancel').unbind();
+	/*	$('#onPointsTableCancel').unbind();
 		$('#onPointsTableCancel').on("click",function(){
 			$('.showPoints').css("display","none");
-		});
+		});*/
 		
 		$('#declareGame,#declareGamemini').unbind();
 		$('#declareGame,#declareGamemini').on("click",function(){
 			$('.declareGame').toggle();
 		});
 		
-		$('#onDeclareGameCancel').unbind();
+	/*	$('#onDeclareGameCancel').unbind();
 		$('#onDeclareGameCancel').on("click",function(){
 			$('.declareGame').hide();
-		});
+		});*/
 		
 		$('#dropgame').unbind();
 		$('#dropgame').on("click", function() {
@@ -1451,8 +1467,48 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			    	                      if(event.target.id == "onShowJokerCancel")
 			    	                          this.closable = true; 
 			    	                 },
-			    "hide.bs.dropdown":  function() { return this.closable; }
+			    "hide.bs.dropdown":  function() {
+			    	var incomingeventid = event.target.id;
+			    	if(incomingeventid.indexOf("GameTool") != -1)
+			    		return true;
+			    	else
+			    	    return this.closable; 
+			     }
 	    });
+		
+		$('#pointstabledropdown').unbind();
+		$('#pointstabledropdown').on({
+			    "shown.bs.dropdown": function() { this.closable = false; },
+			    "click":             function(event,relatedTarget) {
+			    	                      if(event.target.id == "onPointsTableCancel")
+			    	                          this.closable = true; 
+			    	                 },
+			    "hide.bs.dropdown":  function() {
+			    	var incomingeventid = event.target.id;
+			    	if(incomingeventid.indexOf("GameTool") != -1)
+			    		return true;
+			    	else
+			    	    return this.closable; 
+			     }
+	    });
+		
+		$('#declareGamedrpdown').unbind();
+		$('#declareGamedrpdown').on({
+			    "shown.bs.dropdown": function() { this.closable = false; },
+			    "click":             function(event,relatedTarget) {
+			    	                      if(event.target.id == "onDeclareGameCancel")
+			    	                          this.closable = true; 
+			    	                 },
+			    "hide.bs.dropdown":  function() {
+			    	var incomingeventid = event.target.id;
+			    	if(incomingeventid.indexOf("GameTool") != -1)
+			    		return true;
+			    	else
+			    	    return this.closable; 
+			     }
+	    });
+		
+		//pointstabledropdown declareGamedrpdown
 	};
 	
 	
@@ -1650,7 +1706,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	
 	
 	var dropgame = function() {
-		$('.cardContent')
+		$('#cardContent')
 				.children()
 				.each(
 						function() {
