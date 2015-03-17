@@ -1046,6 +1046,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
    var stateobject = GameObject;
    var internalcardselected = false;
    var internalfirstselectedcard = {};
+   
+   
 	
    self.showJoker = function(cardInstanceList) {
 		var url = marriageRummy.urls.showJoker;
@@ -1109,10 +1111,10 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			};
 
 	var onClickCardforShowJoker = function() {
-		$('#onShowJokerCancel').unbind();
+		/*$('#onShowJokerCancel').unbind();
 		$('#onShowJokerCancel').on("click", function() {
 			$('.showJoker').hide();
-		});
+		});*/
 		$('#onShowJoker').unbind();
 		$('#onShowJoker').on("click", function() {
 			var cardInstanceList = new Array();
@@ -1441,6 +1443,16 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		initShowJoker();
 		initMeldPattern();
 		initShowCards();
+		
+		$('#showjokerdrpdown').unbind();
+		$('#showjokerdrpdown').on({
+			    "shown.bs.dropdown": function() { this.closable = false; },
+			    "click":             function(event,relatedTarget) {
+			    	                      if(event.target.id == "onShowJokerCancel")
+			    	                          this.closable = true; 
+			    	                 },
+			    "hide.bs.dropdown":  function() { return this.closable; }
+	    });
 	};
 	
 	

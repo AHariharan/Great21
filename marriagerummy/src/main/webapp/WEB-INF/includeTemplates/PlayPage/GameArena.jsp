@@ -1,9 +1,9 @@
-<div id="GameArena" style="display: none">
+<div id="GameArena" style="display: none;height:94vh;">
 	<div class="row">
 		<div class="col-lg-12">
-			<h2>My Game</h2>
+			<%@include file="./GameArena_GameToolsUpdated.jsp"%>
 		</div>
-		<div id="Arena" class="col-lg-12">
+		<div id="Arena" class="col-lg-12" style="display:none">
 			<div class="GameSetup">
 				<div id="Joker" class="joker"></div>
 				<div id="centerstage" class="centerstage"></div>
@@ -14,7 +14,7 @@
 					</div>
 				</div>
 			</div>
-			<%@include file="./GameArena_GameTools.jsp"%>
+			<%-- <%@include file="./GameArena_GameTools.jsp"%> --%>
 			<div id="player1" class="player player1-position">
 				<div class="indicator">
 					<p>you</p>
