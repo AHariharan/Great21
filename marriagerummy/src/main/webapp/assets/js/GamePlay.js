@@ -729,14 +729,14 @@ var renderfoldcard = function(source,card) {
 					$(this).children().filter('.cardindicator').css("display",
 							"none");
 				});
-		$(".card").bind("touchstart touchend", function(e) {
+		/*$(".card").bind("touchstart touchend", function(e) {
 			'use strict';
 			e.preventDefault();
 			var card = $(this);
 			card.toggleClass("hover");
 			console.log("touchstart touchend called...." + $(this).attr("data-cardvalue"));
 			
-			/*
+			
 			 * if (card.hasClass('hover')) { $(this).attr("data-replacecard",
 			 * "true"); $(this).children().filter('.cardindicator').css(
 			 * "display", "block"); return true; } else {
@@ -744,8 +744,8 @@ var renderfoldcard = function(source,card) {
 			 * "false"); $(this).children().filter('.cardindicator').css(
 			 * "display", "none"); $(".card").not(this).removeClass('hover');
 			 * e.preventDefault(); return false; }
-			 */
-		});
+			 
+		});*/
 	};
 
 	var removeIndicator = function() {

@@ -142,7 +142,7 @@
 		                 marriageRummy.notificationManager.sendNotificationEvent(notificationdata);'>Send
 				Notifications</button>	
 		</div>
-		<div class="page-content" style="padding: 50px; padding-top: 2px;">
+		<div class="page-content">
 			<%@ include
 				file="../includeTemplates/PlayPage/DashboardPage.jsp"%>
 			<%@ include

@@ -108,15 +108,16 @@
 	border-style: solid;
 	border-color: #ccc;
 	border-width: 0 1px 0 0;
-	width: 180px;
-	float: left;
-	position: static;
+	width: 13em;
+	position: fixed;
 	padding-left: 0;
 	padding-right: 0;
 	min-height: 300px;
 	font-size: 14px;
 	margin-left: -15px;
-	height: 98vh;
+	bottom: -1px;
+	top: 82px;
+	left: 15px;
 }
 
 .sidebar>ul {
@@ -222,8 +223,14 @@
 }
 
 .page-content {
+	padding: 50px;
+	padding-top: 2px;
+	float: left;
+	left: 200px;
+	/* overflow: visible; */
+	/* overflow-x: hidden; */
 	position: relative;
-	overflow: hidden;
+	width: calc(100% - 14em);
 }
 
 .panel-green {
@@ -333,8 +340,6 @@
 	margin-left: -30px;
 	opacity: 0.99;
 }
-
-
 
 #GameLauncherContainer {
 	box-shadow: 1px 1px 10px 5px gray;

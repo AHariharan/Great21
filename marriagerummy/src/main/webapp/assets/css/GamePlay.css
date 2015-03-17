@@ -1,13 +1,14 @@
 @CHARSET "ISO-8859-1";
 
 #Arena {
-	height: 650px;
+	/* height: 650px; */
+	
 }
 
 .GameSetup {
-	top: 116px;
-	position: relative;
-	left: -50px;
+	top: 30%;
+	position: fixed;
+	left: 40%;
 }
 
 .bedsheet {
@@ -105,7 +106,7 @@
 }
 
 .player {
-	position: relative;
+	position: fixed;
 	width: 75px;
 	height: 75px;
 	font-size: 30px;
@@ -124,43 +125,45 @@
 }
 
 .player1-position {
-	left: 50%;
-	top: 103px;
+	left: 55%;
+	bottom: 5px;
 }
 
 .player2-position {
-	left: 0%;
-	top: -100px;
+	left: 19%;
+	/* top: -100px; */
+	bottom: 28%;
 }
 
 .player3-position {
-	left: 9%;
-	top: -385px;
+	left: 25%;
+	/* top: -385px; */
+	bottom: 54%;
 }
 
 .player4-position {
-	left: 30%;
-	top: -652px;
+	left: 40%;
+	bottom: 74%;
 }
 
 .player5-position {
-	left: 51%;
-	top: -751px;
+	left: 54%;
+	bottom: 79%;
 }
 
 .player6-position {
-	left: 71%;
-	top: -788px;
+	left: 73%;
+	bottom: 70%;
 }
 
 .player7-position {
-	left: 87%;
-	top: -678px;
+	left: 84%;
+	bottom: 51%;
 }
 
 .player8-position {
-	left: 95%;
-	top: -563px;
+	left: 90%;
+	bottom: 28%;
 }
 
 .indicator {
@@ -185,12 +188,13 @@
 
 .player-cards {
 	position: absolute;
-	left: -310px;
-	top: -220px;
+	left: -279px;
+	top: -223px;
 	/* border: 1px solid black; */
-	/* 	overflow: auto; */
+	/* overflow: auto; */
 	min-width: 585px;
 	padding: 40px;
+	height: 195px;
 }
 
 .cardContent {
@@ -1303,7 +1307,8 @@
 	z-index: 1000;
 	border-radius: 10px;
 	box-shadow: 0px 0px 20px 3px rgb(30, 28, 28);
- */}
+ */
+}
 
 .showPoints .windowcontent {
 	/* text-align: center; */
@@ -1322,9 +1327,8 @@
 	background-color: #323232;
 }
 
-.showPoints .table-striped>tbody td
-{
-	text-align:left;
+.showPoints .table-striped>tbody td {
+	text-align: left;
 }
 
 .clickopentag {
