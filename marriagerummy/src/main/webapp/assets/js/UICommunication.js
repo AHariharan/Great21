@@ -11,6 +11,7 @@ MarriageRummy.Utilities.CommunicationUtilities.HttpCommunicator = function() {
 	var self = this;
 	self.invokeAsyncRequest = function(url, formdata, onSuccessCallbackfn,
 			onFailureCallbackfn, requestObj) {
+		event.preventDefault();
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({
@@ -440,6 +441,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 
 	self.onDropCardFromHandFailure = function(data, textstatus, Jhxr,
 			requestObj) {
+		//alert("Failed on Drop Card From Hand" + JSON.stringify(data));
 		console.log("Failed on Drop Card From Hand : " + data);
 	};
 
@@ -586,7 +588,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GameLauncherCallback = function()
 	};
 
 	self.onLaunchGameFailure = function(data) {
-		alert("Launch Game Failure");
+		alert("Launch Game Failure" + JSON.stringify(data));
 	};
 
 };

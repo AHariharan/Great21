@@ -61,7 +61,7 @@ public class WebSocketController {
 	{
 		 System.out.println("Web Socket Notification received :" + event.getNotifiedBy());
 		 System.out.println("Web Socket Notification received :" + gameInstanceID);
-	     System.out.println("Web Socket Notification received : " + event);
+	     System.out.println("Web Socket Notification received : " + event.getNotificationSource() + "____ " + event.getNotificationType() + "----" + event.getNotifiedBy() + "------" + authentication.getName());
 	     event.setNotifiedBy(authentication.getName());
 	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	    

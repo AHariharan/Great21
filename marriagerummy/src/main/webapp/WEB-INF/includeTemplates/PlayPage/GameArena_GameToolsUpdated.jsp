@@ -124,19 +124,20 @@
 				<!--  end of Points table  -->
 
 				<!--  show Chat -->
-				<li class="dropdown" id="forceshowCardDropDown" class="disabled"><a
+				<li class="dropdown disabled" id="forceshowCardDropDown" >
+				   <a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onShowCardGameTool"><i class="fa fa-flag"></i><!-- &nbsp;Show
 						Cards --></a>
-					<div class="dropdown-menu" style="padding: 17px;">
-						<div class="declareshowCards" style="display: none;">
-							<div class="windowtooling">
+					<div class="dropdown-menu" style="padding: 17px; margin-left: -471px;">
+						<div class="declareshowCards">
+							<!-- <div class="windowtooling">
 								Show Cards
 								<button type="button" class="close" data-dismiss="modal"
 									style="margin-right: 11px;">
 									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 								</button>
-							</div>
+							</div> -->
 							<div class="windowcontent">
 								<div role="tabpanel">
 									<ul class="nav nav-tabs" role="tablist">

@@ -188,8 +188,9 @@ public class FacadeGamePlayController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.DROPCARDFROMHAND, method = RequestMethod.POST)
-	public @ResponseBody String addCardToHand(@RequestBody DropCardFromHandRequest request,@AuthenticationPrincipal Authentication authentication)	
+	public @ResponseBody String dropCardFromHand(@RequestBody DropCardFromHandRequest request,@AuthenticationPrincipal Authentication authentication)	
 	{
+		System.out.println("Drop Card Request came :- " + request.getCard() + "------" + authentication.getName());
 		String result = null;
 		String nickname = authentication.getName();
 		request.getCard().setNickName(nickname);

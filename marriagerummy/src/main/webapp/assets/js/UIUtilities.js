@@ -133,6 +133,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		$('#LaunchGame').on("click",function(){
 			var gameInstanceID = stateobject.gameInstanceId;
 			var url = marriageRummy.urls.launchGame;
+			//alert("URL : " + url);
 			var formdata = marriageRummy.request.getGameBrowserRequest().getLauchGameRequest(stateobject.lobbyName,gameInstanceID,stateobject.gameType);
 			var onSuccessCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameSuccess;
 			var onFailureCallbackfn = marriageRummy.callbacks.getGameLauncherCallback().onLaunchGameFailure;

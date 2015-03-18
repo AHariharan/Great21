@@ -227,6 +227,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	self.onDropHandSuccess = function(data, requestObj) {
+		//alert("Invoked onDropHandSuccess");
 		var notificationdata = marriageRummy.notificationRequest
 				.dropCardNotification("onDropHandSuccess", requestObj.formdata);
 		marriageRummy.notificationManager
@@ -361,6 +362,7 @@ var renderfoldcard = function(source,card) {
 
 
 	self.onDropNotificationSuccess = function(data) {
+		//alert("onDropNotificationSuccess called");
 		stopTimer();
 		self.getWhoseTurn();
 	};
@@ -492,7 +494,12 @@ var renderfoldcard = function(source,card) {
 	
 	self.forceToShowCards = function(data,requestObj)
 	{
-		$('.declareshowCards').show();
+		$('#onShowCardGameTool').dropdown('toggle');
+		/*$('body').on('click', '.disabled', function(e) {
+		   // e.preventDefault();
+		    return true;
+		});*/
+		//$('.declareshowCards').show(); ::
 		renderWinnerDeclaredCards(data);
 		
 	};
@@ -871,7 +878,7 @@ var renderfoldcard = function(source,card) {
 						$(this).css("box-shadow", "");
 					},
 					"drop" : function(event, ui) {
-
+						event.preventDefault();
 						var draggedobject = ui.draggable;
 
 						var id = draggedobject.attr("id");
@@ -1481,6 +1488,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#pointstabledropdown').on({
 			    "shown.bs.dropdown": function() { this.closable = false; },
 			    "click":             function(event,relatedTarget) {
+			    	                 showPlayerPoints();
 			    	                      if(event.target.id == "onPointsTableCancel")
 			    	                          this.closable = true; 
 			    	                 },
@@ -1509,7 +1517,24 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			     }
 	    });
 		
-		//pointstabledropdown declareGamedrpdown
+		$('#forceshowCardDropDown').unbind();
+		$('#forceshowCardDropDown').on({
+			    "shown.bs.dropdown": function() { this.closable = false; },
+			    "click":             function(event,relatedTarget) {
+			    	                      if(event.target.id == "onShowCardGame")
+			    	                          this.closable = true; 
+			    	                 },
+			    "hide.bs.dropdown":  function() {
+			    	   return this.closable; 
+			     }
+	    }); 
+	/*	
+		$('body').on('click', '.disabled', function(e) {
+		    e.preventDefault();
+		    return false;
+		});*/
+		
+		//pointstabledropdown declareGamedrpdown forceshowCardDropDown
 	};
 	
 	
