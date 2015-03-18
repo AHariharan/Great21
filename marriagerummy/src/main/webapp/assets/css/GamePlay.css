@@ -8,7 +8,15 @@
 .GameSetup {
 	top: 30%;
 	position: fixed;
-	left: 40%;
+	left: 43%;
+}
+
+@media (max-width: 767px) {
+	.GameSetup {
+	top: 23%;
+	position: fixed;
+	left: 43%;
+  }
 }
 
 .bedsheet {

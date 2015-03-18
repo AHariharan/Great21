@@ -232,7 +232,12 @@ ul.nav-pills
   color: #fdfcfd;
 }
 
-/* @media (max-width: 767px) {
+.navbar-custom .navbar-nav > li > a > i {
+  font-size: 25px;
+  margin-top: 9px !important;
+}
+
+@media (max-width: 767px) {
   .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
     color: #fcfcfd;
   }
@@ -243,4 +248,4 @@ ul.nav-pills
     color: #fdfcfd;
     background-color: #76777a;
   }
-} */
+}

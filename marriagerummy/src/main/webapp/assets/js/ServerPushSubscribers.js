@@ -167,7 +167,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 	{
 		   $('#mygame').css("display","block");
 		   marriageRummy.gameBrowserUtilities.refreshGameLobby(data.notificationObject.lobbyName);
-		   $("#GameLauncher").css("display", "none");
+		   $("#GameLauncher").css("display", "none");		   
 		   marriageRummy.navigator.resetNavigation();
 		   $('#mygame').addClass("selected");
 		   $('#mygame').children().filter("div").css("display", "block");
@@ -177,6 +177,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		   var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(data.notificationObject);
 		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
 		   // Add Card Distribution here
+		   $('#gameToolMain').slideDown();
 		   gameObject.getCards();
 		   gameObject.getJoker();
 		   gameObject.getOpenCard();

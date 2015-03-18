@@ -230,7 +230,7 @@
 	/* overflow: visible; */
 	/* overflow-x: hidden; */
 	position: relative;
-	width: calc(100% - 14em);
+	width: calc(100% - 15em);
 }
 
 .panel-green {

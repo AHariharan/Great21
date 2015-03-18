@@ -1,8 +1,8 @@
 <div id="GameArena" style="display: none;">
 	<div class="row">
-		<div class="col-lg-12">
+		<%-- <div class="col-lg-12">
 			<%@include file="./GameArena_GameToolsUpdated.jsp"%>
-		</div>
+		</div> --%>
 		<div id="Arena" class="col-lg-12">
 			<div class="GameSetup">
 				<div id="Joker" class="joker"></div>

@@ -82,7 +82,10 @@
 	<%@ include
 		file="../includeTemplates/PlayPage/CreateGameModal.jsp"%>
 	<!--  End of Modals -->
-	<div class="container-fluid maincontent">
+	<div class="maincontent">
+	    <div id="gameToolMain" style="display:none;">
+	        <%@include file="../includeTemplates/PlayPage/GameArena_GameToolsUpdated.jsp"%>
+	    </div>
 		<div class="sidebar-shrinked" style="display: none">
 			<div id="profilepic">
 				<!--  <img class="displayed" src="./assets/images/icons/128X128/Profiledefault.png" width="64px" height ="64px"> -->
