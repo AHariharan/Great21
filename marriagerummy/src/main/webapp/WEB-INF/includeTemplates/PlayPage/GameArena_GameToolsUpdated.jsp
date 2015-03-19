@@ -1,4 +1,4 @@
-<div id="GameToolbarNew" class="navbar navbar-custom navbar-fixed-top">
+<!-- <div id="GameToolbarNew" class="navbar navbar-custom navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -11,23 +11,23 @@
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<!--  show Chat -->
+				 show Chat
 				<li class="dropdown" id="chatdrpdown" title="Chat with Others"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onChatGameTool"><i class="fa fa-comments-o"></i><!-- &nbsp; Chat --></a>
+					id="onChatGameTool"><i class="fa fa-comments-o"></i>&nbsp; Chat</a>
 					<div class="dropdown-menu" style="padding: 17px;"></div></li>
-				<!--  end of Chat  -->
-				<!--  Sort Cards -->
+				 end of Chat 
+				 Sort Cards
 				<li class="dropdown" id="toolSortCards" title="Sort Cards"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onSortCardsTool"><i class="fa fa-sort-amount-asc"></i><!-- &nbsp;
-						Sort Cards --></a></li>
-				<!--  end of Sort Cards  -->
-				<!--  show joker -->
+					id="onSortCardsTool"><i class="fa fa-sort-amount-asc"></i>&nbsp;
+						Sort Cards</a></li>
+				 end of Sort Cards 
+				 show joker
 				<li class="dropdown" id="showjokerdrpdown" title="Show Joker"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onShowJokerGameTool"><i class="fa fa-umbrella"></i><!-- &nbsp;
-						Show Joker --></a>
+					id="onShowJokerGameTool"><i class="fa fa-umbrella"></i>&nbsp;
+						Show Joker</a>
 					<div class="dropdown-menu" style="padding: 17px;">
 						<div class="showJoker">
 							<div class="windowcontent">
@@ -44,22 +44,22 @@
 							</div>
 						</div>
 					</div></li>
-				<!--  end of show joker -->
-				<!--  Declare Game -->
+				 end of show joker
+				 Declare Game
 				<li class="dropdown" id="declareGamedrpdown" title="Declare Game"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onDeclareGameTool"><i class="fa fa-trophy"></i><!-- &nbsp;
-						Declare Game --></a>
+					id="onDeclareGameTool"><i class="fa fa-trophy"></i>&nbsp;
+						Declare Game</a>
 					<div class="dropdown-menu"
 						style="padding: 17px; margin-left: -471px;">
 						<div class="declareGame">
-							<!-- <div class="windowtooling">
+							<div class="windowtooling">
 								Declare Game
 								<button type="button" class="close" data-dismiss="modal"
 									style="margin-right: 11px;">
 									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 								</button>
-							</div> -->
+							</div>
 							<div class="windowcontent">
 								<div class="toolarea">
 									<span> Choose Declare Pattern : </span>
@@ -82,27 +82,27 @@
 							</div>
 						</div>
 					</div></li>
-				<!--  end of Declare Game  -->
-				<!--  Drop Game -->
+				 end of Declare Game 
+				 Drop Game
 				<li class="dropdown" id="dropgame" title="Drop Game"><a class="dropdown-toggle"
 					href="#" data-toggle="dropdown" id="onDropGameTool"><i
-						class="fa fa-times-circle"></i><!-- &nbsp; Drop Game --></a></li>
-				<!--  end of Drop Game  -->
-				<!--  sPoints table -->
+						class="fa fa-times-circle"></i>&nbsp; Drop Game</a></li>
+				 end of Drop Game 
+				 sPoints table
 				<li class="dropdown" id="pointstabledropdown" title="Show Points"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onPointsTableGameTool"><i class="fa fa-table"></i><!-- &nbsp;
-						Points Table --></a>
+					id="onPointsTableGameTool"><i class="fa fa-table"></i>&nbsp;
+						Points Table</a>
 					<div class="dropdown-menu"
 						style="padding: 17px; margin-left: -391px;">
 						<div class="showPoints">
-							<!-- <div class="windowtooling">
+							<div class="windowtooling">
 								Points Table
 								<button type="button" class="close" data-dismiss="modal"
 									style="margin-right: 11px;">
 									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 								</button>
-							</div> -->
+							</div>
 							<div class="windowcontent">
 								<table class="table table-striped">
 									<thead>
@@ -121,23 +121,23 @@
 						</div>
 
 					</div></li>
-				<!--  end of Points table  -->
+				 end of Points table 
 
-				<!--  show Chat -->
+				 show Chat
 				<li class="dropdown disabled" id="forceshowCardDropDown" title="Force to Show Cards" >
 				   <a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
-					id="onShowCardGameTool"><i class="fa fa-flag"></i><!-- &nbsp;Show
-						Cards --></a>
+					id="onShowCardGameTool"><i class="fa fa-flag"></i>&nbsp;Show
+						Cards</a>
 					<div class="dropdown-menu" style="padding: 17px; margin-left: -471px;">
 						<div class="declareshowCards">
-							<!-- <div class="windowtooling">
+							<div class="windowtooling">
 								Show Cards
 								<button type="button" class="close" data-dismiss="modal"
 									style="margin-right: 11px;">
 									<span aria-hidden="true">×</span><span class="sr-only">Close</span>
 								</button>
-							</div> -->
+							</div>
 							<div class="windowcontent">
 								<div role="tabpanel">
 									<ul class="nav nav-tabs" role="tablist">
@@ -178,26 +178,29 @@
 							<div class="actionarea">
 								<p style="margin-top: 14px; color: white; float: left;">You
 									must show all cards to get finish this round</p>
-								<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
+								<button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button>
 								<button id="onShowCardGame" class="btn btn-tool">Show
 									Cards</button>
 							</div>
 						</div>
 
 					</div></li>
-				<!--  end of Chat  -->
+				 end of Chat 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<!--  Exit Game -->
+				 Exit Game
 				<li class="dropdown" id="toolExitGame" title="Exit Current Game"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onExitGameTool"><i class="fa fa-power-off" style="font-size:14px;"></i>&nbsp; Exit
 						Game</a></li>
-				<!--  end of Exit Game  -->
+				 end of Exit Game 
 			</ul>
 
 		</div>
 
-		<!--/.nav-collapse -->
+		/.nav-collapse
 	</div>
+
 </div>
+ -->
+<%@include file="./GameToolButton.jsp"%>

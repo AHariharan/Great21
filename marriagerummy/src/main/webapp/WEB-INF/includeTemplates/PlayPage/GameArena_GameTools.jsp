@@ -1,4 +1,5 @@
 
+<%@page import="com.fasterxml.jackson.annotation.JsonInclude.Include"%>
 <div id="gametool" class="GameTools">
 	<!-- <div class="toolheading">Game Tools</div> -->
 	<div class="toolcontent">
@@ -303,6 +304,7 @@
 		<button id="onPointsTableCancel" class="btn btn-tool">Cancel</button>
 	</div>
 </div>
-<script>
+<%@include file="./GameToolButton.jsp" %>
+<!-- <script>
 	$('.showPoints').draggable();
-</script>
+</script> -->
