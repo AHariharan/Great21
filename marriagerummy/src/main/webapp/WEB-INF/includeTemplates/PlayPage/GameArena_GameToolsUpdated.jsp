@@ -1,4 +1,4 @@
-<div class="navbar navbar-custom navbar-fixed-top">
+<div id="GameToolbarNew" class="navbar navbar-custom navbar-fixed-top">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -12,19 +12,19 @@
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<!--  show Chat -->
-				<li class="dropdown" id="chatdrpdown"><a
+				<li class="dropdown" id="chatdrpdown" title="Chat with Others"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onChatGameTool"><i class="fa fa-comments-o"></i><!-- &nbsp; Chat --></a>
 					<div class="dropdown-menu" style="padding: 17px;"></div></li>
 				<!--  end of Chat  -->
 				<!--  Sort Cards -->
-				<li class="dropdown" id="toolSortCards"><a
+				<li class="dropdown" id="toolSortCards" title="Sort Cards"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onSortCardsTool"><i class="fa fa-sort-amount-asc"></i><!-- &nbsp;
 						Sort Cards --></a></li>
 				<!--  end of Sort Cards  -->
 				<!--  show joker -->
-				<li class="dropdown" id="showjokerdrpdown"><a
+				<li class="dropdown" id="showjokerdrpdown" title="Show Joker"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onShowJokerGameTool"><i class="fa fa-umbrella"></i><!-- &nbsp;
 						Show Joker --></a>
@@ -46,7 +46,7 @@
 					</div></li>
 				<!--  end of show joker -->
 				<!--  Declare Game -->
-				<li class="dropdown" id="declareGamedrpdown"><a
+				<li class="dropdown" id="declareGamedrpdown" title="Declare Game"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onDeclareGameTool"><i class="fa fa-trophy"></i><!-- &nbsp;
 						Declare Game --></a>
@@ -84,12 +84,12 @@
 					</div></li>
 				<!--  end of Declare Game  -->
 				<!--  Drop Game -->
-				<li class="dropdown" id="dropgame"><a class="dropdown-toggle"
+				<li class="dropdown" id="dropgame" title="Drop Game"><a class="dropdown-toggle"
 					href="#" data-toggle="dropdown" id="onDropGameTool"><i
 						class="fa fa-times-circle"></i><!-- &nbsp; Drop Game --></a></li>
 				<!--  end of Drop Game  -->
 				<!--  sPoints table -->
-				<li class="dropdown" id="pointstabledropdown"><a
+				<li class="dropdown" id="pointstabledropdown" title="Show Points"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onPointsTableGameTool"><i class="fa fa-table"></i><!-- &nbsp;
 						Points Table --></a>
@@ -124,7 +124,7 @@
 				<!--  end of Points table  -->
 
 				<!--  show Chat -->
-				<li class="dropdown disabled" id="forceshowCardDropDown" >
+				<li class="dropdown disabled" id="forceshowCardDropDown" title="Force to Show Cards" >
 				   <a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onShowCardGameTool"><i class="fa fa-flag"></i><!-- &nbsp;Show
@@ -189,7 +189,7 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!--  Exit Game -->
-				<li class="dropdown" id="toolExitGame"><a
+				<li class="dropdown" id="toolExitGame" title="Exit Current Game"><a
 					class="dropdown-toggle" href="#" data-toggle="dropdown"
 					id="onExitGameTool"><i class="fa fa-power-off" style="font-size:14px;"></i>&nbsp; Exit
 						Game</a></li>

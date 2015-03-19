@@ -9,6 +9,7 @@ MarriageRummy.Utilities.GameUtilities = MarriageRummy.Utilities.GameUtilities
 
 MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var statepreserver = $("#GameArena").html();
+	var gametoolpreserver = $("#GameToolbarNew").html();
 	var self = this;
 	var curtop = 0;
 	var curleft = 0;
@@ -38,6 +39,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	self.onNewRound =  function()
 	{
 		$("#GameArena").html(statepreserver);
+		$("#GameToolbarNew").html(gametoolpreserver);
 	};
 	
 	self.renderPointsTable = function(data)
