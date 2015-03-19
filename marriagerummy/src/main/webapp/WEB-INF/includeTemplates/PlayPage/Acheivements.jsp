@@ -4,7 +4,7 @@
 			<h2>My Achievements</h2>
 			<hr />
 		</div>
-		<div id="firstrummy" class="col-lg-2 col-md-3">
+		<div id="firstrummy" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -19,7 +19,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="firstjoker" class="col-lg-2 col-md-3">
+		<div id="firstjoker" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -34,7 +34,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="firstJapan" class="col-lg-2 col-md-3">
+		<div id="firstJapan" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -49,7 +49,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="first7cardwin" class="col-lg-2 col-md-3">
+		<div id="first7cardwin" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="first13cardwin" class="col-lg-2 col-md-3">
+		<div id="first13cardwin" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="first21cardwin" class="col-lg-2 col-md-3">
+		<div id="first21cardwin" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="firstPointcardwin" class="col-lg-2 col-md-3">
+		<div id="firstPointcardwin" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -109,7 +109,7 @@
 				</div>
 			</div>
 		</div>
-	    <div id="rummyBeginner" class="col-lg-2 col-md-3">
+	    <div id="rummyBeginner" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -124,7 +124,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="rummyBeginnerPlus" class="col-lg-2 col-md-3">
+		<div id="rummyBeginnerPlus" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -139,7 +139,7 @@
 				</div>
 			</div>
 		</div>
-	    <div id="rummyIntermediate" class="col-lg-2 col-md-3">
+	    <div id="rummyIntermediate" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -154,7 +154,7 @@
 				</div>
 			</div>
 		</div>
-	      <div id="rummyIntermediate" class="col-lg-2 col-md-3">
+	      <div id="rummyIntermediate" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -169,7 +169,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="rummyExpert" class="col-lg-2 col-md-3">
+		<div id="rummyExpert" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -184,7 +184,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="rummyPro" class="col-lg-2 col-md-3">
+		<div id="rummyPro" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -199,7 +199,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="rummyMaster" class="col-lg-2 col-md-3">
+		<div id="rummyMaster" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -214,7 +214,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="gamehost" class="col-lg-2 col-md-3">
+		<div id="gamehost" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -229,7 +229,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="gamehostmaster" class="col-lg-2 col-md-3">
+		<div id="gamehostmaster" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -244,7 +244,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="FuntoPlayWith" class="col-lg-2 col-md-3">
+		<div id="FuntoPlayWith" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -259,7 +259,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="TutorialMaster" class="col-lg-2 col-md-3">
+		<div id="TutorialMaster" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -274,7 +274,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="Got Friends" class="col-lg-2 col-md-3">
+		<div id="Got Friends" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -289,7 +289,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="QuickPlayer" class="col-lg-2 col-md-3">
+		<div id="QuickPlayer" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -304,7 +304,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="TurtlePlayer" class="col-lg-2 col-md-3">
+		<div id="TurtlePlayer" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
