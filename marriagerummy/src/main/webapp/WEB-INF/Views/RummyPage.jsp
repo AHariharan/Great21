@@ -71,7 +71,7 @@
 	});
 </script>
 </head>
-<body style="padding-top: 83px;">
+<body style="padding-top: 52px;">
 
     <div class="mask" style="display:none">
          <div class="loadingmask"></div>
@@ -152,6 +152,7 @@
 				file="../includeTemplates/PlayPage/Profileinfo.jsp"%>
 			<%@ include file="../includeTemplates/PlayPage/GameLobby.jsp"%>
 			<%@ include file="../includeTemplates/PlayPage/GameArena.jsp"%>
+			<%@ include file="../includeTemplates/PlayPage/Acheivements.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->
