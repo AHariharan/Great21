@@ -33,7 +33,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var onStartup = function() {
 		$(".navigation").css("display", "none");
 		$("body").css("padding-top", "0px");
-		$('.sidebar').css("top","304px");
+		$('.sidebar').css("display","none");
 	};
 	
 	self.onNewRound =  function()
