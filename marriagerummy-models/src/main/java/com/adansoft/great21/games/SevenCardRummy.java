@@ -46,6 +46,8 @@ public class SevenCardRummy implements Game,Serializable {
 	private GameRound currentGameRound;
 	private int currentRoundnum = 1;
 	private GameContentHolder gameContentHolder;
+	private boolean includeJokerinDeck;
+	private int numofJokers;
 	
 	
 	public SevenCardRummy()
@@ -76,7 +78,7 @@ public class SevenCardRummy implements Game,Serializable {
 	}
 	
 
-	public SevenCardRummy(int noofdecks, int maxplayers,
+	public SevenCardRummy(int noofdecks,boolean jokerAvailable,int numofJokers, int maxplayers,
 			 int numofrounds, int maxrounds,
 			String gameOwnedBy, boolean isGamePointsBased,
 			int maxpointtoEliminate, boolean isGameMoneyBased,
@@ -102,6 +104,8 @@ public class SevenCardRummy implements Game,Serializable {
 		this.status = Game.GAME_STATUS_OPEN;
 		initAvailablePosition();
 		this.gameContentHolder = new GameContentHolder(this.gameInstanceId,this.gameType,getCurrentGameMode());
+		this.includeJokerinDeck = jokerAvailable;
+		this.numofJokers = numofJokers;
 	}
 
 	
@@ -391,7 +395,7 @@ public class SevenCardRummy implements Game,Serializable {
 		if(whoseturn == 0)
 			whoseturn = getPlayers().size();
 			
-		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,whoseturn);	
+		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,whoseturn,includeJokerinDeck,numofJokers);	
 		round.setPlayerlist(getPlayers());
 		round.initshowStatusMap();
 		round.startRound();

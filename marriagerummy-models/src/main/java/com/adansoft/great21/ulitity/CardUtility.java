@@ -12,6 +12,7 @@ import com.adansoft.great21.models.DiamondCard;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.HeartCard;
 import com.adansoft.great21.models.HumanPlayer;
+import com.adansoft.great21.models.JokerCard;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.models.SpadeCard;
 import com.adansoft.great21.restschemas.DeclareGameResult;
@@ -110,28 +111,48 @@ public class CardUtility {
 		
 		return cardchunk;
 	}
-
-	public static Deck createDeck(int Deckid)
+	
+	private static JokerCard[] createJokers(int Deckid,int numofJokers)
 	{
-		Deck deck = new Deck(Deckid);
+		JokerCard[] cardchunk = new JokerCard[numofJokers];
+		for(int i=0;i<numofJokers;i++)
+		{
+			cardchunk[i] = new JokerCard("Joker", i, Deckid, Card.STATUS_UNASSIGNED);
+		}
+		return cardchunk;
+	};
+
+	public static Deck createDeck(int Deckid,boolean withJoker,int numofJokers)
+	{
+		Deck deck = new Deck(Deckid,withJoker);
 		
 		deck.setClubCard(createClubCardChunk(Deckid));
 		deck.setDiamondCard(createDiamondCardChunk(Deckid));
 		deck.setHeartCard(createHeartCardChunk(Deckid));
 		deck.setSpadeCard(createSpadeCardChunk(Deckid));
+		if(withJoker)
+		{
+			deck.setJokerCard(createJokers(Deckid, numofJokers));
+			deck.setJokerAvailable(true);
+		}
 		
 		return deck;
 	}
 	
 
-	public static Card[] shuffleCards(int numberofDecks)
+	public static Card[] shuffleCards(int numberofDecks,boolean withJokers,int numofJokers)
 	{
 		Deck[] decklist = new Deck[numberofDecks];
 		
-		Card[] cardlist = new Card[52*numberofDecks];
+		Card[] cardlist = null;
+		if(withJokers)				
+			cardlist =	new Card[52*numberofDecks + numofJokers];
+		else
+			cardlist =	new Card[52*numberofDecks];
+		
 		for(int i=0;i<numberofDecks;i++)
 		{
-			decklist[i] = createDeck(i);
+			decklist[i] = createDeck(i,withJokers,numofJokers);
 		}
 			
 		for(int i=0;i<52*numberofDecks;i++)

@@ -48,8 +48,10 @@ public class GameRound implements Serializable{
     private int currenturn;
     private ArrayList<Integer> skipturnarray = new ArrayList<Integer>();
     private Card prevDroppedCard;
+    private boolean jokerAvailable;
+    private int numofJokers;
 
-    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn)
+    public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn,boolean hasJoker,int numofJokers)
     {
     	this.parentGameId = gameid;
     	this.isPointsEnabled = isPointsEnabled;
@@ -62,6 +64,8 @@ public class GameRound implements Serializable{
     	setCurrentStatus(GameRound.STATUS_CREATED);
     	this.startTurnpos = startturn;
     	this.currenturn = this.startTurnpos;
+    	this.jokerAvailable = hasJoker;
+    	this.numofJokers = numofJokers;
     	pointsMap = new HashMap<String, Integer>();
     	cashMap = new HashMap<String, Float>();
     	showstatusMap = new HashMap<String, String>();
@@ -241,7 +245,7 @@ public class GameRound implements Serializable{
     {
     	resetAllCardsforPlayers();
     	boolean opencardset = false;
-    	deckcards = CardUtility.shuffleCards(noofdecks);
+    	deckcards = CardUtility.shuffleCards(noofdecks,jokerAvailable,numofJokers);
     	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);
     	currentindexincard++;
     	/* adding debug ...*/

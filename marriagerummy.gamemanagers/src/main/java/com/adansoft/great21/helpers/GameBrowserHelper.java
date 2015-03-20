@@ -33,7 +33,7 @@ public class GameBrowserHelper {
 		 Game game = null;
 		 System.out.println(" GameType Request :- " + request.getGameType());
 		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
-			 game =  new SevenCardRummy(1, request.getMaxPlayers(),
+			 game =  new SevenCardRummy(1, true , 2, request.getMaxPlayers(),
 				 request.getMaxRounds(), request.getMaxRounds(),
 				 request.getCreatedBy(), request.isGamePointsBased(),
 				 request.getMaxPoints(), request.isGamePerCardBase(),

@@ -7,9 +7,12 @@ public class Deck {
 	private HeartCard heartCard[];
 	private ClubCard clubCard[];
 	private DiamondCard diamondCard[];
+	private JokerCard jokerCard[];
+	private boolean jokerAvailable;
 	
-	public Deck(int deckid) {
+	public Deck(int deckid,boolean withJoker) {
 		deckInstanceID = deckid;
+		jokerAvailable = withJoker;
 	}
 
 	public int getDeckInstanceID() {
@@ -50,6 +53,22 @@ public class Deck {
 
 	public void setDiamondCard(DiamondCard[] diamondCard) {
 		this.diamondCard = diamondCard;
+	}
+
+	public JokerCard[] getJokerCard() {
+		return jokerCard;
+	}
+
+	public void setJokerCard(JokerCard[] jokerCard) {
+		this.jokerCard = jokerCard;
+	}
+
+	public boolean isJokerAvailable() {
+		return jokerAvailable;
+	}
+
+	public void setJokerAvailable(boolean jokerAvailable) {
+		this.jokerAvailable = jokerAvailable;
 	}
 	
 	

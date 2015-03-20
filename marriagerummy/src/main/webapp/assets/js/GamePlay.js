@@ -94,6 +94,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				currentcard = cardlist[i].DiamondCard;
 			if (cardlist[i].hasOwnProperty("ClubCard"))
 				currentcard = cardlist[i].ClubCard;
+			if (cardlist[i].hasOwnProperty("JokerCard"))
+				currentcard = cardlist[i].JokerCard;
+			
 			var pos = i + 1;
 			var divid = prefix + pos;
 			var existingcardval = $(divid).attr("data-cardvalue");
