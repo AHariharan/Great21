@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
       @JsonSubTypes.Type(value=HeartCard.class, name="HeartCard"),
       @JsonSubTypes.Type(value=ClubCard.class, name="ClubCard"),
       @JsonSubTypes.Type(value=DiamondCard.class, name="DiamondCard"),
-      @JsonSubTypes.Type(value=SpadeCard.class, name="SpadeCard")
+      @JsonSubTypes.Type(value=SpadeCard.class, name="SpadeCard"),
+      @JsonSubTypes.Type(value=JokerCard.class, name="JokerCard")
   }) 
 public interface Card extends Serializable,Comparable{
 	

@@ -45,10 +45,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	self.renderPointsTable = function(data)
 	{
 	    $(".showPoints").html(pointstatePresever);
-	  /*  $('#onPointsTableCancel').unbind();
+	    $('#onPointsTableCancel').unbind();
 		$('#onPointsTableCancel').on("click",function(){
 			$('.showPoints').css("display","none");
-		});*/
+		});
 		var obj = data.pointsTable;
 		console.log("Render Point Table : " + JSON.stringify(obj));
 		var keys  = Object.keys(obj).sort();
@@ -388,7 +388,9 @@ var renderfoldcard = function(source,card) {
 			divid.addClass("jokerdimension");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
+			marriageRummy.generalutility.showSuccessAlert("Joker is available only to you","Joker Open" );
 		} else {
+			marriageRummy.generalutility.showMediumAlert( "Can't show joker Submitted Sequence is invalid","Invalid Sequence");
 			divid.addClass("closedcard");
 		}
 	};
@@ -662,6 +664,8 @@ var renderfoldcard = function(source,card) {
 			currentcard = inputcard.DiamondCard;
 		if (inputcard.hasOwnProperty("ClubCard"))
 			currentcard = inputcard.ClubCard;
+		if (inputcard.hasOwnProperty("JokerCard"))
+			currentcard = inputcard.JokerCard;
 		return currentcard;
 	};
 
@@ -1124,10 +1128,16 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			};
 
 	var onClickCardforShowJoker = function() {
-		/*$('#onShowJokerCancel').unbind();
+		$('#onShowJokerCancel').unbind();
 		$('#onShowJokerCancel').on("click", function() {
 			$('.showJoker').hide();
-		});*/
+			$('.showJoker .jokershowcard').each(function(){
+				var classname = $(this).attr("data-cardvalue");
+				$(this).removeClass(classname);
+				$(this).removeAttr("data-cardvalue");
+				$(this).removeAttr("data-cardinstanceid");
+			});
+		});
 		$('#onShowJoker').unbind();
 		$('#onShowJoker').on("click", function() {
 			var cardInstanceList = new Array();
@@ -1136,14 +1146,21 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				cardInstanceList.push(cardinstanceid);
 			});
 			self.showJoker(cardInstanceList);
+			/*$('.showJoker .jokershowcard').each(function(){
+				var classname = $(this).attr("data-cardvalue");
+				$(this).removeClass(classname);
+				$(this).removeAttr("data-cardvalue");
+				$(this).removeAttr("data-cardinstanceid");
+			});*/
+			//$('.showJoker').hide();
 		});
 		$('.card').unbind();
 		$('.card').on("click",function() {
-			         
+			         /*
 			    		    var showJokerOpen = $('#onShowJokerGameTool').attr("aria-expanded");
-			    		    var declareGameOpen = $('#onDeclareGameTool').attr("aria-expanded");
+			    		    var declareGameOpen = $('#onDeclareGameTool').attr("aria-expanded");*/
 			    
-							/*if ($('.showJoker').css("display") == "block") {
+							if ($('.showJoker').css("display") == "block") {
 								onShowJokerWindowOpen($(this));
 							} 
 							else if ($('.declareGame').css("display") == "block") {
@@ -1153,9 +1170,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 								onShowCardsGame($(this));
 							} 
 							else
-								enableRearrange($(this));*/
+								enableRearrange($(this));
 			    		    
-			    		    if (showJokerOpen == "true") {
+			    		  /*  if (showJokerOpen == "true") {
 								onShowJokerWindowOpen($(this));
 							} 
 							else if (declareGameOpen == "true") {
@@ -1165,7 +1182,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 								onShowCardsGame($(this));
 							} 
 							else
-								enableRearrange($(this));
+								enableRearrange($(this));*/
 			    		    
 			    		    
 			    		    
@@ -1344,6 +1361,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	
 	var onShowJokerWindowOpen = function(source)
 	{
+		
+		
 		var cardvalue = source.attr("data-cardvalue");
 		var cardinstanceid = source.attr("data-cardinstanceid");
 		var cardassigned = false;
@@ -1445,20 +1464,20 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			showPlayerPoints();
 		});
 		
-	/*	$('#onPointsTableCancel').unbind();
+		$('#onPointsTableCancel').unbind();
 		$('#onPointsTableCancel').on("click",function(){
 			$('.showPoints').css("display","none");
-		});*/
+		});
 		
 		$('#declareGame,#declareGamemini').unbind();
 		$('#declareGame,#declareGamemini').on("click",function(){
 			$('.declareGame').toggle();
 		});
 		
-	/*	$('#onDeclareGameCancel').unbind();
+		$('#onDeclareGameCancel').unbind();
 		$('#onDeclareGameCancel').on("click",function(){
 			$('.declareGame').hide();
-		});*/
+		});
 		
 		$('#dropgame').unbind();
 		$('#dropgame').on("click", function() {
@@ -1473,7 +1492,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		initMeldPattern();
 		initShowCards();
 		
-		$('#showjokerdrpdown').unbind();
+	/*	$('#showjokerdrpdown').unbind();
 		$('#showjokerdrpdown').on({
 			    "shown.bs.dropdown": function() { this.closable = false; },
 			    "click":             function(event,relatedTarget) {
@@ -1487,9 +1506,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			    	else
 			    	    return this.closable; 
 			     }
-	    });
+	    });*/
 		
-		$('#pointstabledropdown').unbind();
+/*		$('#pointstabledropdown').unbind();
 		$('#pointstabledropdown').on({
 			    "shown.bs.dropdown": function() { this.closable = false; },
 			    "click":             function(event,relatedTarget) {
@@ -1532,7 +1551,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			    "hide.bs.dropdown":  function() {
 			    	   return this.closable; 
 			     }
-	    }); 
+	    }); */
 	/*	
 		$('body').on('click', '.disabled', function(e) {
 		    e.preventDefault();

@@ -84,7 +84,7 @@
 	<!--  End of Modals -->
 	<div class="maincontent">
 	    <div id="gameToolMain" style="display:none;">
-	        <%@include file="../includeTemplates/PlayPage/GameArena_GameToolsUpdated.jsp"%>
+	        <%@include file="../includeTemplates/PlayPage/GameToolButton.jsp"%>
 	    </div>
 		<div class="sidebar-shrinked" style="display: none">
 			<div id="profilepic">

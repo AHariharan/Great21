@@ -704,6 +704,7 @@ public class CardUtility {
 		ArrayList<Card> diamondCardList = new ArrayList<Card>();
 		ArrayList<Card> clubCardList = new ArrayList<Card>();
 		ArrayList<Card> heartCardList = new ArrayList<Card>();
+		ArrayList<Card> jokerCardList = new ArrayList<Card>();
 
 		for (Card card : inputcardlist) {
 			if (card.getFlower().equals(Card.FLOWER_CLUBS))

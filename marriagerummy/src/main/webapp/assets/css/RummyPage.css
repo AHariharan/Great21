@@ -587,14 +587,15 @@
 	background-color: #ffffff;
 }
 
-
-
-.tooloutputdisplay
-{
-	position:fixed;
-	left:190px;
-	top:0px;
-	min-width:500px;
-	min-height:300px;
-	background:black;
+.tooloutputdisplay {
+	position: fixed;
+	left: 184px;
+	top: 0px;
+	/* min-width: 817px;
+	min-height: 286px; */
+	background: rgb(14, 13, 13);
+	float: left;
+	box-shadow: 0px 0px 21px 2px rgb(99, 105, 95);
+	border-radius: 24px;
+	z-index: 9999;
 }
