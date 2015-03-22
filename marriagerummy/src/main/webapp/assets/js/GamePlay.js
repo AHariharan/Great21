@@ -501,12 +501,12 @@ var renderfoldcard = function(source,card) {
 	
 	self.forceToShowCards = function(data,requestObj)
 	{
-		$('#onShowCardGameTool').dropdown('toggle');
+		//$('#onShowCardGameTool').dropdown('toggle');
 		/*$('body').on('click', '.disabled', function(e) {
 		   // e.preventDefault();
 		    return true;
 		});*/
-		//$('.declareshowCards').show(); ::
+		$('.declareshowCards').show();
 		renderWinnerDeclaredCards(data);
 		
 	};
@@ -566,6 +566,8 @@ var renderfoldcard = function(source,card) {
 		var value = tmp.split("-")[2].trim();
 		var cardvalue = flower[0].toUpperCase() + flower.slice(1).toLowerCase()
 				+ "-" + value;
+		if(cardvalue.indexOf(",") != -1)
+			cardvalue =  cardvalue.split(",")[0];
 		return cardvalue;
 	};
 

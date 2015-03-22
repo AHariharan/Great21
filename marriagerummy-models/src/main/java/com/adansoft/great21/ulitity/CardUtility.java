@@ -683,6 +683,8 @@ public class CardUtility {
 			String jokerValue) {
 		ArrayList<Card> excludedCardList = new ArrayList<Card>();
 		for (Card card : cardlist) {
+			if(card.getFlower().equals(Card.FLOWER_WILD))
+					continue;
 			if (!card.getDisplayValue().equals(jokerValue)) {
 				excludedCardList.add(card);
 			}
@@ -715,6 +717,8 @@ public class CardUtility {
 				heartCardList.add(card);
 			if (card.getFlower().equals(Card.FLOWER_SPADE))
 				spadeCardList.add(card);
+			if (card.getFlower().equals(Card.FLOWER_WILD))
+				jokerCardList.add(card);
 		}
 		Card[] clubcards = clubCardList.toArray(new Card[clubCardList.size()]);
 		Card[] diamondcards = diamondCardList.toArray(new Card[diamondCardList
@@ -723,11 +727,13 @@ public class CardUtility {
 				.toArray(new Card[heartCardList.size()]);
 		Card[] spadecards = spadeCardList
 				.toArray(new Card[spadeCardList.size()]);
+		Card[] jokercards = jokerCardList.toArray(new Card[jokerCardList.size()]);
 
 		Arrays.sort(clubcards);
 		Arrays.sort(diamondcards);
 		Arrays.sort(heartcards);
 		Arrays.sort(spadecards);
+		Arrays.sort(jokercards);
 
 		ArrayList<Card> outputlist = new ArrayList<Card>();
 
@@ -735,6 +741,7 @@ public class CardUtility {
 		outputlist.addAll(Arrays.asList(diamondcards));
 		outputlist.addAll(Arrays.asList(clubcards));
 		outputlist.addAll(Arrays.asList(heartcards));
+		outputlist.addAll(Arrays.asList(jokercards));
 		return outputlist.toArray(new Card[outputlist.size()]);
 	}
 
