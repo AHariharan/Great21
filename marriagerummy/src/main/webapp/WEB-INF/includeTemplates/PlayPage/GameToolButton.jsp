@@ -1,4 +1,5 @@
-<div class="btn-toolbar" role="toolbar" aria-label="..." style="width:183px;">
+<div class="btn-toolbar" role="toolbar" aria-label="..."
+	style="width: 183px;">
 
 	<div class="btn-group btn-group-lg" role="group">
 		<div class="btn-group btn-group-vertical">
@@ -26,17 +27,19 @@
 			<button type="button" class="btn btn-lg btn-gametool">
 				<i class="fa fa-play-circle-o"></i>&nbsp;Play Audio
 			</button>
-			<button id="toolSortCards" type="button" class="btn btn-lg btn-primary">
+			<button id="toolSortCards" type="button"
+				class="btn btn-lg btn-primary">
 				<i class="fa fa-sort-amount-asc"></i>&nbsp;Sort Cards
 			</button>
 
 
-			<button id="tool-showJoker" type="button" class="btn btn-lg btn-primary">
+			<button id="tool-showJoker" type="button"
+				class="btn btn-lg btn-primary">
 				<i class="fa fa-umbrella"></i>&nbsp;Show Joker
 			</button>
 
 
-			<button  id="declareGame"  type="button" class="btn btn-lg btn-primary">
+			<button id="declareGame" type="button" class="btn btn-lg btn-primary">
 				<i class="fa fa-trophy"></i>&nbsp;Declare Game
 			</button>
 
@@ -46,7 +49,8 @@
 			</button>
 
 
-			<button id="tool-showPointsTable" type="button" class="btn btn-lg btn-primary">
+			<button id="tool-showPointsTable" type="button"
+				class="btn btn-lg btn-primary">
 				<i class="fa fa-table"></i>&nbsp;Show Points
 			</button>
 
@@ -59,7 +63,7 @@
 	</div>
 </div>
 <div class="tooloutputdisplay">
-	<div class="showJoker" style="display:none;">
+	<div class="showJoker" style="display: none;">
 		<div class="windowcontent">
 			<h4>Please select cards from hand to retrieve Joker</h4>
 			<div id="showcard1" class="jokershowcard"></div>
@@ -74,7 +78,7 @@
 		</div>
 	</div>
 	<!-- Declare Game -->
-	<div class="declareGame" style="display:none;">
+	<div class="declareGame" style="display: none;">
 		<div class="windowtooling">
 			Declare Game
 			<button type="button" class="close" data-dismiss="modal"
@@ -105,7 +109,7 @@
 		</div>
 	</div>
 	<!--  Show Points -->
-	<div class="showPoints" style="display:none;">
+	<div class="showPoints" style="display: none;">
 		<div class="windowtooling">
 			Points Table
 			<button type="button" class="close" data-dismiss="modal"
@@ -130,7 +134,7 @@
 		</div>
 	</div>
 	<!--  Forced Declare -->
-	<div class="declareshowCards" style="display:none;">
+	<div class="declareshowCards" style="display: none;">
 		<div class="windowtooling">
 			Show Cards
 			<button type="button" class="close" data-dismiss="modal"
@@ -166,6 +170,9 @@
 							<span class="toolsep"> | </span>
 							<button id="meldrestgrp" class="btn btn-tool">Remaining
 								Cards</button>
+							<span class="toolsep"> | </span>
+							<button id="onShowCardGame" class="btn btn-tool">Show
+								Cards</button>
 						</div>
 
 						<div class="meldcardarea"></div>
@@ -177,7 +184,7 @@
 		<div class="actionarea">
 			<p style="margin-top: 14px; color: white; float: left;">You must
 				show all cards to get finish this round</p>
-			<button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button>
+			<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
 			<button id="onShowCardGame" class="btn btn-tool">Show Cards</button>
 		</div>
 	</div>

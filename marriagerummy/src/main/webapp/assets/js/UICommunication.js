@@ -11,7 +11,7 @@ MarriageRummy.Utilities.CommunicationUtilities.HttpCommunicator = function() {
 	var self = this;
 	self.invokeAsyncRequest = function(url, formdata, onSuccessCallbackfn,
 			onFailureCallbackfn, requestObj) {
-		event.preventDefault();
+	//	event.preventDefault();
 		var token = $("meta[name='_csrf']").attr("content");
 		var header = $("meta[name='_csrf_header']").attr("content");
 		$.ajax({

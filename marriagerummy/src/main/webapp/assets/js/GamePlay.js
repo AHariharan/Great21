@@ -36,6 +36,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('.sidebar').css("display","none");
 	};
 	
+	self.hideAllGameTools = function()
+	{
+		$('.showJoker').hide();
+		$('.declareGame').hide();
+		$('.showPoints').hide();
+		$('.declareshowCards').hide();
+	};
+	
 	self.onNewRound =  function()
 	{
 		$("#GameArena").html(statepreserver);

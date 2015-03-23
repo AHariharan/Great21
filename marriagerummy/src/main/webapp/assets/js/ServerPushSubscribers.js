@@ -247,18 +247,37 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	console.log("handleNewGameRoundNotification Data ... " + JSON.stringify(data));
     	marriageRummy.generalutility.setLoadingMask("Starting new round");
     	var gameObject = jQuery.data( $("#GameArena")[0], "GameObj");
+    	gameObject.hideAllGameTools();
         gameObject.onNewRound();
-        var stateobject = gameObject.getStateObject();
-        
-        var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(stateobject);
-		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
-		   gameObject.getCards();
-		   gameObject.getJoker();
-		   gameObject.getOpenCard();
-		   gameObject.getPlayerList();
-        
-		 
-		marriageRummy.generalutility.hideLoadingMask("Starting new round");
+        setTimeout(startnewGameAfterTimeout,5000,gameObject);
+        setTimeout(startUpdateTimer,1000,4);
+    };
+    
+    startUpdateTimer = function(count)
+    {
+         if(count == 0) 
+        	 return;
+         else
+        	 {
+        	    count--;
+        	    marriageRummy.generalutility.setLoadingMask("Starting new round in " + count + " seconds");
+        	    setTimeout(startUpdateTimer,1000,count);
+        	 }
+    };
+    
+    startnewGameAfterTimeout = function(gameObject)
+    {
+    	  var stateobject = gameObject.getStateObject();
+          
+          var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(stateobject);
+  		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
+  		   gameObject.getCards();
+  		   gameObject.getJoker();
+  		   gameObject.getOpenCard();
+  		   gameObject.getPlayerList();
+          
+  		// console.log("startnewGameAfterTimeout Data ... " + JSON.stringify(data));
+  		  marriageRummy.generalutility.hideLoadingMask("Starting new round");
     };
     
 };
