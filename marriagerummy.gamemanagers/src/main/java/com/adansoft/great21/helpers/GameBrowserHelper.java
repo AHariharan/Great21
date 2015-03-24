@@ -162,7 +162,11 @@ public class GameBrowserHelper {
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
-		if(game.getOwner().equals(request.getNickName()))
+		if(game == null)
+		{
+			System.out.println("Unable to find game with game instanceid:- " + request.getGameInstanceID());
+		}
+		if(game != null && game.getOwner().equals(request.getNickName()))
 		{  
 			game.startGame();		
 		   return "Success"; 

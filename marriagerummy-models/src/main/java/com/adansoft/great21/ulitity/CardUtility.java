@@ -574,6 +574,10 @@ public class CardUtility {
 
 	public static String interpretJokerandValidate(Card[] cardlist,
 			Card jokerCard) {
+		if(jokerCard instanceof JokerCard) // Force Interpret "A" as Joker when Joker is there.
+		{
+			jokerCard = new HeartCard("A", 0, 1, Card.STATUS_JOKER);
+		}
 		String jokerValue = jokerCard.getDisplayValue();
 		// System.out.println("Excluded Cards : ");
 		// showCards(excludeJokerfromCardList(cardlist,jokerValue));

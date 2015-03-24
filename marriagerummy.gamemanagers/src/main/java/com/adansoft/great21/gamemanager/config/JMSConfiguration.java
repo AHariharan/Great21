@@ -22,7 +22,6 @@ import org.springframework.jms.support.converter.MessageType;
 
 
 
-
 import com.adansoft.great21.gamemanager.JMSHandlers.GameManagerDelegateImpl;
 import com.adansoft.great21.gamemanager.JMSHandlers.JMSExceptionListener;
 import com.adansoft.great21.gamemanager.JMSHandlers.QueueListener;
@@ -177,6 +176,9 @@ public class JMSConfiguration {
 		container.setConnectionFactory(createCacheFactory());
 		container.setDestination(createReceivingQueue());
 		container.setMessageListener(createMessageListenerAdapter());
+		container.setConcurrency("5-10");
+		container.setConcurrentConsumers(10);
+		container.setExceptionListener(createExceptionListener());
 		return container;
 	}
 	
