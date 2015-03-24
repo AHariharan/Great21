@@ -423,6 +423,18 @@ public class CardUtility {
 			HashMap<String, Card[]> meldlist, Card jokerCard, String gameType) {
 		DeclareGameResult gameresult = new DeclareGameResult();
 
+		
+		System.out.println("Incoming Declaration Request :- ");
+		for (String key : meldlist.keySet()) 
+		{
+			Card[] cardlist = meldlist.get(key);
+			System.out.println("Key Name :- " + key);
+			for(int i=0;i<cardlist.length;i++)
+			{
+				System.out.println("Card :- " + cardlist[i].getInstanceID());
+			}
+ 		}
+		System.out.println("***********END OF Incoming Declaration Request ***************** ");
 		// Check Original Sequence.
 
 		boolean isOrigSeqPresent = false;

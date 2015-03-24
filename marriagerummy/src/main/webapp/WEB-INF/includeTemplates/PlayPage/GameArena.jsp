@@ -8,7 +8,7 @@
 				<div id="Joker" class="joker"></div>
 				<div id="centerstage" class="centerstage"></div>
 				<div id="DeckNextCard" class="deckNextCard"></div>
-				<div id="OpenCard" class="opencard">
+				<div id="OpenCard" class="opencard basecard-alt">
 					<div id="informationtag" class="clickopentag">
 						<i class="fa fa-arrow-left"></i> Click to Pick Card
 					</div>

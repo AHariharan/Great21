@@ -34,16 +34,16 @@
 }
 
 .joker {
-	width: 87px;
-	height: 82px;
+	width: 74px;
+	height: 118px;
 	-moz-transform: rotate(-41deg);
 	-webkit-transform: rotate(-41deg);
 	-o-transform: rotate(-41deg);
 	-ms-transform: rotate(-41deg);
 	transform: rotate(-41deg);
 	position: relative;
-	/* left: 564px; */
-	top: 81px;
+	left: 15px;
+	top: 116px;
 	background: url('../images/Cards/DiamondCards/7.png');
 	background-size: 99px 137px;
 	background-repeat: no-repeat;
@@ -1366,4 +1366,3 @@
 	border-radius: 20px;
 	cursor: pointer;
 }
-

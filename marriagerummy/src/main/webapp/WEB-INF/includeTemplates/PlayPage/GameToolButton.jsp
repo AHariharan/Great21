@@ -66,9 +66,9 @@
 	<div class="showJoker" style="display: none;">
 		<div class="windowcontent">
 			<h4>Please select cards from hand to retrieve Joker</h4>
-			<div id="showcard1" class="jokershowcard"></div>
-			<div id="showcard2" class="jokershowcard"></div>
-			<div id="showcard3" class="jokershowcard"></div>
+			<div id="showcard1" class="jokershowcard "></div>
+			<div id="showcard2" class="jokershowcard "></div>
+			<div id="showcard3" class="jokershowcard "></div>
 			<h4>Click on the cards above to remove from Show Joker</h4>
 		</div>
 		<div class="actionarea">

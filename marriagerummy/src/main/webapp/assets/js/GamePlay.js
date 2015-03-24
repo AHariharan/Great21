@@ -391,12 +391,12 @@ var renderfoldcard = function(source,card) {
 			var card = getCardObject(data.card);
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
-			var classname = flower + "-" + card.displayValue;
-			divid.addClass(classname);
-			divid.addClass("jokerdimension");
+			var classname = flower + "-" + "alt" + "-" +card.displayValue;
+			divid.addClass("basecard-alt  " + classname);
+			divid.removeClass("closedcard");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
-			marriageRummy.generalutility.showSuccessAlert("Joker is available only to you","Joker Open" );
+			marriageRummy.generalutility.showSuccessAlert("Joker is available to you","Joker Open" );
 		} else {
 			marriageRummy.generalutility.showMediumAlert( "Can't show joker Submitted Sequence is invalid","Invalid Sequence");
 			divid.addClass("closedcard");
@@ -409,9 +409,9 @@ var renderfoldcard = function(source,card) {
 			var card = getCardObject(data.card);
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
-			var classname = flower + "-" + card.displayValue;
+			var classname = flower + "-" +"alt"+"-"+ card.displayValue;
 			divid.addClass(classname);
-			divid.addClass("opencarddimension");
+			//divid.addClass("opencarddimension");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
 
@@ -910,7 +910,7 @@ var renderfoldcard = function(source,card) {
 
 							$('#droppedcard').css("display", "block");
 							$('#droppedcard').removeClass().addClass(
-									"card-dropped " + classname);
+									"card-dropped basecard-alt " + classname);
 							$('#pickedcard').removeClass().addClass(
 									"card-picked");
 							$('#pickedcard').css("top", "-115px");
@@ -924,7 +924,7 @@ var renderfoldcard = function(source,card) {
 						var classname = draggedobject.attr("data-cardvalue");
 						$('#droppedcard').css("display", "block");
 						$('#droppedcard').removeClass().addClass(
-								"card-dropped " + classname);
+								"card-dropped basecard-alt " + classname);
 						var prefix = id.split("-")[0];
 						var startposition = parseInt(id.split("-")[1]);
 						var endposition = 0;
@@ -1402,7 +1402,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 						return;
 					var existing = $(this).attr("data-cardinstanceid");
 					if (existing == undefined || existing == null || existing == "") {
-						$(this).addClass(cardvalue);
+						$(this).addClass("basecard "+cardvalue);
 						$(this).attr("data-cardvalue",cardvalue);
 						$(this).attr("data-cardinstanceid",cardinstanceid);
 						cardassigned = true;
@@ -1416,7 +1416,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('.jokershowcard').unbind();
 		$('.jokershowcard').on("click", function() {
 			var cardvalue = $(this).attr("data-cardvalue");
-			$(this).removeClass(cardvalue);
+			$(this).removeClass("basecard " + cardvalue);
 			$(this).attr("data-cardinstanceid", "");
 			$(this).attr("data-cardvalue", "");
 			evaluateShowJoker();
@@ -1576,11 +1576,11 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	var initMeldPattern = function()
 	{
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
-		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard card1 "></div><div id="ID2" class="meldcard card2"></div>'+
-				           '<div id="ID3" class="meldcard card3"></div><div class="meldmessage"></div></div>';
-		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard card1"></div>'+
-				           '<div id="ID2" class="meldcard card2"></div><div id="ID3" class="meldcard card3 "></div>'+
-				           '<div id="ID4" class="meldcard card4 "></div><div class="meldmessage"></div></div>';
+		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard basecard card1 "></div><div id="ID2" class="meldcard basecard card2"></div>'+
+				           '<div id="ID3" class="meldcard basecard card3"></div><div class="meldmessage"></div></div>';
+		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard basecard card1"></div>'+
+				           '<div id="ID2" class="meldcard basecard card2"></div><div id="ID3" class="meldcard basecard card3 "></div>'+
+				           '<div id="ID4" class="meldcard basecard card4 "></div><div class="meldmessage"></div></div>';
 		$('#meldpattern-34').unbind();
 		$('#meldpattern-34').on("click",function(){
 			$('.declareGame .meldcardarea').empty();
@@ -1600,16 +1600,16 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	{
 		var meld3grp = 1;
 		var meld4grp = 1;
-		var restofCardsPattern = '<div class="restcards"><div id="ID1" class="restcard restcard1"></div>'+
-                                 '<div id="ID2" class="restcard restcard2"></div><div id="ID3" class="restcard restcard3 "></div>'+
-                                 '<div id="ID4" class="restcard restcard4 "></div><div class="meldmessage"></div>'+
-                                 '<div class="removemeldgrp-rest">x</div></div>';
-		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard card1 "></div><div id="ID2" class="meldcard card2"></div>'+
-				           '<div id="ID3" class="meldcard card3"></div><div class="meldmessage"></div>'+
+		var restofCardsPattern = '<div class="restcards"><div id="ID1" class="restcard  restcard1"></div>'+
+                                 '<div id="ID2" class="restcard  restcard2"></div><div id="ID3" class="restcard  restcard3 "></div>'+
+                                 '<div id="ID4" class="restcard  restcard4 "></div><div class="meldmessage"></div>'+
+                                 '<div class="removemeldgrp-rest ">x</div></div>';
+		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard basecard card1 "></div><div id="ID2" class="meldcard basecard card2"></div>'+
+				           '<div id="ID3" class="meldcard basecard card3"></div><div class="meldmessage"></div>'+
 				           '<div class="removemeldgrp-3">x</div></div>';
-		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard card1"></div>'+
-				           '<div id="ID2" class="meldcard card2"></div><div id="ID3" class="meldcard card3 "></div>'+
-				           '<div id="ID4" class="meldcard card4 "></div><div class="meldmessage"></div>'+
+		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard basecard card1"></div>'+
+				           '<div id="ID2" class="meldcard basecard card2"></div><div id="ID3" class="meldcard basecard card3 "></div>'+
+				           '<div id="ID4" class="meldcard basecard card4 "></div><div class="meldmessage"></div>'+
 				           '<div class="removemeldgrp-4">x</div></div>';
 		$('.declareshowCards .meldcardarea').empty();
 		
