@@ -402,9 +402,16 @@ public class SevenCardRummy implements Game,Serializable {
 		currentGameRound = round;
 	}
 	
-	public void startGame()
+	public synchronized void startGame()
 	{
+		if(status.equals(Game.GAME_STATUS_INPROGRESS))
+		{
+			System.out.println("Launch Game Request suspended for Game instance ID :" + gameInstanceId);
+			return;
+		}
+		status = Game.GAME_STATUS_INPROGRESS;
 		createNewGameRound(currentRoundnum);
+		
 	}
 
 	private void nextRound()

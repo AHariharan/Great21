@@ -55,173 +55,270 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	@SendTo("lobby")
-	public Message<GetGameListinLobbyResponse> handleMessage(GetGameListinLobbyRequest request) {
-		GameLobby lobby = GameBrowserHelper.getGameList(request);
-		GetGameListinLobbyResponse response = new GetGameListinLobbyResponse(request.getLobbyName(),lobby);
-		Message<GetGameListinLobbyResponse> reply = MessageBuilder.withPayload(response).build();
+	public Message<GetGameListinLobbyResponse> handleMessage(
+			GetGameListinLobbyRequest request) {
+		Message<GetGameListinLobbyResponse> reply = null;
+		try {
+			GameLobby lobby = GameBrowserHelper.getGameList(request);
+			GetGameListinLobbyResponse response = new GetGameListinLobbyResponse(
+					request.getLobbyName(), lobby);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(DeleteGameRequest request) {
-		String result = GameBrowserHelper.deleteGame(request);
-		Message<String> reply = MessageBuilder.withPayload(result).build();
+		Message<String> reply = null;
+		try {
+			String result = GameBrowserHelper.deleteGame(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
-	
+
 	@Override
 	public Message<AddPlayerResponse> handleMessage(AddPlayerRequest request) {
-		AddPlayerResponse result = GameBrowserHelper.addPlayertoGame(request);
-		Message<AddPlayerResponse> reply = MessageBuilder.withPayload(result).build();
+		Message<AddPlayerResponse> reply = null;
+		try {
+			AddPlayerResponse result = GameBrowserHelper
+					.addPlayertoGame(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
 
 	@Override
-	public Message<String> handleMessage(RemovePlayerRequest request)
-	{
-		String result = GameBrowserHelper.removePlayerFromGame(request);
-		Message<String> reply = MessageBuilder.withPayload(result).build();
+	public Message<String> handleMessage(RemovePlayerRequest request) {
+		Message<String> reply = null;
+		try {
+			String result = GameBrowserHelper.removePlayerFromGame(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
 
 	@Override
-	public Message<ArrayList<Player>> handleMessage(GetPlayersinGameRequest request)
-	{
-		ArrayList<Player> result = GameBrowserHelper.getPlayersinGame(request);
-		Message<ArrayList<Player>> reply = MessageBuilder.withPayload(result).build();
+	public Message<ArrayList<Player>> handleMessage(
+			GetPlayersinGameRequest request) {
+		Message<ArrayList<Player>> reply = null;
+		try {
+			ArrayList<Player> result = GameBrowserHelper
+					.getPlayersinGame(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
-	@Override
-	public Message<String> handleMessage(LaunchGameRequest request)
-	{
-		String result = GameBrowserHelper.launchGame(request);
-		Message<String> reply = MessageBuilder.withPayload(result).build();
-		return reply;
-	}
-	
-	
-	@Override
-	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request)
-	{
-		ArrayList<Card> result = GamePlayHelper.getCards(request);
-		Message<ArrayList<Card>> reply = MessageBuilder.withPayload(result).build();
-		return reply;
-	}
-	
-	@Override
-	public Message<GetSingleCardResponse> handleMessage(GetNextCardFromDeckRequest request)
-	{
-		
-		GetSingleCardResponse response = GamePlayHelper.getNextCardFromDeck(request);
-		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
-		return reply;
-	}
-	
-	@Override
-	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request)
-	{
-		GetSingleCardResponse response = GamePlayHelper.getJokerForGame(request);
-		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
-		return reply;
-	}
-	
-	@Override
-	public Message<GetSingleCardResponse> handleMessage(GetOpenCardRequest request)
-	{
-		GetSingleCardResponse response = GamePlayHelper.getOpenCard(request);
-		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
-		return reply;
-	}
-	
 
 	@Override
-	public Message<String> handleMessage(AddCardToHandRequest request)
-	{
-		String response = GamePlayHelper.addCardToHand(request);
-		Message<String> reply = MessageBuilder.withPayload(response).build();
+	public Message<String> handleMessage(LaunchGameRequest request) {
+		Message<String> reply = null;
+		try {
+			String result = GameBrowserHelper.launchGame(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<String> handleMessage(DropCardFromHandRequest request)
-	{
-		String response = GamePlayHelper.dropCardFromHand(request);
-		Message<String> reply = MessageBuilder.withPayload(response).build();
+	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request) {
+		Message<ArrayList<Card>> reply = null;
+		try {
+			ArrayList<Card> result = GamePlayHelper.getCards(request);
+			reply = MessageBuilder.withPayload(result).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request)
-	{
-		GetSingleCardResponse response = GamePlayHelper.showJoker(request);
-		Message<GetSingleCardResponse> reply = MessageBuilder.withPayload(response).build();
+	public Message<GetSingleCardResponse> handleMessage(
+			GetNextCardFromDeckRequest request) {
+		Message<GetSingleCardResponse> reply = null;
+		try {
+			GetSingleCardResponse response = GamePlayHelper
+					.getNextCardFromDeck(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<Integer> handleMessage(GetPlayerTurnRequest request)
-	{
-		int response = GamePlayHelper.getTurn(request);
-		Message<Integer> reply = MessageBuilder.withPayload(response).build();
+	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request) {
+		Message<GetSingleCardResponse> reply = null;
+		try {
+			GetSingleCardResponse response = GamePlayHelper
+					.getJokerForGame(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<String> handleMessage(SkipTurnRequest request)
-	{
-		String response = GamePlayHelper.skipPlayerTurn(request);
-		Message<String> reply = MessageBuilder.withPayload(response).build();
+	public Message<GetSingleCardResponse> handleMessage(
+			GetOpenCardRequest request) {
+		Message<GetSingleCardResponse> reply = null;
+		try {
+			GetSingleCardResponse response = GamePlayHelper
+					.getOpenCard(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<DeclareGameResult> handleMessage(DeclareGameUIRequest request)
-	{
-		DeclareGameResult response = GamePlayHelper.declareGame(request);
-		Message<DeclareGameResult> reply = MessageBuilder.withPayload(response).build();
+	public Message<String> handleMessage(AddCardToHandRequest request) {
+		Message<String> reply = null;
+		try {
+			String response = GamePlayHelper.addCardToHand(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<Card[]> handleMessage(SortCardinHandRequest request)
-	{
-		Card[] response = GamePlayHelper.sortCards(request);
-		Message<Card[]> reply = MessageBuilder.withPayload(response).build();
+	public Message<String> handleMessage(DropCardFromHandRequest request) {
+		Message<String> reply = null;
+		try {
+			String response = GamePlayHelper.dropCardFromHand(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request)
-	{
-		ShowGameResult response = GamePlayHelper.showGame(request);
-		Message<ShowGameResult> reply = MessageBuilder.withPayload(response).build();
+	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request) {
+		Message<GetSingleCardResponse> reply = null;
+		try {
+			GetSingleCardResponse response = GamePlayHelper.showJoker(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<PlayerShowStatusResponse> handleMessage(PlayerShowStatusRequest request)
-	{
-		PlayerShowStatusResponse response = GamePlayHelper.showPlayerStatus(request);
-		Message<PlayerShowStatusResponse> reply = MessageBuilder.withPayload(response).build();
+	public Message<Integer> handleMessage(GetPlayerTurnRequest request) {
+		Message<Integer> reply = null;
+		try {
+			int response = GamePlayHelper.getTurn(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<String> handleMessage(FinishGameRoundRequest request)
-	{
-		String response = GamePlayHelper.finishRound(request);
-		Message<String> reply = MessageBuilder.withPayload(response).build();
+	public Message<String> handleMessage(SkipTurnRequest request) {
+		Message<String> reply = null;
+		try {
+			String response = GamePlayHelper.skipPlayerTurn(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
 	@Override
-	public Message<GetPlayerPointsResponse> handleMessage(GetPlayerPointsRequest request)
-	{
-		GetPlayerPointsResponse response = GamePlayHelper.getPointsTable(request);
-		Message<GetPlayerPointsResponse> reply = MessageBuilder.withPayload(response).build();
+	public Message<DeclareGameResult> handleMessage(DeclareGameUIRequest request) {
+		Message<DeclareGameResult> reply = null;
+		try {
+			DeclareGameResult response = GamePlayHelper.declareGame(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return reply;
 	}
-	
+
+	@Override
+	public Message<Card[]> handleMessage(SortCardinHandRequest request) {
+		Message<Card[]> reply = null;
+		try {
+			Card[] response = GamePlayHelper.sortCards(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+
+	@Override
+	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request) {
+		Message<ShowGameResult> reply = null;
+		try {
+			ShowGameResult response = GamePlayHelper.showGame(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+
+	@Override
+	public Message<PlayerShowStatusResponse> handleMessage(
+			PlayerShowStatusRequest request) {
+		Message<PlayerShowStatusResponse> reply = null;
+		try {
+			PlayerShowStatusResponse response = GamePlayHelper
+					.showPlayerStatus(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+
+	@Override
+	public Message<String> handleMessage(FinishGameRoundRequest request) {
+		Message<String> reply = null;
+		try {
+			String response = GamePlayHelper.finishRound(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+
+	@Override
+	public Message<GetPlayerPointsResponse> handleMessage(
+			GetPlayerPointsRequest request) {
+		Message<GetPlayerPointsResponse> reply = null;
+		try {
+			GetPlayerPointsResponse response = GamePlayHelper
+					.getPointsTable(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+
 }

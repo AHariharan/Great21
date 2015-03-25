@@ -72,6 +72,7 @@ public class UtilityHelper {
 
 	public static Card getCardforPlayerFromUICard(Player player,
 			String cardinstanceid) {
+		System.out.println("getCardforPlayerFromUICard Incoming cardinstanceid " + cardinstanceid);
 		Card card = null;
 		for (Card cucard : player.getPlayerCards()) {
 			if (cucard.getInstanceID().equals(cardinstanceid)) {

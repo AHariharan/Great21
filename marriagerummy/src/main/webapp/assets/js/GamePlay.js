@@ -335,16 +335,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		if (source.css("display") == "block" || source.attr("activetimer") == "yes" ) {
 			var existingcardvalue = source.prev().attr("data-cardvalue");
 			if (existingcardvalue != undefined && existingcardvalue != null) {
-				source.prev().removeClass(existingcardvalue);
+				var flower = existingcardvalue.split("-")[0];
+				var display = existingcardvalue.split("-")[1];
+				source.prev().removeClass("basecard-alt "+flower+"-alt-"+display);
 				source.prev().removeAttr("data-cardvalue");
 				source.prev().removeAttr("data-cardinstanceid");
 			}
 			source.prev().attr("data-cardinstanceid", card.cardInstanceID);
 			var cardvalue = convertCardInstancetoCardValue(card.cardInstanceID);
 			source.prev().attr("data-cardvalue", cardvalue);
-
-			source.prev().addClass(cardvalue);
-			source.prev().addClass("dropcarddimension");
+			var flower = cardvalue.split("-")[0];
+			var display = cardvalue.split("-")[1];
+			
+			source.prev().addClass("basecard-alt " +flower+"-alt-"+display);
+			//source.prev().addClass("dropcarddimension");
 			source.prev().addClass("pickable");
 			source.prev().css("visibility", "visible");
 		}
@@ -410,9 +414,10 @@ var renderfoldcard = function(source,card) {
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
 			var classname = flower + "-" +"alt"+"-"+ card.displayValue;
+			var cardvalue = flower + "-"+card.displayValue;
 			divid.addClass(classname);
 			//divid.addClass("opencarddimension");
-			divid.attr("data-cardvalue", classname);
+			divid.attr("data-cardvalue", cardvalue);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
 
 		}
@@ -548,19 +553,19 @@ var renderfoldcard = function(source,card) {
 		      if(output.length == 3)
 		    	  {
 		    	     var meld3 = meld3Pattern.replace("GRP",keylist[i]).
-		    	                replace("ID1","MELD3-"+meld3grp+"-CARD-1").replace("CCARD1",convertCardInstancetoCardValue(output[0])).
-		    	                replace("ID2","MELD3-"+meld3grp+"-CARD-2").replace("CCARD2",convertCardInstancetoCardValue(output[1])).
-		    	                replace("ID3","MELD3-"+meld3grp+"-CARD-3").replace("CCARD3",convertCardInstancetoCardValue(output[2]));
+		    	                replace("ID1","MELD3-"+meld3grp+"-CARD-1").replace("CCARD1","basecard " +convertCardInstancetoCardValue(output[0])).
+		    	                replace("ID2","MELD3-"+meld3grp+"-CARD-2").replace("CCARD2","basecard " +convertCardInstancetoCardValue(output[1])).
+		    	                replace("ID3","MELD3-"+meld3grp+"-CARD-3").replace("CCARD3","basecard " +convertCardInstancetoCardValue(output[2]));
 		    	     $('.winnerdeclaredarea').append(meld3);
 		    	     meld3grp++;		    	     
 		    	  }
 		      if(output.length == 4)
 	    	  {
 	    	     var meld4 = meld4Pattern.replace("GRP",keylist[i]).
-	    	                replace("ID1","MELD4-"+meld4grp+"-CARD-1").replace("CCARD1",convertCardInstancetoCardValue(output[0])).
-	    	                replace("ID2","MELD4-"+meld4grp+"-CARD-2").replace("CCARD2",convertCardInstancetoCardValue(output[1])).
-	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-3").replace("CCARD3",convertCardInstancetoCardValue(output[2])).
-	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-4").replace("CCARD4",convertCardInstancetoCardValue(output[3]));
+	    	                replace("ID1","MELD4-"+meld4grp+"-CARD-1").replace("CCARD1","basecard " +convertCardInstancetoCardValue(output[0])).
+	    	                replace("ID2","MELD4-"+meld4grp+"-CARD-2").replace("CCARD2","basecard " +convertCardInstancetoCardValue(output[1])).
+	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-3").replace("CCARD3","basecard " +convertCardInstancetoCardValue(output[2])).
+	    	                replace("ID3","MELD4-"+meld4grp+"-CARD-4").replace("CCARD4","basecard " +convertCardInstancetoCardValue(output[3]));
 	    	     $('.winnerdeclaredarea').append(meld4);
 	    	     meld4grp++;
 	    	     
@@ -910,7 +915,7 @@ var renderfoldcard = function(source,card) {
 
 							$('#droppedcard').css("display", "block");
 							$('#droppedcard').removeClass().addClass(
-									"card-dropped basecard-alt " + classname);
+									"card-dropped basecard " + classname);
 							$('#pickedcard').removeClass().addClass(
 									"card-picked");
 							$('#pickedcard').css("top", "-115px");
@@ -924,7 +929,7 @@ var renderfoldcard = function(source,card) {
 						var classname = draggedobject.attr("data-cardvalue");
 						$('#droppedcard').css("display", "block");
 						$('#droppedcard').removeClass().addClass(
-								"card-dropped basecard-alt " + classname);
+								"card-dropped basecard " + classname);
 						var prefix = id.split("-")[0];
 						var startposition = parseInt(id.split("-")[1]);
 						var endposition = 0;
@@ -994,7 +999,7 @@ var renderfoldcard = function(source,card) {
 		});
 	};
 
-   var gametoolinit = {};
+ //  var gametoolinit = {};
 
 	var init = function() {
 
@@ -1143,7 +1148,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			$('.showJoker').hide();
 			$('.showJoker .jokershowcard').each(function(){
 				var classname = $(this).attr("data-cardvalue");
-				$(this).removeClass(classname);
+				$(this).removeClass("basecard "+ classname);
 				$(this).removeAttr("data-cardvalue");
 				$(this).removeAttr("data-cardinstanceid");
 			});
@@ -1293,7 +1298,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 							cardassigned = true;
 							return;
 							}*/
-						$(this).addClass(cardvalue);
+						$(this).addClass("basecard " + cardvalue);
 						$(this).attr("data-cardvalue",cardvalue);
 						$(this).attr("data-cardinstanceid",cardinstanceid);
 						cardassigned = true;
@@ -1344,7 +1349,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 							cardassigned = true;
 							return;
 							}
-						$(this).addClass(cardvalue);
+						$(this).addClass("basecard "+ cardvalue);
 						$(this).attr("data-cardvalue",cardvalue);
 						$(this).attr("data-cardinstanceid",cardinstanceid);
 						cardassigned = true;
@@ -1362,7 +1367,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 				{
 				$(this).removeClass("meld-closedcard");
 				}
-			$(this).removeClass(cardvalue);
+			$(this).removeClass("basecard "+ cardvalue);
 			$(this).attr("data-cardinstanceid", "");
 			$(this).attr("data-cardvalue", "");
 			evaluateDeclareGame();
@@ -1576,11 +1581,11 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	var initMeldPattern = function()
 	{
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
-		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard basecard card1 "></div><div id="ID2" class="meldcard basecard card2"></div>'+
-				           '<div id="ID3" class="meldcard basecard card3"></div><div class="meldmessage"></div></div>';
-		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard basecard card1"></div>'+
-				           '<div id="ID2" class="meldcard basecard card2"></div><div id="ID3" class="meldcard basecard card3 "></div>'+
-				           '<div id="ID4" class="meldcard basecard card4 "></div><div class="meldmessage"></div></div>';
+		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard  card1 "></div><div id="ID2" class="meldcard  card2"></div>'+
+				           '<div id="ID3" class="meldcard  card3"></div><div class="meldmessage"></div></div>';
+		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard  card1"></div>'+
+				           '<div id="ID2" class="meldcard  card2"></div><div id="ID3" class="meldcard  card3 "></div>'+
+				           '<div id="ID4" class="meldcard  card4 "></div><div class="meldmessage"></div></div>';
 		$('#meldpattern-34').unbind();
 		$('#meldpattern-34').on("click",function(){
 			$('.declareGame .meldcardarea').empty();
@@ -1604,12 +1609,12 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
                                  '<div id="ID2" class="restcard  restcard2"></div><div id="ID3" class="restcard  restcard3 "></div>'+
                                  '<div id="ID4" class="restcard  restcard4 "></div><div class="meldmessage"></div>'+
                                  '<div class="removemeldgrp-rest ">x</div></div>';
-		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard basecard card1 "></div><div id="ID2" class="meldcard basecard card2"></div>'+
-				           '<div id="ID3" class="meldcard basecard card3"></div><div class="meldmessage"></div>'+
+		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard  card1 "></div><div id="ID2" class="meldcard  card2"></div>'+
+				           '<div id="ID3" class="meldcard  card3"></div><div class="meldmessage"></div>'+
 				           '<div class="removemeldgrp-3">x</div></div>';
-		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard basecard card1"></div>'+
-				           '<div id="ID2" class="meldcard basecard card2"></div><div id="ID3" class="meldcard basecard card3 "></div>'+
-				           '<div id="ID4" class="meldcard basecard card4 "></div><div class="meldmessage"></div>'+
+		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard  card1"></div>'+
+				           '<div id="ID2" class="meldcard  card2"></div><div id="ID3" class="meldcard  card3 "></div>'+
+				           '<div id="ID4" class="meldcard  card4 "></div><div class="meldmessage"></div>'+
 				           '<div class="removemeldgrp-4">x</div></div>';
 		$('.declareshowCards .meldcardarea').empty();
 		
