@@ -465,6 +465,7 @@ var renderfoldcard = function(source,card) {
 
 	self.renderTurns = function(data) {
 		var mynick = marriageRummy.loggedinUser;
+		var toolflag = false;
 		for (var i = 0; i < playerposmap.length; i++) {
 			if (playerposmap[i].PlayerPosition == data) {
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
@@ -477,17 +478,21 @@ var renderfoldcard = function(source,card) {
 					onNextCardSelect();
 					enablePickable();
 					gametoolinit.onYourTurnTools();
+					toolflag = true;
 				}
 				if (init_turn && playerposmap[i].PlayerName == mynick) {
 					$('#OpenCard').addClass("pickable");
 					enablePickable();
 					init_turn = false;
 					gametoolinit.onYourTurnTools();
+					toolflag = true;
 				} else {
 					$('#OpenCard').unbind();
+					//gametoolinit.onOtherTurnTools();
 				}
 			} else {
-				gametoolinit.onOtherTurnTools();
+				if(!toolflag)
+				   gametoolinit.onOtherTurnTools();
 				$('#' + playerposmap[i].PositionUI + "  .timer").css("display","none");
 				$('#' + playerposmap[i].PositionUI + "  .timer").attr("activetimer","no");
 				if($('#' + playerposmap[i].PositionUI).hasClass("activePlayerAnimation"))
@@ -1494,7 +1499,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		
 		$('#declareGame,#declareGamemini').unbind();
 		$('#declareGame,#declareGamemini').on("click",function(){
-			$('.declareGame').toggle();
+			$('.declareGame').show();
+			$('.declareGame meldcardarea').empty();
 		});
 		
 		$('#onDeclareGameCancel').unbind();
