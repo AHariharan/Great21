@@ -1,6 +1,7 @@
 package com.adansoft.great21.gamemanager.JMSHandlers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -48,6 +49,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	@SendTo("game")
 	public Message<Game> handleMessage(CreateGameRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received CreateGame Request : " + request.getGameType() + "-" + request.getLobbyType());
 		Game game = GameBrowserHelper.createGame(request);
 		Message<Game> reply = MessageBuilder.withPayload(game).build();
 		return reply;
@@ -57,6 +59,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@SendTo("lobby")
 	public Message<GetGameListinLobbyResponse> handleMessage(
 			GetGameListinLobbyRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Games in Lobby Request : " + request.getLobbyName());
 		Message<GetGameListinLobbyResponse> reply = null;
 		try {
 			GameLobby lobby = GameBrowserHelper.getGameList(request);
@@ -71,6 +74,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<String> handleMessage(DeleteGameRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Delete Game Request : " + request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
 			String result = GameBrowserHelper.deleteGame(request);
@@ -84,6 +88,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<AddPlayerResponse> handleMessage(AddPlayerRequest request) {
 		Message<AddPlayerResponse> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Received Add Player to Game Request : " + request.getGameInstanceID());
 		try {
 			AddPlayerResponse result = GameBrowserHelper
 					.addPlayertoGame(request);
@@ -96,6 +101,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<String> handleMessage(RemovePlayerRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Remove Player from  Game Request : " + request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
 			String result = GameBrowserHelper.removePlayerFromGame(request);
@@ -109,6 +115,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<ArrayList<Player>> handleMessage(
 			GetPlayersinGameRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Get Players in Game Request : " + request.getGameInstanceID());
 		Message<ArrayList<Player>> reply = null;
 		try {
 			ArrayList<Player> result = GameBrowserHelper
@@ -123,6 +130,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<String> handleMessage(LaunchGameRequest request) {
 		Message<String> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Received Launch Game Request : " + request.getGameInstanceID());
 		try {
 			String result = GameBrowserHelper.launchGame(request);
 			reply = MessageBuilder.withPayload(result).build();
@@ -135,6 +143,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request) {
 		Message<ArrayList<Card>> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Received getCards   Request : " + request.getGameInstanceID());
 		try {
 			ArrayList<Card> result = GamePlayHelper.getCards(request);
 			reply = MessageBuilder.withPayload(result).build();
@@ -147,6 +156,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(
 			GetNextCardFromDeckRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Get Next Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
 		Message<GetSingleCardResponse> reply = null;
 		try {
 			GetSingleCardResponse response = GamePlayHelper
@@ -161,6 +171,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request) {
 		Message<GetSingleCardResponse> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Received Get Joker Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
 		try {
 			GetSingleCardResponse response = GamePlayHelper
 					.getJokerForGame(request);
@@ -174,6 +185,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(
 			GetOpenCardRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Get Open Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
 		Message<GetSingleCardResponse> reply = null;
 		try {
 			GetSingleCardResponse response = GamePlayHelper
@@ -187,6 +199,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<String> handleMessage(AddCardToHandRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Add Card to Hand Request : " + request.getCard());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.addCardToHand(request);
@@ -200,6 +213,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<String> handleMessage(DropCardFromHandRequest request) {
 		Message<String> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Received Drop Card from Hand Request : " + request.getCard());
 		try {
 			String response = GamePlayHelper.dropCardFromHand(request);
 			reply = MessageBuilder.withPayload(response).build();
@@ -212,6 +226,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request) {
 		Message<GetSingleCardResponse> reply = null;
+		System.out.println(Calendar.getInstance().getTime()+ " Get Show Joker Request : " + request.getGameInstanceID());
 		try {
 			GetSingleCardResponse response = GamePlayHelper.showJoker(request);
 			reply = MessageBuilder.withPayload(response).build();
@@ -223,6 +238,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<Integer> handleMessage(GetPlayerTurnRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Whose Turn Request : " + request.getGameInstanceID());
 		Message<Integer> reply = null;
 		try {
 			int response = GamePlayHelper.getTurn(request);
@@ -235,6 +251,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<String> handleMessage(SkipTurnRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Skip Turn Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.skipPlayerTurn(request);
@@ -247,6 +264,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<DeclareGameResult> handleMessage(DeclareGameUIRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Declare Game Request : " + request.getGameInstanceID());
 		Message<DeclareGameResult> reply = null;
 		try {
 			DeclareGameResult response = GamePlayHelper.declareGame(request);
@@ -259,6 +277,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<Card[]> handleMessage(SortCardinHandRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Sort Card in Hand Request : " + request.getGameInstanceID() + "Player : " + request.getNickName());
 		Message<Card[]> reply = null;
 		try {
 			Card[] response = GamePlayHelper.sortCards(request);
@@ -271,6 +290,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received forced to show game Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
 		Message<ShowGameResult> reply = null;
 		try {
 			ShowGameResult response = GamePlayHelper.showGame(request);
@@ -284,6 +304,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<PlayerShowStatusResponse> handleMessage(
 			PlayerShowStatusRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received PlayerShowStatus Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
 		Message<PlayerShowStatusResponse> reply = null;
 		try {
 			PlayerShowStatusResponse response = GamePlayHelper
@@ -297,6 +318,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 
 	@Override
 	public Message<String> handleMessage(FinishGameRoundRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received FinishGameRoundRequest Request : " + request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.finishRound(request);
@@ -310,6 +332,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@Override
 	public Message<GetPlayerPointsResponse> handleMessage(
 			GetPlayerPointsRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received Show Points Request : " + request.getGameInstanceID());
 		Message<GetPlayerPointsResponse> reply = null;
 		try {
 			GetPlayerPointsResponse response = GamePlayHelper

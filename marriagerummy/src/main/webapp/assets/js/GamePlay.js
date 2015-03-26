@@ -223,6 +223,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		};
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+		gametoolinit.onCardPickedupTool();
 	};
 
 	self.dropCardFromHand = function(cardInstanceID) {
@@ -237,6 +238,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		};
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+		gametoolinit.onCardDroppedTool();
 	};
 
 	self.onDropHandSuccess = function(data, requestObj) {
@@ -474,17 +476,19 @@ var renderfoldcard = function(source,card) {
 				if (playerposmap[i].PlayerName == mynick) {
 					onNextCardSelect();
 					enablePickable();
+					gametoolinit.onYourTurnTools();
 				}
 				if (init_turn && playerposmap[i].PlayerName == mynick) {
 					$('#OpenCard').addClass("pickable");
 					enablePickable();
 					init_turn = false;
+					gametoolinit.onYourTurnTools();
 				} else {
 					$('#OpenCard').unbind();
 				}
 			} else {
-				$('#' + playerposmap[i].PositionUI + "  .timer").css("display",
-						"none");
+				gametoolinit.onOtherTurnTools();
+				$('#' + playerposmap[i].PositionUI + "  .timer").css("display","none");
 				$('#' + playerposmap[i].PositionUI + "  .timer").attr("activetimer","no");
 				if($('#' + playerposmap[i].PositionUI).hasClass("activePlayerAnimation"))
 					{
@@ -999,7 +1003,8 @@ var renderfoldcard = function(source,card) {
 		});
 	};
 
- //  var gametoolinit = {};
+	// Following var referred
+    var gametoolinit = {};
 
 	var init = function() {
 
@@ -1474,6 +1479,9 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			sortCards();
 		});
 		
+		//$('#toolSortCards').hover(function(){$('#toolSortCards').popover('show');},function(){$('#toolSortCards').popover('hide');});
+		//$('#toolSortCards').popover({trigger:'hover',container:'body'});
+		
 		$('#tool-showPointsTable,#minitool-showPointsTable').unbind();
 		$('#tool-showPointsTable,#minitool-showPointsTable').on("click",function(){
 			showPlayerPoints();
@@ -1574,6 +1582,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		});*/
 		
 		//pointstabledropdown declareGamedrpdown forceshowCardDropDown
+		$('[data-toggle="popover"]').popover({trigger:'hover',container: 'body'}); 
 	};
 	
 	
@@ -1923,5 +1932,53 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardinstanceid",
 				dragcardInstanceID);
 		$('#' + prefix + "-" + (startpos - 1)).addClass(dragcardvalue);
+	};
+	
+	self.onYourTurnTools = function()
+	{
+		$('#GameChatButton').removeAttr("disabled");
+		$('#GameAudioPlayButton').removeAttr("disabled");
+		$('#toolSortCards').removeAttr("disabled");
+		$('#tool-showJoker').removeAttr("disabled");
+		$('#declareGame').removeAttr("disabled");
+		$('#dropgame').removeAttr("disabled");
+		$('#tool-showPointsTable').removeAttr("disabled");
+		$('#tool-exitGame').removeAttr("disabled");
+
+	};
+	
+	self.onOtherTurnTools = function()
+	{
+		$('#GameChatButton').removeAttr("disabled");
+		$('#GameAudioPlayButton').removeAttr("disabled");
+		$('#toolSortCards').removeAttr("disabled");
+		$('#tool-showJoker').removeAttr("disabled");
+		$('#declareGame').removeAttr("disabled","disabled");
+		$('#dropgame').attr("disabled","disabled");
+		$('#tool-showPointsTable').removeAttr("disabled");
+		$('#tool-exitGame').removeAttr("disabled");
+	};
+	
+	self.onCardPickedupTool = function()
+	{
+		$('#GameChatButton').removeAttr("disabled");
+		$('#GameAudioPlayButton').removeAttr("disabled");
+		$('#toolSortCards').removeAttr("disabled");
+		$('#tool-showJoker').attr("disabled","disabled");
+		$('#declareGame').removeAttr("disabled");
+		$('#dropgame').attr("disabled","disabled");
+		$('#tool-showPointsTable').removeAttr("disabled");
+		$('#tool-exitGame').removeAttr("disabled");
+	};
+	self.onCardDroppedTool = function()
+	{
+		$('#GameChatButton').removeAttr("disabled");
+		$('#GameAudioPlayButton').removeAttr("disabled");
+		$('#toolSortCards').removeAttr("disabled");
+		$('#tool-showJoker').attr("disabled","disabled");
+		$('#declareGame').removeAttr("disabled");
+		$('#dropgame').attr("disabled","disabled");
+		$('#tool-showPointsTable').removeAttr("disabled");
+		$('#tool-exitGame').removeAttr("disabled");
 	};
 };

@@ -46,7 +46,7 @@ public class GameRound implements Serializable{
     private Card OpenCard;
     private int startTurnpos;
     private int currenturn;
-    private ArrayList<Integer> skipturnarray = new ArrayList<Integer>();
+    private ArrayList<Integer> skipturnarray; 
     private Card prevDroppedCard;
     private boolean jokerAvailable;
     private int numofJokers;
@@ -70,6 +70,7 @@ public class GameRound implements Serializable{
     	cashMap = new HashMap<String, Float>();
     	showstatusMap = new HashMap<String, String>();
     	initshowStatusMap();
+    	skipturnarray = new ArrayList<Integer>();
     }
 
     
@@ -296,7 +297,7 @@ public class GameRound implements Serializable{
         	card = deckcards[currentindexincard];
     	    if(card.getStatus().equals(Card.STATUS_UNASSIGNED))
     	     {
-    	      if(currentindexincard >= this.noofdecks*52 - 1)
+    	      if(currentindexincard >= (this.noofdecks*52 + numofJokers) - 1)
     	      {
     	    	  for(int i=0;i<this.deckcards.length;i++)
     	    	  {
@@ -450,7 +451,28 @@ public class GameRound implements Serializable{
     	System.out.println("Adding skip turn : " + position);
     	skipturnarray.add(position);
     	updateTurn();
+    	if(skipturnarray.size() >= playerlist.size()-1)
+    	{
+    		System.out.println("Game round over ...Detecting the winner");
+    		int winner = findWinnerifEveryoneElseDropped();
+    	    if(winner != 0)
+    	    {
+    	    	System.out.println("Game Winner : " + playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName());
+    	    }
+    	}
     }
+    
+    private int findWinnerifEveryoneElseDropped()
+    {
+          for(int i=1;i<=playerlist.size();i++)
+          {
+        	  if(isPosistionSkippable(i))
+        	  {
+        		  return i;
+        	  }
+          }
+       return 0;   
+    };
     
     private boolean isPosistionSkippable(int posistion)
     {

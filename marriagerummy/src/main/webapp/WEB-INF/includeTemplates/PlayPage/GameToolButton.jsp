@@ -1,4 +1,4 @@
-<div class="btn-toolbar" role="toolbar" aria-label="..."
+<div id="GameToolbarNew" class="btn-toolbar" role="toolbar" aria-label="..."
 	style="width: 183px;">
 
 	<div class="btn-group btn-group-lg" role="group">
@@ -21,47 +21,48 @@
 				<h4>Points :</h4>
 			</div>
 
-			<button type="button" class="btn btn-lg btn-gametool">
+			<button id="GameChatButton" type="button" class="btn btn-lg btn-gametool" data-placement="right" data-toggle="popover" title="Game Chat" data-content="Lets you chat with other game players">
 				<i class="fa fa-comments-o"></i>&nbsp;Chat
 			</button>
-			<button type="button" class="btn btn-lg btn-gametool">
+			<button id="GameAudioPlayButton"  type="button" class="btn btn-lg btn-gametool" data-placement="right" data-toggle="popover" title="Play Taunts" data-content="Lets you play taunts at your fellow players">
 				<i class="fa fa-play-circle-o"></i>&nbsp;Play Audio
 			</button>
 			<button id="toolSortCards" type="button"
-				class="btn btn-lg btn-primary">
+				class="btn btn-lg btn-primary" data-toggle="popover" title="Sort Cards" data-content="All the cards will be sorted based on flowers and then by numbers" data-placement="right">
 				<i class="fa fa-sort-amount-asc"></i>&nbsp;Sort Cards
 			</button>
 
 
 			<button id="tool-showJoker" type="button"
-				class="btn btn-lg btn-primary">
+				class="btn btn-lg btn-primary" data-toggle="popover" title="Show Joker" data-placement="right" data-content="You must a valid sequence to see joker. Gives a popup on which you can submit a valid sequence">
 				<i class="fa fa-umbrella"></i>&nbsp;Show Joker
 			</button>
 
 
-			<button id="declareGame" type="button" class="btn btn-lg btn-primary">
+			<button id="declareGame" type="button" class="btn btn-lg btn-primary" data-toggle="popover" data-placement="right" title="Declare Game" data-content="Use this tool to announce others that you have won the game. Must submit a valid declaration">
 				<i class="fa fa-trophy"></i>&nbsp;Declare Game
 			</button>
 
 
-			<button id="dropgame" type="button" class="btn btn-lg btn-primary">
+			<button id="dropgame" type="button" class="btn btn-lg btn-primary" data-toggle="popover" data-placement="right" title="Drop Game" data-content="Drops the card in hand and skips your turn to play for this round">
 				<i class="fa fa-times-circle"></i>&nbsp;Drop Hand
 			</button>
 
 
 			<button id="tool-showPointsTable" type="button"
-				class="btn btn-lg btn-primary">
+				class="btn btn-lg btn-primary" data-toggle="popover" title="Show Points" data-placement="right" data-content="Gives you a points table to see where every player stands">
 				<i class="fa fa-table"></i>&nbsp;Show Points
 			</button>
 
 
-			<button type="button" class="btn btn-lg btn-danger">
+			<button id="tool-exitGame" type="button" class="btn btn-lg btn-danger" data-toggle="popover" data-placement="right" title="Exit Game" data-content="Exists the current game. If exited in middle of game you might get penality">
 				<i class="fa fa-power-off"></i>&nbsp;Exit Game
 			</button>
 		</div>
 
 	</div>
 </div>
+
 <div class="tooloutputdisplay">
 	<div class="showJoker" style="display: none;">
 		<div class="windowcontent">
