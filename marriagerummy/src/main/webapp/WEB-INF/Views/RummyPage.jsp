@@ -73,17 +73,7 @@
 </head>
 <body style="padding-top: 52px;">
 
-    <div class="mask" style="display:none">
-         <div class="loadingmask"></div>
-         <div style="display:block;">
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>
-             <div class="waitforOtherPlayers"> <i class="fa fa-cog fa-spin"></i> Waiting for other players</div>                  
-         </div>
-    </div>
+    <%@include file="../includeTemplates/PlayPage/WinnerMask.jsp" %>
    
 	<!--  Required Modals -->
 

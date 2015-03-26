@@ -224,6 +224,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	if(data.notifiedBy == marriageRummy.loggedinUser)
     		{
     		    marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
+    		    var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
+    		    gameObj.getPlayerShowStatus();
     		    return;
     		}
     	else
@@ -239,7 +241,7 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     {
     	console.log("handleShowCardPlayerNotification Data ... " + JSON.stringify(data));
     	var gameObj = jQuery.data( $("#GameArena")[0], "GameObj");
-		gameObj.getPlayerShowStatus(data);
+		gameObj.getPlayerShowStatus();
     };
     
     self.handleNewGameRoundNotification = function(data)

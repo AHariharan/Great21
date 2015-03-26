@@ -13,8 +13,8 @@
 .loadingmask {
 	margin: auto;
 	width: 450px;
-	height: 65px;
-	background: rgba(240, 240, 240, 0.9);
+	height: 102px;
+	background: rgba(65, 131, 252, 0.9);
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -22,7 +22,10 @@
 	right: 0;
 	border-radius: 20px;
 	text-align: center;
-	padding: 20px
+	padding: 20px;
+	font-size: 20px;
+	color: white;
+	box-shadow: 0px 0px 3px 5px whitesmoke;
 }
 
 .sidebar-shrinked {
@@ -601,21 +604,41 @@
 }
 
 .waitforOtherPlayers {
-	width: 381px;
-	height: 65px;
-	background: rgb(51, 74, 206);
-	/* position: absolute; */
-	margin-top: 78px;
-	margin-right: 29px;
-	margin-left: 98px;
+	width: 343px;
+	margin-top: 44px;
+	margin-right: 59px;
+	margin-left: 18px;
 	bottom: 0px;
 	left: 33px;
 	right: 0px;
-	border-radius: 20px;
+	border-radius: 9px;
 	text-align: center;
-	padding: 20px;
-	color: white;
+	padding: 13px;
 	font-size: 20px;
-	box-shadow: 0px 0px 1px 8px rgb(235, 230, 230);
 	float: left;
 }
+
+.wait_winner {
+	background: rgb(203, 236, 195);
+	color: rgb(41, 160, 83);
+	box-shadow: 0px 0px 10px 7px rgb(142, 161, 146);
+}
+
+
+
+.wait_shown {
+	background: rgb(171, 206, 245);
+	color: rgb(41, 92, 160);
+	box-shadow: 0px 0px 10px 9px rgb(29, 91, 186);
+}
+
+.wait_pending {
+	background: rgb(250, 108, 113);
+	color: rgb(187, 14, 40);
+	box-shadow: 0px 0px 10px 9px rgb(145, 27, 27);	
+}
+
+.waitforOtherPlayers>i
+	{
+	margin-right: 20px;
+    }

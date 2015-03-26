@@ -520,11 +520,9 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 
 	self.onShowStatusforPlayerSuccess = function(data, textstatus, Jhxr,
 			requestObj) {
-		console.log("onShowStatusforPlayerSuccess : " + JSON.stringify(data));
-		/*
-		 * var card = {"cardlist":data}; var gameObj = jQuery.data(
-		 * $("#GameArena")[0], "GameObj"); gameObj.renderCards(card);
-		 */
+		console.log("getPlayerPointsSuccess : " + JSON.stringify(data));
+		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+		gameObj.updateWaitingforOtherPlayers(data);
 	};
 
 	self.onShowStatusforPlayerFailure = function(data) {

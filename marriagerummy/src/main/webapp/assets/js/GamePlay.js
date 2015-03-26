@@ -514,11 +514,52 @@ var renderfoldcard = function(source,card) {
 			   marriageRummy.generalutility.showSuccessAlert("Declaration Successful", data.message);
 			   var notificationdata = marriageRummy.notificationRequest.declareSuccessNotification("Declare Game", requestObj.formdata);
 		       marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		       $('.declareGame').hide();
+		      // updateWaitingforOtherPlayers();
 			}
 		else
 			{
 			 marriageRummy.generalutility.showRedAlert("Declaration Failure", data.message);
 			}
+	};
+	
+	self.updateWaitingforOtherPlayers = function(data)
+	{
+		$('#OtherWaitArea').empty();
+		
+		var template = '<div id="WAIT_PLAYERNAME" class="waitforOtherPlayers CLASS"><i class="fa ICLASS"></i> PLAYERNAME : STATUS'+
+		               '</div>';
+		var playerstatusmaps = data.playerShowStatus;
+		var playernames = Object.keys(playerstatusmaps);
+		for(var i=0;i<playernames.length;i++)
+		{
+		   var currentplayername =   playernames[i];
+		   var status = playerstatusmaps[currentplayername];
+		   
+		   var template_class = "";var iClass="";
+		   if(status == "Declared")
+			   {
+			      iClass = "fa-trophy";
+			      template_class = "wait_winner";
+			   }
+		   if(status == "Shown cards")
+			   {
+			      iClass = "fa-check-square-o";
+			      template_class = "wait_shown";
+			   }
+		   if(status == "Playing")
+			   {
+			       iClass = "fa-cog fa-spin";
+			       template_class = "wait_pending";
+			   }
+		   var content = template.replace(/PLAYERNAME/g,currentplayername)
+		                         .replace("STATUS",status)
+		                         .replace("CLASS",template_class)
+		                         .replace("ICLASS",iClass);
+		  
+		   $('#OtherWaitArea').append(content);
+		}
+		
 	};
 	
 	self.forceToShowCards = function(data,requestObj)
@@ -537,9 +578,10 @@ var renderfoldcard = function(source,card) {
 	self.onShowCardSuccess = function(data,requestObj)
 	{
 		  console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
-		 
-		 /* var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
-	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);*/
+		  $('.declareshowCards').hide();
+		  marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");
+		  var notificationdata = marriageRummy.notificationRequest.showCardPlayerNotification("onShowCardSuccess", requestObj.formdata);
+	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 	};
 	
 	var renderWinnerDeclaredCards = function(data)
@@ -554,7 +596,10 @@ var renderfoldcard = function(source,card) {
 				           '<div id="ID4" class="meldcard card4 CCARD4"></div><div class="meldmessage"></div></div>';
 		var keylist = Object.keys(data.notificationObject.meldlist);
 		var playerName = data.notifiedBy;
+		// Always shows winner declared Cards.
+		$('.nav-tabs a[href="#winnershowcards"]').tab('show');
 		$('.winnerdeclaredarea h4').html("Player : " + playerName +  " has declared the game. Please submit your cards by selecting 'Show your Cards' tab to start next round");
+		$('.winnerdeclaredarea div').remove(); //Removes Existing declaration
 		$('.winnerdeclaredarea').append(meldfoldpattern);
 		for(var i=0;i<keylist.length;i++)
 		    {
@@ -1506,6 +1551,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#onDeclareGameCancel').unbind();
 		$('#onDeclareGameCancel').on("click",function(){
 			$('.declareGame').hide();
+			$('.declareGame meldcardarea').empty();
 		});
 		
 		$('#dropgame').unbind();
@@ -1872,7 +1918,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 			};
 			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
-			 marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");	
+	    //marriageRummy.generalutility.setLoadingMask("Please wait for other players to show cards");	
 	};
 	
 	initGameTools();

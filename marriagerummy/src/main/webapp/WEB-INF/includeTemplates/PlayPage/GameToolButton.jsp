@@ -146,7 +146,7 @@
 		<div class="windowcontent">
 			<div role="tabpanel">
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a
+					<li role="presentation" class="active"><a 
 						href="#winnershowcards" aria-controls="winnershowcards" role="tab"
 						data-toggle="tab">Winner Declared Cards</a></li>
 					<li role="presentation"><a href="#myshowcards"
@@ -182,11 +182,11 @@
 			</div>
 
 		</div>
-		<div class="actionarea">
+		<!-- <div class="actionarea">
 			<p style="margin-top: 14px; color: white; float: left;">You must
 				show all cards to get finish this round</p>
-			<!-- <button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button> -->
+			<button id="onDeclareGameCancel" class="btn btn-tool">Cancel</button>
 			<button id="onShowCardGame" class="btn btn-tool">Show Cards</button>
-		</div>
+		</div> -->
 	</div>
 </div>
