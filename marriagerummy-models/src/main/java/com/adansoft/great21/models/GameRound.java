@@ -446,13 +446,15 @@ public class GameRound implements Serializable{
 		this.currenturn = currenturn;
 	}
     
-    public void addSkipTurn(int position)
+    public boolean addSkipTurn(int position)
     {
+    	boolean isGameOver = false;
     	System.out.println("Adding skip turn : " + position);
     	skipturnarray.add(position);
     	updateTurn();
     	if(skipturnarray.size() >= playerlist.size()-1)
     	{
+    		isGameOver = true;
     		System.out.println("Game round over ...Detecting the winner");
     		int winner = findWinnerifEveryoneElseDropped();
     	    if(winner != 0)
@@ -460,13 +462,15 @@ public class GameRound implements Serializable{
     	    	System.out.println("Game Winner : " + playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName());
     	    }
     	}
+    	
+    	return isGameOver;
     }
     
     private int findWinnerifEveryoneElseDropped()
     {
           for(int i=1;i<=playerlist.size();i++)
           {
-        	  if(isPosistionSkippable(i))
+        	  if(!isPosistionSkippable(i))
         	  {
         		  return i;
         	  }

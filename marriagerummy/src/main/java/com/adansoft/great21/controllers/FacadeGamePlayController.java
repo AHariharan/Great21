@@ -279,6 +279,8 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
 					+ FacadeControllerURLs.SKIPPLAYERTURN);
 			result = restTemplate.postForEntity(url, request, String.class).getBody();
+			if(result.equals("FinishGame"))
+				notifyNewRound(request.getGameInstanceID());
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -402,6 +404,16 @@ public class FacadeGamePlayController {
 			event.setNotificationObject(response);
 			notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
 		}
+	}
+	
+	private void notifyNewRound(String gameinstanceId)
+	{
+		NotificationEvent event = new NotificationEvent();
+		event.setNotificationSource("SERVER");
+		event.setNotifiedBy("NotifyNewRoundStart-EVERYONEDROPPED");
+		event.setNotificationType("NEWGAMENOTIFY");
+		event.setNotificationObject(null);
+		notifier.sendNotificationFromBackend(event, gameinstanceId);
 	}
 	
 	

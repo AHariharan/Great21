@@ -154,7 +154,7 @@ public class GamePlayHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
-		game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
+		boolean isGameOver = game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
 		if(game.isGameCardMoneyBased())
 		{
 			game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),game.getPerCardMoneyValue()*3,GameRound.PLAYER_STATUS_INITDROPPED);
@@ -162,6 +162,11 @@ public class GamePlayHelper {
 		if(game.isGamePointsBased())
 		{
 			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),20,GameRound.PLAYER_STATUS_INITDROPPED);
+		}
+		if(isGameOver)
+		{
+			game.completeRound();
+			return "FinishGame";
 		}
 		return "Success";
 	}
