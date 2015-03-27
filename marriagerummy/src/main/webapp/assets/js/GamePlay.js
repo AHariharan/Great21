@@ -531,6 +531,14 @@ var renderfoldcard = function(source,card) {
 		               '</div>';
 		var playerstatusmaps = data.playerShowStatus;
 		var playernames = Object.keys(playerstatusmaps);
+		var noofstat = 0;
+		for(var i=0;i<playernames.length;i++)
+		{
+		   var currentplayername =   playernames[i];
+		   var status = playerstatusmaps[currentplayername];
+		   if(status == "Playing")
+			   noofstat++;
+		}
 		for(var i=0;i<playernames.length;i++)
 		{
 		   var currentplayername =   playernames[i];
@@ -551,6 +559,12 @@ var renderfoldcard = function(source,card) {
 			   {
 			       iClass = "fa-cog fa-spin";
 			       template_class = "wait_pending";
+			   }
+		   if(noofstat == playernames.length)
+			   {
+			        iClass = "fa-cog fa-spin";
+		           template_class = "wait_shown";
+		           status = "Starting new round";
 			   }
 		   var content = template.replace(/PLAYERNAME/g,currentplayername)
 		                         .replace("STATUS",status)
@@ -1545,13 +1559,13 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 		$('#declareGame,#declareGamemini').unbind();
 		$('#declareGame,#declareGamemini').on("click",function(){
 			$('.declareGame').show();
-			$('.declareGame meldcardarea').empty();
+			$('.declareGame .meldcardarea').empty();
 		});
 		
 		$('#onDeclareGameCancel').unbind();
 		$('#onDeclareGameCancel').on("click",function(){
 			$('.declareGame').hide();
-			$('.declareGame meldcardarea').empty();
+			$('.declareGame .meldcardarea').empty();
 		});
 		
 		$('#dropgame').unbind();

@@ -624,21 +624,18 @@
 	box-shadow: 0px 0px 10px 7px rgb(142, 161, 146);
 }
 
-
-
 .wait_shown {
 	background: rgb(171, 206, 245);
 	color: rgb(41, 92, 160);
-	box-shadow: 0px 0px 10px 9px rgb(29, 91, 186);
+	box-shadow: 0px 0px 10px 9px rgb(122, 139, 164);
 }
 
 .wait_pending {
-	background: rgb(250, 108, 113);
-	color: rgb(187, 14, 40);
-	box-shadow: 0px 0px 10px 9px rgb(145, 27, 27);	
+	background: rgb(229, 175, 177);
+	color: rgb(186, 60, 78);
+	box-shadow: 0px 0px 10px 9px rgb(121, 67, 67);
 }
 
-.waitforOtherPlayers>i
-	{
+.waitforOtherPlayers>i {
 	margin-right: 20px;
-    }
+}
