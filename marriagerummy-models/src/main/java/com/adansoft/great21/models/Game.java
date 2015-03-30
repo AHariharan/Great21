@@ -94,5 +94,5 @@ public interface Game {
 	
 	public void completeRound();
 
-	
+	public int getCurrentRoundNum();
 }

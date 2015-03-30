@@ -27,6 +27,8 @@ import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
@@ -375,6 +377,29 @@ public class FacadeGamePlayController {
 		return result;
 		
 	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETINFOBLOCK, method = RequestMethod.POST)
+	public @ResponseBody GetInfoBlockResponse getInfoBlock(@RequestBody GetInfoBlockRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		GetInfoBlockResponse result = null;
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETINFOBLOCK);
+			result = restTemplate.postForEntity(url, request, GetInfoBlockResponse.class).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+	}
+	
+	
 	
 	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)
 	{

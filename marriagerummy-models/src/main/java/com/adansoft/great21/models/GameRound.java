@@ -10,6 +10,7 @@ import java.util.HashMap;
 import com.adansoft.great21.exceptions.GameNotFoundException;
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.RummyArena;
+import com.adansoft.great21.models.helpers.SkipTurnResult;
 import com.adansoft.great21.uischemas.UICard;
 import com.adansoft.great21.ulitity.CardUtility;
 
@@ -22,10 +23,11 @@ public class GameRound implements Serializable{
 	public final static String STATUS_COMPLETED = "Completed";
 	
 	public final static String PLAYER_STATUS_DECLARED = "Declared";
-	public final static String PLAYER_STATUS_INITDROPPED = "InitDropped";
-	public final static String PLAYER_STATUS_HALFDROPPED = "HalfDropped";
+	public final static String PLAYER_STATUS_INITDROPPED = "Initial Dropped";
+	public final static String PLAYER_STATUS_HALFDROPPED = "Halfway Dropped";
 	public final static String PLAYER_STATUS_SHOWNCARDS = "Shown cards";
 	public final static String PLAYER_STATUS_PLAYING = "Playing";
+	public final static String PLAYER_STATUS_WAITFORTURN = "Waiting";
 	
 	private String parentGameId;
 	private boolean isPointsEnabled;
@@ -50,6 +52,8 @@ public class GameRound implements Serializable{
     private Card prevDroppedCard;
     private boolean jokerAvailable;
     private int numofJokers;
+    private int gameplayloop;
+    
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn,boolean hasJoker,int numofJokers)
     {
@@ -71,6 +75,7 @@ public class GameRound implements Serializable{
     	showstatusMap = new HashMap<String, String>();
     	initshowStatusMap();
     	skipturnarray = new ArrayList<Integer>();
+    	gameplayloop = 1;
     }
 
     
@@ -78,11 +83,37 @@ public class GameRound implements Serializable{
     {
     	for(Player player : this.getPlayerlist())
     	{
-    		showstatusMap.put(player.getNickName(), GameRound.PLAYER_STATUS_PLAYING);
+    		showstatusMap.put(player.getNickName(), GameRound.PLAYER_STATUS_WAITFORTURN);
     	}
+    	showstatusMap.put(getCurrentPlayingPlayerNick(),GameRound.PLAYER_STATUS_PLAYING);
+    }
+    
+    private void updateShowStatusMap()
+    {
+    	for(Player player : this.getPlayerlist())
+    	{
+    		String currentstatus = showstatusMap.get(player.getNickName());
+    		if(currentstatus != GameRound.PLAYER_STATUS_INITDROPPED &&
+    		   currentstatus != GameRound.PLAYER_STATUS_HALFDROPPED )
+    			  showstatusMap.put(player.getNickName(), GameRound.PLAYER_STATUS_WAITFORTURN);    		
+    	}
+    	showstatusMap.put(getCurrentPlayingPlayerNick(),GameRound.PLAYER_STATUS_PLAYING);
     }
     
     
+    private String getCurrentPlayingPlayerNick()
+    {
+    	Player playerarr[] = playerlist.toArray(new Player[playerlist.size()]);
+    	String nickname = playerarr[currenturn].getNickName();
+    	return nickname;
+    }
+    
+    private String getPlayerNickByPosition(int position)
+    {
+    	Player playerarr[] = playerlist.toArray(new Player[playerlist.size()]);
+    	String nickname = playerarr[position].getNickName();
+    	return nickname;
+    }
     
     // Add Players to Gameround
     public void addPlayerstoRound(ArrayList<Player> players)
@@ -97,7 +128,7 @@ public class GameRound implements Serializable{
     }
     
     
-    private Game getCurrentGame() throws GameNotFoundException
+   /* private Game getCurrentGame() throws GameNotFoundException
     {
     	if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
     	      return RummyArena.getInstance().getLobby(lobbyName).getSevencard_closed_gamelist().getGame(parentGameId);
@@ -113,30 +144,8 @@ public class GameRound implements Serializable{
     		  throw new GameNotFoundException("NoGame Found with search params, GameType : " + gameType + " , GameInstanceId :" + parentGameId + " ,LobbyName :" +  lobbyName);
   	
     }
-    
+    */
     // Decide to Eliminate Player
-    private void checkEliminationCriteria()
-    {
-    	try
-    	{
-    	Game currentgame = getCurrentGame();
-    	// Check if points enabled;
-    	if(this.isPointsEnabled)
-    	{
-    		for(Player currentplayer : playerlist)
-    		{
-    			int totalpoints = currentplayer.getCurrentPoints() + pointsMap.get(currentplayer).intValue();    			
-    			if(totalpoints >= currentgame.getMaxPoints())
-    			{
-    				currentplayer.setPlayerStatus(Player.PLAYER_STATUS_ELIMINATED);
-    			}
-    		}
-    	}
-    	}catch(Exception e)
-    	{
-    		e.printStackTrace();
-    	}
-    }
     
     
 	public String getParentGameId() {
@@ -433,9 +442,12 @@ public class GameRound implements Serializable{
     	{
     		currenturn++;
     		if(currenturn > this.getPlayerlist().size())
+    		{
         		currenturn = 1;
-    	}
-    	
+        		gameplayloop++;
+    		}
+    	}  	
+    	updateShowStatusMap();
     }
 
 	public int getCurrenturn() {
@@ -446,11 +458,25 @@ public class GameRound implements Serializable{
 		this.currenturn = currenturn;
 	}
     
-    public boolean addSkipTurn(int position)
+    public SkipTurnResult addSkipTurn(int position)
     {
+    	SkipTurnResult result = new SkipTurnResult();
     	boolean isGameOver = false;
     	System.out.println("Adding skip turn : " + position);
     	skipturnarray.add(position);
+    	
+    	if(gameplayloop == 1)
+    	{
+    	     // showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_INITDROPPED);
+    	      result.setPlayerStatus(GameRound.PLAYER_STATUS_INITDROPPED);
+    	}
+    	if(gameplayloop >= 1)
+    	{
+  	        //  showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_HALFDROPPED);
+  	          result.setPlayerStatus(GameRound.PLAYER_STATUS_HALFDROPPED);
+    	}
+    	
+    	
     	updateTurn();
     	if(skipturnarray.size() >= playerlist.size()-1)
     	{
@@ -463,7 +489,9 @@ public class GameRound implements Serializable{
     	    }
     	}
     	
-    	return isGameOver;
+    	result.setGameOver(isGameOver);
+    	
+    	return result;
     }
     
     private int findWinnerifEveryoneElseDropped()
@@ -510,6 +538,7 @@ public class GameRound implements Serializable{
     	cashMap.put(nickname, money);
     	showstatusMap.put(nickname, status);
     }
+
     
     
     public HashMap<String,String> getPlayersShowStatus()

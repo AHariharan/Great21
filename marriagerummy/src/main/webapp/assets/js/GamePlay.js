@@ -598,6 +598,33 @@ var renderfoldcard = function(source,card) {
 	      marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
 	};
 	
+	
+	self.renderInfoBlock = function(data,requestObj)
+	{
+		var roundnum = data.currentRound;
+		var status = data.currentStatus;
+		var totalpoints = data.currentPoints;			
+	    $('.infoblock #InfoRound').html(roundnum);
+	    $('.infoblock #InfoStatus').html(status);
+	    $('.infoblock #InfoPoints').html(totalpoints);
+	};
+	
+	
+	var getInfoBlock = function(lobbyType, gameInstanceID, gameType)
+	{
+		var url = marriageRummy.urls.getInfoBlock;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getInfoBlockSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getInfoBlockFailure;
+		var formdata = marriageRummy.request.getGamePlayRequest().getInfoBlockRequest(lobbyType, gameInstanceID, gameType);
+		var requestObj = {
+				"formdata" : formdata
+			};
+			marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+					onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	
+	
 	var renderWinnerDeclaredCards = function(data)
 	{
 		var meld3grp = 1;
@@ -1134,6 +1161,7 @@ var renderfoldcard = function(source,card) {
 			$("#DeckNextCard").removeClass("nextCardAnimation");
 			self.addCardToHand(cardinstanceid);
 			enableDroppable();
+			getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType); 
 		});
 	};
 

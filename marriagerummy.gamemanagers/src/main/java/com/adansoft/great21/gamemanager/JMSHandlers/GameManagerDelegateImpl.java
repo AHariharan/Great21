@@ -26,6 +26,8 @@ import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
+import com.adansoft.great21.restschemas.GetInfoBlockRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
@@ -344,4 +346,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		return reply;
 	}
 
+	@Override
+	public Message<GetInfoBlockResponse> handleMessage(
+			GetInfoBlockRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received GetBlock Info : " + request.getGameInstanceID());
+		Message<GetInfoBlockResponse> reply = null;
+		try {
+			GetInfoBlockResponse response = GamePlayHelper.getInfoBlock(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+	
 }

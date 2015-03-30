@@ -139,4 +139,18 @@ public class UtilityHelper {
 		gamerequest.setMeldlist(gamemeldlist);
 		return gamerequest;
 	}
+	
+	public static int getTotalPointsforPlayerinGame(String nickname,Game game)
+	{
+		// Sum up all points for each round.
+				HashMap<String,Integer> mapdata = game.getGameContent().getPlayerPointsMap().get(nickname);
+				int currentPoints = 0;
+				for(String key : mapdata.keySet())
+				{
+					currentPoints = currentPoints + mapdata.get(key);
+				}
+				
+				return currentPoints;
+	}
+	
 }

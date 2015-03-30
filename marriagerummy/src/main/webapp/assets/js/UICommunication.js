@@ -65,6 +65,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.showCards = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Cards/Show";
 	self.showStatusPlayer = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/ShowStatus/Get";
 	self.getPlayerPoints = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Points/Get";
+	self.getInfoBlock = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/GamePlay/Info/Get";
 
 };
 
@@ -221,6 +222,16 @@ MarriageRummy.Utilities.CommunicationUtilities.GameBrowserRequestPreparer = func
 MarriageRummy.Utilities.CommunicationUtilities.GamePlayRequestPreparer = function() {
 	var self = this;
 
+	self.getInfoBlockRequest = function(lobbyType, gameInstanceID, gameType) {
+		var formdata = {
+			"nickname" : "Auto",
+			"gameInstanceID" : gameInstanceID,
+			"lobbyName" : lobbyType,
+			"gameType" : gameType,
+		};
+		return formdata;
+	};
+	
 	self.getCardRequest = function(lobbyType, gameInstanceID, gameType) {
 		var formdata = {
 			"nickname" : "Auto",
@@ -537,6 +548,16 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 
 	self.getPlayerPointsFailure = function(data) {
 		console.log("Failed to getPlayerPointsFailure : " + data);
+	};
+	
+	self.getInfoBlockSuccess = function(data, textstatus, Jhxr, requestObj) {
+		console.log("ongetInfoBlockSuccess : " + JSON.stringify(data));
+		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+		gameObj.renderInfoBlock(data);
+	};
+	
+	self.getInfoBlockFailure = function(data) {
+		console.log("ongetInfoBlockFailure : " + JSON.stringify(data));
 	};
 
 };

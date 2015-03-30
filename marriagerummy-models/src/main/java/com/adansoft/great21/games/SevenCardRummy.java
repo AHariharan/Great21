@@ -427,9 +427,46 @@ public class SevenCardRummy implements Game,Serializable {
 		if(getCurrentGameMode().equals(Game.GAME_MODE_POINTS))
  	          this.getGameContentHolder().getPlayerPointsMap().put(roundname,this.getCurrentGameRound().getPointsMap());
 		if(getCurrentGameMode().equals(Game.GAME_MODE_PERCARD))
-			this.getGameContentHolder().getPlayerCashMap().put(roundname, this.getCurrentGameRound().getCashMap());		
+			this.getGameContentHolder().getPlayerCashMap().put(roundname, this.getCurrentGameRound().getCashMap());
+		
+		checkEliminationCriteria();
+		
 		nextRound();
 	}
+	
+	private void checkEliminationCriteria()
+    {
+    	try
+    	{
+    	Game currentgame = this;
+    	// Check if points enabled;
+    	if(this.gamePointsBased)
+    	{
+    		for(Player currentplayer : playerlist)
+    		{
+    			int totalpoints =   GameUtility.getTotalPointsforPlayerinGame(currentplayer.getNickName(), this);  			
+    			if(totalpoints >= currentgame.getMaxPoints())
+    			{
+    				currentplayer.setPlayerStatus(Player.PLAYER_STATUS_ELIMINATED);
+    			}
+    		}
+    	}
+    	if(this.gameMoneyBased)
+    	{
+    		/*for(Player currentplayer : playerlist)
+    		{
+    			// To be implemented after DB data was brought inside the player;
+    		}*/
+    	}
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    }
+    
+	
+	
+	
 
 	@JsonIgnore
 	public GameContentHolder getGameContent() {
@@ -440,6 +477,14 @@ public class SevenCardRummy implements Game,Serializable {
 	public void completeRound()
 	{
 		finishRound();
+	}
+
+	
+	@Override
+	@JsonIgnore
+	public int getCurrentRoundNum() {
+	
+		return currentRoundnum;
 	}
 
 	

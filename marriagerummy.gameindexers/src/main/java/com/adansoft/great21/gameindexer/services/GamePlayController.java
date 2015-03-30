@@ -18,6 +18,8 @@ import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
@@ -135,6 +137,12 @@ public class GamePlayController {
 		return delegate.getPointsTable(request);
 	}
 	
+	
+	@RequestMapping(value = GameIndexerServiceURLs.GETINFOBLOCK, method = RequestMethod.POST)
+	public GetInfoBlockResponse completeRound(@RequestBody GetInfoBlockRequest request)
+	{
+		return delegate.getInfoBlock(request);
+	}
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

@@ -16,9 +16,9 @@
 				Bal : <i class="fa  fa-inr" style="margin-right: 4px;"></i>2500.23
 			</div>
 			<div class="infoblock">
-				<h4>Round :</h4>
-				<h4>Status :</h4>
-				<h4>Points :</h4>
+				<h4>Round : <span id="InfoRound"> </span></h4>
+				<h4>Status :<span id="InfoStatus"> </span></h4>
+				<h4>Points :<span id="InfoPoints"> </span></h4>
 			</div>
 
 			<button id="GameChatButton" type="button" class="btn btn-lg btn-gametool" data-placement="right" data-toggle="popover" title="Game Chat" data-content="Lets you chat with other game players">

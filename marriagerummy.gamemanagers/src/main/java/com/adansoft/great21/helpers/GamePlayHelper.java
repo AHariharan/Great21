@@ -13,6 +13,7 @@ import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.models.Player;
+import com.adansoft.great21.models.helpers.SkipTurnResult;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
@@ -20,6 +21,8 @@ import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
@@ -154,16 +157,23 @@ public class GamePlayHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
-		boolean isGameOver = game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
+		SkipTurnResult result = game.getCurrentGameRound().addSkipTurn(player.getPlayerPosition());
 		if(game.isGameCardMoneyBased())
 		{
-			game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),game.getPerCardMoneyValue()*3,GameRound.PLAYER_STATUS_INITDROPPED);
+			if(result.getPlayerStatus() == GameRound.PLAYER_STATUS_INITDROPPED)
+			       game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),game.getPerCardMoneyValue()*3,result.getPlayerStatus());
+			if(result.getPlayerStatus() == GameRound.PLAYER_STATUS_HALFDROPPED)
+			       game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),game.getPerCardMoneyValue()*6,result.getPlayerStatus());
+			
 		}
 		if(game.isGamePointsBased())
 		{
-			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),20,GameRound.PLAYER_STATUS_INITDROPPED);
+			if(result.getPlayerStatus() == GameRound.PLAYER_STATUS_INITDROPPED)
+			     game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),20,result.getPlayerStatus());
+			if(result.getPlayerStatus() == GameRound.PLAYER_STATUS_HALFDROPPED)
+				 game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),40,result.getPlayerStatus());
 		}
-		if(isGameOver)
+		if(result.isGameOver())
 		{
 			game.completeRound();
 			return "FinishGame";
@@ -251,6 +261,20 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		result.setGameInstanceID(request.getGameInstanceID());
 		result.setPointsTable(game.getGameContent().getPlayerPointsMap());
+		return result;
+	}
+	
+	public static GetInfoBlockResponse getInfoBlock(GetInfoBlockRequest request)
+	{
+		GetInfoBlockResponse result = new GetInfoBlockResponse();
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		GameRound round = game.getCurrentGameRound();
+		result.setNickName(request.getNickName());
+		result.setCurrentStatus(round.getStatusMap().get(request.getNickName()));
+		result.setCurrentRound(game.getCurrentRoundNum());
+		int currentPoints = UtilityHelper.getTotalPointsforPlayerinGame(request.getNickName(), game);
+		result.setCurrentPoints(currentPoints);
 		return result;
 	}
 }

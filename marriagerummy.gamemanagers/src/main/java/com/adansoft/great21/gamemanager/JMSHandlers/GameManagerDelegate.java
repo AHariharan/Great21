@@ -20,6 +20,8 @@ import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
+import com.adansoft.great21.restschemas.GetInfoBlockRequest;
+import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
 import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
 import com.adansoft.great21.restschemas.GetOpenCardRequest;
@@ -83,4 +85,6 @@ public interface GameManagerDelegate {
 	public Message<String> handleMessage(FinishGameRoundRequest request);
 	
 	public Message<GetPlayerPointsResponse> handleMessage(GetPlayerPointsRequest request);
+	
+	public Message<GetInfoBlockResponse> handleMessage(GetInfoBlockRequest request);
 }
