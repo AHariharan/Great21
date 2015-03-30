@@ -42,7 +42,7 @@
 	-ms-transform: rotate(-41deg);
 	transform: rotate(-41deg);
 	position: relative;
-	left: 15px;
+	left: 6px;
 	top: 98px;
 	background: url('../images/Cards/DiamondCards/7.png');
 	background-size: 99px 137px;
@@ -50,7 +50,7 @@
 	box-shadow: 0px 0px 10px 2px gray;
 	border-radius: 7px;
 	margin: 0px auto;
-	top: 98px;
+	top: 84px;
 }
 
 .opencard {
@@ -62,7 +62,8 @@
 	-ms-transform: rotate(77deg);
 	transform: rotate(77deg);
 	position: relative;
-	left: 229px; top : -227px;
+	left: 229px;
+	top: -227px;
 	background: url('../images/Cards/DiamondCards/3.png');
 	background-size: 74px 118px;
 	background-repeat: no-repeat;
@@ -84,7 +85,8 @@
 	-ms-transform: rotate(48deg);
 	transform: rotate(48deg);
 	position: relative;
-	left: 112px; top : -144px;
+	left: 112px;
+	top: -144px;
 	background: url('../images/Cards/BackShades/bg-red.png');
 	background-size: 78px 117px;
 	background-repeat: no-repeat;
