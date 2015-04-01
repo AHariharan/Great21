@@ -220,6 +220,11 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card jokerCard = game.getCurrentGameRound().getJoker();
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		System.out.println("Player Cards Display :" + player.getNickName() + player.getPlayerCards().size());
+		for(Card card : player.getPlayerCards())
+		{
+			System.out.println(" Card : " + card.getInstanceID());
+		}
 		ShowGameRequest gamerequest = UtilityHelper.convert(request, player);	
 		if(game.isGameCardMoneyBased())
 		{
@@ -239,9 +244,11 @@ public class GamePlayHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		HashMap<String,String> showplayerstatus = game.getCurrentGameRound().getPlayersShowStatus();
+		boolean isNewGame = game.getCurrentGameRound().isNewRoudStarted();
 		PlayerShowStatusResponse result = new PlayerShowStatusResponse();
 		result.setGameInstanceID(request.getGameInstanceID());
 		result.setPlayerShowStatus(showplayerstatus);
+		result.setNewGame(isNewGame);
 		return result;
 	}
 

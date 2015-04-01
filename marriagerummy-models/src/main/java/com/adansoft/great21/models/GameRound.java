@@ -53,7 +53,7 @@ public class GameRound implements Serializable{
     private boolean jokerAvailable;
     private int numofJokers;
     private int gameplayloop;
-    
+    private boolean roundstartflag;
 
     public GameRound(String lobbyName,String gameType,String gameid,boolean isPointsEnabled,boolean isMoneyEnabled,float moneypercard,int noofdecks,int startturn,boolean hasJoker,int numofJokers)
     {
@@ -73,11 +73,17 @@ public class GameRound implements Serializable{
     	pointsMap = new HashMap<String, Integer>();
     	cashMap = new HashMap<String, Float>();
     	showstatusMap = new HashMap<String, String>();
-    	initshowStatusMap();
+    	//initshowStatusMap();
     	skipturnarray = new ArrayList<Integer>();
     	gameplayloop = 1;
+    	roundstartflag = true;
     }
 
+    
+    public boolean isNewRoudStarted()
+    {
+    	return roundstartflag;
+    }
     
     public void initshowStatusMap()
     {
@@ -104,14 +110,14 @@ public class GameRound implements Serializable{
     private String getCurrentPlayingPlayerNick()
     {
     	Player playerarr[] = playerlist.toArray(new Player[playerlist.size()]);
-    	String nickname = playerarr[currenturn].getNickName();
+    	String nickname = playerarr[currenturn-1].getNickName();
     	return nickname;
     }
     
     private String getPlayerNickByPosition(int position)
     {
     	Player playerarr[] = playerlist.toArray(new Player[playerlist.size()]);
-    	String nickname = playerarr[position].getNickName();
+    	String nickname = playerarr[position - 1].getNickName();
     	return nickname;
     }
     
@@ -371,6 +377,7 @@ public class GameRound implements Serializable{
 	
     public String addCardToHand(UICard inputcard,String nickname)
     {
+    	roundstartflag = false;
     	String result = "Failure";
     	for(Card card : deckcards)
 		{
@@ -397,6 +404,7 @@ public class GameRound implements Serializable{
     
     public String dropCardFromHand(UICard inputcard,String nickname)
     {
+    	roundstartflag = false;
     	String result = "Failure";
     	for(Card card : deckcards)
 		{

@@ -42,15 +42,14 @@
 	-ms-transform: rotate(-41deg);
 	transform: rotate(-41deg);
 	position: relative;
-	left: 6px;
-	top: 98px;
+	left: 12px;
+	top: 78px;
 	background: url('../images/Cards/DiamondCards/7.png');
 	background-size: 99px 137px;
 	background-repeat: no-repeat;
 	box-shadow: 0px 0px 10px 2px gray;
 	border-radius: 7px;
 	margin: 0px auto;
-	top: 84px;
 }
 
 .opencard {

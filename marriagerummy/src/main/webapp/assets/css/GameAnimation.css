@@ -239,8 +239,8 @@ transform: rotate(0deg);
 
 
 .blink {
-    -webkit-animation: blink 1s step-end infinite;
-            animation: blink 1s step-end infinite;
+    -webkit-animation: blink 2s step-end infinite;
+            animation: blink 2s step-end infinite;
 }
 @-webkit-keyframes blink { 50% { visibility: hidden; }}
         @keyframes blink { 50% { visibility: hidden; }}

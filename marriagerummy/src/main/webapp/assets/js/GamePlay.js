@@ -7,9 +7,36 @@ MarriageRummy.Utilities = MarriageRummy.Utilities || {};
 MarriageRummy.Utilities.GameUtilities = MarriageRummy.Utilities.GameUtilities
 		|| {};
 
-MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
+
+MarriageRummy.Utilities.GameUtilities.StatePreserver = function()
+{
 	var statepreserver = $("#GameArena").html();
 	var gametoolpreserver = $("#GameToolbarNew").html();
+	var pointstatePresever = $(".showPoints").html();
+	var self = this;
+	
+	self.getStatePreserver = function()
+	{
+		return statepreserver;
+	};
+	
+	self.getGameToolPreserver = function()
+	{
+		return gametoolpreserver;
+	};
+	
+	self.getPointStatePreserver = function()
+	{
+		return pointstatePresever;
+	};
+};
+		
+var marriageRummy = marriageRummy || {};
+marriageRummy.statepreserver = new MarriageRummy.Utilities.GameUtilities.StatePreserver();
+		
+MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
+	var statepreserver = marriageRummy.statepreserver.getStatePreserver();
+	var gametoolpreserver = marriageRummy.statepreserver.getGameToolPreserver();
 	var self = this;
 	var curtop = 0;
 	var curleft = 0;
@@ -19,7 +46,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var sec_counter = 60;
 	var selected_timer = {};
 	var init_turn = true;
-	var pointstatePresever = $(".showPoints").html();
+	var pointstatePresever = marriageRummy.statepreserver.getPointStatePreserver();
 	
 
 	
@@ -247,12 +274,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				.dropCardNotification("onDropHandSuccess", requestObj.formdata);
 		marriageRummy.notificationManager
 				.sendNotificationEvent(notificationdata);
+		
 	};
 	
 	self.onFoldHandSuccess = function(data, requestObj) {
 		var notificationdata = marriageRummy.notificationRequest
 				.foldHandNotification("onFoldHandSuccess", requestObj.formdata);
 		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType);
 	};
 
 	self.notifyDroppedCard = function(card) {
@@ -503,6 +532,7 @@ var renderfoldcard = function(source,card) {
 		}
 		startTimer();
 		marriageRummy.generalutility.showInfo("Hint", "To rearrange cards select one card to pick and select other card to place");
+		getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType);
 
 	};
 	
@@ -532,13 +562,7 @@ var renderfoldcard = function(source,card) {
 		var playerstatusmaps = data.playerShowStatus;
 		var playernames = Object.keys(playerstatusmaps);
 		var noofstat = 0;
-		for(var i=0;i<playernames.length;i++)
-		{
-		   var currentplayername =   playernames[i];
-		   var status = playerstatusmaps[currentplayername];
-		   if(status == "Playing")
-			   noofstat++;
-		}
+		
 		for(var i=0;i<playernames.length;i++)
 		{
 		   var currentplayername =   playernames[i];
@@ -555,14 +579,14 @@ var renderfoldcard = function(source,card) {
 			      iClass = "fa-check-square-o";
 			      template_class = "wait_shown";
 			   }
-		   if(status == "Playing")
+		   if(status == "Waiting")
 			   {
 			       iClass = "fa-cog fa-spin";
 			       template_class = "wait_pending";
 			   }
-		   if(noofstat == playernames.length)
+		   if(data.newGame)
 			   {
-			        iClass = "fa-cog fa-spin";
+			       iClass = "fa-cog fa-spin";
 		           template_class = "wait_shown";
 		           status = "Starting new round";
 			   }
@@ -1128,6 +1152,8 @@ var renderfoldcard = function(source,card) {
 				dragstopopencard(event, ui, $(this));
 			}
 		});
+		
+		getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType);
 
 	};
 
@@ -1161,7 +1187,7 @@ var renderfoldcard = function(source,card) {
 			$("#DeckNextCard").removeClass("nextCardAnimation");
 			self.addCardToHand(cardinstanceid);
 			enableDroppable();
-			getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType); 
+			 
 		});
 	};
 
@@ -1764,6 +1790,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject)
 	{
 		$('#onShowCardGame').unbind();
 		$('#onShowCardGame').on("click",function(){
+			$(this).attr("disabled","disabled"); // Make sure only once its clicked...
             var prepareddata = prepareShowCardMeldList();
 			console.log(" MELDLIST : " + JSON.stringify(prepareddata.meldlist));
 			showCardsNow(prepareddata.meldlist);

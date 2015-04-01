@@ -258,6 +258,7 @@ public class HumanPlayer implements Player{
 
 
 	public void resetCards() {
+		System.out.println("Reset Cards Invoked ... ");
 		cards = new ArrayList<Card>();		
 	}
 	

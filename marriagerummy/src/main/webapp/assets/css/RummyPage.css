@@ -639,3 +639,9 @@
 .waitforOtherPlayers>i {
 	margin-right: 20px;
 }
+
+.infoblock h4 span {
+	padding-left: 4px;
+	font-weight: bold;
+	color: rgb(253, 250, 247);
+}

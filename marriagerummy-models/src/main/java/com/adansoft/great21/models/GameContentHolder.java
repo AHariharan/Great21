@@ -7,7 +7,7 @@ public class GameContentHolder implements Serializable{
 
 	private static final long serialVersionUID = -4352177438713072359L;
 
-	private HashMap<String,HashMap<String,Integer>> playerPointsMap; //format playername,<gameround,points>
+	private HashMap<String,HashMap<String,Integer>> playerPointsMap; //format gameround,<PlayerName,points>
 	private HashMap<String,HashMap<String,Float>> playerCashMap;
 	private String gameInstanceID;
 	private String gameType;

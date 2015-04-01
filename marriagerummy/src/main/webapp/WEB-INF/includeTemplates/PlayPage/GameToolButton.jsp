@@ -17,7 +17,7 @@
 			</div>
 			<div class="infoblock">
 				<h4>Round : <span id="InfoRound"> </span></h4>
-				<h4>Status :<span id="InfoStatus"> </span></h4>
+				<h4>Status :<span id="InfoStatus" class="blink"> </span></h4>
 				<h4>Points :<span id="InfoPoints"> </span></h4>
 			</div>
 

@@ -9,13 +9,16 @@ public class PlayerShowStatusResponse implements Serializable{
 
 	private String gameInstanceID;
 	private HashMap<String,String> playerShowStatus;
+	private boolean newGame;
 	
 	public PlayerShowStatusResponse(String gameInstanceID,
-			HashMap<String, String> playerShowStatus) {
+			HashMap<String, String> playerShowStatus, boolean newGame) {
 		super();
 		this.gameInstanceID = gameInstanceID;
 		this.playerShowStatus = playerShowStatus;
+		this.newGame = newGame;
 	}
+
 
 	public PlayerShowStatusResponse() {
 		super();
@@ -36,6 +39,16 @@ public class PlayerShowStatusResponse implements Serializable{
 
 	public void setPlayerShowStatus(HashMap<String, String> playerShowStatus) {
 		this.playerShowStatus = playerShowStatus;
+	}
+
+
+	public boolean isNewGame() {
+		return newGame;
+	}
+
+
+	public void setNewGame(boolean newGame) {
+		this.newGame = newGame;
 	}
 	
 	

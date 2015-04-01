@@ -72,7 +72,9 @@ public class UtilityHelper {
 
 	public static Card getCardforPlayerFromUICard(Player player,
 			String cardinstanceid) {
-		System.out.println("getCardforPlayerFromUICard Incoming cardinstanceid " + cardinstanceid);
+		System.out
+				.println("getCardforPlayerFromUICard Incoming cardinstanceid "
+						+ cardinstanceid);
 		Card card = null;
 		for (Card cucard : player.getPlayerCards()) {
 			if (cucard.getInstanceID().equals(cardinstanceid)) {
@@ -139,18 +141,23 @@ public class UtilityHelper {
 		gamerequest.setMeldlist(gamemeldlist);
 		return gamerequest;
 	}
-	
-	public static int getTotalPointsforPlayerinGame(String nickname,Game game)
-	{
-		// Sum up all points for each round.
-				HashMap<String,Integer> mapdata = game.getGameContent().getPlayerPointsMap().get(nickname);
-				int currentPoints = 0;
-				for(String key : mapdata.keySet())
-				{
-					currentPoints = currentPoints + mapdata.get(key);
+
+	public static int getTotalPointsforPlayerinGame(String nickname, Game game) {
+		int currentPoints = 0;
+		for (String round : game.getGameContent().getPlayerPointsMap().keySet()) {
+			HashMap<String, Integer> mapdata = game.getGameContent()
+					.getPlayerPointsMap().get(round);
+			if (mapdata != null) {
+				for (String curnickname : mapdata.keySet()) {
+					if (curnickname.equals(nickname)) {
+						currentPoints = currentPoints
+								+ mapdata.get(curnickname);
+					}
 				}
-				
-				return currentPoints;
+			}
+		}
+
+		return currentPoints;
 	}
-	
+
 }

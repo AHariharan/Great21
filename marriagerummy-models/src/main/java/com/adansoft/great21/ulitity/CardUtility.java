@@ -296,7 +296,7 @@ public class CardUtility {
 	}
 
 	public static int distributeCards(ArrayList<Player> playerlist,
-			Card[] cardlist, int numofcardstodistribute) {
+		Card[] cardlist, int numofcardstodistribute) {
 		int countofdistcards = playerlist.size() * numofcardstodistribute;
 		int i = 0;
 		for (; i < countofdistcards;) {
