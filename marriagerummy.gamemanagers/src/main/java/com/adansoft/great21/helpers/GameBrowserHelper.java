@@ -3,6 +3,13 @@ package com.adansoft.great21.helpers;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
+
+import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
+import com.adansoft.great21.dataccess.helpers.RestServiceHelper;
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
@@ -27,8 +34,10 @@ import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameBrowserHelper {
+	
 
-	public static Game createGame(CreateGameRequest request)
+
+	public static Game createGame(GameManagertoDataAccessMapper mapper,RestTemplate template,CreateGameRequest request)
 	{
 		 Game game = null;
 		 System.out.println(" GameType Request :- " + request.getGameType());
@@ -40,8 +49,12 @@ public class GameBrowserHelper {
 				 request.getPerCardAmount(), request.getLobbyType(), request.getGameType(),
 				 request.getGameDescription(),request.getBuyinValue());
 		 
+		    GetUserBasicDetailsRequest basicdetailsrequest = new GetUserBasicDetailsRequest(request.getAuthdata().getUserid(),request.getAuthdata().getEmailadd());			
+			GetUserBasicDetailsResponse basicdetailResponse = RestServiceHelper.getBasicDetails(mapper,template,basicdetailsrequest);
+		 
 		 HumanPlayer player = new HumanPlayer(request.getCreatedBy(),0);
 		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);
+		 player.setCashInHand(basicdetailResponse.getCash());
 		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
 			 player.setJokerKnown(false);
 		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
@@ -83,17 +96,24 @@ public class GameBrowserHelper {
 		return result;	
 	}
 	
-	public static AddPlayerResponse addPlayertoGame(AddPlayerRequest request)
+	public static AddPlayerResponse addPlayertoGame(GameManagertoDataAccessMapper mapper,RestTemplate template , AddPlayerRequest request)
 	{
 		AddPlayerResponse result = new AddPlayerResponse();
 		try
 		{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		
+		GetUserBasicDetailsRequest basicdetailsrequest = new GetUserBasicDetailsRequest(request.getAuthdata().getUserid(),request.getAuthdata().getEmailadd());
+		
+		GetUserBasicDetailsResponse basicdetailResponse = RestServiceHelper.getBasicDetails(mapper,template,basicdetailsrequest);
+		
+		
 		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
 		{
 			HumanPlayer player = new HumanPlayer(request.getNickname(),0);
 			player.setPlayerrole(Player.PLAYER_ROLE_GUEST);		
+			player.setCashInHand(basicdetailResponse.getCash());
 			game.addPlayertoGame(player);
 			result.setGameInstanceID(request.getGameInstanceID());
 			result.setGameType(request.getGameType());

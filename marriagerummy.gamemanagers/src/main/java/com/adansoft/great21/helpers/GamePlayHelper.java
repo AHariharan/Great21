@@ -280,6 +280,8 @@ public class GamePlayHelper {
 		result.setNickName(request.getNickName());
 		result.setCurrentStatus(round.getStatusMap().get(request.getNickName()));
 		result.setCurrentRound(game.getCurrentRoundNum());
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		result.setCurrentCash(player.getCurrentCash());
 		int currentPoints = UtilityHelper.getTotalPointsforPlayerinGame(request.getNickName(), game);
 		result.setCurrentPoints(currentPoints);
 		return result;

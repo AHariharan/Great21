@@ -627,10 +627,12 @@ var renderfoldcard = function(source,card) {
 	{
 		var roundnum = data.currentRound;
 		var status = data.currentStatus;
-		var totalpoints = data.currentPoints;			
+		var totalpoints = data.currentPoints;
+		var currentCash = data.currentCash;
 	    $('.infoblock #InfoRound').html(roundnum);
 	    $('.infoblock #InfoStatus').html(status);
 	    $('.infoblock #InfoPoints').html(totalpoints);
+	    $('.cashblock #currentCash').html(currentCash);
 	};
 	
 	

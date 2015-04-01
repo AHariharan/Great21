@@ -23,11 +23,13 @@ import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Game;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
+import com.adansoft.great21.restschemas.AuthData;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.router.FacadetoIndexerMapper;
+import com.adansoft.great21.security.RummyUser;
 import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.GetGamesinLobby;
 
@@ -72,6 +74,8 @@ public class FacadeGameBrowserController {
 	{
 		String user = authentication.getName();
 		request.setCreatedBy(user);
+		RummyUser rummyuser = (RummyUser) authentication.getPrincipal();
+		request.setAuthdata(new AuthData(rummyuser.getUserid(),rummyuser.getEmailaddr()));
 		Game game = null;
 		try
 		{
@@ -128,6 +132,8 @@ public class FacadeGameBrowserController {
 	@RequestMapping( value = FacadeControllerURLs.ADD_PLAYER, method = RequestMethod.POST)
 	public @ResponseBody AddPlayerResponse addPlayertoGame(@RequestBody AddPlayerRequest request,@AuthenticationPrincipal Authentication authentication)
 	{
+		RummyUser rummyuser = (RummyUser) authentication.getPrincipal();
+		request.setAuthdata(new AuthData(rummyuser.getUserid(),rummyuser.getEmailaddr()));
 		String nickname = authentication.getName();
 		request.setNickname(nickname);
 		AddPlayerResponse result = null;

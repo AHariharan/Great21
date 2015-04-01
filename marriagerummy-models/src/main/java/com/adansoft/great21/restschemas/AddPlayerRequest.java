@@ -10,6 +10,7 @@ public class AddPlayerRequest implements Serializable{
 
 	private static final long serialVersionUID = 4182950291531101449L;
 
+	private AuthData authdata;
 	private String playerType;
 	private String nickname;
 	private String gameInstanceID;
@@ -21,15 +22,20 @@ public class AddPlayerRequest implements Serializable{
 		super();
 	}
 	
-	public AddPlayerRequest(String playerType, String nickname,
+	
+
+	public AddPlayerRequest(AuthData authdata, String playerType, String nickname,
 			String gameInstanceID, String lobbyName, String gameType) {
 		super();
+		this.authdata = authdata;
 		this.playerType = playerType;
 		this.nickname = nickname;
 		this.gameInstanceID = gameInstanceID;
 		this.lobbyName = lobbyName;
 		this.gameType = gameType;
 	}
+
+
 
 	public String getPlayerType() {
 		return playerType;
@@ -70,6 +76,21 @@ public class AddPlayerRequest implements Serializable{
 	public void setGameType(String gameType) {
 		this.gameType = gameType;
 	}
+
+
+
+	public AuthData getAuthdata() {
+		return authdata;
+	}
+
+
+
+	public void setAuthdata(AuthData authdata) {
+		this.authdata = authdata;
+	}
+
+
+
 	
 		
 }

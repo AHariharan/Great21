@@ -24,6 +24,8 @@ public class HumanPlayer implements Player{
 	private String status;
     private int playerpos;
     private String playerrole;
+    private double cashInHand;
+    private long myuserid;
 	
 
 	public HumanPlayer(String nickname,int playerpos)
@@ -261,8 +263,40 @@ public class HumanPlayer implements Player{
 		System.out.println("Reset Cards Invoked ... ");
 		cards = new ArrayList<Card>();		
 	}
-	
 
+
+	@Override
+	@JsonIgnore
+	public double getCurrentCash() {
+		return cashInHand;
+	}
+
+	@JsonIgnore
+	public double getCashInHand() {
+		return cashInHand;
+	}
+
+
+	public void setCashInHand(double cashInHand) {
+		this.cashInHand = cashInHand;
+	}
+	
+	@Override
+	@JsonIgnore
+	public long getUserID()
+	{
+		return myuserid;
+	}
+
+	@JsonIgnore
+	public long getMyuserid() {
+		return myuserid;
+	}
+
+	@JsonIgnore
+	public void setMyuserid(long myuserid) {
+		this.myuserid = myuserid;
+	}
 	
 	
 }

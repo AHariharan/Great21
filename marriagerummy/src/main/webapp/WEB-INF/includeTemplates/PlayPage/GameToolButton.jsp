@@ -12,8 +12,8 @@
 				<i class="fa fa-user"></i>
 				<p>${BasicDetailResponse.nickname}</p>
 			</div>
-			<div class=" cashblock ">
-				Bal : <i class="fa  fa-inr" style="margin-right: 4px;"></i>2500.23
+			<div class="cashblock">
+				Bal : <i class="fa  fa-inr" style="margin-right: 4px;"></i><span id="currentCash">2500.23</span>
 			</div>
 			<div class="infoblock">
 				<h4>Round : <span id="InfoRound"> </span></h4>

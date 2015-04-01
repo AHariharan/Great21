@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.web.client.RestTemplate;
 
+import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.jms.models.GameManagerHeartBeat;
@@ -21,6 +23,17 @@ public class DataConfiguration {
 	
 	@Value("${JMS.GAMEMANAGER.REQ}")
 	private String requestQueue;
+
+	@Value("${DataAccess.HOST}")
+	private String dataAccessHost;
+	
+	@Value("${DataAccess.PORT}")
+	private String dataAccessPort;
+	
+	@Value("${DataAccess.BASEURI}")
+	private String dataAccessURI;
+	
+	
 	
 	@Bean
 	public GameManagerHeartBeat createHeartBeat()
@@ -46,5 +59,28 @@ public class DataConfiguration {
 		GameLobby.createGameLobby("Advanced");
 
 	}
+	
+	@Bean
+	public GameManagertoDataAccessMapper createDataAccessMapper()
+	{
+		try
+		{
+		GameManagertoDataAccessMapper mapper = new GameManagertoDataAccessMapper(dataAccessHost, dataAccessPort, dataAccessURI);
+		System.out.println("******* Created DataAccess Mapper with URI : " + mapper.getDataAccessURI());		
+		return mapper;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return null;
+	}
 
+	
+	@Bean	
+	public RestTemplate createRestTemplate()
+	{
+		RestTemplate template = new RestTemplate();
+		return template;
+	}
 }

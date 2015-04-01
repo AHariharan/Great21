@@ -9,6 +9,7 @@ public class CreateGameRequest implements Serializable{
 
 	private static final long serialVersionUID = -9161854892669569490L;
 	
+	private AuthData authdata;
 	private String lobbyType;
 	private String gameType;
 	private String gameDescription;
@@ -28,18 +29,14 @@ public class CreateGameRequest implements Serializable{
 	{
 		
 	}
-	
-		
-	
 
-
-
-	public CreateGameRequest(String lobbyType, String gameType,
+	public CreateGameRequest(AuthData authdata, String lobbyType, String gameType,
 			String gameDescription, int maxPlayers, boolean isFriendsOnly,
 			boolean isbyInviteOnly, String gameMode, String createdBy,
-			boolean isGamePointsBased, boolean isGamePerCardBase,
-			int maxPoints, int perCardAmount, int maxRounds,int buyinValue) {
+			boolean gamePointsBased, boolean gamePerCardBase, int maxPoints,
+			int perCardAmount, int maxRounds, int buyinValue) {
 		super();
+		this.authdata = authdata;
 		this.lobbyType = lobbyType;
 		this.gameType = gameType;
 		this.gameDescription = gameDescription;
@@ -48,18 +45,13 @@ public class CreateGameRequest implements Serializable{
 		this.isbyInviteOnly = isbyInviteOnly;
 		this.gameMode = gameMode;
 		this.createdBy = createdBy;
-		this.gamePointsBased = isGamePointsBased;
-		this.gamePerCardBase = isGamePerCardBase;
+		this.gamePointsBased = gamePointsBased;
+		this.gamePerCardBase = gamePerCardBase;
 		this.maxPoints = maxPoints;
 		this.perCardAmount = perCardAmount;
 		this.maxRounds = maxRounds;
 		this.buyinValue = buyinValue;
 	}
-
-
-
-
-
 
 	public String getGameType() {
 		return gameType;
@@ -210,6 +202,15 @@ public class CreateGameRequest implements Serializable{
 	public void setBuyinValue(int buyinValue) {
 		this.buyinValue = buyinValue;
 	}
+
+	public AuthData getAuthdata() {
+		return authdata;
+	}
+
+	public void setAuthdata(AuthData authdata) {
+		this.authdata = authdata;
+	}
+
 	
 	
 	

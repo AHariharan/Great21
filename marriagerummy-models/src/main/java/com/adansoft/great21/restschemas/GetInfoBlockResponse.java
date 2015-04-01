@@ -10,6 +10,7 @@ public class GetInfoBlockResponse implements Serializable{
 	private int currentRound;
 	private int currentPoints;
 	private String currentStatus;
+	private double currentCash;
 	
 	public GetInfoBlockResponse() {
 		super();
@@ -17,14 +18,19 @@ public class GetInfoBlockResponse implements Serializable{
 	}
 
 	
+	
+
 	public GetInfoBlockResponse(String nickName, int currentRound,
-			int currentPoints, String currentStatus) {
+			int currentPoints, String currentStatus, double currentCash) {
 		super();
 		this.nickName = nickName;
 		this.currentRound = currentRound;
 		this.currentPoints = currentPoints;
 		this.currentStatus = currentStatus;
+		this.currentCash = currentCash;
 	}
+
+
 
 
 	public String getNickName() {
@@ -59,6 +65,20 @@ public class GetInfoBlockResponse implements Serializable{
 
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
+	}
+
+
+
+
+	public double getCurrentCash() {
+		return currentCash;
+	}
+
+
+
+
+	public void setCurrentCash(double currentCash) {
+		this.currentCash = currentCash;
 	}
 	
 	

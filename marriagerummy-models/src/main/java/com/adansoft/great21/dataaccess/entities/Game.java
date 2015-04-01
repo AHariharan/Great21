@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class Game implements java.io.Serializable {
 
+	private static final long serialVersionUID = 6199252076471945680L;
 	private String gameInstanceId;
 	private String gameLobby;
 	private String gameType;

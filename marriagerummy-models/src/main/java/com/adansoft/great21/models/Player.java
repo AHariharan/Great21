@@ -64,7 +64,9 @@ public interface Player extends Serializable {
 	
 	public void resetCards();
 	
+	public double getCurrentCash();
 	
+	public long getUserID();
 	
 	
 	
