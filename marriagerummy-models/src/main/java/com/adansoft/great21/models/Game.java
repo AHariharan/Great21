@@ -95,4 +95,6 @@ public interface Game {
 	public void completeRound();
 
 	public int getCurrentRoundNum();
+	
+	public String getRummyType();
 }

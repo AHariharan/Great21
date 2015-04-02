@@ -4,12 +4,14 @@ package com.adansoft.great21.helpers;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.dataccess.helpers.RestServiceHelper;
+import com.adansoft.great21.delayedwrite.GameDataLazyWriter;
 import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
@@ -35,9 +37,9 @@ import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameBrowserHelper {
 	
+  
 
-
-	public static Game createGame(GameManagertoDataAccessMapper mapper,RestTemplate template,CreateGameRequest request)
+	public static Game createGame(GameManagertoDataAccessMapper mapper,RestTemplate template,CreateGameRequest request,TaskExecutor executor)
 	{
 		 Game game = null;
 		 System.out.println(" GameType Request :- " + request.getGameType());
@@ -54,6 +56,7 @@ public class GameBrowserHelper {
 		 
 		 HumanPlayer player = new HumanPlayer(request.getCreatedBy(),0);
 		 player.setPlayerrole(Player.PLAYER_ROLE_HOST);
+		 player.setMyuserid(request.getAuthdata().getUserid());
 		 player.setCashInHand(basicdetailResponse.getCash());
 		 if(request.getGameType().equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE))
 			 player.setJokerKnown(false);
@@ -63,6 +66,7 @@ public class GameBrowserHelper {
 		 
 		// RummyArena.getInstance().displayArena();      
 		 RummyArena.getInstance().getLobby(request.getLobbyType()).addGame(game, request.getGameType());
+		 executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_CREATEGAME, game , mapper,template));
 		 return game;
 	}
 	
@@ -112,7 +116,8 @@ public class GameBrowserHelper {
 		if(request.getPlayerType().equals(Player.PLAYER_TYPE_HUMAN))
 		{
 			HumanPlayer player = new HumanPlayer(request.getNickname(),0);
-			player.setPlayerrole(Player.PLAYER_ROLE_GUEST);		
+			player.setPlayerrole(Player.PLAYER_ROLE_GUEST);	
+			player.setMyuserid(request.getAuthdata().getUserid());
 			player.setCashInHand(basicdetailResponse.getCash());
 			game.addPlayertoGame(player);
 			result.setGameInstanceID(request.getGameInstanceID());

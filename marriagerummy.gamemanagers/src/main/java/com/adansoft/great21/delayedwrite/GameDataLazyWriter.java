@@ -1,0 +1,47 @@
+package com.adansoft.great21.delayedwrite;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
+
+import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
+
+public class GameDataLazyWriter implements Runnable {
+
+	public static final String OP_CREATEGAME = "Create Game";
+	public static final String OP_UPDATEGAMESTATUS = "Update Game";
+	
+
+	GameManagertoDataAccessMapper gametodataaccessmapper;
+	
+
+	RestTemplate restTemplate;
+	
+	private String operationName;
+	
+	private Object requestObj;
+	
+	public GameDataLazyWriter(String operation,Object obj,GameManagertoDataAccessMapper mapper,RestTemplate template)
+	{
+		this.operationName = operation;
+		this.requestObj = obj;
+		this.gametodataaccessmapper = mapper;
+		this.restTemplate = template;
+		try
+		{
+		   System.out.println("Successfully Autowired : " + gametodataaccessmapper.getDataAccessURI());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+	
+	
+	@Override
+	public void run() {
+		if(operationName.equals(OP_CREATEGAME))
+			GameDataLazyWriteHelper.createGame(requestObj, gametodataaccessmapper, restTemplate);
+
+	}
+
+}

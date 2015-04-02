@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.support.MessageBuilder;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
@@ -56,13 +58,16 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	@Autowired
+	private ThreadPoolTaskExecutor taskExecutor;
 
 	
 	@Override
 	@SendTo("game")
 	public Message<Game> handleMessage(CreateGameRequest request) {
 		System.out.println(Calendar.getInstance().getTime()+ " Received CreateGame Request : " + request.getGameType() + "-" + request.getLobbyType());
-		Game game = GameBrowserHelper.createGame(gametodataaccessmapper,restTemplate,request);
+		Game game = GameBrowserHelper.createGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
 		Message<Game> reply = MessageBuilder.withPayload(game).build();
 		return reply;
 	}

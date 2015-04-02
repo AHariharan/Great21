@@ -42,6 +42,8 @@
 				<value>ORM/Hibernate-RummyStats.hbm.xml</value>
 				<value>ORM/Hibernate-UserAudit.hbm.xml</value>
 				<value>ORM/Hibernate-UserProfile.hbm.xml</value>
+				<value>ORM/Hibernate-Game.hbm.xml</value>
+				<value>ORM/Hibernate-GamePlayers.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -64,6 +66,11 @@
 
 	<bean id="basedataDAO"
 		class="com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="gamedataDAO"
+		class="com.adansoft.great21.dataaccess.dao.GameDataAccessDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 

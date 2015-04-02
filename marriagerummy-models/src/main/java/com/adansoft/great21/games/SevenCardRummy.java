@@ -306,7 +306,7 @@ public class SevenCardRummy implements Game,Serializable {
 
 	public String getGameLobbyName() {
 		
-		return null;
+		return getLobbyName();
 	}
 	
 	public String getOwner()
@@ -487,7 +487,12 @@ public class SevenCardRummy implements Game,Serializable {
 		return currentRoundnum;
 	}
 
-	
+	@Override
+	@JsonIgnore
+	public String getRummyType()
+	{
+		return getGameType();
+	}
 	
 	
 	

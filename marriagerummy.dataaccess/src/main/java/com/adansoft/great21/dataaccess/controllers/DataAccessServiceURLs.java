@@ -14,4 +14,7 @@ public class DataAccessServiceURLs {
 	public final static String USER_PROFILE_GET = "/BasicUserDetails/ProfileInfo/get";
 	public final static String USER_PROFILE_UPDATE = "/BasicUserDetails/ProfileInfo/Update";
 	
+	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";
+	public final static String CREATED_GAME = "/CreateGame";	
+	
 }

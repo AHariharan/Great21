@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 10, 2015 11:09:38 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.entities.GamePlayers" table="game_players" catalog="Rummy">
+        <id name="gameInstanceId" type="string">
+            <column name="GAME_INSTANCE_ID" length="65" />
+            <generator class="assigned" />
+        </id>
+        <property name="numOfPlayers" type="java.lang.Integer">
+            <column name="NUM_OF_PLAYERS" />
+        </property>
+        <property name="player1Idn" type="java.lang.Long">
+            <column name="PLAYER1_IDN" />
+        </property>
+        <property name="player2Idn" type="java.lang.Long">
+            <column name="PLAYER2_IDN" />
+        </property>
+        <property name="player3Idn" type="java.lang.Long">
+            <column name="PLAYER3_IDN" />
+        </property>
+        <property name="player4Idn" type="java.lang.Long">
+            <column name="PLAYER4_IDN" />
+        </property>
+        <property name="player5Idn" type="java.lang.Long">
+            <column name="PLAYER5_IDN" />
+        </property>
+        <property name="player6Idn" type="java.lang.Long">
+            <column name="PLAYER6_IDN" />
+        </property>
+        <property name="player7Idn" type="java.lang.Long">
+            <column name="PLAYER7_IDN" />
+        </property>
+        <property name="player8Idn" type="java.lang.Long">
+            <column name="PLAYER8_IDN" />
+        </property>
+    </class>
+</hibernate-mapping>
