@@ -18,6 +18,7 @@ public class GameContentHolder implements Serializable{
 	public GameContentHolder() {
 		super();
 		playerPointsMap = new HashMap<String, HashMap<String,Integer>>();
+		playerCashMap = new HashMap<String, HashMap<String,Float>>();
 	}
 
 
@@ -28,6 +29,7 @@ public class GameContentHolder implements Serializable{
 		this.gameType = gameType;
 		this.gameMode = gameMode;
 		playerPointsMap = new HashMap<String, HashMap<String,Integer>>();
+		playerCashMap = new HashMap<String, HashMap<String,Float>>();
 	}
 
 

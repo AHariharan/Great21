@@ -68,6 +68,8 @@ public interface Player extends Serializable {
 	
 	public long getUserID();
 	
+	public void setCurrentCash(double cash);
+	
 	
 	
 }

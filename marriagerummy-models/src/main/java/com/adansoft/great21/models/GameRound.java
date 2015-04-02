@@ -545,9 +545,34 @@ public class GameRound implements Serializable{
     {
     	cashMap.put(nickname, money);
     	showstatusMap.put(nickname, status);
+    	Player player = findPlayerfromNick(nickname);
+    	player.setCurrentCash(player.getCurrentCash() - money);
+    	addMoneytoWinnerofGameRound(money);
     }
 
     
+    private void addMoneytoWinnerofGameRound(double money)
+    {
+    	for(String nickname : showstatusMap.keySet())
+    	{
+    		if(showstatusMap.get(nickname).equals(GameRound.PLAYER_STATUS_DECLARED))
+    		{
+    			Player winner = findPlayerfromNick(nickname);
+    			winner.setCurrentCash(winner.getCurrentCash() + money);
+    			break;
+    		}
+    	}
+    }
+    
+    private Player findPlayerfromNick(String nickname)
+    {
+    	for(Player player : playerlist)
+    	{
+    		if(player.getNickName().equals(nickname))
+    			return player;
+    	}
+    	return null;
+    }
     
     public HashMap<String,String> getPlayersShowStatus()
     {

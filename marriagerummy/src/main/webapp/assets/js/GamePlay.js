@@ -692,6 +692,7 @@ var renderfoldcard = function(source,card) {
 	    	     
 	    	  }
 		    }
+		$('#onShowCardGame').removeAttr("disabled");
 	};
 
 	var convertCardInstancetoCardValue = function(cardinstanceid) {

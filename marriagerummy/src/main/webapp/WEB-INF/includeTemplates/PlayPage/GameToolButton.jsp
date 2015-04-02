@@ -2,7 +2,7 @@
 	style="width: 183px;">
 
 	<div class="btn-group btn-group-lg" role="group">
-		<div class="btn-group btn-group-vertical">
+		<div class="btn-group btn-group-vertical tooloptions">
 			<div class="mainlogo">
 				<img src="./assets/images/Logo.png" width="102px" height="50px"
 					alt="Logo">

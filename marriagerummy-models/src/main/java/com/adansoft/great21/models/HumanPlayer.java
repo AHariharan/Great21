@@ -298,5 +298,9 @@ public class HumanPlayer implements Player{
 		this.myuserid = myuserid;
 	}
 	
+	@JsonIgnore
+	public void setCurrentCash(double money) {
+		 setCashInHand(money);
+	}
 	
 }
