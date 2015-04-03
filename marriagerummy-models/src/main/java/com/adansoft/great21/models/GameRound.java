@@ -466,6 +466,44 @@ public class GameRound implements Serializable{
 		this.currenturn = currenturn;
 	}
     
+	
+	   public SkipTurnResult addSkipTurn(Player player)
+	    {
+	    	SkipTurnResult result = new SkipTurnResult();
+	    	boolean isGameOver = false;
+	    	int position  = findPlayersPosition(player);
+	    	skipturnarray.add(position);
+	    	System.out.println("Adding skip turn : " + position);
+	    	
+	    	if(gameplayloop == 1)
+	    	{
+	    	     // showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_INITDROPPED);
+	    	      result.setPlayerStatus(GameRound.PLAYER_STATUS_INITDROPPED);
+	    	}
+	    	if(gameplayloop >= 1)
+	    	{
+	  	        //  showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_HALFDROPPED);
+	  	          result.setPlayerStatus(GameRound.PLAYER_STATUS_HALFDROPPED);
+	    	}
+	    	
+	    	
+	    	//updateTurn();
+	    	if(skipturnarray.size() >= playerlist.size()-1)
+	    	{
+	    		isGameOver = true;
+	    		System.out.println("Game round over ...Detecting the winner");
+	    		int winner = findWinnerifEveryoneElseDropped();
+	    	    if(winner != 0)
+	    	    {
+	    	    	System.out.println("Game Winner : " + playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName());
+	    	    }
+	    	}
+	    	
+	    	result.setGameOver(isGameOver);
+	    	
+	    	return result;
+	    }
+	
     public SkipTurnResult addSkipTurn(int position)
     {
     	SkipTurnResult result = new SkipTurnResult();
@@ -572,6 +610,18 @@ public class GameRound implements Serializable{
     			return player;
     	}
     	return null;
+    }
+    
+    private int findPlayersPosition(Player player)
+    {
+    	int i=1;
+    	for(Player curplayer : playerlist)
+    	{
+    		if(curplayer.getNickName().equals(player.getNickName()))
+    			return i;
+    		i++;
+    	}
+    	return 0;
     }
     
     public HashMap<String,String> getPlayersShowStatus()

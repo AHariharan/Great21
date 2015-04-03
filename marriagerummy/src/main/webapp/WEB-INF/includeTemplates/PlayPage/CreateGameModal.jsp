@@ -81,6 +81,9 @@
 										</label>
 										<div class="col-md-3">
 											<select class="form-control " id="MaxPoints">
+											    <option>100</option>
+											    <option>125</option>
+											    <option>150</option>
 												<option>200</option>
 												<option>250</option>
 												<option>300</option>

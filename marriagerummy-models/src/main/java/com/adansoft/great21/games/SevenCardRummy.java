@@ -387,7 +387,7 @@ public class SevenCardRummy implements Game,Serializable {
 	}
 
 	
-	
+
 	
 	private void createNewGameRound(int startturnpos)
 	{
@@ -448,7 +448,16 @@ public class SevenCardRummy implements Game,Serializable {
     			if(totalpoints >= currentgame.getMaxPoints())
     			{
     				currentplayer.setPlayerStatus(Player.PLAYER_STATUS_ELIMINATED);
+    				playerlist.remove(currentplayer);
+    				currentplayer.setCurrentCash(currentplayer.getCurrentCash() - this.getBuyinValue());
     			}
+    		}
+    		
+    		if(playerlist.size() == 1)
+    		{
+    			System.out.println("******************************************************");
+    			System.out.println("************** GAME COMPLETED ************************");
+    			System.out.println("******************************************************");
     		}
     	}
     	if(this.gameMoneyBased)
@@ -494,6 +503,13 @@ public class SevenCardRummy implements Game,Serializable {
 		return getGameType();
 	}
 	
-	
+	public void exitGame(Player player)
+	{
+          this.getCurrentGameRound().addSkipTurn(player);
+          playerlist.remove(player);
+          if(isGamePointsBased())
+               player.setCurrentCash(player.getCurrentCash() - this.getBuyinValue());
+          
+	}
 	
 }
