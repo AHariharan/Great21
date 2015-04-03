@@ -1,7 +1,7 @@
 package com.adansoft.great21.controllers;
 
 import java.net.URI;
-import java.util.ArrayList;
+
 
 import javax.annotation.PostConstruct;
 
@@ -21,7 +21,7 @@ import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
-import com.adansoft.great21.restschemas.DeclareGameRequest;
+
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
@@ -44,7 +44,6 @@ import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.router.FacadetoIndexerMapper;
 import com.adansoft.great21.uimediation.UIMediationMapper;
-import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetCardResponse;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 import com.adansoft.great21.uischemas.NotificationEvent;

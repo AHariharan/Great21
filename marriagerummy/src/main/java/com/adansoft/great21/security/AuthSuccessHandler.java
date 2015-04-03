@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -20,7 +20,7 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
 			HttpServletResponse resp, Authentication auth) throws IOException,
 			ServletException {
 		System.out.println(auth.getPrincipal().getClass());
-		 HttpSession session = req.getSession(false);
+		// HttpSession session = req.getSession(false);
 		 System.out.println("Authentication type class : " +  auth.getPrincipal().getClass());
 		String targetURL = "/rummy";
 		redirectStrategy.sendRedirect(req,resp,targetURL);

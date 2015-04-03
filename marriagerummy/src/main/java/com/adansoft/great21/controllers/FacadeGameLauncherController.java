@@ -5,8 +5,6 @@ import java.net.URI;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
-import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
@@ -30,7 +27,6 @@ import com.adansoft.great21.uimediation.UIMediationMapper;
 import com.adansoft.great21.uischemas.AddGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatRequest;
 import com.adansoft.great21.uischemas.GetGameChatResponse;
-import com.adansoft.great21.gameplay.GameMessage;
 
 @RestController
 @RequestMapping(FacadeControllerURLs.GAMELAUNCHER_BASE)
