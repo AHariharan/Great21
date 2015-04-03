@@ -1,6 +1,6 @@
 package com.adansoft.great21.delayedwrite;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
@@ -8,7 +8,8 @@ import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 public class GameDataLazyWriter implements Runnable {
 
 	public static final String OP_CREATEGAME = "Create Game";
-	public static final String OP_UPDATEGAMESTATUS = "Update Game";
+	public static final String OP_DELETEGAME = "Delete Game";
+	public static final String OP_LAUNCHGAME = "Launch Game";
 	
 
 	GameManagertoDataAccessMapper gametodataaccessmapper;
@@ -41,7 +42,10 @@ public class GameDataLazyWriter implements Runnable {
 	public void run() {
 		if(operationName.equals(OP_CREATEGAME))
 			GameDataLazyWriteHelper.createGame(requestObj, gametodataaccessmapper, restTemplate);
-
+		if(operationName.equals(OP_LAUNCHGAME))
+			GameDataLazyWriteHelper.launchGame(requestObj, gametodataaccessmapper, restTemplate);
+		if(operationName.equals(OP_DELETEGAME))
+			GameDataLazyWriteHelper.deleteGame(requestObj, gametodataaccessmapper, restTemplate);
 	}
 
 }

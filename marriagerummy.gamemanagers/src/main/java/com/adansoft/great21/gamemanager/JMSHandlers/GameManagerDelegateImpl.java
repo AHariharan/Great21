@@ -94,7 +94,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		System.out.println(Calendar.getInstance().getTime()+ " Received Delete Game Request : " + request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
-			String result = GameBrowserHelper.deleteGame(request);
+			String result = GameBrowserHelper.deleteGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,7 +149,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		Message<String> reply = null;
 		System.out.println(Calendar.getInstance().getTime()+ " Received Launch Game Request : " + request.getGameInstanceID());
 		try {
-			String result = GameBrowserHelper.launchGame(request);
+			String result = GameBrowserHelper.launchGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
 			e.printStackTrace();

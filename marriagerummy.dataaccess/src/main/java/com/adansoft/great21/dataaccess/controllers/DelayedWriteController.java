@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.GameDataAccessDAOImpl;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 
@@ -34,5 +35,36 @@ public class DelayedWriteController {
 		}
 		return "Success";
 	}
+	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.LAUNCH_GAME, method = RequestMethod.POST)
+	public @ResponseBody String launchGame(@RequestBody UpdateGameStatus request)
+	{
+		try
+		{ 
+			gamedataDAO.launchGame(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.DELETE_GAME, method = RequestMethod.POST)
+	public @ResponseBody String deleteGame(@RequestBody UpdateGameStatus request)
+	{
+		try
+		{ 
+			gamedataDAO.cancelGame(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
 	
 }

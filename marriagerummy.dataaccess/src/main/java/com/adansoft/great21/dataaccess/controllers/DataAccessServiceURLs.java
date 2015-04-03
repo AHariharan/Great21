@@ -16,5 +16,6 @@ public class DataAccessServiceURLs {
 	
 	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";
 	public final static String CREATED_GAME = "/CreateGame";	
-	
+	public final static String LAUNCH_GAME = "/Launch";
+	public final static String DELETE_GAME = "/Delete";
 }

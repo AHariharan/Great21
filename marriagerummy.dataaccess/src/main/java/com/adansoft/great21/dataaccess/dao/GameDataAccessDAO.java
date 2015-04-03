@@ -9,10 +9,10 @@ public interface GameDataAccessDAO {
 
 	public void createGame(PersistNewGame request);
 	
-	public void PersistNewPlayer(PersistNewGame request);
+//	public void PersistNewPlayer(PersistNewGame request);
 	
-	public void LaunchGame(UpdateGameStatus request);
+	public void launchGame(UpdateGameStatus request);
 	
-	public void CancelGame(UpdateGameStatus request);
+	public void cancelGame(UpdateGameStatus request);
 	
 }

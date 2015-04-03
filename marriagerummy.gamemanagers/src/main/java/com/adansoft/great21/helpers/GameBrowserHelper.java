@@ -3,7 +3,6 @@ package com.adansoft.great21.helpers;
 
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,24 +15,22 @@ import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.games.SevenCardRummy;
-import com.adansoft.great21.models.Card;
+
 import com.adansoft.great21.models.Game;
-import com.adansoft.great21.models.GameRound;
+
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
-import com.adansoft.great21.restschemas.GetCardsRequest;
+
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
-import com.adansoft.great21.restschemas.GetJokerRequest;
-import com.adansoft.great21.restschemas.GetNextCardFromDeckRequest;
-import com.adansoft.great21.restschemas.GetOpenCardRequest;
+
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
-import com.adansoft.great21.uischemas.GetSingleCardResponse;
+
 
 public class GameBrowserHelper {
 	
@@ -81,7 +78,7 @@ public class GameBrowserHelper {
 		
 	}
   
-	public static String deleteGame(DeleteGameRequest request)
+	public static String deleteGame(GameManagertoDataAccessMapper mapper,RestTemplate template,DeleteGameRequest request,TaskExecutor executor)
 	{
 		String result = "Success";
 		try
@@ -89,7 +86,10 @@ public class GameBrowserHelper {
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		if(game.getOwner().equals(request.getNickName()))
+		{
 		     UtilityHelper.deleteGamefromLobby(lobby, game, request.getGameType());
+		     executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_DELETEGAME, game , mapper,template));
+		}
 		else
 			result = "Failure : Not enough previleges";
 		}catch(Exception e)
@@ -183,7 +183,7 @@ public class GameBrowserHelper {
 		return game.getPlayers();
 	}
 	
-	public static String launchGame(LaunchGameRequest request)
+	public static String launchGame(GameManagertoDataAccessMapper mapper,RestTemplate template,LaunchGameRequest request,TaskExecutor executor)
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
@@ -193,7 +193,8 @@ public class GameBrowserHelper {
 		}
 		if(game != null && game.getOwner().equals(request.getNickName()))
 		{  
-			game.startGame();		
+			game.startGame();
+			 executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_LAUNCHGAME, game , mapper,template));
 		   return "Success"; 
 		}
 		return "Failure : Not enough previleges ";
