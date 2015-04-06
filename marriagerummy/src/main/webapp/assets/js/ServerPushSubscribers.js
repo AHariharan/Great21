@@ -111,6 +111,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleShowCardPlayerNotification(jsonobj);
 		 if(type == "NEWGAMENOTIFY")
 			 callback.handleNewGameRoundNotification(jsonobj);
+		 if(type == "GAMEOVER")
+			 callback.handleGameOverNotification(jsonobj);
 	 }; 
 	 
 	 self.sendNotificationEvent = function(data)
@@ -280,6 +282,11 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
           
   		// console.log("startnewGameAfterTimeout Data ... " + JSON.stringify(data));
   		  marriageRummy.generalutility.hideLoadingMask("Starting new round");
+    };
+    
+    self.handleGameOverNotification = function(data)
+    {
+    	console.log("Handle Game Over Notification : " + JSON.stringify(data));
     };
     
 };

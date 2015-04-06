@@ -92,7 +92,7 @@ public interface Game {
 	
 	public GameContentHolder getGameContent();
 	
-	public void completeRound();
+	public boolean completeRound();
 
 	public int getCurrentRoundNum();
 	

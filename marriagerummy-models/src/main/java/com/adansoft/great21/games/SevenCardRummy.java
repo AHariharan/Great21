@@ -389,6 +389,21 @@ public class SevenCardRummy implements Game,Serializable {
 	
 
 	
+	private ArrayList<Player> getActivePlayersinGame()
+	{
+		ArrayList<Player> activePlayerList = new ArrayList<Player>();
+		
+		for(Player player : getPlayers())
+		{
+			if(!player.getPlayerStatus().equals(Player.PLAYER_STATUS_ELIMINATED))
+			{
+				activePlayerList.add(player);
+			}
+		}
+		
+		return activePlayerList;
+	}
+	
 	private void createNewGameRound(int startturnpos)
 	{
 		int whoseturn = startturnpos%getPlayers().size();
@@ -396,7 +411,7 @@ public class SevenCardRummy implements Game,Serializable {
 			whoseturn = getPlayers().size();
 			
 		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,whoseturn,includeJokerinDeck,numofJokers);	
-		round.setPlayerlist(getPlayers());
+		round.setPlayerlist(getActivePlayersinGame());
 		round.initshowStatusMap();
 		round.startRound();
 		currentGameRound = round;
@@ -420,7 +435,7 @@ public class SevenCardRummy implements Game,Serializable {
 		createNewGameRound(currentRoundnum);
 	}
 	
-	private void finishRound()
+	private boolean finishRound()
 	{
 		
 		String roundname = "Round : " + this.currentRoundnum;
@@ -429,35 +444,40 @@ public class SevenCardRummy implements Game,Serializable {
 		if(getCurrentGameMode().equals(Game.GAME_MODE_PERCARD))
 			this.getGameContentHolder().getPlayerCashMap().put(roundname, this.getCurrentGameRound().getCashMap());
 		
-		checkEliminationCriteria();
+		boolean gameOver = checkEliminationCriteria();
 		
-		nextRound();
+		if(!gameOver)
+		     nextRound();
+		
+		return gameOver;
 	}
 	
-	private void checkEliminationCriteria()
+	private synchronized boolean checkEliminationCriteria()
     {
+		boolean gameOver = false;
     	try
     	{
     	Game currentgame = this;
     	// Check if points enabled;
     	if(this.gamePointsBased)
     	{
-    		for(Player currentplayer : playerlist)
+    		for(Player currentplayer : getPlayers())
     		{
     			int totalpoints =   GameUtility.getTotalPointsforPlayerinGame(currentplayer.getNickName(), this);  			
     			if(totalpoints >= currentgame.getMaxPoints())
     			{
     				currentplayer.setPlayerStatus(Player.PLAYER_STATUS_ELIMINATED);
-    				playerlist.remove(currentplayer);
+    				//playerlist.remove(currentplayer);
     				currentplayer.setCurrentCash(currentplayer.getCurrentCash() - this.getBuyinValue());
     			}
     		}
     		
-    		if(playerlist.size() == 1)
+    		if(getActivePlayersinGame().size() == 1)
     		{
     			System.out.println("******************************************************");
     			System.out.println("************** GAME COMPLETED ************************");
     			System.out.println("******************************************************");
+    			gameOver = true;
     		}
     	}
     	if(this.gameMoneyBased)
@@ -471,6 +491,7 @@ public class SevenCardRummy implements Game,Serializable {
     	{
     		e.printStackTrace();
     	}
+    	return gameOver;
     }
     
 	
@@ -483,9 +504,9 @@ public class SevenCardRummy implements Game,Serializable {
 	}
 	
 	
-	public void completeRound()
+	public boolean completeRound()
 	{
-		finishRound();
+		return finishRound();
 	}
 
 	

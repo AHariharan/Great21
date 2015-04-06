@@ -180,7 +180,11 @@ public class GamePlayHelper {
 		}
 		if(result.isGameOver())
 		{
-			game.completeRound();
+			boolean GameOver = game.completeRound();
+			if(GameOver)
+			{
+				return "Game Over";
+			}
 			return "FinishGame";
 		}
 		return "Success";
@@ -262,8 +266,11 @@ public class GamePlayHelper {
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
-		game.completeRound();
-		return "Success";
+		boolean gameOver = game.completeRound();
+		if(!gameOver)
+		     return "Success";
+		else
+			return "Game Over";
 	}
 	
 	public static GetPlayerPointsResponse getPointsTable(GetPlayerPointsRequest request)

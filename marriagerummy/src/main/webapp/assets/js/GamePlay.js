@@ -278,10 +278,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 	
 	self.onFoldHandSuccess = function(data, requestObj) {
-		var notificationdata = marriageRummy.notificationRequest
-				.foldHandNotification("onFoldHandSuccess", requestObj.formdata);
-		marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
-		getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType);
+		console.log("SKip Turn Result : - " + JSON.stringify(data));
+		if(data == "Success")
+			{
+		          var notificationdata = marriageRummy.notificationRequest
+	         			.foldHandNotification("onFoldHandSuccess", requestObj.formdata);
+		              marriageRummy.notificationManager.sendNotificationEvent(notificationdata);
+		              getInfoBlock(stateobject.lobbyName, stateobject.gameInstanceID, stateobject.gameType);
+			}
 	};
 
 	self.notifyDroppedCard = function(card) {
@@ -574,7 +578,7 @@ var renderfoldcard = function(source,card) {
 			      iClass = "fa-trophy";
 			      template_class = "wait_winner";
 			   }
-		   if(status == "Shown cards")
+		   if(status == "Shown cards" || status == "Initial Dropped" || status == "Halfway Dropped")
 			   {
 			      iClass = "fa-check-square-o";
 			      template_class = "wait_shown";
@@ -653,6 +657,13 @@ var renderfoldcard = function(source,card) {
 	
 	var renderWinnerDeclaredCards = function(data)
 	{
+		var currentPlayerStatus = $("#InfoStatus").html();
+		if(currentPlayerStatus == "Halfway Dropped" || currentPlayerStatus == "Initial Dropped")
+			{
+			  $('#myshowcards .toolarea').css("display","none");
+			  $('#myshowcards .toolarea-alt').css("display","block");
+			
+			}
 		var meld3grp = 1;
 		var meld4grp = 1;
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 meld-closedcard"></div><div class="meldmessage"></div></div>';
@@ -665,7 +676,7 @@ var renderfoldcard = function(source,card) {
 		var playerName = data.notifiedBy;
 		// Always shows winner declared Cards.
 		$('.nav-tabs a[href="#winnershowcards"]').tab('show');
-		$('.winnerdeclaredarea h4').html("Player : " + playerName +  " has declared the game. Please submit your cards by selecting 'Show your Cards' tab to start next round");
+		$('.winnerdeclaredarea h4').html("Player : " +'<span class="winhighlight"> '+playerName+'</span>' +  " has declared the game. Please submit your cards by selecting 'Show your Cards' tab to start next round");
 		$('.winnerdeclaredarea div').remove(); //Removes Existing declaration
 		$('.winnerdeclaredarea').append(meldfoldpattern);
 		for(var i=0;i<keylist.length;i++)

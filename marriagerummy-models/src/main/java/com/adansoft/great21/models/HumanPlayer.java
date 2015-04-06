@@ -162,7 +162,7 @@ public class HumanPlayer implements Player{
 
 	public String getPlayerStatus() {
 		// TODO Auto-generated method stub
-		return null;
+		return status;
 	}
 
 
@@ -174,8 +174,8 @@ public class HumanPlayer implements Player{
 
 
 
-	public void setPlayerStatus(String Status) {
-		this.status =status;
+	public void setPlayerStatus(String status) {
+		this.status = status;
 		
 	}
 

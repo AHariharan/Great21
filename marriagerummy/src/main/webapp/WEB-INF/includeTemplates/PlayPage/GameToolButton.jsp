@@ -175,6 +175,9 @@
 							<button id="onShowCardGame" class="btn btn-tool">Show
 								Cards</button>
 						</div>
+						<div class="toolarea-alt" style="display:none">
+						      You have dropped cards nothing to show. Please wait for next round.
+						</div>
 
 						<div class="meldcardarea"></div>
 					</div>

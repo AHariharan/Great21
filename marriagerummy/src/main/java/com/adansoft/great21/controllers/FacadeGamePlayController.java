@@ -282,6 +282,8 @@ public class FacadeGamePlayController {
 			result = restTemplate.postForEntity(url, request, String.class).getBody();
 			if(result.equals("FinishGame"))
 				notifyNewRound(request.getGameInstanceID());
+			if(result.equals("Game Over"))
+				notifyGameOver(request.getGameInstanceID());
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -418,15 +420,26 @@ public class FacadeGamePlayController {
 			gamecomprequest.setGameInstanceID(request.getGameInstanceID());
 			gamecomprequest.setGameType(request.getGameType());
 			gamecomprequest.setLobbyName(request.getLobbyName());
-			finishGameRound(gamecomprequest);
+			String result = finishGameRound(gamecomprequest);
 			
-			
-			NotificationEvent event = new NotificationEvent();
-			event.setNotificationSource("SERVER");
-			event.setNotifiedBy("NotifyNewRoundStart");
-			event.setNotificationType("NEWGAMENOTIFY");
-			event.setNotificationObject(response);
-			notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+			if(!result.equals("Game Over"))
+			{
+				NotificationEvent event = new NotificationEvent();
+				event.setNotificationSource("SERVER");
+				event.setNotifiedBy("NotifyNewRoundStart");
+				event.setNotificationType("NEWGAMENOTIFY");
+				event.setNotificationObject(response);
+				notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+			}
+			else
+			{
+				NotificationEvent event = new NotificationEvent();
+				event.setNotificationSource("SERVER");
+				event.setNotifiedBy("NotifyGAMEOVER");
+				event.setNotificationType("GAMEOVER");
+				event.setNotificationObject(response);
+				notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+			}
 		}
 	}
 	
@@ -434,8 +447,18 @@ public class FacadeGamePlayController {
 	{
 		NotificationEvent event = new NotificationEvent();
 		event.setNotificationSource("SERVER");
-		event.setNotifiedBy("NotifyNewRoundStart-EVERYONEDROPPED");
+		event.setNotifiedBy("NotifyGAMEOVER");
 		event.setNotificationType("NEWGAMENOTIFY");
+		event.setNotificationObject(null);
+		notifier.sendNotificationFromBackend(event, gameinstanceId);
+	}
+	
+	private void notifyGameOver(String gameinstanceId)
+	{
+		NotificationEvent event = new NotificationEvent();
+		event.setNotificationSource("SERVER");
+		event.setNotifiedBy("NotifyGAMEOVER");
+		event.setNotificationType("GAMEOVER");
 		event.setNotificationObject(null);
 		notifier.sendNotificationFromBackend(event, gameinstanceId);
 	}

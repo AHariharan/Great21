@@ -1369,3 +1369,9 @@
 	border-radius: 20px;
 	cursor: pointer;
 }
+
+.winhighlight
+{
+	color:red;
+	font-weight:bold;
+}

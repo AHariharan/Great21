@@ -23,6 +23,7 @@ public class GameRound implements Serializable{
 	public final static String STATUS_COMPLETED = "Completed";
 	
 	public final static String PLAYER_STATUS_DECLARED = "Declared";
+	public final static String PLAYER_STATUS_AUTOWIN = "Auto Win";
 	public final static String PLAYER_STATUS_INITDROPPED = "Initial Dropped";
 	public final static String PLAYER_STATUS_HALFDROPPED = "Halfway Dropped";
 	public final static String PLAYER_STATUS_SHOWNCARDS = "Shown cards";
@@ -444,7 +445,10 @@ public class GameRound implements Serializable{
     {
     	currenturn++;
     	if(currenturn > this.getPlayerlist().size())
+    	{
     		currenturn = 1;
+    		gameplayloop++;
+    	}
     	
     	while(isPosistionSkippable(currenturn))
     	{
@@ -479,11 +483,13 @@ public class GameRound implements Serializable{
 	    	{
 	    	     // showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_INITDROPPED);
 	    	      result.setPlayerStatus(GameRound.PLAYER_STATUS_INITDROPPED);
+	    	      System.out.println(" Game Init Dropped .....");
 	    	}
-	    	if(gameplayloop >= 1)
+	    	if(gameplayloop > 1)
 	    	{
 	  	        //  showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_HALFDROPPED);
 	  	          result.setPlayerStatus(GameRound.PLAYER_STATUS_HALFDROPPED);
+	  	        System.out.println(" Game Half Dropped .....");
 	    	}
 	    	
 	    	
@@ -495,7 +501,10 @@ public class GameRound implements Serializable{
 	    		int winner = findWinnerifEveryoneElseDropped();
 	    	    if(winner != 0)
 	    	    {
-	    	    	System.out.println("Game Winner : " + playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName());
+	    	    	String winnernick = playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName();
+	    	    	System.out.println("Game Winner : " +winnernick);
+	    	    	addPointsToPlayer(winnernick, 0, GameRound.PLAYER_STATUS_AUTOWIN);
+	    	    	
 	    	    }
 	    	}
 	    	
@@ -508,18 +517,20 @@ public class GameRound implements Serializable{
     {
     	SkipTurnResult result = new SkipTurnResult();
     	boolean isGameOver = false;
-    	System.out.println("Adding skip turn : " + position);
+    	System.out.println("Adding skip turn : " + position + " .... " + gameplayloop);
     	skipturnarray.add(position);
     	
     	if(gameplayloop == 1)
     	{
     	     // showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_INITDROPPED);
     	      result.setPlayerStatus(GameRound.PLAYER_STATUS_INITDROPPED);
+    	      System.out.println(" Game INit Dropped .....");
     	}
-    	if(gameplayloop >= 1)
+    	if(gameplayloop > 1)
     	{
   	        //  showstatusMap.put(getPlayerNickByPosition(position), GameRound.PLAYER_STATUS_HALFDROPPED);
   	          result.setPlayerStatus(GameRound.PLAYER_STATUS_HALFDROPPED);
+  	          System.out.println(" Game Half Dropped .....");
     	}
     	
     	
@@ -531,7 +542,9 @@ public class GameRound implements Serializable{
     		int winner = findWinnerifEveryoneElseDropped();
     	    if(winner != 0)
     	    {
-    	    	System.out.println("Game Winner : " + playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName());
+    	    	String winnernick = playerlist.toArray(new Player[playerlist.size()])[winner-1].getNickName();
+    	    	System.out.println("Game Winner : " +winnernick);
+    	    	addPointsToPlayer(winnernick, 0, GameRound.PLAYER_STATUS_AUTOWIN);
     	    }
     	}
     	
