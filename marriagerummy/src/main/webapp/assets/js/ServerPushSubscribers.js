@@ -289,6 +289,11 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     	console.log("Handle Game Over Notification : " + JSON.stringify(data));
     };
     
+    
+    self.handlePlayerEliminatedNotification = function(data)
+    {
+    	console.log("Handle Player Elimination Notification : " + JSON.stringify(data));
+    };
 };
 
 

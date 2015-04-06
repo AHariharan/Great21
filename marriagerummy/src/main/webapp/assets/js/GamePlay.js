@@ -664,6 +664,12 @@ var renderfoldcard = function(source,card) {
 			  $('#myshowcards .toolarea-alt').css("display","block");
 			
 			}
+		else
+			{
+			 $('#myshowcards .toolarea-alt').css("display","none");
+			 $('#myshowcards .toolarea').css("display","block");
+			  
+			}
 		var meld3grp = 1;
 		var meld4grp = 1;
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 meld-closedcard"></div><div class="meldmessage"></div></div>';

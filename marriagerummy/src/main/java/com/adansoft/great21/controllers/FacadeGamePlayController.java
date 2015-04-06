@@ -408,12 +408,14 @@ public class FacadeGamePlayController {
 		for(String key : response.getPlayerShowStatus().keySet())
 		{
 			String status = response.getPlayerShowStatus().get(key);
-			if(status.equals(GameRound.PLAYER_STATUS_PLAYING))
+			if(status.equals(GameRound.PLAYER_STATUS_PLAYING) || status.equals(GameRound.PLAYER_STATUS_WAITFORTURN))
 			{
 				needtoIntimate = false;
 				break;
 			}
 		}
+		
+		/* Get Player Status for Elimination and inform  logic should be called here*/
 		if(needtoIntimate)
 		{
 			FinishGameRoundRequest gamecomprequest = new FinishGameRoundRequest();
@@ -462,6 +464,16 @@ public class FacadeGamePlayController {
 		event.setNotificationObject(null);
 		notifier.sendNotificationFromBackend(event, gameinstanceId);
 	}
+	
+	private void notifyPlayerEliminatation(PlayerShowStatusResponse response)
+	{
+		NotificationEvent event = new NotificationEvent();
+		event.setNotificationSource("SERVER");
+		event.setNotifiedBy("NotifyPlayerElimination");
+		event.setNotificationType("PLAYERELIMINATED");
+		event.setNotificationObject(response);
+		notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+	};
 	
 	
 	private String finishGameRound(FinishGameRoundRequest request)	
