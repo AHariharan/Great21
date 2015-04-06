@@ -7,9 +7,6 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
-
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.models.Card;
@@ -23,6 +20,7 @@ import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
+import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
@@ -32,6 +30,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameRequest;
@@ -297,5 +296,24 @@ public class GamePlayHelper {
 		int currentPoints = UtilityHelper.getTotalPointsforPlayerinGame(request.getNickName(), game);
 		result.setCurrentPoints(currentPoints);
 		return result;
+	}
+	
+	
+	public static GetPlayersinGameResponse getActivePlayersinGame(GetActivePlayersinGameRequest request)
+	{
+		GetPlayersinGameResponse response = new GetPlayersinGameResponse();
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		ArrayList<Player> activePlayerList = new ArrayList<Player>();
+		for(Player player : game.getPlayers())
+		{
+			if(!player.getPlayerStatus().equals(Player.PLAYER_STATUS_ELIMINATED))
+			{
+				activePlayerList.add(player);
+			}
+		}
+		response.setGameInstanceID(request.getGameInstanceID());
+		response.setPlayerlist(activePlayerList);
+		return response;
 	}
 }

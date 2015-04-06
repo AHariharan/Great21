@@ -51,6 +51,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getChatMessage = "/marriagerummy/IndexerServices/GameLauncher/ChatMessages/Get";
 	self.launchGame = "/marriagerummy/IndexerServices/GameLauncher/Game/Start";
 
+
+	self.getActivePlayersinGame = "/marriagerummy/IndexerServices/GamePlay/Game/GetActivePlayers";
 	self.getCards = "/marriagerummy/IndexerServices/GamePlay/Cards/Get";
 	self.getJoker = "/marriagerummy/IndexerServices/GamePlay/JokerCard/Get";
 	self.getOpenCard = "/marriagerummy/IndexerServices/GamePlay/OpenCard/Get";

@@ -151,7 +151,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	self.getPlayerList = function() {
-		var url = marriageRummy.urls.getPlayersinGame;
+		var url = marriageRummy.urls.getActivePlayersinGame; //Added to get only active players
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListFailure;
 		var formdata = marriageRummy.request.getGameBrowserRequest().getPlayersinGameRequest(
@@ -473,7 +473,35 @@ var renderfoldcard = function(source,card) {
 		onSelectofPickableCard(data);enableDroppable();
 	};
 
+	
+	
+	var checkIfPlayerEliminated = function(data)
+	{
+		var result = true;
+		var mynick = marriageRummy.loggedinUser;
+		var playerlist = data.playerlist;
+		for(var i=0;i<playerlist.length;i++)
+			{
+			   if(playerlist[i].hasOwnProperty("HumanPlayer"))
+				   {
+				       var nickname = playerlist[i].HumanPlayer.nickName;
+				       if(nickname == mynick)
+				    	   {
+				    	      result = false;
+				    	   }
+				   }
+			}
+		return result;
+	};
+	
+	
 	self.renderGameParticipants = function(data) {
+		if(checkIfPlayerEliminated(data))
+			return;
+		self.getCards();
+		self.getJoker();
+		self.getOpenCard();
+		
 		cleanPosMap();
 		var positionlist = getPlayerPosition(data.playerlist);
 		var mypos = getMyPosition(data.playerlist);

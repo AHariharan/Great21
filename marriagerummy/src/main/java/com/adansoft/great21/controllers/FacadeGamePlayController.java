@@ -3,6 +3,8 @@ package com.adansoft.great21.controllers;
 import java.net.URI;
 
 
+
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,11 @@ import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.GameRound;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
-
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
+import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
@@ -35,6 +37,8 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
@@ -400,6 +404,23 @@ public class FacadeGamePlayController {
 		
 	}
 	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETACTIVEPLAYERS, method = RequestMethod.POST)
+	public @ResponseBody GetPlayersinGameResponse getActivePlayersinGame(@RequestBody  GetActivePlayersinGameRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		GetPlayersinGameResponse result = null;		
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETACTIVEPLAYERS);
+			result = restTemplate.postForEntity(url, request, GetPlayersinGameResponse.class ).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;		
+	}
 	
 	
 	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)

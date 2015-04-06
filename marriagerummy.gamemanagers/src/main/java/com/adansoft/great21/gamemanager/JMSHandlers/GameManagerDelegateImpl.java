@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.task.TaskExecutor;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.support.MessageBuilder;
@@ -22,12 +21,12 @@ import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
-import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
+import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
@@ -40,6 +39,7 @@ import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
@@ -374,5 +374,20 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		}
 		return reply;
 	}
+	
+	@Override
+	public Message<GetPlayersinGameResponse> handleMessage(
+			GetActivePlayersinGameRequest request) {
+		System.out.println(Calendar.getInstance().getTime()+ " Received GetActivePlayersinGameRequest Info : " + request.getGameInstanceID());
+		Message<GetPlayersinGameResponse> reply = null;
+		try {
+			GetPlayersinGameResponse response = GamePlayHelper.getActivePlayersinGame(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return reply;
+	}
+	
 	
 }

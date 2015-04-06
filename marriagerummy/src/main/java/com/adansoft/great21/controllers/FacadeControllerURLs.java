@@ -18,6 +18,7 @@ public class FacadeControllerURLs {
 	public final static String LAUNCHAME = "/Game/Start";
 	
 	public final static String GAMEPLAY_BASE = "/IndexerServices/GamePlay";
+	public final static String GETACTIVEPLAYERS = "/Game/GetActivePlayers";
 	public final static String GETCARDS = "/Cards/Get";
 	public final static String GETNEXTCARDFROMDECK = "/NextCardFromDeck/Get";
 	public final static String GETJOKER = "/JokerCard/Get";

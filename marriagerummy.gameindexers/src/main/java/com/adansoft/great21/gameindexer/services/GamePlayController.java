@@ -1,5 +1,6 @@
 package com.adansoft.great21.gameindexer.services;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,16 +8,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.gameindexer.delegate.GamePlayDelegate;
 import com.adansoft.great21.models.Card;
+
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
-import com.adansoft.great21.restschemas.DeclareGameRequest;
+
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
+import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
@@ -26,7 +30,8 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
-import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+
+import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
@@ -143,6 +148,14 @@ public class GamePlayController {
 	{
 		return delegate.getInfoBlock(request);
 	}
+	
+	
+	@RequestMapping( value = GameIndexerServiceURLs.GETACTIVEPLAYERS, method = RequestMethod.POST)
+	public @ResponseBody GetPlayersinGameResponse getActivePlayersinGame(@RequestBody GetActivePlayersinGameRequest request)
+	{		
+		return delegate.getActivePlayersinGame(request);		
+	}
+	
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

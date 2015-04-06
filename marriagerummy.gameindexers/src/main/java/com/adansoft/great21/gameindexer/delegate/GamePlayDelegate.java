@@ -10,11 +10,11 @@ import org.springframework.messaging.support.MessageBuilder;
 import com.adansoft.great21.gameindexer.helpers.CacheServerGameIndexCache;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
-import com.adansoft.great21.restschemas.DeclareGameRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
+import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
@@ -24,7 +24,7 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
-import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
+import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
@@ -352,6 +352,25 @@ public class GamePlayDelegate {
 		return result;
 	}
 	
+	
+	public GetPlayersinGameResponse getActivePlayersinGame(GetActivePlayersinGameRequest request)
+	{
+		GetPlayersinGameResponse result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<GetActivePlayersinGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<GetPlayersinGameResponse> reply =  (Message<GetPlayersinGameResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	};
 	
 
 }

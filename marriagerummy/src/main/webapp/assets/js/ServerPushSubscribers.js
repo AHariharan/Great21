@@ -180,10 +180,11 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
 		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
 		   // Add Card Distribution here
 		   $('#gameToolMain').slideDown();
-		   gameObject.getCards();
+		   gameObject.getPlayerList();
+		   /*gameObject.getCards();
 		   gameObject.getJoker();
 		   gameObject.getOpenCard();
-		   gameObject.getPlayerList();
+		   */
 	};
 	
 	self.handleCancelGame = function(data)
@@ -275,10 +276,11 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
           
           var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(stateobject);
   		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
-  		   gameObject.getCards();
-  		   gameObject.getJoker();
-  		   gameObject.getOpenCard();
   		   gameObject.getPlayerList();
+  		   /*gameObject.getCards();
+  		   gameObject.getJoker();
+  		   gameObject.getOpenCard();*/
+  		  
           
   		// console.log("startnewGameAfterTimeout Data ... " + JSON.stringify(data));
   		  marriageRummy.generalutility.hideLoadingMask("Starting new round");
