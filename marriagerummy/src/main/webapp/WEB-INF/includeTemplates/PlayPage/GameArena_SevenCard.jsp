@@ -35,7 +35,7 @@
 		<div class="cardposind">7</div>
 	</div>
 	<div id="Sevencard-8" data-replacecard="false"
-		class="card  Sevencard-8-pos" style="display: none">
+		class="card  Sevencard-8-pos" style="display: block;visibility: hidden;">
 		<div class="cardindicator"></div>
 		<div class="cardposind">8</div>
 	</div>

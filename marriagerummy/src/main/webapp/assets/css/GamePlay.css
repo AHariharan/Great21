@@ -1118,6 +1118,9 @@
 
 .meld-3 .card1 {
 	transform: rotate(-23deg);
+	-webkit-transform: rotate(-23deg);
+    -moz-transform: rotate(-23deg);
+    -o-transform: rotate(-23deg);  
 	left: 31px;
 	top: 16px;
 }
@@ -1126,22 +1129,34 @@
 	left: 46px;
 	top: -146px;
 	transform: rotate(-9deg);
+	-webkit-transform: rotate(-9deg);
+    -moz-transform: rotate(-9deg);
+    -o-transform: rotate(-9deg);  
 }
 
 .meld-3 .card3 {
 	left: 63px;
 	top: -304px;
 	transform: rotate(3deg);
+	-webkit-transform: rotate(3deg);
+    -moz-transform: rotate(3deg);
+    -o-transform: rotate(3deg);  
 }
 
 .meld-4 .card1 {
 	transform: rotate(-32deg);
+	-webkit-transform: rotate(-32deg);
+    -moz-transform: rotate(-32deg);
+    -o-transform: rotate(-32deg);  
 	top: 21px;
 	left: 63px;
 }
 
 .meld-4 .card2 {
 	transform: rotate(-20deg);
+	-webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);  
 	left: -30px;
 	top: 20px;
 }
@@ -1150,12 +1165,18 @@
 	left: 97px;
 	top: -142px;
 	transform: rotate(-9deg);
+	-webkit-transform: rotate(-9deg);
+    -moz-transform: rotate(-9deg);
+    -o-transform: rotate(-9deg);  
 }
 
 .meld-4 .card4 {
 	left: 4px;
 	top: -134px;
 	transform: rotate(4deg);
+	-webkit-transform: rotate(4deg);
+    -moz-transform: rotate(4deg);
+    -o-transform: rotate(4deg);  
 }
 
 .meld-4 .meldmessage {
