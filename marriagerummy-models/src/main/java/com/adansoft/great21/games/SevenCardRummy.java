@@ -406,9 +406,9 @@ public class SevenCardRummy implements Game,Serializable {
 	
 	private void createNewGameRound(int startturnpos)
 	{
-		int whoseturn = startturnpos%getPlayers().size();
+		int whoseturn = startturnpos%getActivePlayersinGame().size();
 		if(whoseturn == 0)
-			whoseturn = getPlayers().size();
+			whoseturn = getActivePlayersinGame().size();
 			
 		GameRound round = new GameRound(lobbyName,gameType,gameInstanceId, gamePointsBased, gameMoneyBased,moneyPerCard,noofdecks,whoseturn,includeJokerinDeck,numofJokers);	
 		round.setPlayerlist(getActivePlayersinGame());

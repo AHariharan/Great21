@@ -44,7 +44,7 @@
 	position: relative;
 	left: 12px;
 	top: 78px;
-	background: url('../images/Cards/DiamondCards/7.png');
+	/* background: url('../images/Cards/DiamondCards/7.png'); */
 	background-size: 99px 137px;
 	background-repeat: no-repeat;
 	box-shadow: 0px 0px 10px 2px gray;

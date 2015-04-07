@@ -45,6 +45,13 @@
 	background-size:110px 160px;
 }
 
+.Wild-alt-Joker
+{
+	background:url("../images/Cards/JokerCards/Joker.jpg");
+	background-size: 74px 118px;
+}
+
+
 /* .Spade-A
 {
 	background:url("../images/Cards/SpadeCards/A.png");

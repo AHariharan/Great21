@@ -142,7 +142,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					+ currentcard.flower.slice(1).toLowerCase();
 			var classname = flower + "-" + currentcard.displayValue;
 			var datacardvalue = classname;
-			$(divid).addClass(datacardvalue);
+			//$(divid).addClass(datacardvalue);
+			$(divid).addClass("basecard " +datacardvalue);
 			$(divid).attr("data-cardvalue", datacardvalue);
 			$(divid).attr("data-cardinstanceid", currentcard.cardInstanceId);
 
@@ -346,7 +347,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
 			var classname = flower + "-" + card.displayValue;
-			divid.addClass(classname);
+			divid.addClass("basecard " + classname);
 			divid.css("display", "block");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
