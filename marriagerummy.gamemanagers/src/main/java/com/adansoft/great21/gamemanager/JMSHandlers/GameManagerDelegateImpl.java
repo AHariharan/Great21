@@ -52,23 +52,33 @@ import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 
 public class GameManagerDelegateImpl implements GameManagerDelegate {
-	
+
 	@Autowired
 	GameManagertoDataAccessMapper gametodataaccessmapper;
-	
+
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	@Autowired
 	private ThreadPoolTaskExecutor taskExecutor;
 
-	
 	@Override
 	@SendTo("game")
 	public Message<Game> handleMessage(CreateGameRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received CreateGame Request : " + request.getGameType() + "-" + request.getLobbyType());
-		Game game = GameBrowserHelper.createGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
-		Message<Game> reply = MessageBuilder.withPayload(game).build();
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received CreateGame Request : " + request.getGameType()
+				+ "-" + request.getLobbyType());
+		Message<Game> reply = null;
+		Game game = null;
+		try {
+			game = GameBrowserHelper.createGame(gametodataaccessmapper,
+					restTemplate, request, taskExecutor);
+			reply = MessageBuilder.withPayload(game).build();
+		} catch (Exception e) {
+			reply = MessageBuilder.withPayload(game).build();
+			e.printStackTrace();
+		}
+		System.out.println(Calendar.getInstance().getTime()	+ " Reply sent for CreateGame Request : " + request.getGameType() + "-" + request.getLobbyType());
 		return reply;
 	}
 
@@ -76,7 +86,9 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 	@SendTo("lobby")
 	public Message<GetGameListinLobbyResponse> handleMessage(
 			GetGameListinLobbyRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Games in Lobby Request : " + request.getLobbyName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Games in Lobby Request : "
+				+ request.getLobbyName());
 		Message<GetGameListinLobbyResponse> reply = null;
 		try {
 			GameLobby lobby = GameBrowserHelper.getGameList(request);
@@ -86,94 +98,139 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent for  Games in Lobby Request : " + request.getLobbyName());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(DeleteGameRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Delete Game Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Delete Game Request : "
+				+ request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
-			String result = GameBrowserHelper.deleteGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
+			String result = GameBrowserHelper
+					.deleteGame(gametodataaccessmapper, restTemplate, request,
+							taskExecutor);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply sent for Delete Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<AddPlayerResponse> handleMessage(AddPlayerRequest request) {
 		Message<AddPlayerResponse> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Received Add Player to Game Request : " + request.getGameInstanceID());
+		AddPlayerResponse result = null;
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Add Player to Game Request : "
+				+ request.getGameInstanceID());
 		try {
-			AddPlayerResponse result = GameBrowserHelper
-					.addPlayertoGame(gametodataaccessmapper,restTemplate,request);
+			result = GameBrowserHelper.addPlayertoGame(gametodataaccessmapper,
+					restTemplate, request);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Add Player to Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(RemovePlayerRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Remove Player from  Game Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Remove Player from  Game Request : "
+				+ request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
 			String result = GameBrowserHelper.removePlayerFromGame(request);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
-			e.printStackTrace();
+						e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Remove Player from  Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<ArrayList<Player>> handleMessage(
 			GetPlayersinGameRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Get Players in Game Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Get Players in Game Request : "
+				+ request.getGameInstanceID());
 		Message<ArrayList<Player>> reply = null;
+		ArrayList<Player> result = new ArrayList<Player>();
 		try {
-			ArrayList<Player> result = GameBrowserHelper
-					.getPlayersinGame(request);
+			result = GameBrowserHelper.getPlayersinGame(request);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Get Players in Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(LaunchGameRequest request) {
 		Message<String> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Received Launch Game Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Launch Game Request : "
+				+ request.getGameInstanceID());
+		String result = null;
 		try {
-			String result = GameBrowserHelper.launchGame(gametodataaccessmapper,restTemplate,request,taskExecutor);
+			 result = GameBrowserHelper
+					.launchGame(gametodataaccessmapper, restTemplate, request,
+							taskExecutor);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Launch Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<ArrayList<Card>> handleMessage(GetCardsRequest request) {
 		Message<ArrayList<Card>> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Received getCards   Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received getCards   Request : "
+				+ request.getGameInstanceID());
 		try {
 			ArrayList<Card> result = GamePlayHelper.getCards(request);
 			reply = MessageBuilder.withPayload(result).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent getCards   Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(
 			GetNextCardFromDeckRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Get Next Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Get Next Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		Message<GetSingleCardResponse> reply = null;
 		try {
 			GetSingleCardResponse response = GamePlayHelper
@@ -182,13 +239,21 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Get Next Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(GetJokerRequest request) {
 		Message<GetSingleCardResponse> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Received Get Joker Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Get Joker Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		try {
 			GetSingleCardResponse response = GamePlayHelper
 					.getJokerForGame(request);
@@ -196,13 +261,20 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Get Joker Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(
 			GetOpenCardRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Get Open Card from Deck   Request : " + request.getGameInstanceID() + " Player " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Get Open Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		Message<GetSingleCardResponse> reply = null;
 		try {
 			GetSingleCardResponse response = GamePlayHelper
@@ -211,12 +283,17 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Get Open Card from Deck   Request : "
+				+ request.getGameInstanceID() + " Player "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(AddCardToHandRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Add Card to Hand Request : " + request.getCard());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Add Card to Hand Request : " + request.getCard());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.addCardToHand(request);
@@ -224,38 +301,50 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Add Card to Hand Request : " + request.getCard());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(DropCardFromHandRequest request) {
 		Message<String> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Received Drop Card from Hand Request : " + request.getCard());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Drop Card from Hand Request : "
+				+ request.getCard());
 		try {
 			String response = GamePlayHelper.dropCardFromHand(request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Drop Card from Hand Request : "
+				+ request.getCard());
 		return reply;
 	}
 
 	@Override
 	public Message<GetSingleCardResponse> handleMessage(ShowJokerRequest request) {
 		Message<GetSingleCardResponse> reply = null;
-		System.out.println(Calendar.getInstance().getTime()+ " Get Show Joker Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Get Show Joker Request : " + request.getGameInstanceID());
 		try {
 			GetSingleCardResponse response = GamePlayHelper.showJoker(request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Show Joker Request : " + request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<Integer> handleMessage(GetPlayerTurnRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Whose Turn Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Whose Turn Request : "
+				+ request.getGameInstanceID());
 		Message<Integer> reply = null;
 		try {
 			int response = GamePlayHelper.getTurn(request);
@@ -263,12 +352,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Whose Turn Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(SkipTurnRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Skip Turn Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Skip Turn Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.skipPlayerTurn(request);
@@ -276,12 +371,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Skip Turn Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<DeclareGameResult> handleMessage(DeclareGameUIRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Declare Game Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Declare Game Request : "
+				+ request.getGameInstanceID());
 		Message<DeclareGameResult> reply = null;
 		try {
 			DeclareGameResult response = GamePlayHelper.declareGame(request);
@@ -289,12 +390,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Declare Game Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<Card[]> handleMessage(SortCardinHandRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Sort Card in Hand Request : " + request.getGameInstanceID() + "Player : " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Sort Card in Hand Request : "
+				+ request.getGameInstanceID() + "Player : "
+				+ request.getNickName());
 		Message<Card[]> reply = null;
 		try {
 			Card[] response = GamePlayHelper.sortCards(request);
@@ -302,12 +409,19 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Sort Card in Hand Request : "
+				+ request.getGameInstanceID() + "Player : "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<ShowGameResult> handleMessage(ShowGameUIRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received forced to show game Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received forced to show game Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		Message<ShowGameResult> reply = null;
 		try {
 			ShowGameResult response = GamePlayHelper.showGame(request);
@@ -315,13 +429,20 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent forced to show game Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<PlayerShowStatusResponse> handleMessage(
 			PlayerShowStatusRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received PlayerShowStatus Request : " + request.getGameInstanceID() + " Player : " + request.getNickName());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received PlayerShowStatus Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		Message<PlayerShowStatusResponse> reply = null;
 		try {
 			PlayerShowStatusResponse response = GamePlayHelper
@@ -330,12 +451,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent PlayerShowStatus Request : "
+				+ request.getGameInstanceID() + " Player : "
+				+ request.getNickName());
 		return reply;
 	}
 
 	@Override
 	public Message<String> handleMessage(FinishGameRoundRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received FinishGameRoundRequest Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received FinishGameRoundRequest Request : "
+				+ request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
 			String response = GamePlayHelper.finishRound(request);
@@ -343,13 +470,18 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent FinishGameRoundRequest Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<GetPlayerPointsResponse> handleMessage(
 			GetPlayerPointsRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received Show Points Request : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received Show Points Request : "
+				+ request.getGameInstanceID());
 		Message<GetPlayerPointsResponse> reply = null;
 		try {
 			GetPlayerPointsResponse response = GamePlayHelper
@@ -358,36 +490,48 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent Show Points Request : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
 
 	@Override
 	public Message<GetInfoBlockResponse> handleMessage(
 			GetInfoBlockRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received GetBlock Info : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received GetBlock Info : " + request.getGameInstanceID());
 		Message<GetInfoBlockResponse> reply = null;
 		try {
-			GetInfoBlockResponse response = GamePlayHelper.getInfoBlock(request);
+			GetInfoBlockResponse response = GamePlayHelper
+					.getInfoBlock(request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply sent GetBlock Info : " + request.getGameInstanceID());
 		return reply;
 	}
-	
+
 	@Override
 	public Message<GetPlayersinGameResponse> handleMessage(
 			GetActivePlayersinGameRequest request) {
-		System.out.println(Calendar.getInstance().getTime()+ " Received GetActivePlayersinGameRequest Info : " + request.getGameInstanceID());
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received GetActivePlayersinGameRequest Info : "
+				+ request.getGameInstanceID());
 		Message<GetPlayersinGameResponse> reply = null;
 		try {
-			GetPlayersinGameResponse response = GamePlayHelper.getActivePlayersinGame(request);
+			GetPlayersinGameResponse response = GamePlayHelper
+					.getActivePlayersinGame(request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent GetActivePlayersinGameRequest Info : "
+				+ request.getGameInstanceID());
 		return reply;
 	}
-	
-	
+
 }
