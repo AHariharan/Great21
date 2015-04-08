@@ -149,8 +149,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	self.getPlayerList = function() {
 		var url = marriageRummy.urls.getActivePlayersinGame; // Added to get
-																// only active
-																// players
+		// only active
+		// players
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetPlayerListFailure;
 		var formdata = marriageRummy.request.getGameBrowserRequest()
@@ -379,6 +379,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var classname = flower + "-" + card.displayValue;
 			divid.addClass("basecard " + classname);
 			divid.css("display", "block");
+			divid.css("visibility","visible");
 			divid.attr("data-cardvalue", classname);
 			divid.attr("data-cardinstanceid", card.cardInstanceId);
 			self.addCardToHand(card.cardInstanceId);
@@ -1019,6 +1020,13 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$(this).children().filter('.cardindicator').css("display", "none");
 		});
 	};
+	
+	var removeAllIndicators = function()
+	{
+		$('.card .cardindicator').each(function() {
+			$(this).css("display","none");
+		});
+	};
 
 	var dragStart = function(event, ui, source) {
 		source.css("transform", "rotate(0deg)");
@@ -1131,6 +1139,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					"drop" : function(event, ui) {
 						event.preventDefault();
 						var draggedobject = ui.draggable;
+						// This is to reset according to new drag.
+						$('.card').each(function(){
+							$(this).attr("data-replacecard","false");
+						});
+						/*draggedobject.css("","");::*/
 
 						var id = draggedobject.attr("id");
 						var cardInstanceID = draggedobject
@@ -1231,10 +1244,11 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var gametoolinit = {};
 
 	// Get Initial Card Position in the Array of Objects.
+
 	var initCardPositionOffset = new Array();
 
 	var setCurrentCardOffsets = function() {
-		var sevencardseed = 601;
+		var sevencardseed = $(".card").offset().left;
 		var sevencardpadd = 33;
 		$(".card").each(
 				function() {
@@ -1259,14 +1273,59 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		source.css("z-index", "-10");
 	};
 
+	var cardmove_start = 0;
+	var cardmove_end = 0;
 	var whileDragging = function(event, ui, source) {
+		// event.preventDefault();
 		var offset = source.offset();
 		var newCardPos = getPotentialPositionOfCard(offset);
 		var sourceCardPos = source.attr("id");
-		console.log("Potential Card Pos : -  " + sourceCardPos + " -> " + newCardPos);
+		console.log("Potential Card Pos : -  " + sourceCardPos + " -> " 	+ newCardPos + " cardmove_start : " + cardmove_start + " ,cardmove_end : " + cardmove_end);
+
+			if (newCardPos != "unknown") {
+				var sourcepos = sourceCardPos.split("-")[1];
+				var newPos = newCardPos.split("-")[1];
+				var prefix = newCardPos.split("-")[0];
+				if(sourcepos == newPos)
+					{
+					      
+					}
+				if (cardmove_end != newPos && sourcepos != newPos) {
+					$('#' + newCardPos).attr("data-replacecard","true");
+					$('#' + newCardPos+ " .cardindicator").css("display", "block");
+					$('#' + prefix +"-"+ cardmove_end + " .cardindicator").css("display", "none");
+					$('#' + prefix +"-"+ cardmove_end).attr("data-replacecard","false");
+					cardmove_start = sourcepos;
+					cardmove_end = newPos;
+				}
+			}
+			// event.preventDefault();
 	};
 
 	var dragNewStop = function(event, ui, source) {
+		removeAllIndicators();	
+		
+		var id = $(".card[data-replacecard=true]").attr("id");
+		if(id === undefined || id == null)
+			{
+			source.css("transform", "");
+			source.css("left", "");
+			source.css("top", "");
+			source.css("z-index", "");
+			   return;
+			}
+		var prefix = id.split("-")[0];
+		var startpos = parseInt(id.split("-")[1]);
+		var endpos = parseInt(source.attr("id").split("-")[1]);
+		var dragcardvalue = source.attr("data-cardvalue");
+		var dragcardInstanceID = source.attr("data-cardinstanceid");
+		if (startpos < endpos)
+			switchCardAfter(prefix, startpos, endpos, dragcardvalue,
+					dragcardInstanceID);
+		else
+			switchCardBefore(prefix, startpos, endpos, dragcardvalue,
+					dragcardInstanceID);
+
 		var offset = source.offset();
 		source.css("transform", "");
 		source.css("left", "");
@@ -1362,8 +1421,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					var classname = $(this).attr("data-cardvalue");
 					var cardinstanceid = $(this).attr("data-cardinstanceid");
 					$(this).css("visibility", "hidden");
-					divid.addClass(classname);
+					divid.addClass("basecard " + classname);
 					divid.css("display", "block");
+					divid.css("visibility","visible");
 					divid.attr("data-cardvalue", classname);
 					divid.attr("data-cardinstanceid", cardinstanceid);
 					$("#DeckNextCard").unbind();
@@ -1963,8 +2023,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 				"click",
 				function() {
 					$(this).attr("disabled", "disabled"); // Make sure only
-															// once its
-															// clicked...
+					// once its
+					// clicked...
 					var prepareddata = prepareShowCardMeldList();
 					console.log(" MELDLIST : "
 							+ JSON.stringify(prepareddata.meldlist));
