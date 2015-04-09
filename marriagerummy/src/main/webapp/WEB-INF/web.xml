@@ -77,7 +77,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

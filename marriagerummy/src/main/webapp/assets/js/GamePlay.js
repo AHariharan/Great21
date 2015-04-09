@@ -39,8 +39,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var gametoolpreserver = marriageRummy.statepreserver.getGameToolPreserver();
 	var toolContent = marriageRummy.statepreserver.getToolContent();
 	var self = this;
-	var curtop = 0;
-	var curleft = 0;
+	/*var curtop = 0;
+	var curleft = 0;*/
+	// Following var referred
+	var gametoolinit = {};
 	var stateobject = GameObject;
 	var playerposmap = new Array();
 	var timerJob = {};
@@ -635,7 +637,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				+ '</div>';
 		var playerstatusmaps = data.playerShowStatus;
 		var playernames = Object.keys(playerstatusmaps);
-		var noofstat = 0;
+		//var noofstat = 0;
 
 		for (var i = 0; i < playernames.length; i++) {
 			var currentplayername = playernames[i];
@@ -978,7 +980,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('#' + prefix + "-" + (startpos - 1)).addClass(dragcardvalue);
 	};
 
-	var showIndicator = function() {
+	/*var showIndicator = function() {
 		$(".card").hover(
 				function() {
 					// $(this).css("box-shadow","0px 0px 10px 2px green");
@@ -992,7 +994,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					$(this).children().filter('.cardindicator').css("display",
 							"none");
 				});
-		/*
+		
 		 * $(".card").bind("touchstart touchend", function(e) { 'use strict';
 		 * e.preventDefault(); var card = $(this); card.toggleClass("hover");
 		 * console.log("touchstart touchend called...." +
@@ -1008,10 +1010,10 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		 * false; }
 		 * 
 		 * });
-		 */
-	};
+		 
+	};*/
 
-	var removeIndicator = function() {
+	/*var removeIndicator = function() {
 		$(".card").hover(function() {
 			$(this).css("box-shadow", "0px 0px 10px 2px green");
 			$(this).children().filter('.cardindicator').css("display", "none");
@@ -1019,7 +1021,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$(this).css("box-shadow", "");
 			$(this).children().filter('.cardindicator').css("display", "none");
 		});
-	};
+	};*/
 	
 	var removeAllIndicators = function()
 	{
@@ -1028,7 +1030,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 	};
 
-	var dragStart = function(event, ui, source) {
+	/*var dragStart = function(event, ui, source) {
 		source.css("transform", "rotate(0deg)");
 		source.css("z-index", "-10");
 		console.log("Start Position", ui.position);
@@ -1038,16 +1040,16 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		showIndicator();
 		if ($('#pickedcard').css("display") == "block")
 			disableDroppable();
-	};
+	};*/
 
-	var dragPickedStart = function(event, ui, source) {
+	/*var dragPickedStart = function(event, ui, source) {
 
 		$(".card").attr("data-replacecard", "false");
 		showIndicator();
 		enableDroppable();
-	};
+	};*/
 
-	var dragStop = function(event, ui, source) {
+	/*var dragStop = function(event, ui, source) {
 		removeIndicator();
 		if ($(".card[data-replacecard=true]").length > 0) {
 			var id = $(".card[data-replacecard=true]").attr("id");
@@ -1119,7 +1121,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('#pickedcard').css("z-index", "");
 
 	};
-
+*/
 	var disableDroppable = function() {
 		if ($('.dropcardarea').is('.ui-droppable'))
 			$('.dropcardarea').droppable('destroy');
@@ -1209,7 +1211,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	var whichAnimationEnd = function() {
-		var t, el = document.createElement("fakeelement");
+		var  el = document.createElement("fakeelement");
 
 		var animations = {
 			"animation" : "animationend",
@@ -1218,7 +1220,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			"WebkitAnimation" : "webkitAnimationEnd"
 		};
 
-		for (t in animations) {
+		for (var t in animations) {
 			if (el.style[t] !== undefined) {
 				return animations[t];
 			}
@@ -1240,8 +1242,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		});
 	};
 
-	// Following var referred
-	var gametoolinit = {};
+
 
 	// Get Initial Card Position in the Array of Objects.
 
@@ -1441,8 +1442,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 	var self = this;
 	var stateobject = GameObject;
-	var internalcardselected = false;
-	var internalfirstselectedcard = {};
+	/*var internalcardselected = false;
+	var internalfirstselectedcard = {};*/
 
 	self.showJoker = function(cardInstanceList) {
 		var url = marriageRummy.urls.showJoker;
@@ -2215,7 +2216,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 
 	initGameTools();
 
-	var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue,
+	/*var switchCardAfter = function(prefix, startpos, endpos, dragcardvalue,
 			dragcardInstanceID) {
 		var arr = new Array();
 		for (var i = startpos; i < endpos; i++) {
@@ -2246,8 +2247,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 				dragcardInstanceID);
 		$('#' + prefix + "-" + startpos).addClass(dragcardvalue);
 	};
-
-	var switchCardBefore = function(prefix, startpos, endpos, dragcardvalue,
+*/
+	/*var switchCardBefore = function(prefix, startpos, endpos, dragcardvalue,
 			dragcardInstanceID) {
 		var arr = new Array();
 		for (var i = endpos + 1; i < startpos; i++) {
@@ -2276,7 +2277,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#' + prefix + "-" + (startpos - 1)).attr("data-cardinstanceid",
 				dragcardInstanceID);
 		$('#' + prefix + "-" + (startpos - 1)).addClass(dragcardvalue);
-	};
+	};*/
 
 	self.onYourTurnTools = function() {
 		$('#GameChatButton').removeAttr("disabled");
