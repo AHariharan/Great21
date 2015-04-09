@@ -222,6 +222,7 @@
 	border-radius: 9px;
 	display: block;
 	position: relative;
+	background: rgb(225, 227, 236);
 }
 
 .card:hover .card.hover {

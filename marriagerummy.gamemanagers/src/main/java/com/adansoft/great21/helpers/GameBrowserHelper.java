@@ -193,8 +193,9 @@ public class GameBrowserHelper {
 		}
 		if(game != null && game.getOwner().equals(request.getNickName()))
 		{  
+			System.out.println("Starting Game ...");
 			game.startGame();
-			 executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_LAUNCHGAME, game , mapper,template));
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_LAUNCHGAME, game , mapper,template));
 		   return "Success"; 
 		}
 		return "Failure : Not enough previleges ";

@@ -1575,7 +1575,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		});
 	};
 
-	var enableRearrange = function(source) {
+/*	var enableRearrange = function(source) {
 		if (!internalcardselected) {
 			internalcardselected = true;
 			internalfirstselectedcard = source;
@@ -1612,7 +1612,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 			internalcardselected = false;
 			internalfirstselectedcard = {};
 		}
-	};
+	};*/
 
 	var onShowCardsGame = function(source) {
 		$('.declareshowCards .meldcard-select').removeClass("meldcard-select");
@@ -1664,11 +1664,12 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 	};
 
 	var onDeclareGameWindowOpen = function(source) {
-		$('.declareGame .meldcard-select').removeClass("meldcard-select");
+		
+	//	$('.declareGame .meldcard-select').removeClass("meldcard-select");
 		var cardvalue = source.attr("data-cardvalue");
-		var cardinstanceid = source.attr("data-cardinstanceid");
+		var cardinstanceid = source.attr("data-cardinstanceid");		
 		var cardassigned = false;
-		var existingcards = new Array();
+		/*var existingcards = new Array();
 		$('.declareGame .meldcard').each(function() {
 			var cardinstanceid = $(this).attr("data-cardinstanceid");
 			var id = $(this).attr("id");
@@ -1689,25 +1690,44 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 
 				return;
 			}
-		}
+		}*/
 		$('.declareGame .meld-select .meldcard').each(function() {
+			var counter = 0;
 			if (cardassigned == true)
 				return;
 			var existing = $(this).attr("data-cardinstanceid");
 			if (existing == undefined || existing == null || existing == "") {
+				counter++;
 				if ($(this).attr("id") == "FOLD-CARD") {
 					$(this).addClass("meld-closedcard");
 					$(this).attr("data-cardvalue", cardvalue);
 					$(this).attr("data-cardinstanceid", cardinstanceid);
+					source.css("visibility","hidden");
 					cardassigned = true;
 					return;
 				}
 				$(this).addClass("basecard " + cardvalue);
 				$(this).attr("data-cardvalue", cardvalue);
 				$(this).attr("data-cardinstanceid", cardinstanceid);
+				source.css("visibility","hidden");
 				cardassigned = true;
 				return;
 			}
+		});
+		
+		var groupselected = false;
+		$('.declareGame .meldcardarea').children().each(function(){
+				$(this).children().each(function(){
+				if(groupselected)
+					return;
+				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				if(cardinstanceid  === undefined || cardinstanceid == null || cardinstanceid == "")
+					{
+					    groupselected = true;
+					    $(this).parent().addClass("meld-select");
+					}
+				
+			});
 		});
 		evaluateDeclareGame();
 	};
@@ -1716,12 +1736,19 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('.meldcard').unbind();
 		$('.meldcard').on("click", function() {
 			var cardvalue = $(this).attr("data-cardvalue");
+			var existingcardinstance = $(this).attr("data-cardinstanceid");
 			if ($(this).attr("id") == "FOLD-CARD") {
 				$(this).removeClass("meld-closedcard");
 			}
 			$(this).removeClass("basecard " + cardvalue);
 			$(this).attr("data-cardinstanceid", "");
 			$(this).attr("data-cardvalue", "");
+			
+			$('.card').each(function(){
+				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				if(existingcardinstance == cardinstanceid)
+					$(this).css("visibility","visible");
+			});
 			evaluateDeclareGame();
 		});
 	};
@@ -1864,44 +1891,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		initMeldPattern();
 		initShowCards();
 
-		/*
-		 * $('#showjokerdrpdown').unbind(); $('#showjokerdrpdown').on({
-		 * "shown.bs.dropdown": function() { this.closable = false; }, "click":
-		 * function(event,relatedTarget) { if(event.target.id ==
-		 * "onShowJokerCancel") this.closable = true; }, "hide.bs.dropdown":
-		 * function() { var incomingeventid = event.target.id;
-		 * if(incomingeventid.indexOf("GameTool") != -1) return true; else
-		 * return this.closable; } });
-		 */
-
-		/*
-		 * $('#pointstabledropdown').unbind(); $('#pointstabledropdown').on({
-		 * "shown.bs.dropdown": function() { this.closable = false; }, "click":
-		 * function(event,relatedTarget) { showPlayerPoints();
-		 * if(event.target.id == "onPointsTableCancel") this.closable = true; },
-		 * "hide.bs.dropdown": function() { var incomingeventid =
-		 * event.target.id; if(incomingeventid.indexOf("GameTool") != -1) return
-		 * true; else return this.closable; } });
-		 * 
-		 * $('#declareGamedrpdown').unbind(); $('#declareGamedrpdown').on({
-		 * "shown.bs.dropdown": function() { this.closable = false; }, "click":
-		 * function(event,relatedTarget) { if(event.target.id ==
-		 * "onDeclareGameCancel") this.closable = true; }, "hide.bs.dropdown":
-		 * function() { var incomingeventid = event.target.id;
-		 * if(incomingeventid.indexOf("GameTool") != -1) return true; else
-		 * return this.closable; } });
-		 * 
-		 * $('#forceshowCardDropDown').unbind();
-		 * $('#forceshowCardDropDown').on({ "shown.bs.dropdown": function() {
-		 * this.closable = false; }, "click": function(event,relatedTarget) {
-		 * if(event.target.id == "onShowCardGame") this.closable = true; },
-		 * "hide.bs.dropdown": function() { return this.closable; } });
-		 */
-		/*
-		 * $('body').on('click', '.disabled', function(e) { e.preventDefault();
-		 * return false; });
-		 */
-
+	
 		// pointstabledropdown declareGamedrpdown forceshowCardDropDown
 		$('[data-toggle="popover"]').popover({
 			trigger : 'hover',
@@ -1910,7 +1900,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 	};
 
 	var initMeldPattern = function() {
-		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
+		var meldfoldpattern = '<div class="meld-foldcard meld-select">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
 		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard  card1 "></div><div id="ID2" class="meldcard  card2"></div>'
 				+ '<div id="ID3" class="meldcard  card3"></div><div class="meldmessage"></div></div>';
 		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard  card1"></div>'

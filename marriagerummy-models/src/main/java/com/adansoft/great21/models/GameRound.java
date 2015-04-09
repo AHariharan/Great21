@@ -254,7 +254,10 @@ public class GameRound implements Serializable{
 		for(Player player : playerlist)
 		{
 			player.resetCards();
-			player.setJokerKnown(false);
+			if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE) || gameType.equals(GameListConstants.GAMELIST_TWENTYONECARD_TYPE) )
+			     player.setJokerKnown(false);
+			if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE) || gameType.equals(GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE))
+				  player.setJokerKnown(true);
 		}
 	}
     
@@ -262,8 +265,11 @@ public class GameRound implements Serializable{
     {
     	resetAllCardsforPlayers();
     	boolean opencardset = false;
+    	System.out.println("Shuffling Cards ");
     	deckcards = CardUtility.shuffleCards(noofdecks,jokerAvailable,numofJokers);
+    	System.out.println("Shuffling Cards completed");
     	currentindexincard = CardUtility.distributeCards(playerlist, deckcards, 7);
+    	System.out.println("distributing Cards completed");
     	currentindexincard++;
     	/* adding debug ...*/
     	

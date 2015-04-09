@@ -204,6 +204,7 @@ public class CardUtility {
 			int jokercount = 1;
 			for (int i = 0; i < 52 * numberofDecks + numberofDecks * numofJokers; i++) {
 				while (true) {
+					
 					Card inputcard = null;
 					int deckid = NumberUtility.generateRandomNumber(1,numberofDecks);
 					int flowerid = NumberUtility.generateRandomNumber(1, 4);
@@ -229,6 +230,7 @@ public class CardUtility {
 							
 						}
 					}
+					System.out.println(" Inside Shuffling Cards ......." + inputcard);
 					/*if (flowerid == 5)
 					{ 
 						if(jokercount > 0 && i <=26 )
