@@ -177,6 +177,17 @@ public class CardUtility {
 
 		return deck;
 	}
+	
+	private static boolean checkNumberExistsinArray(int number,int list[])
+	{
+		boolean result = false;
+		for(int i=0;i<list.length;i++)
+		{
+			if(number == list[i])
+				result = true;
+		}
+		return result;
+	}
 
 	public static Card[] shuffleCards(int numberofDecks, boolean withJokers,
 			int numofJokers) {
@@ -198,10 +209,20 @@ public class CardUtility {
 			int jokerposarr[] = new int[numberofDecks * numofJokers];
 			for(int i=0;i<numberofDecks * numofJokers;i++)
 			{
-				jokerposarr[i] = NumberUtility.generateRandomNumber(1,52 * numberofDecks + numofJokers);
+				int jokpos = 0;
+				while(true)
+				{
+				   jokpos = NumberUtility.generateRandomNumber(1,52 * numberofDecks + numofJokers);
+				   if(jokpos != 54 * numberofDecks && !checkNumberExistsinArray(jokpos,jokerposarr))
+					   break;
+				}
+					
+				jokerposarr[i] = jokpos;
+				System.out.println(" Joker Pos : " + jokerposarr[i]);
 			}
+		
 			
-			int jokercount = 1;
+			int jokercount = 1;int count=0;
 			for (int i = 0; i < 52 * numberofDecks + numberofDecks * numofJokers; i++) {
 				while (true) {
 					
@@ -224,13 +245,20 @@ public class CardUtility {
 							//int newdeckid = jokercount % numberofDecks;
 								int newdeckid = jokercount/numofJokers;
 								int index = jokercount%numofJokers;
-							   inputcard = decklist[deckid - 1].getJokerCard()[index];
-							  jokercount++;
+							    inputcard = decklist[deckid - 1].getJokerCard()[index];
+							    jokercount++;
 							
 							
 						}
 					}
-					System.out.println(" Inside Shuffling Cards ......." + inputcard);
+					count++;
+					//System.out.println(" Inside Shuffling Cards ......." + inputcard);
+					if(count == 10000)
+					{
+					    for(int k=0;k<cardlist.length;k++)
+					    	System.out.println("cardlist " + cardlist[k]);
+						break;
+					}
 					/*if (flowerid == 5)
 					{ 
 						if(jokercount > 0 && i <=26 )

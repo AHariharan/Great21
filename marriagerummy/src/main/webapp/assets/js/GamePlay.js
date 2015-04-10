@@ -1718,14 +1718,23 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		
 		var groupselected = false;
 		$('.declareGame .meldcardarea').children().each(function(){
-				$(this).children().each(function(){
+			    var meldgroup = $(this);
+			    meldgroup.children().each(function(){
 				if(groupselected)
 					return;
-				var cardinstanceid = $(this).attr("data-cardinstanceid");
+				
+				var meldcard = $(this);
+				if(meldcard.hasClass("meldmessage"))
+					return; 
+				var cardinstanceid = meldcard.attr("data-cardinstanceid");
 				if(cardinstanceid  === undefined || cardinstanceid == null || cardinstanceid == "")
 					{
 					    groupselected = true;
+					    $('.meldcardarea').children().each(function() {
+							$(this).removeClass("meld-select");
+						});
 					    $(this).parent().addClass("meld-select");
+					    
 					}
 				
 			});
@@ -1829,6 +1838,13 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 			$('#gametool').css("left", left);
 		}
 	};
+	
+	var makeAllCardsVisible = function()
+	{
+		$('.card').each(function(){
+			$(this).css("visibility","visible");
+		});
+	};
 
 	var initGameTools = function() {
 		// $('.GameTools').draggable();
@@ -1877,6 +1893,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#onDeclareGameCancel').on("click", function() {
 			$('.declareGame').hide();
 			$('.declareGame .meldcardarea').empty();
+			makeAllCardsVisible();
 		});
 
 		$('#dropgame').unbind();
@@ -1937,10 +1954,10 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 				+ '<div id="ID2" class="restcard  restcard2"></div><div id="ID3" class="restcard  restcard3 "></div>'
 				+ '<div id="ID4" class="restcard  restcard4 "></div><div class="meldmessage"></div>'
 				+ '<div class="removemeldgrp-rest ">x</div></div>';
-		var meld3Pattern = '<div class="meld-3"><div id="ID1" class="meldcard  card1 "></div><div id="ID2" class="meldcard  card2"></div>'
+		var meld3Pattern = '<div class="meld-3 meld-select"><div id="ID1" class="meldcard  card1 "></div><div id="ID2" class="meldcard  card2"></div>'
 				+ '<div id="ID3" class="meldcard  card3"></div><div class="meldmessage"></div>'
 				+ '<div class="removemeldgrp-3">x</div></div>';
-		var meld4Pattern = '<div class="meld-4"><div id="ID1" class="meldcard  card1"></div>'
+		var meld4Pattern = '<div class="meld-4 meld-select"><div id="ID1" class="meldcard  card1"></div>'
 				+ '<div id="ID2" class="meldcard  card2"></div><div id="ID3" class="meldcard  card3 "></div>'
 				+ '<div id="ID4" class="meldcard  card4 "></div><div class="meldmessage"></div>'
 				+ '<div class="removemeldgrp-4">x</div></div>';
@@ -2284,7 +2301,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#GameAudioPlayButton').removeAttr("disabled");
 		$('#toolSortCards').removeAttr("disabled");
 		$('#tool-showJoker').removeAttr("disabled");
-		$('#declareGame').removeAttr("disabled");
+		$('#declareGame').attr("disabled", "disabled");
 		$('#dropgame').removeAttr("disabled");
 		$('#tool-showPointsTable').removeAttr("disabled");
 		$('#tool-exitGame').removeAttr("disabled");
@@ -2296,7 +2313,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#GameAudioPlayButton').removeAttr("disabled");
 		$('#toolSortCards').removeAttr("disabled");
 		$('#tool-showJoker').removeAttr("disabled");
-		$('#declareGame').removeAttr("disabled", "disabled");
+		$('#declareGame').attr("disabled", "disabled");
 		$('#dropgame').attr("disabled", "disabled");
 		$('#tool-showPointsTable').removeAttr("disabled");
 		$('#tool-exitGame').removeAttr("disabled");
@@ -2317,7 +2334,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#GameAudioPlayButton').removeAttr("disabled");
 		$('#toolSortCards').removeAttr("disabled");
 		$('#tool-showJoker').attr("disabled", "disabled");
-		$('#declareGame').removeAttr("disabled");
+		$('#declareGame').attr("disabled", "disabled");
 		$('#dropgame').attr("disabled", "disabled");
 		$('#tool-showPointsTable').removeAttr("disabled");
 		$('#tool-exitGame').removeAttr("disabled");
