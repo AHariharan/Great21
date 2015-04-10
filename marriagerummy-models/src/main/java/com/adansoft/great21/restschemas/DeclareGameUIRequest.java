@@ -3,7 +3,6 @@ package com.adansoft.great21.restschemas;
 import java.io.Serializable;
 import java.util.HashMap;
 
-import com.adansoft.great21.models.Card;
 
 public class DeclareGameUIRequest implements Serializable{
 
@@ -14,6 +13,7 @@ public class DeclareGameUIRequest implements Serializable{
 	private String lobbyName;
 	private String gameType;
 	private String nickName;
+	private String jokerInstanceID;
 	private HashMap<String,String[]> meldlist;
 	private String closedCardInstanceid;
 	
@@ -21,17 +21,22 @@ public class DeclareGameUIRequest implements Serializable{
 		super();
 	}
 
+	
+
 	public DeclareGameUIRequest(String gameInstanceID, String lobbyName,
-			String gameType, String nickName, HashMap<String, String[]> meldlist,
-			String closedCard) {
+			String gameType, String nickName, String jokerInstanceID,
+			HashMap<String, String[]> meldlist, String closedCardInstanceid) {
 		super();
 		this.gameInstanceID = gameInstanceID;
 		this.lobbyName = lobbyName;
 		this.gameType = gameType;
 		this.nickName = nickName;
+		this.jokerInstanceID = jokerInstanceID;
 		this.meldlist = meldlist;
-		this.closedCardInstanceid = closedCard;
+		this.closedCardInstanceid = closedCardInstanceid;
 	}
+
+
 
 	public String getGameInstanceID() {
 		return gameInstanceID;
@@ -79,6 +84,18 @@ public class DeclareGameUIRequest implements Serializable{
 
 	public void setClosedCardInstanceid(String closedCardInstanceid) {
 		this.closedCardInstanceid = closedCardInstanceid;
+	}
+
+
+
+	public String getJokerInstanceID() {
+		return jokerInstanceID;
+	}
+
+
+
+	public void setJokerInstanceID(String jokerInstanceID) {
+		this.jokerInstanceID = jokerInstanceID;
 	}
 
 	

@@ -116,6 +116,8 @@
 		</div>
 		<div class="windowcontent">
 			<div class="toolarea">
+				<span class="declareGameJoker"> <span>Joker :</span><span id="declareshowjokerspan" style="font-weight:normal;"> </span> </span>
+			    <span class="toolsep"> | </span>
 				<span> Choose Declare Pattern : </span>
 				<button id="meldpattern-34" class="btn btn-tool">3 & 4
 					Cards</button>
@@ -196,7 +198,8 @@
 							<button id="meldgroup-4" class="btn btn-tool">Group 4
 								Cards</button>
 							<span class="toolsep"> | </span>
-							<button id="meldrestgrp" class="btn btn-tool">No Cards to Show</button>
+							<button id="meldrestgrp" class="btn btn-tool">No Cards
+								to Show</button>
 							<span class="toolsep"> | </span>
 							<button id="onShowCardGame" class="btn btn-tool">Show
 								Cards</button>

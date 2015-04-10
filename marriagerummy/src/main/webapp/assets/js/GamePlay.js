@@ -13,7 +13,7 @@ MarriageRummy.Utilities.GameUtilities.StatePreserver = function() {
 	var pointstatePresever = $(".showPoints").html();
 	var toolcontent = $(".tooloutputdisplay").html();
 	var self = this;
-
+	
 	self.getStatePreserver = function() {
 		return statepreserver;
 	};
@@ -39,9 +39,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	var gametoolpreserver = marriageRummy.statepreserver.getGameToolPreserver();
 	var toolContent = marriageRummy.statepreserver.getToolContent();
 	var self = this;
-	/*var curtop = 0;
-	var curleft = 0;*/
-	// Following var referred
+	var jokerKnownthisRound = false;
+	var jokerKnownValue = "Unknown";
 	var gametoolinit = {};
 	var stateobject = GameObject;
 	var playerposmap = new Array();
@@ -73,6 +72,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$("#GameArena").html(statepreserver);
 		$("#GameToolbarNew").html(gametoolpreserver);
 		$(".tooloutputdisplay").html(toolContent);
+		jokerKnownthisRound = false;
+		jokerKnownValue = "Unknown";
 	};
 
 	self.renderPointsTable = function(data) {
@@ -467,6 +468,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
 			var classname = flower + "-" + "alt" + "-" + card.displayValue;
+			
 			divid.addClass("basecard-alt  " + classname);
 			divid.removeClass("closedcard");
 			divid.attr("data-cardvalue", classname);
@@ -480,6 +482,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				$(this).removeAttr("data-cardvalue");
 				$(this).removeAttr("data-cardinstanceid");
 			});
+			jokerKnownthisRound = true;
+			jokerKnownValue =  card.cardInstanceId;
 		} else {
 			marriageRummy.generalutility.showMediumAlert(
 					"Can't show joker Submitted Sequence is invalid",
@@ -615,11 +619,12 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	self.onDeclareSuccess = function(data, requestObj) {
 		if (data.valid) {
+			var jokerinstanceid = data.joker.cardInstanceID;
 			marriageRummy.generalutility.showSuccessAlert(
 					"Declaration Successful", data.message);
+			requestObj.formdata.joker = jokerinstanceid;			
 			var notificationdata = marriageRummy.notificationRequest
-					.declareSuccessNotification("Declare Game",
-							requestObj.formdata);
+					.declareSuccessNotification("Declare Game",requestObj.formdata);
 			marriageRummy.notificationManager
 					.sendNotificationEvent(notificationdata);
 			$('.declareGame').hide();
@@ -705,6 +710,18 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('.infoblock #InfoPoints').html(totalpoints);
 		$('.cashblock #currentCash').html(currentCash);
 	};
+	
+	self.isjokerKnownthisRound = function()
+	{
+		return jokerKnownthisRound;
+	};
+	
+	self.getjokerKnownValue = function()
+	{
+		var cardval = convertCardInstancetoCardValue(jokerKnownValue);
+		return '" ' + cardval.split("-")[0]+ "  " + cardval.split("-")[1] + ' "';	
+		
+	};
 
 	var getInfoBlock = function(lobbyType, gameInstanceID, gameType) {
 		var url = marriageRummy.urls.getInfoBlock;
@@ -731,6 +748,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$('#myshowcards .toolarea').css("display", "block");
 
 		}
+		var jokervalue = convertCardInstancetoCardValue(data.joker);
+		$('#declareshowjokerspan').html(jokervalue);
 		var meld3grp = 1;
 		var meld4grp = 1;
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 meld-closedcard"></div><div class="meldmessage"></div></div>';
@@ -1444,6 +1463,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 	var stateobject = GameObject;
 	/*var internalcardselected = false;
 	var internalfirstselectedcard = {};*/
+	//var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
 
 	self.showJoker = function(cardInstanceList) {
 		var url = marriageRummy.urls.showJoker;
@@ -1887,6 +1907,13 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#declareGame,#declareGamemini').on("click", function() {
 			$('.declareGame').show();
 			$('.declareGame .meldcardarea').empty();
+			var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+			if(gameObj.isjokerKnownthisRound())
+				{
+				    var jokervalue = gameObj.getjokerKnownValue();
+				    $('#declareshowjokerspan').html(jokervalue);				  
+				}
+			
 		});
 
 		$('#onDeclareGameCancel').unbind();
@@ -2171,14 +2198,14 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
 
-	var declareGameNow = function(meldlist, closedCardInstanceid) {
+	var declareGameNow = function(meldlist, closedCardInstanceid,jokerCardInstanceID) {
 		var url = marriageRummy.urls.declareGame;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onDeclareGameFailure;
 		var formdata = marriageRummy.request.getGamePlayRequest()
 				.declareGameRequest(stateobject.lobbyName,
 						stateobject.gameInstanceID, stateobject.gameType,
-						meldlist, closedCardInstanceid);
+						meldlist, closedCardInstanceid,jokerCardInstanceID);
 		var requestObj = {
 			"formdata" : formdata
 		};

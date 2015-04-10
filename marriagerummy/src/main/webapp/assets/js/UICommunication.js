@@ -292,14 +292,15 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayRequestPreparer = functio
 	};
 
 	self.declareGameRequest = function(lobbyType, gameInstanceID, gameType,
-			meldlist, closedCardInstanceid) {
+			meldlist, closedCardInstanceid,jokerInstanceID) {
 		var formdata = {
 			"nickname" : "Auto",
 			"gameInstanceID" : gameInstanceID,
 			"lobbyName" : lobbyType,
 			"gameType" : gameType,
 			"meldlist" : meldlist,
-			"closedCardInstanceid" : closedCardInstanceid
+			"closedCardInstanceid" : closedCardInstanceid,
+			"jokerInstanceID" : jokerInstanceID
 		};
 		return formdata;
 

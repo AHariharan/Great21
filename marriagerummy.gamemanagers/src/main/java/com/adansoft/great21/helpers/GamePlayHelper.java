@@ -40,6 +40,7 @@ import com.adansoft.great21.restschemas.ShowJokerRequest;
 import com.adansoft.great21.restschemas.SkipTurnRequest;
 import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
+import com.adansoft.great21.uischemas.UICard;
 import com.adansoft.great21.ulitity.CardUtility;
 
 public class GamePlayHelper {
@@ -195,10 +196,15 @@ public class GamePlayHelper {
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
 		Card jokerCard = game.getCurrentGameRound().getJoker();
 		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		UICard jokerUICard = new UICard();
+		jokerUICard.setGameInstanceID(request.getGameInstanceID());
+		jokerUICard.setGameType(request.getGameType());jokerUICard.setLobbyName(request.getLobbyName());
+		jokerUICard.setNickName(request.getNickName());jokerUICard.setCardInstanceID(jokerCard.getInstanceID());
 		DeclareGameRequest gamerequest = UtilityHelper.convert(request, player);	
 		DeclareGameResult result = CardUtility.checkDeclareGame(gamerequest.getMeldlist(), jokerCard, request.getGameType());
 		if(result.isValid())
 		{
+			result.setJoker(jokerUICard);
 			if(game.isGameCardMoneyBased())
 			{
 				game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),0.0F,GameRound.PLAYER_STATUS_DECLARED);

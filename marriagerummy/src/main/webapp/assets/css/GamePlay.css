@@ -1120,8 +1120,8 @@
 .meld-3 .card1 {
 	transform: rotate(-23deg);
 	-webkit-transform: rotate(-23deg);
-    -moz-transform: rotate(-23deg);
-    -o-transform: rotate(-23deg);  
+	-moz-transform: rotate(-23deg);
+	-o-transform: rotate(-23deg);
 	left: 31px;
 	top: 16px;
 }
@@ -1131,8 +1131,8 @@
 	top: -146px;
 	transform: rotate(-9deg);
 	-webkit-transform: rotate(-9deg);
-    -moz-transform: rotate(-9deg);
-    -o-transform: rotate(-9deg);  
+	-moz-transform: rotate(-9deg);
+	-o-transform: rotate(-9deg);
 }
 
 .meld-3 .card3 {
@@ -1140,15 +1140,15 @@
 	top: -304px;
 	transform: rotate(3deg);
 	-webkit-transform: rotate(3deg);
-    -moz-transform: rotate(3deg);
-    -o-transform: rotate(3deg);  
+	-moz-transform: rotate(3deg);
+	-o-transform: rotate(3deg);
 }
 
 .meld-4 .card1 {
 	transform: rotate(-32deg);
 	-webkit-transform: rotate(-32deg);
-    -moz-transform: rotate(-32deg);
-    -o-transform: rotate(-32deg);  
+	-moz-transform: rotate(-32deg);
+	-o-transform: rotate(-32deg);
 	top: 21px;
 	left: 63px;
 }
@@ -1156,8 +1156,8 @@
 .meld-4 .card2 {
 	transform: rotate(-20deg);
 	-webkit-transform: rotate(-20deg);
-    -moz-transform: rotate(-20deg);
-    -o-transform: rotate(-20deg);  
+	-moz-transform: rotate(-20deg);
+	-o-transform: rotate(-20deg);
 	left: -30px;
 	top: 20px;
 }
@@ -1167,8 +1167,8 @@
 	top: -142px;
 	transform: rotate(-9deg);
 	-webkit-transform: rotate(-9deg);
-    -moz-transform: rotate(-9deg);
-    -o-transform: rotate(-9deg);  
+	-moz-transform: rotate(-9deg);
+	-o-transform: rotate(-9deg);
 }
 
 .meld-4 .card4 {
@@ -1176,8 +1176,8 @@
 	top: -134px;
 	transform: rotate(4deg);
 	-webkit-transform: rotate(4deg);
-    -moz-transform: rotate(4deg);
-    -o-transform: rotate(4deg);  
+	-moz-transform: rotate(4deg);
+	-o-transform: rotate(4deg);
 }
 
 .meld-4 .meldmessage {
@@ -1392,8 +1392,17 @@
 	cursor: pointer;
 }
 
-.winhighlight
-{
-	color:red;
-	font-weight:bold;
+.winhighlight {
+	color: red;
+	font-weight: bold;
+}
+
+.declareGameJoker {
+	background: rgb(179, 14, 133);
+	margin-top: 0px;
+	margin-left: 0px;
+	padding: 9px;
+	padding-top: 0px !important;
+	font-weight: bold;
+	padding-right: 10px !important;
 }
