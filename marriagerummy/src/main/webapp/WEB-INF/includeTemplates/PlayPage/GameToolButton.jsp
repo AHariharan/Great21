@@ -201,7 +201,7 @@
 							<button id="meldrestgrp" class="btn btn-tool">No Cards
 								to Show</button>
 							<span class="toolsep"> | </span>
-							<button id="onShowCardGame" class="btn btn-tool">Show
+							<button id="onShowCardGame" class="btn btn-tool">Submit
 								Cards</button>
 						</div>
 						<div class="toolarea-alt" style="display: none">You have
