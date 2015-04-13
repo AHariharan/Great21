@@ -116,8 +116,8 @@
 		</div>
 		<div class="windowcontent">
 			<div class="toolarea">
-				<span class="declareGameJoker"> <span>Joker :</span><span id="declareshowjokerspan" style="font-weight:normal;"> </span> </span>
-			    <span class="toolsep"> | </span>
+				<!-- <span class="declareGameJoker"> <span>Joker :</span><span id="declareshowjokerspan" style="font-weight:normal;"> </span> </span> -->
+			   <!--  <span class="toolsep"> | </span> -->
 				<span> Choose Declare Pattern : </span>
 				<button id="meldpattern-34" class="btn btn-tool">3 & 4
 					Cards</button>

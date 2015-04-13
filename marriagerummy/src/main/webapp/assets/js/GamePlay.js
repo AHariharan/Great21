@@ -465,6 +465,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		var divid = $('#Joker');
 		if (data.avaialble) {
 			var card = getCardObject(data.card);
+			$('.card').draggable('enable');
 			var flower = card.flower[0].toUpperCase()
 					+ card.flower.slice(1).toLowerCase();
 			var classname = flower + "-" + "alt" + "-" + card.displayValue;
@@ -619,6 +620,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	self.onDeclareSuccess = function(data, requestObj) {
 		if (data.valid) {
+			$('.card').draggable('enable');
 			var jokerinstanceid = data.joker.cardInstanceID;
 			marriageRummy.generalutility.showSuccessAlert(
 					"Declaration Successful", data.message);
@@ -689,6 +691,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	self.onShowCardSuccess = function(data, requestObj) {
+		$('.card').draggable('enable');
 		console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
 		$('.declareshowCards').hide();
 		marriageRummy.generalutility
@@ -735,8 +738,36 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	
+	var getJokerHTML = function(cardInstanceID)
+	{
+		var htmlcontent = '<span class="ForcedShowshowjokerspan" COLOR>Joker: IMAGE VALUE </span>';
+		var Spade = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAByklEQVRYR8WWjTEEMRTH/1cBKkAHVIAKUAEqQAWoABWgAlSACuiAEqiA+e1kd3K5ZPOS3J03szP7kX3vl/eZif5ZJo32zyT9Srqt1dMCcC/pyBnm/qQGohbAN97brYIoBViVdC3pOLFbIM4lfVu9UQKA8RdJWxnlH5L2rBBWAIxiHAiL4AEggBkVCwDuxu1W471BIAgHYUlKDgDjd7ldZL5TqskyHQO4kXTaaDxbISmAeew8ZCccbGpKYgAHkh7ntPNQzaGkJ/9lCECifVYknJWXxNz0SzQEuJR0YdVWue5KEnY6CQEgXKlUbP0NG2sxAJrNu1VL47rtvkn5Hlhk8oW8dMnXMATLiH8PMpSk74Fd1+8bvWv6PeqBDVeCJg2NiyjFr1gVEJedRuW5398k4e1oGS4jDIP7Yx7g3SKTcaoJpQB4zzBicKSaEm6koew7Tz679p0K348kxvLM2WBsHDMX6A1c/WGExEEJucL9ugPgnsQihMCT0AiQDB+u6DkxdyBJJVQsV4bulstC/3stQOxY/jByWk4y1QCkRvbMqLV4ogZgrEpmsjwHUQqQO7AUe6EUYOhgrgq6duqyvs98nrtJZ5FSAIvOojV/+9xPIezxdaUAAAAASUVORK5CYII=" width="16" height="16">';
+		var Club = '<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADJUlEQVRoQ+2Zj7FNMRDGv1cBKkAFqAAVoAJUgApQASpABagAHVABKkAH5jeTNbk5yTnZZM+bN3fuzryZ+95Nsvtlv/2Xd6YjkbMjwaETkIvmyb08clnSPUn3JfEZ+SPpo6RP6XPoXewB5LmkpxmA0mAAvZb0MhJJNJAPyQs9NuKdBz0Le9ZEAnkr6VGP0mzNO0mPnXuqy6OA3JH0edCgu5K+DO79vy0KCDQhuEeE4CcpTEkEELLS7ykrpCuzmSwCyAytDP80vU5AMiodjUeuSfoxGSPXJf2cOSOCWuj/JunGoCHfJd0c3BuefmlJXg0aQ0GkME5JlEdIwVDjktOaX8kb9F9T4gUCBczYr4Vmihq9lkfotSimudxOv/xNlO06rwcIxtPRkp2sJbfDaS2gxfv0B7raJ12apTepS2b5w9SnoSMXPIUOOmXisClbQOA9/N8SaAXXUdoT+BbgGE6zSebbEi7pWWvRGpCRbtbmjLV4gTIYbnPLFoD8+2a33AIyk4XwCrRpxQvtiFHVA8LW4hUu7EBqQIgDClwZDx6leISMZIFre0kQVzup1NJH3FBADzJdDQjDEbS6yLKoPTUgM7PFeYFfzDA1IHC8pMR5GdirB4oepOoTkN6r22ldF7VmUu9Odi+OXaTgGrUi5guKHhdSZj9aDf7ubS5zJJxN23Qwv7QK4otUtEZumPaDFI6yEgg3af3Z6PzCZWDfZkG0BT09U3ke3AUExYp2gmYwF8s2FFu+9z4hLbKVHb7Wa3mU4W5uKW8deCKqdQf50w+g2dNDtfySFkzZ6n7ZgDJ4XaMCADCEn7xlWJtNyqoMWM5vxQ5U5fzVKbIHiKEnCfBDIYLnGN6aEWq0snPWXhaJK4CZDgK661HCA8QT+C1a2RnTL4ueYPcYnq/tGXlDHhxypXt4ZI1WphtqMpeESTQQTzG9tTWHe1BGA/E8PvBg4f3HUBNbJJCRyTIs6COBjDSb1XbDQ6meyu45b8QbnF+dvz2Ko4F4YqO0MyRWIqiFN5jzqfL2MmjG5pWZdfmre17FqT1T778RQEaYEL7nBCT8SicPPBqP/AM4gpgzhv+skQAAAABJRU5ErkJggg==" width="16" height="16">';
+		var Heart = '<img class="icon icons8-Hearts" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADL0lEQVRoQ+1ZTXbaQAyW/ExZNt20ZhXyGK+bG4ScoNygyQkIJ0hzgpATlN6AniDkBrC2eaUraDdNdmnth/rGFB6Y8fxgDyU8ZolnJH36JM1IIOzJwj3BAQcgu8bkgZEDI5Y8YBxa42q16rru8RSgPreJAPrlOH54Mxo9mtj5q1o9+u26ZwhwOj/nAPTiOP5eGY1GJrK0gHCFf1y3SYgXAFDNUoAAnWkU3aiM+On7pwTQJAAuL2v1kaj7Ko7vdBykBDL2/QskugXEI20PEbXLcXyTNuAfA9eAeGUg65EQW5Ug6MjOSIFMGOMA9JWuauo7AJdvg6DPf+YsTAE+w1IYaYPhG4naXhi2JNEg/jRh7AoQb42UpTcTPTqI5/znKdG9EasixUQtLwzbok9CRsaM1RHxPheIRSWgWQEwCU2JYiI6r4RhL71FCGTCGPfeoioVAqgoIUQ9LwwTlpfXGpBC2SjK+JQcEStrQCa1Whscp2nJhmLETqd33nC4UoTWgfj+N9ldUYwluaWMvCA4kYbWxPcpt5otCPCCYIUEESMvHwh/R2GpxENr5xdF0cnyU2g/GeE07E+OMNYFxA87HVtEX70wbMirVhFvLNteELy51m/2F5Dw6URPnnIi5419v4MAH207dhP5BPClEgRrDZkYyA6zImIjkxH+YczYJ0S83sRr1s6Y9iNzQ8aM9RDxzJphBoKJ6KEShpmthbTV5T32s+v2EfHYQKeNrYNyFNVlQwjl8CHptYl6gPjahoVKmURPDmJ93vtn7VcC4Qf/GxhNENJkTyPfOhgDEEZAkko2K8tdAHivDIl8GwYURQ3VoE/6RFHpT4ZspRKfYtgCo0xskY1aObKt2z/r1lY51zi00gKTcepseph7EcClaiwqU7IxI0uXZh0B+NN/s/JM9EQADdHQzcQ7uYEsyjMAHzKb5s3AAbhQ3RE6gAoBwhVtUAQ2SupcF6KOR+ZgnkultqoFyJPUWwGyyBtJP2MDRO6qJWNK1JzZAmEVCBc+8X3+J8+sAAgGBrohq7OvsGTPUvajVkumHe+GQ/60sbasA7FmeUrwAci2PK2r58CIrqe2te8v4VxOQtWYIUAAAAAASUVORK5CYII=" width="16" height="16">';
+		var Diamond = '<img class="icon icons8-Diamonds" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAADEUlEQVRoQ92aTXKbMBSA32PIuLsmmwZWpWNY1z5B7RM0OUGTEzQ9QZ0TND1B3BPUPUHcE8RZI0/pCqeb4F07ZngdPDhD/IPQDySBrZD0PolPvyA05MGGcEClILft9hEZxue0sTBJzg+n01FVDVcZSOi6PUS8ygdORH2bsXEVMJWAhI7joGleA+L+g6CJIorjrh0EgW4Y7SB3jrP/b28v7YnOjmAnrcWifxAEkU4Y7SC3nndJACdFQSLA8ND3T58sSOi6A0Rcys17iOjcZmzAe69surYeyUao72UrzkayY10jmRaQP57XSYiuNuTmURFFBmL/le9PeK/y0pVBSsjNi0GL/MogM9dNe6LHi7YwnWhkMXasUoYSyKzdvgDD+KgSwH3eJPlqTadnsmVJg4Sed4IAl7IVb8tHAKe27w9lypQCkZabF6GC/MIgmdzXAODw4pJMD1qLRVd05hcGmXleCrFr+SEZ+1o2orHFWF+kMCGQMssPkcp1LmNKg1QhNw9aRP5SIEu5AdJPqvbHAOiWmfm5IEu5TfOX8PJDFzJR1IrjNzz5C0E0LD904Uws3+9ynNqdXKfcPGLeHmZnj8xc9wwQv/AqqDWd6JPF2MW2OotA7h7Ni12tQxRZjB2IgkSA+LLWFudVRjS3GHt4oJHlaf6nlYKGnjdEgA+8hqojnQC+2b6/81CDO4/MPC/dhr6tI9iCOm4s3y9c33FBsgkxeDRfiOatOHaUJsRVCzViibKCacSiMQdTn/yCe3iuI+sChq47RsR3VcpPRD9txoROZoRBUvn/muYEEV9XAUNEv1/EcYcn93rdwiBpAdnhw1j7SEY0NxB7ZfYfWkCyyfL5HwetWkPnAZ3q6bzUp5Xv1pnrjgDxvZIvRD8sxo5UylAGyXaR6b2g7DLmprVY9ETl1uZIviBp+RXkrgQkLbQRFz33M7/A1RsUbFtlXFF2ZGPmL7GH4e0tngRICfm1yF2ZI/mCsx8GJhszP9Gc4rjzLH4YyPny/H/hWMFkI9nyLh2TZKDrKnqbQ9pllxFVR57GgPwHyj1sQlNu/LkAAAAASUVORK5CYII=" width="16" height="16">';
+		var flower = cardInstanceID.split("-")[1].trim();
+		var value = cardInstanceID.split("-")[2].trim();
+		if(flower == "HEART")
+			htmlcontent = htmlcontent.replace("IMAGE",Heart);
+		if(flower == "CLUB")
+			htmlcontent = htmlcontent.replace("IMAGE",Club).replace("COLOR",'style="color:black"');
+		if(flower == "DIAMOND")
+			htmlcontent = htmlcontent.replace("IMAGE",Diamond);
+		if(flower == "SPADE")
+			htmlcontent = htmlcontent.replace("IMAGE",Spade).replace("COLOR",'style="color:black"');;
+		
+		htmlcontent = htmlcontent.replace("VALUE",value);
+		return htmlcontent;
+	};
+	
+	
+	
+	
 
 	var renderWinnerDeclaredCards = function(data) {
+		$('.card').draggable('disable');
 		var currentPlayerStatus = $("#InfoStatus").html();
 		if (currentPlayerStatus == "Halfway Dropped"
 				|| currentPlayerStatus == "Initial Dropped") {
@@ -748,8 +779,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			$('#myshowcards .toolarea').css("display", "block");
 
 		}
-		var jokervalue = convertCardInstancetoCardValue(data.joker);
-		$('#declareshowjokerspan').html(jokervalue);
+		var jokervalue = getJokerHTML(data.notificationObject.joker);
+		//$('#declareshowjokerspan').html(jokervalue);
 		var meld3grp = 1;
 		var meld4grp = 1;
 		var meldfoldpattern = '<div class="meld-foldcard">Fold Card<div id="FOLD-CARD" class="meldcard card1 meld-closedcard"></div><div class="meldmessage"></div></div>';
@@ -763,7 +794,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		// Always shows winner declared Cards.
 		$('.nav-tabs a[href="#winnershowcards"]').tab('show');
 		$('.winnerdeclaredarea h4')
-				.html(
+				.html(  jokervalue +
 						"Player : "
 								+ '<span class="winhighlight"> '
 								+ playerName
@@ -1207,7 +1238,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				});
 	};
 
-	var slideCardLeft = function(prefix, startposition, endposition) {
+	var slideCardLeft  = function(prefix, startposition, endposition) {
 		for (var i = startposition; i < endposition; i++) {
 			var nextpos = i + 1;
 			var curid = "#" + prefix + "-" + i;
@@ -1529,8 +1560,10 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 	};
 
 	var onClickCardforShowJoker = function() {
+		
 		$('#onShowJokerCancel').unbind();
 		$('#onShowJokerCancel').on("click", function() {
+			$('.card').draggable('enable');
 			$('.showJoker').hide();
 			$('.showJoker .jokershowcard').each(function() {
 				var classname = $(this).attr("data-cardvalue");
@@ -1690,6 +1723,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		var cardvalue = source.attr("data-cardvalue");
 		var cardinstanceid = source.attr("data-cardinstanceid");		
 		var cardassigned = false;
+		$('.card').draggable('disable');
 		/*var existingcards = new Array();
 		$('.declareGame .meldcard').each(function() {
 			var cardinstanceid = $(this).attr("data-cardinstanceid");
@@ -1881,7 +1915,8 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 
 		$('#minitool-showJoker,#tool-showJoker').unbind();
 		$('#minitool-showJoker,#tool-showJoker').on("click", function() {
-			$('.showJoker').toggle();
+			$('.showJoker').show();
+			$('.card').draggable('disable');
 		});
 
 		$('#toolSortCards,#minitoolSortCards').unbind();
@@ -1905,13 +1940,14 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 
 		$('#declareGame,#declareGamemini').unbind();
 		$('#declareGame,#declareGamemini').on("click", function() {
+			$('.card').draggable('disable');
 			$('.declareGame').show();
 			$('.declareGame .meldcardarea').empty();
 			var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
 			if(gameObj.isjokerKnownthisRound())
 				{
 				    var jokervalue = gameObj.getjokerKnownValue();
-				    $('#declareshowjokerspan').html(jokervalue);				  
+				   // $('#declareshowjokerspan').html(jokervalue);				  
 				}
 			
 		});
@@ -1921,6 +1957,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 			$('.declareGame').hide();
 			$('.declareGame .meldcardarea').empty();
 			makeAllCardsVisible();
+			$('.card').draggable('enable');
 		});
 
 		$('#dropgame').unbind();
