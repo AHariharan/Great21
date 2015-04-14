@@ -324,7 +324,7 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 		/*toastr.options.timeOut = 40;
 		toastr.options.extendedTimeOut = 60;*/
 		toastr.options.progressBar = true; 
-		toastr.options.positionClass = "toast-bottom-right";
+		toastr.options.positionClass = "toast-top-right";
 	}
 	
 	init();

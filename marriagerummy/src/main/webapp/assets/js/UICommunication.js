@@ -412,7 +412,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 
 	self.onGetJokerSuccess = function(data, textstatus, Jhxr, requestObj) {
 		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
-		gameObj.renderJokerCard(data);
+		gameObj.renderJokerCard(data,requestObj);
 	};
 
 	self.onGetJokerFailure = function(data) {
@@ -462,7 +462,7 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 	self.onShowJokerSuccess = function(data, textstatus, Jhxr, requestObj) {
 		console.log("Success on showJoker : " + JSON.stringify(data));
 		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
-		gameObj.renderJokerCard(data);
+		gameObj.renderJokerCard(data,requestObj);
 	};
 
 	self.onShowJokerFailure = function(data) {

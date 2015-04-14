@@ -182,7 +182,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 	};
 
-	self.getJoker = function() {
+	self.getJoker = function(source) {
 		var url = marriageRummy.urls.getJoker;
 		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerSuccess;
 		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().onGetJokerFailure;
@@ -190,7 +190,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 				.getCardRequest(stateobject.lobbyName,
 						stateobject.gameInstanceID, stateobject.gameType);
 		var requestObj = {
-			"formdata" : formdata
+			"formdata" : formdata,
+			"source" : source
 		};
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
@@ -461,7 +462,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		self.getWhoseTurn();
 	};
 
-	self.renderJokerCard = function(data) {
+	self.renderJokerCard = function(data,requestObj) {
 		var divid = $('#Joker');
 		if (data.avaialble) {
 			var card = getCardObject(data.card);
@@ -486,9 +487,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 			jokerKnownthisRound = true;
 			jokerKnownValue =  card.cardInstanceId;
 		} else {
+			
+			if(requestObj.source != "Auto")
+				{
 			marriageRummy.generalutility.showMediumAlert(
 					"Can't show joker Submitted Sequence is invalid",
 					"Invalid Sequence");
+			
+				}
 			divid.addClass("closedcard");
 		}
 	};
@@ -541,7 +547,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		if (checkIfPlayerEliminated(data))
 			return;
 		self.getCards();
-		self.getJoker();
+		self.getJoker('Auto');
 		self.getOpenCard();
 
 		cleanPosMap();
