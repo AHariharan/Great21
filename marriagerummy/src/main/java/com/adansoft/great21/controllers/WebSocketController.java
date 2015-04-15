@@ -69,7 +69,7 @@ public class WebSocketController {
 	
 	public void sendNotificationFromBackend(NotificationEvent event,String gameInstanceID)
 	{
-		 System.out.println("Send Notification From Backend");
+	    System.out.println("Send Notification From Backend");
 		template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	}
 	
