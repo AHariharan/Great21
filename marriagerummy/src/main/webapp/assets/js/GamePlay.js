@@ -697,9 +697,20 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	};
 
 	self.onShowCardSuccess = function(data, requestObj) {
+		
 		$('.card').draggable('enable');
 		console.log("Testing ... onShowCardSuccess " + JSON.stringify(data));
 		$('.declareshowCards').hide();
+		if(data.eliminated || data.gameOver)
+			{
+			   console.log("**** Player show status response Eliminated/GameOver:" +  data);
+			   var notificationdata = marriageRummy.notificationRequest
+				.showCardPlayerNotification("onShowCardSuccess",
+						requestObj.formdata);
+		        marriageRummy.notificationManager
+				.sendNotificationEvent(notificationdata);
+			   return;
+			}
 		marriageRummy.generalutility
 				.setLoadingMask("Please wait for other players to show cards");
 		var notificationdata = marriageRummy.notificationRequest
@@ -1487,6 +1498,14 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					$("#DeckNextCard").removeClass("nextCardAnimation");
 					self.addCardToHand(cardinstanceid);
 					enableDroppable();
+					var formdata = {
+							           "cardInstanceID" : cardinstanceid,
+							           "cardValue" : classname
+					               };
+					var notificationdata = marriageRummy.notificationRequest
+					.dropOrOpenPickedupNotification("enablePickable", formdata);
+		  	       marriageRummy.notificationManager
+					.sendNotificationEvent(notificationdata);
 
 				});
 	};

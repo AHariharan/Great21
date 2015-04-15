@@ -9,9 +9,9 @@
 				<div id="centerstage" class="centerstage"></div>
 				<div id="DeckNextCard" class="deckNextCard"></div>
 				<div id="OpenCard" class="opencard basecard-alt">
-					<div id="informationtag" class="clickopentag">
+				<!-- 	<div id="informationtag" class="clickopentag">
 						<i class="fa fa-arrow-left"></i> Click to Pick Card
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<%-- <%@include file="./GameArena_GameTools.jsp"%> --%>

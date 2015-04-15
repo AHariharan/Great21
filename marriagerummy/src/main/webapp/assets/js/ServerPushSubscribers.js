@@ -113,6 +113,10 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid)
 			 callback.handleNewGameRoundNotification(jsonobj);
 		 if(type == "GAMEOVER")
 			 callback.handleGameOverNotification(jsonobj);
+		 if(type == "CARDPICKEDFROMDOWN")
+			 callback.handleDroporOpenCardPickedNotification(jsonobj);
+		 if(type == "PLAYERELIMINATED")
+			 callback.handlePlayerEliminatedNotification(jsonobj);
 	 }; 
 	 
 	 self.sendNotificationEvent = function(data)
@@ -276,14 +280,8 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
           
           var gameObject = new MarriageRummy.Utilities.GameUtilities.GameStarter(stateobject);
   		   jQuery.data( $("#GameArena")[0], "GameObj", gameObject);
-  		   gameObject.getPlayerList();
-  		   /*gameObject.getCards();
-  		   gameObject.getJoker();
-  		   gameObject.getOpenCard();*/
-  		  
-          
-  		// console.log("startnewGameAfterTimeout Data ... " + JSON.stringify(data));
-  		  marriageRummy.generalutility.hideLoadingMask("Starting new round");
+  		   gameObject.getPlayerList();  		  
+  		   marriageRummy.generalutility.hideLoadingMask("Starting new round");
     };
     
     self.handleGameOverNotification = function(data)
@@ -307,6 +305,28 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     		   }
     	}
     	
+    };
+    
+    self.handleDroporOpenCardPickedNotification = function(data)
+    {
+    	console.log("Received DroporOpenCard Picked Notification :- " + data);
+    	var notificationObject = data.notificationObject;
+    	var cardInstanceid = notificationObject.cardInstanceID;
+    	$(".PlayerDropCard").each(function(){
+    		var curinstanceid = $(this).attr("data-cardinstanceid");
+    		if(curinstanceid == cardInstanceid)
+    			{
+    			    $(this).removeClass(notificationObject.cardValue);
+    			}
+    	});
+    	if($("#OpenCard").attr("data-cardinstanceid") == cardInstanceid)
+    		{
+    		   $("#OpenCard").removeClass(notificationObject.cardValue);
+    		}
+    	if($("#droppedcard").attr("data-cardinstanceid") == cardInstanceid)
+    		{
+    		   $("#droppedcard").removeClass(notificationObject.cardValue.replace("alt-",""));
+    		}
     };
 };
 
@@ -407,6 +427,18 @@ MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer = function()
      {
     	 var formdata = {
     			 notificationType : "SHOWCARDSUCCESS",
+    			 notificationSource : source,
+    			 notificationObject : object,
+    			 notifiedBy : "Auto"
+    	
+    	 };
+    	 return formdata;
+     };
+     
+     self.dropOrOpenPickedupNotification = function(source,object)
+     {
+    	 var formdata = {
+    			 notificationType : "CARDPICKEDFROMDOWN",
     			 notificationSource : source,
     			 notificationObject : object,
     			 notifiedBy : "Auto"

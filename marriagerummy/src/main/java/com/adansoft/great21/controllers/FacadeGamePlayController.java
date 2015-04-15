@@ -291,9 +291,9 @@ public class FacadeGamePlayController {
 					+ FacadeControllerURLs.SKIPPLAYERTURN);
 			result = restTemplate.postForEntity(url, request, String.class).getBody();
 			if(result.equals("FinishGame"))
-				notifyNewRound(request.getGameInstanceID());
+				notifyNewRound(request.getGameInstanceID(),null);
 			if(result.equals("Game Over"))
-				notifyGameOver(request.getGameInstanceID());
+				notifyGameOver(request.getGameInstanceID(),null);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -460,32 +460,24 @@ public class FacadeGamePlayController {
 				if(playerstatusresponse.getPlayerstatusMap().get(nickname).equals(Player.PLAYER_STATUS_ELIMINATED))
 				{
 					notifyPlayerEliminatation(playerstatusresponse);
+					System.out.println("Player Elimination Notification sent : " + nickname);
+					if(request.getNickName().equals(nickname))
+						 showGameresult.setEliminated(true);
 				}
 			}
 			System.out.println("Result from Finish Game Round " + result);
 			if(!result.equals("Game Over"))
 			{
-				NotificationEvent event = new NotificationEvent();
-				event.setNotificationSource("SERVER");
-				event.setNotifiedBy("NotifyNewRoundStart");
-				event.setNotificationType("NEWGAMENOTIFY");
-				event.setNotificationObject(response);
-				notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+				notifyNewRound(request.getGameInstanceID(),response);
 			}
 			else
 			{
-				NotificationEvent event = new NotificationEvent();
-				event.setNotificationSource("SERVER");
-				event.setNotifiedBy("NotifyGAMEOVER");
-				event.setNotificationType("GAMEOVER");
-				event.setNotificationObject(response);
-				notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
-	
+				notifyGameOver(request.getGameInstanceID(), response);	
 			}
 		}
 	}
 	
-	private void notifyNewRound(String gameinstanceId)
+	private void notifyNewRound(String gameinstanceId,Object notificationObject)
 	{
 		NotificationEvent event = new NotificationEvent();
 		event.setNotificationSource("SERVER");
@@ -495,7 +487,7 @@ public class FacadeGamePlayController {
 		notifier.sendNotificationFromBackend(event, gameinstanceId);
 	}
 	
-	private void notifyGameOver(String gameinstanceId)
+	private void notifyGameOver(String gameinstanceId,Object notificationObject)
 	{
 		NotificationEvent event = new NotificationEvent();
 		event.setNotificationSource("SERVER");
