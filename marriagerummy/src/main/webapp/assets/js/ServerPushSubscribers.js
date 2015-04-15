@@ -289,14 +289,24 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function()
     self.handleGameOverNotification = function(data)
     {
     	console.log("Handle Game Over Notification : " + JSON.stringify(data));
-    	  marriageRummy.generalutility.hideLoadingMask("Game Over");
+    	  marriageRummy.generalutility.setLoadingMask("Game Over");
     };
     
     
     self.handlePlayerEliminatedNotification = function(data)
     {
     	console.log("Handle Player Elimination Notification : " + JSON.stringify(data));
-    	  marriageRummy.generalutility.hideLoadingMask("You have Eliminated from game");
+    	var listofnick = Object.keys(data.notificationObject.playerstatusMap);
+
+    	for(var i=0;i<listofnick.length;i++)
+    	{
+    	   if(listofnick[i] == marriageRummy.loggedinUser)  
+    		   {
+    		        marriageRummy.generalutility.setLoadingMask("You have Eliminated from game");
+    		        marriageRummy.notificationManager.shutdown();
+    		   }
+    	}
+    	
     };
 };
 

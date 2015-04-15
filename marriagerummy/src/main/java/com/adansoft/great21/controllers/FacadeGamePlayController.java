@@ -5,6 +5,9 @@ import java.net.URI;
 
 
 
+
+
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
 import com.adansoft.great21.models.Card;
 import com.adansoft.great21.models.GameRound;
+import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
@@ -41,6 +45,8 @@ import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
@@ -333,7 +339,7 @@ public class FacadeGamePlayController {
 			intimateRequest.setLobbyName(request.getLobbyName());
 			intimateRequest.setNickName(request.getNickName());
 			PlayerShowStatusResponse response = showPlayerStatus(intimateRequest, authentication);
-			NotifyNewRoundStart(response,request);
+			NotifyNewRoundStart(response,request,result);
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -423,7 +429,7 @@ public class FacadeGamePlayController {
 	}
 	
 	
-	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request)
+	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request,ShowGameResult showGameresult)
 	{
 		boolean needtoIntimate = true;
 		for(String key : response.getPlayerShowStatus().keySet())
@@ -444,7 +450,19 @@ public class FacadeGamePlayController {
 			gamecomprequest.setGameType(request.getGameType());
 			gamecomprequest.setLobbyName(request.getLobbyName());
 			String result = finishGameRound(gamecomprequest);
-			
+			PlayerStatusinGameRequest playerstatusrequest = new PlayerStatusinGameRequest();
+			playerstatusrequest.setGameInstanceID(request.getGameInstanceID());
+			playerstatusrequest.setGameType(request.getGameType());
+			playerstatusrequest.setLobbyName(request.getLobbyName());
+			PlayerStatusinGameResponse playerstatusresponse = getPlayerStatusinGame(playerstatusrequest);
+			for(String nickname : playerstatusresponse.getPlayerstatusMap().keySet())
+			{
+				if(playerstatusresponse.getPlayerstatusMap().get(nickname).equals(Player.PLAYER_STATUS_ELIMINATED))
+				{
+					notifyPlayerEliminatation(playerstatusresponse);
+				}
+			}
+			System.out.println("Result from Finish Game Round " + result);
 			if(!result.equals("Game Over"))
 			{
 				NotificationEvent event = new NotificationEvent();
@@ -462,6 +480,7 @@ public class FacadeGamePlayController {
 				event.setNotificationType("GAMEOVER");
 				event.setNotificationObject(response);
 				notifier.sendNotificationFromBackend(event, response.getGameInstanceID());
+	
 			}
 		}
 	}
@@ -486,7 +505,7 @@ public class FacadeGamePlayController {
 		notifier.sendNotificationFromBackend(event, gameinstanceId);
 	}
 	
-	private void notifyPlayerEliminatation(PlayerShowStatusResponse response)
+	private void notifyPlayerEliminatation(PlayerStatusinGameResponse response)
 	{
 		NotificationEvent event = new NotificationEvent();
 		event.setNotificationSource("SERVER");
@@ -511,6 +530,22 @@ public class FacadeGamePlayController {
 		}
 		return result;
 		
+	}
+	
+	private PlayerStatusinGameResponse getPlayerStatusinGame(PlayerStatusinGameRequest request)
+	{
+		PlayerStatusinGameResponse response = null;
+		try
+		{
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETPLAYERSTATUS);
+			response = restTemplate.postForEntity(url, request, PlayerStatusinGameResponse.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }

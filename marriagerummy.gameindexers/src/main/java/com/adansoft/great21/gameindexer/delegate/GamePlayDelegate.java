@@ -27,6 +27,8 @@ import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
@@ -363,6 +365,26 @@ public class GamePlayDelegate {
 			Message<GetActivePlayersinGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<GetPlayersinGameResponse> reply =  (Message<GetPlayersinGameResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	};
+	
+	
+	public PlayerStatusinGameResponse getPlayerStatus(PlayerStatusinGameRequest request)
+	{
+		PlayerStatusinGameResponse result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<PlayerStatusinGameRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<PlayerStatusinGameResponse> reply =  (Message<PlayerStatusinGameResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

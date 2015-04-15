@@ -35,6 +35,7 @@ public class FacadeControllerURLs {
 	public final static String FINISHROUND  = "/CurrentGame/Round/Complete";
 	public final static String GETPOINTS  = "/CurrentGame/Points/Get";
 	public final static String GETINFOBLOCK  = "/CurrentGame/GamePlay/Info/Get";
+	public final static String GETPLAYERSTATUS  = "/CurrentGame/Player/Status/Get";
 	
 	/* URLS for DataAccess Services */
 	
@@ -51,5 +52,6 @@ public class FacadeControllerURLs {
 	public final static String USER_AUDIT = "/BasicUserDetails/Audit/create";
 	public final static String USER_PROFILE_GET = "/BasicUserDetails/ProfileInfo/get";
 	public final static String USER_PROFILE_UPDATE = "/BasicUserDetails/ProfileInfo/Update";
+	
 	
 }

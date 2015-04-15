@@ -9,18 +9,25 @@ public class ShowGameResult implements Serializable{
 	private String gameMode;
 	private float Money;
 	private int points;
+	private boolean gameOver;
+	private boolean eliminated;
 	
 	public ShowGameResult() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ShowGameResult(String gameMode, float money, int points) {
+	
+	public ShowGameResult(String gameMode, float money, int points,
+			boolean gameOver, boolean eliminated) {
 		super();
 		this.gameMode = gameMode;
 		Money = money;
 		this.points = points;
+		this.gameOver = gameOver;
+		this.eliminated = eliminated;
 	}
+
 
 	public String getGameMode() {
 		return gameMode;
@@ -44,6 +51,26 @@ public class ShowGameResult implements Serializable{
 
 	public void setPoints(int points) {
 		this.points = points;
+	}
+
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+
+	public boolean isEliminated() {
+		return eliminated;
+	}
+
+
+	public void setEliminated(boolean eliminated) {
+		this.eliminated = eliminated;
 	}
 	
 	

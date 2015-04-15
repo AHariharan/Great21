@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.gameindexer.delegate.GamePlayDelegate;
 import com.adansoft.great21.models.Card;
-
 import com.adansoft.great21.restschemas.AddCardToHandRequest;
-
 import com.adansoft.great21.restschemas.DeclareGameResult;
 import com.adansoft.great21.restschemas.DeclareGameUIRequest;
 import com.adansoft.great21.restschemas.DropCardFromHandRequest;
@@ -30,10 +28,11 @@ import com.adansoft.great21.restschemas.GetOpenCardRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
-
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
 import com.adansoft.great21.restschemas.ShowJokerRequest;
@@ -156,6 +155,12 @@ public class GamePlayController {
 		return delegate.getActivePlayersinGame(request);		
 	}
 	
+	
+	@RequestMapping( value = GameIndexerServiceURLs.GETPLAYERSTATUS, method = RequestMethod.POST)
+	public @ResponseBody PlayerStatusinGameResponse getPlayerStatus(@RequestBody PlayerStatusinGameRequest request)
+	{		
+		return delegate.getPlayerStatus(request);		
+	}
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

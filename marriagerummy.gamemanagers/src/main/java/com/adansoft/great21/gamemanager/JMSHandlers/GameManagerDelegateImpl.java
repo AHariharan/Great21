@@ -43,6 +43,8 @@ import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -533,5 +535,26 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 				+ request.getGameInstanceID());
 		return reply;
 	}
+	
+	@Override
+	public Message<PlayerStatusinGameResponse> handleMessage(
+			PlayerStatusinGameRequest request) {
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received PlayerStatusinGameRequest Info : "
+				+ request.getGameInstanceID());
+		Message<PlayerStatusinGameResponse> reply = null;
+		try {
+			PlayerStatusinGameResponse response = GamePlayHelper
+					.getPlayerStatus(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent GetActivePlayersinGameRequest Info : "
+				+ request.getGameInstanceID());
+		return reply;
+	}
+
 
 }

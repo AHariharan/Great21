@@ -33,6 +33,8 @@ import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -90,4 +92,7 @@ public interface GameManagerDelegate {
 	public Message<GetInfoBlockResponse> handleMessage(GetInfoBlockRequest request);
 	
 	public Message<GetPlayersinGameResponse> handleMessage(GetActivePlayersinGameRequest request);
+	
+	public Message<PlayerStatusinGameResponse> handleMessage(PlayerStatusinGameRequest request);
+	
 }

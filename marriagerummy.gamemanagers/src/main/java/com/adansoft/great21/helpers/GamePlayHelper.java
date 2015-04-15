@@ -33,6 +33,8 @@ import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
+import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
+import com.adansoft.great21.restschemas.PlayerStatusinGameResponse;
 import com.adansoft.great21.restschemas.ShowGameRequest;
 import com.adansoft.great21.restschemas.ShowGameResult;
 import com.adansoft.great21.restschemas.ShowGameUIRequest;
@@ -320,6 +322,23 @@ public class GamePlayHelper {
 		}
 		response.setGameInstanceID(request.getGameInstanceID());
 		response.setPlayerlist(activePlayerList);
+		return response;
+	}
+	
+	public static PlayerStatusinGameResponse getPlayerStatus(PlayerStatusinGameRequest request)
+	{
+		PlayerStatusinGameResponse response = new PlayerStatusinGameResponse();
+		response.setGameInstanceID(request.getGameInstanceID());
+		response.setGameType(request.getGameType());
+		response.setLobbyName(request.getLobbyName());
+		HashMap<String,String> playerstatusmap = new HashMap<String, String>();
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		for(Player player : game.getPlayers())
+		{
+			playerstatusmap.put(player.getNickName(), player.getPlayerStatus());
+		}
+		response.setPlayerstatusMap(playerstatusmap);
 		return response;
 	}
 }

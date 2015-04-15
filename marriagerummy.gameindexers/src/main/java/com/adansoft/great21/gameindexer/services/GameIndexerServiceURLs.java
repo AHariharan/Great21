@@ -34,6 +34,7 @@ public class GameIndexerServiceURLs {
 	public final static String FINISHROUND  = "/CurrentGame/Round/Complete";
 	public final static String GETPOINTS  = "/CurrentGame/Points/Get";
 	public final static String GETINFOBLOCK  = "/CurrentGame/GamePlay/Info/Get";
+	public final static String GETPLAYERSTATUS  = "/CurrentGame/Player/Status/Get";
 	
 	
 }
