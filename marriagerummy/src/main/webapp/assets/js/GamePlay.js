@@ -1225,6 +1225,7 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 							$('#droppedcard').css("display", "block");
 							$('#droppedcard').removeClass().addClass(
 									"card-dropped basecard " + classname);
+							$('#droppedcard').attr("data-cardinstanceid",cardInstanceID);
 							$('#pickedcard').removeClass().addClass(
 									"card-picked");
 							$('#pickedcard').css("top", "-115px");
@@ -1238,8 +1239,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 
 						var classname = draggedobject.attr("data-cardvalue");
 						$('#droppedcard').css("display", "block");
-						$('#droppedcard').removeClass().addClass(
-								"card-dropped basecard " + classname);
+						$('#droppedcard').removeClass().addClass("card-dropped basecard " + classname);
+						$('#droppedcard').attr("data-cardinstanceid",cardInstanceID);
 						var prefix = id.split("-")[0];
 						var startposition = parseInt(id.split("-")[1]);
 						var endposition = 0;
@@ -1500,7 +1501,8 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 					enableDroppable();
 					var formdata = {
 							           "cardInstanceID" : cardinstanceid,
-							           "cardValue" : classname
+							           "cardValue" : classname,
+							           "cardAltValue" : classname.replace("-","-alt-")
 					               };
 					var notificationdata = marriageRummy.notificationRequest
 					.dropOrOpenPickedupNotification("enablePickable", formdata);
