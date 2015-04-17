@@ -28,6 +28,8 @@ import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsResponse;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
@@ -556,5 +558,25 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		return reply;
 	}
 
+	
+	@Override
+	public Message<GetEliminationDetailsResponse> handleMessage(
+			GetEliminationDetailsRequest request) {
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received GetEliminationDetailsRequest Info : "
+				+ request.getGameInstanceID());
+		Message<GetEliminationDetailsResponse> reply = null;
+		try {
+			GetEliminationDetailsResponse response = GamePlayHelper
+					.getEliminationDetails(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent GetActivePlayersinGameRequest Info : "
+				+ request.getGameInstanceID());
+		return reply;
+	}
 
 }

@@ -362,14 +362,33 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	self.setLoadingMask = function(message)
 	{
 		$(".mask .loadingmask").html(message);
-		$(".mask").show();       
+		$("#LoadingMask").show();       
 	};
+	
 	
 	self.hideLoadingMask = function(message)
 	{
 		$(".mask .loadingmask").html("");
-		$(".mask").hide();       
+		$("#LoadingMask").hide();       
 	};
+	
+	self.setClosureMask = function(type)
+	{
+		if(type == "Eliminated")
+			{
+			$("#LoserClosureMask").show();     
+			}
+		else
+			{
+			
+			}
+	};
+	
+	self.hideClosureMask = function(message)
+	{	
+		$("#LoserClosureMask").hide();       
+	};
+	
 
 };
 

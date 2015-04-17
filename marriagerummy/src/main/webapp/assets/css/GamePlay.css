@@ -63,7 +63,7 @@
 	position: relative;
 	left: 229px;
 	top: -227px;
-/* 	background: url('../images/Cards/DiamondCards/3.png'); */
+	/* 	background: url('../images/Cards/DiamondCards/3.png'); */
 	background-size: 74px 118px;
 	background-repeat: no-repeat;
 	box-shadow: 0px 0px 10px 2px gray;
@@ -1429,4 +1429,30 @@
 	font-size: 13px;
 	color: rgb(194, 70, 70);
 	border-radius: 8px;
+}
+
+.closuremask {
+	margin: auto;
+	width: 450px;
+	height: 270px;
+	background: rgba(48, 48, 48, 0.9);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 20px;
+	text-align: center;
+	padding: 20px;
+	font-size: 20px;
+	color: white;
+	box-shadow: 0px 0px 4px 8px whitesmoke;
+}
+
+.sademotion {
+	background: url('../images/Emotions/LoseEmotion.png');
+	width: 96px;
+	background-size: 96px 96px;
+	height: 96px;
+	float: left;
 }

@@ -22,6 +22,8 @@ import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsResponse;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -44,6 +46,7 @@ import com.adansoft.great21.restschemas.SortCardinHandRequest;
 import com.adansoft.great21.uischemas.GetSingleCardResponse;
 import com.adansoft.great21.uischemas.UICard;
 import com.adansoft.great21.ulitity.CardUtility;
+import com.adansoft.great21.ulitity.GameUtility;
 
 public class GamePlayHelper {
 	
@@ -339,6 +342,21 @@ public class GamePlayHelper {
 			playerstatusmap.put(player.getNickName(), player.getPlayerStatus());
 		}
 		response.setPlayerstatusMap(playerstatusmap);
+		return response;
+	}
+	
+	
+	public static GetEliminationDetailsResponse getEliminationDetails(GetEliminationDetailsRequest request)
+	{
+		GetEliminationDetailsResponse response = new GetEliminationDetailsResponse();
+		response.setGameInstanceID(request.getGameInstanceID());
+		response.setNickName(request.getNickName());
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		Player player = UtilityHelper.getPlayerinGame(game, request.getNickName());
+		response.setPlayerPoints(GameUtility.getTotalPointsforPlayerinGame(player.getNickName(), game));
+		response.setMoney(game.getBuyinValue());
+		response.setGameThreshold(game.getMaxPoints());
 		return response;
 	}
 }

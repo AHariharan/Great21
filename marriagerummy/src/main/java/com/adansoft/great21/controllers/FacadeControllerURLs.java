@@ -36,6 +36,7 @@ public class FacadeControllerURLs {
 	public final static String GETPOINTS  = "/CurrentGame/Points/Get";
 	public final static String GETINFOBLOCK  = "/CurrentGame/GamePlay/Info/Get";
 	public final static String GETPLAYERSTATUS  = "/CurrentGame/Player/Status/Get";
+	public final static String GETELIMINATIONDETAILS = "/CurrentGame/Player/EliminationDetails/Get";
 	
 	/* URLS for DataAccess Services */
 	

@@ -295,9 +295,20 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function() {
 			if (data.notificationObject.playerstatusMap[listofnick[i]] == "ELIMINATED") {
 				if (listofnick[i] == marriageRummy.loggedinUser) {
 					marriageRummy.generalutility
-							.setLoadingMask("You have been eliminated from game");
+							.setClosureMask("Eliminated");
 					marriageRummy.notificationManager.shutdown();
+					$('#OtherWaitArea').empty();
+					var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+					gameObj.getEliminationDetails();
+					
 				}
+				else
+					{
+					marriageRummy.generalutility
+					.showMediumAlert("Elimination",
+							listofnick[i]+" has been eliminated from game");
+					}
+				
 			}
 		}
 

@@ -20,6 +20,8 @@ import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsResponse;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -161,6 +163,14 @@ public class GamePlayController {
 	{		
 		return delegate.getPlayerStatus(request);		
 	}
+	
+	@RequestMapping( value = GameIndexerServiceURLs.GETELIMINATIONDETAILS, method = RequestMethod.POST)
+	public @ResponseBody GetEliminationDetailsResponse getEliminationStatus(@RequestBody GetEliminationDetailsRequest request)
+	{		
+		return delegate.getEliminationDetails(request);		
+	}
+	
+	
 	
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)

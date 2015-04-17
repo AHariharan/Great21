@@ -18,6 +18,8 @@ import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsResponse;
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
 import com.adansoft.great21.restschemas.GetGameListinLobbyResponse;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
@@ -94,5 +96,7 @@ public interface GameManagerDelegate {
 	public Message<GetPlayersinGameResponse> handleMessage(GetActivePlayersinGameRequest request);
 	
 	public Message<PlayerStatusinGameResponse> handleMessage(PlayerStatusinGameRequest request);
+	
+	public Message<GetEliminationDetailsResponse> handleMessage(GetEliminationDetailsRequest request);
 	
 }

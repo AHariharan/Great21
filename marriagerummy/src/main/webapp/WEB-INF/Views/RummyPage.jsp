@@ -73,7 +73,8 @@
 </head>
 <body style="padding-top: 52px;">
 
-    <%@include file="../includeTemplates/PlayPage/WinnerMask.jsp" %>
+    <%@include file="../includeTemplates/PlayPage/LoadingMask.jsp" %>
+    <%@include file="../includeTemplates/PlayPage/GameClosure.jsp" %>
    
 	<!--  Required Modals -->
 

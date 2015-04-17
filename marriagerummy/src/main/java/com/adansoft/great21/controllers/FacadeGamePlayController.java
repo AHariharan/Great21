@@ -8,6 +8,8 @@ import java.net.URI;
 
 
 
+
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,8 @@ import com.adansoft.great21.restschemas.DropCardFromHandRequest;
 import com.adansoft.great21.restschemas.FinishGameRoundRequest;
 import com.adansoft.great21.restschemas.GetActivePlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetCardsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsRequest;
+import com.adansoft.great21.restschemas.GetEliminationDetailsResponse;
 import com.adansoft.great21.restschemas.GetInfoBlockRequest;
 import com.adansoft.great21.restschemas.GetInfoBlockResponse;
 import com.adansoft.great21.restschemas.GetJokerRequest;
@@ -429,6 +433,26 @@ public class FacadeGamePlayController {
 	}
 	
 	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETELIMINATIONDETAILS, method = RequestMethod.POST)
+	public @ResponseBody GetEliminationDetailsResponse getEliminationDetails(@RequestBody  GetEliminationDetailsRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		GetEliminationDetailsResponse result = null;		
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETELIMINATIONDETAILS);
+			result = restTemplate.postForEntity(url, request, GetEliminationDetailsResponse.class ).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;		
+	}
+	
+	
 	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request,ShowGameResult showGameresult)
 	{
 		boolean needtoIntimate = true;
@@ -539,5 +563,7 @@ public class FacadeGamePlayController {
 		}
 		return response;
 	}
+	
+	
 
 }

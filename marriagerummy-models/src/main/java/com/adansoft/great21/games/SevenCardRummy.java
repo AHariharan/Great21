@@ -476,6 +476,7 @@ public class SevenCardRummy implements Game,Serializable {
     				currentplayer.setPlayerStatus(Player.PLAYER_STATUS_ELIMINATED);
     				//playerlist.remove(currentplayer);
     				currentplayer.setCurrentCash(currentplayer.getCurrentCash() - this.getBuyinValue());
+    				this.getCurrentGameRound().getStatusMap().put(currentplayer.getNickName(), Player.PLAYER_STATUS_ELIMINATED);
     			}
     		}
     		

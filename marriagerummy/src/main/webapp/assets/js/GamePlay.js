@@ -224,6 +224,29 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	
+	self.getEliminationDetails = function()
+	{
+		var url = marriageRummy.urls.getEliminationDetails;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getEliminationDetailsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getEliminationDetailsFailure;
+		var formdata = marriageRummy.request.getGamePlayRequest()
+				.getEliminationDetailsRequest(stateobject.lobbyName,
+						stateobject.gameInstanceID, stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	self.renderEliminationDetails =  function(data)
+	{
+		
+	};
+	
+	
 
 	self.getWhoseTurn = function() {
 		var url = marriageRummy.urls.getWhoseTurn;

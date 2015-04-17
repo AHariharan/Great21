@@ -1,4 +1,4 @@
-<div class="mask" style="display: none">
+<div id="LoadingMask" class="mask" style="display: none">
 	<div class="loadingmask"></div>
 	<div id="OtherWaitArea" style="display: flex;">
 		<!-- <div class="waitforOtherPlayers">
