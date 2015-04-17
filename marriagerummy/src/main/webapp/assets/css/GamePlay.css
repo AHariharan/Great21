@@ -1456,3 +1456,29 @@
 	height: 96px;
 	float: left;
 }
+
+.happyemotion {
+	background: url('../images/Emotions/WinEmotion.png');
+	width: 96px;
+	background-size: 96px 96px;
+	height: 96px;
+	float: left;
+}
+
+.closurewinmask {
+	margin: auto;
+	width: 471px;
+	height: 270px;
+	background: rgba(97, 32, 103, 0.88);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 20px;
+	text-align: center;
+	padding: 20px;
+	font-size: 20px;
+	color: white;
+	box-shadow: 0px 0px 5px 8px whitesmoke;
+}

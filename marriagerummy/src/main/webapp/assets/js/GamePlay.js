@@ -243,7 +243,9 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 	
 	self.renderEliminationDetails =  function(data)
 	{
-		
+		$("#eliGameMoney").html('<i class="fa fa-inr"></i>  &nbsp;' + data.money);
+		$("#eliGameMaxPoints").html(data.gameThreshold);
+		$('#eliGamePlayerPoints').html(data.playerPoints);
 	};
 	
 	
