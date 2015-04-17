@@ -31,6 +31,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
@@ -170,6 +172,11 @@ public class GamePlayController {
 		return delegate.getEliminationDetails(request);		
 	}
 	
+	@RequestMapping( value = GameIndexerServiceURLs.GETWINNERDETAILS, method = RequestMethod.POST)
+	public @ResponseBody GetWinnerDetailsResponse getWinnerDetails(@RequestBody GetWinnerDetailsRequest request)
+	{		
+		return delegate.getWinnerDetails(request);		
+	}
 	
 	
 	@ExceptionHandler

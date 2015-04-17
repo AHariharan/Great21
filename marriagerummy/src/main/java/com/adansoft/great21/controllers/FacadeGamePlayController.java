@@ -10,6 +10,8 @@ import java.net.URI;
 
 
 
+
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
@@ -452,6 +456,25 @@ public class FacadeGamePlayController {
 		return result;		
 	}
 	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GETWINNERDETAILS, method = RequestMethod.POST)
+	public @ResponseBody GetWinnerDetailsResponse getEliminationDetails(@RequestBody  GetWinnerDetailsRequest request,@AuthenticationPrincipal Authentication authentication)	
+	{
+		String nickname = authentication.getName();
+		request.setNickName(nickname);
+		GetWinnerDetailsResponse result = null;		
+		try {
+			URI url = new URI(mapper.getIndexerURI() + "/"
+					+ FacadeControllerURLs.GAMEPLAY_BASE + "/"
+					+ FacadeControllerURLs.GETWINNERDETAILS);
+			result = restTemplate.postForEntity(url, request, GetWinnerDetailsResponse.class ).getBody();
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;		
+	}
 	
 	private synchronized void NotifyNewRoundStart(PlayerShowStatusResponse response,ShowGameUIRequest request,ShowGameResult showGameresult)
 	{

@@ -33,6 +33,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
@@ -359,4 +361,16 @@ public class GamePlayHelper {
 		response.setGameThreshold(game.getMaxPoints());
 		return response;
 	}
+	
+	public static GetWinnerDetailsResponse getWinnerDetails(GetWinnerDetailsRequest request)
+	{
+		GetWinnerDetailsResponse response = new GetWinnerDetailsResponse();
+		response.setGameInstanceID(request.getGameInstanceID());
+		response.setNickname(request.getNickName());
+		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
+		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		response.setPrizeMoney(game.getPrizeMoney());
+		return response;
+	}
+	
 }

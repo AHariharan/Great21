@@ -24,12 +24,8 @@
 		<span> Congratulation !!! You have won the game. </span>
 		<div style="clear: both; float: left;margin: auto;padding-left: 100px;">
 			<dl class="dl-horizontal">
-               <dt>Buy in money Gained </dt>
-               <dd id="WinGameMoney" ></dd>
-			   <dt>Game max Points</dt>
-               <dd id="WinGameMaxPoints" ></dd>
-			   <dt>Your Points</dt>
-               <dd id="WinGamePlayerPoints"></dd>
+               <dt>Money Gained</dt>
+               <dd id="WinGameMoney"></dd>			   
            </dl>
 			<div style="/* clear: both; */ /* float: left; */">
 				<button class="btn btn-default">Return to Game Lobby</button>

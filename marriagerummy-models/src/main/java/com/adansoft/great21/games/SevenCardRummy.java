@@ -48,6 +48,7 @@ public class SevenCardRummy implements Game,Serializable {
 	private GameContentHolder gameContentHolder;
 	private boolean includeJokerinDeck;
 	private int numofJokers;
+	private int prizemoney;
 	
 	
 	public SevenCardRummy()
@@ -65,7 +66,10 @@ public class SevenCardRummy implements Game,Serializable {
 		this.gameName = gameName;
 		initAvailablePosition();
 		this.gameContentHolder = new GameContentHolder(this.gameInstanceId,this.gameType,getCurrentGameMode());
+		
 	}
+	
+	
 	
 	private String getCurrentGameMode()
 	{
@@ -106,6 +110,7 @@ public class SevenCardRummy implements Game,Serializable {
 		this.gameContentHolder = new GameContentHolder(this.gameInstanceId,this.gameType,getCurrentGameMode());
 		this.includeJokerinDeck = jokerAvailable;
 		this.numofJokers = numofJokers;
+		
 	}
 
 	
@@ -119,6 +124,12 @@ public class SevenCardRummy implements Game,Serializable {
 		}
 	}
 	
+	@Override
+	@JsonIgnore
+    public int getPrizeMoney()
+	{
+	    return prizemoney;	
+	}
 	
 	
 	public String getGameInstanceId() {
@@ -422,6 +433,7 @@ public class SevenCardRummy implements Game,Serializable {
 	
 	public synchronized void startGame()
 	{
+		prizemoney = buyinValue * getPlayers().size();
 		if(status.equals(Game.GAME_STATUS_INPROGRESS))
 		{
 			System.out.println("Launch Game Request suspended for Game instance ID :" + gameInstanceId);

@@ -42,6 +42,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
@@ -575,6 +577,26 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 		}
 		System.out.println(Calendar.getInstance().getTime()
 				+ " Reply Sent GetActivePlayersinGameRequest Info : "
+				+ request.getGameInstanceID());
+		return reply;
+	}
+	
+	@Override
+	public Message<GetWinnerDetailsResponse> handleMessage(
+			GetWinnerDetailsRequest request) {
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Received GetWinnerDetailsRequest Info : "
+				+ request.getGameInstanceID());
+		Message<GetWinnerDetailsResponse> reply = null;
+		try {
+			GetWinnerDetailsResponse response = GamePlayHelper
+					.getWinnerDetails(request);
+			reply = MessageBuilder.withPayload(response).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println(Calendar.getInstance().getTime()
+				+ " Reply Sent GetWinnerDetailsRequest Info : "
 				+ request.getGameInstanceID());
 		return reply;
 	}

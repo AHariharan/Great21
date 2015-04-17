@@ -248,7 +248,25 @@ MarriageRummy.Utilities.GameUtilities.GameStarter = function(GameObject) {
 		$('#eliGamePlayerPoints').html(data.playerPoints);
 	};
 	
+	self.getWinnerDetails = function()
+	{
+		var url = marriageRummy.urls.getWinnerDetails;
+		var onSuccessCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getWinnerDetailsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getGamePlayCallback().getWinnerDetailsFailure;
+		var formdata = marriageRummy.request.getGamePlayRequest()
+				.getWinnerDetailsRequest(stateobject.lobbyName,
+						stateobject.gameInstanceID, stateobject.gameType);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
 	
+	self.renderWinnerDetails =  function(data)
+	{
+		$("#WinGameMoney").html('<i class="fa fa-inr"></i>  &nbsp;' + data.prizeMoney);
+	};
 
 	self.getWhoseTurn = function() {
 		var url = marriageRummy.urls.getWhoseTurn;

@@ -282,8 +282,11 @@ MarriageRummy.Utilities.PushServerSubscriber.NotificationCallback = function() {
 
 	self.handleGameOverNotification = function(data) {
 		console.log("Handle Game Over Notification : " + JSON.stringify(data));
-		marriageRummy.generalutility.setLoadingMask("Congrats You have won the game.");
 		$('#OtherWaitArea').empty();
+		marriageRummy.generalutility.setClosureMask("Winner");
+		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+		gameObj.getWinnerDetails();
+		marriageRummy.notificationManager.shutdown();
 	};
 
 	self.handlePlayerEliminatedNotification = function(data) {

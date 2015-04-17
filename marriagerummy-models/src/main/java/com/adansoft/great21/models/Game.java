@@ -97,4 +97,6 @@ public interface Game {
 	public int getCurrentRoundNum();
 	
 	public String getRummyType();
+	
+	public int getPrizeMoney();
 }

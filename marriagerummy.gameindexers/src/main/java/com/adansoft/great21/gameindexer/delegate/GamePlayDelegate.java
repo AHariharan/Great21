@@ -27,6 +27,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsRequest;
 import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
@@ -407,6 +409,25 @@ public class GamePlayDelegate {
 			Message<GetEliminationDetailsRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
 			@SuppressWarnings("unchecked")
 			Message<GetEliminationDetailsResponse> reply =  (Message<GetEliminationDetailsResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
+			result = reply.getPayload();
+			
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	};
+	
+	public GetWinnerDetailsResponse getWinnerDetails(GetWinnerDetailsRequest request)
+	{
+		GetWinnerDetailsResponse result = null;
+		try
+		{
+			String gameinstanceid = request.getGameInstanceID();
+			String destination = cacheserverinstance.lookupGameInstanceID(gameinstanceid);
+			Message<GetWinnerDetailsRequest> requestjmsmessage = MessageBuilder.withPayload(request).build();
+			@SuppressWarnings("unchecked")
+			Message<GetWinnerDetailsResponse> reply =  (Message<GetWinnerDetailsResponse>) messageTemplate.sendAndReceive(destination, requestjmsmessage);
 			result = reply.getPayload();
 			
 		}catch(Exception e)

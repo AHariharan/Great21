@@ -32,6 +32,8 @@ import com.adansoft.great21.restschemas.GetPlayerPointsResponse;
 import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
+import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
+import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
@@ -98,5 +100,7 @@ public interface GameManagerDelegate {
 	public Message<PlayerStatusinGameResponse> handleMessage(PlayerStatusinGameRequest request);
 	
 	public Message<GetEliminationDetailsResponse> handleMessage(GetEliminationDetailsRequest request);
+	
+	public Message<GetWinnerDetailsResponse> handleMessage(GetWinnerDetailsRequest request);
 	
 }

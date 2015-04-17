@@ -69,6 +69,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getPlayerPoints = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Points/Get";
 	self.getInfoBlock = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/GamePlay/Info/Get";
 	self.getEliminationDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/EliminationDetails/Get";
+	self.getWinnerDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/WinnerDetails/Get";
 
 };
 
@@ -226,6 +227,16 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayRequestPreparer = functio
 	var self = this;
 
 	self.getEliminationDetailsRequest = function(lobbyType, gameInstanceID, gameType) {
+		var formdata = {
+			"nickname" : "Auto",
+			"gameInstanceID" : gameInstanceID,
+			"lobbyName" : lobbyType,
+			"gameType" : gameType,
+		};
+		return formdata;
+	};
+	
+	self.getWinnerDetailsRequest = function(lobbyType, gameInstanceID, gameType) {
 		var formdata = {
 			"nickname" : "Auto",
 			"gameInstanceID" : gameInstanceID,
@@ -582,6 +593,16 @@ MarriageRummy.Utilities.CommunicationUtilities.GamePlayCallback = function() {
 	
 	self.getEliminationDetailsFailure = function(data) {
 		console.log("getEliminationDetailsFailure : " + JSON.stringify(data));
+	};
+	
+	self.getWinnerDetailsSuccess = function(data, textstatus, Jhxr, requestObj) {
+		console.log("getWinnerDetailsSuccess : " + JSON.stringify(data));
+		var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
+		gameObj.renderWinnerDetails(data);
+	};
+	
+	self.getWinnerDetailsFailure = function(data) {
+		console.log("getWinnerDetailsFailure : " + JSON.stringify(data));
 	};
 
 };

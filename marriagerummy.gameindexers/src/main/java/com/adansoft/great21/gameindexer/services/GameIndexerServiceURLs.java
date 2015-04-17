@@ -36,6 +36,7 @@ public class GameIndexerServiceURLs {
 	public final static String GETINFOBLOCK  = "/CurrentGame/GamePlay/Info/Get";
 	public final static String GETPLAYERSTATUS  = "/CurrentGame/Player/Status/Get";
 	public final static String GETELIMINATIONDETAILS = "/CurrentGame/Player/EliminationDetails/Get";
+	public final static String GETWINNERDETAILS = "/CurrentGame/Player/WinnerDetails/Get";
 	
 	
 }

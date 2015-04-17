@@ -376,11 +376,11 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
 	{
 		if(type == "Eliminated")
 			{
-			$("#LoserClosureMask").show();     
+			   $("#LoserClosureMask").show();     
 			}
 		else
 			{
-			
+			   $('#WinnerClosureMask').show();
 			}
 	};
 	
