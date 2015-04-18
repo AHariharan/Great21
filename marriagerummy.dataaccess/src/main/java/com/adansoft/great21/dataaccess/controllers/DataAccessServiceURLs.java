@@ -18,4 +18,7 @@ public class DataAccessServiceURLs {
 	public final static String CREATED_GAME = "/CreateGame";	
 	public final static String LAUNCH_GAME = "/Launch";
 	public final static String DELETE_GAME = "/Delete";
+	public final static String CREATE_GAME_ROUND = "/CreateRound";
+	public final static String FINISH_GAME_ROUND = "/FinishRound";
+	public final static String UPDATE_PLAYER_STATUS = "/PlayerCashPoints/persist";
 }

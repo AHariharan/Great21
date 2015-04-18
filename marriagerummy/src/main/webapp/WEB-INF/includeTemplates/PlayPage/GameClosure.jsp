@@ -5,9 +5,9 @@
 			exceeded the threshold</span>
 		<div style="clear: both; float: left;margin: auto;padding-left: 100px;">
 			<dl class="dl-horizontal">
-               <dt>Buy in money lost </dt>
+               <dt>Money Lost </dt>
                <dd id="eliGameMoney" style="color: rgb(212, 25, 25);"></dd>
-			   <dt>Game max Points</dt>
+			   <dt>Max Points</dt>
                <dd id="eliGameMaxPoints" style="color: rgb(0, 138, 255);"></dd>
 			   <dt>Your Points</dt>
                <dd id="eliGamePlayerPoints" style="color: rgb(212, 25, 25);"></dd>

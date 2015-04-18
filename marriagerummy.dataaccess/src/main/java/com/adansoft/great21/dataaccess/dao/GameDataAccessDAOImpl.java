@@ -7,7 +7,13 @@ import org.hibernate.SessionFactory;
 
 import com.adansoft.great21.dataaccess.entities.Game;
 import com.adansoft.great21.dataaccess.entities.GamePlayers;
+import com.adansoft.great21.dataaccess.entities.GameRound;
+import com.adansoft.great21.dataaccess.entities.GameRoundId;
+import com.adansoft.great21.dataaccess.entities.GameRoundResults;
+import com.adansoft.great21.dataaccess.entities.GameRoundResultsId;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 
 public class GameDataAccessDAOImpl implements GameDataAccessDAO {
@@ -65,6 +71,10 @@ public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 	    	
 	    }
 	    
+	    GameRoundId gameRoundId = new GameRoundId("1", request.getGameInstanceID());
+	    GameRound gameRound = new GameRound(gameRoundId, "INPROGRESS", Calendar.getInstance().getTime(),null);
+	    sessionFactory.getCurrentSession().persist(gameRound);
+	    
 	}
 
 	@Override
@@ -83,6 +93,43 @@ public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 
 	}
 
+	
+	public void updatePlayerInfoforRound(PersistPointsorCashforRound request)
+	{
+		GameRoundResultsId id = new GameRoundResultsId(request.getGameRoundID(), request.getGameInstanceID(), request.getUserID());
+		GameRoundResults result = new GameRoundResults(id,request.getPoints(),request.getCash(),request.isWonGame());
+		sessionFactory.getCurrentSession().persist(result);
+	}
+	
+	
+	@Override
+	public void createNewRound(PersistNewRound request)
+	{
+		GameRoundId id = new GameRoundId(request.getGameRoundID(), request.getGameInstanceID());
+		GameRound round = new GameRound(id, "INPROGRESS", Calendar.getInstance().getTime(),null);
+		sessionFactory.getCurrentSession().persist(round);
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public void finishRound(PersistNewRound request)
+	{
+		GameRoundId id = new GameRoundId(request.getGameRoundID(), request.getGameInstanceID());
+		List<GameRound> list = sessionFactory.getCurrentSession().
+		createQuery("from GameRound where GameRoundId.gameRoundId = :gameRndID and GameRoundId.gameInstanceId = :gameInstID")
+		.setString("gameRndID", id.getGameRoundId())
+		.setString("gameInstID", id.getGameInstanceId()).list();
+		
+		if(list.size() > 0)
+		{
+			GameRound round = list.get(0);
+			round.setCompletedDate(Calendar.getInstance().getTime());
+			round.setStatus("COMPLETED");
+			sessionFactory.getCurrentSession().merge(round);
+		}
+	}
+	
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

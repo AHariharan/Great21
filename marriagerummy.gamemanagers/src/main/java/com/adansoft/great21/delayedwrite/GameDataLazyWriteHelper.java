@@ -83,6 +83,30 @@ public class GameDataLazyWriteHelper {
 	}
 	
 	
+	
+	public static String createNewGameRound(Object obj,GameManagertoDataAccessMapper mapper,RestTemplate template)
+	{
+		String result = "Failure";
+		try
+		{
+		if(obj instanceof Game)
+		{
+			UpdateGameStatus request = convertUpdateGameRequest((Game)obj);
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
+					+ DataAccessURLs.DELETE_GAME);
+			result = template.postForEntity(url, request, String.class).getBody();
+			System.out.println("Successfully wrote Game Content to DB");
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
 	private static PersistNewGame convertCreateGameRequest(Game request)
 	{
 		PersistNewGame response = new PersistNewGame();

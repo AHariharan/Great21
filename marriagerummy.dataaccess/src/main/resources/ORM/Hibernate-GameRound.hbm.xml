@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 10, 2015 11:09:38 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.home.GameRound" table="game_round" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.home.GameRoundId">
+            <key-property name="gameRoundId" type="string">
+                <column name="GAME_ROUND_ID" length="20" />
+            </key-property>
+            <key-property name="gameInstanceId" type="string">
+                <column name="GAME_INSTANCE_ID" length="65" />
+            </key-property>
+        </composite-id>
+        <property name="status" type="string">
+            <column name="STATUS" length="35" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CREATED_DATE" length="19" />
+        </property>
+        <property name="completedDate" type="timestamp">
+            <column name="COMPLETED_DATE" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
