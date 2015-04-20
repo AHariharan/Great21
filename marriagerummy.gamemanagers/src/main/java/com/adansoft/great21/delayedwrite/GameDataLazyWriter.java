@@ -13,6 +13,7 @@ public class GameDataLazyWriter implements Runnable {
 	public static final String OP_CREATEGAMEROUND = "Create Game Round";
 	public static final String OP_FINISHGAMEROUND = "Finish Game Round";
 	public static final String OP_PERSISTPLAYERPOINTS = "Persist Player Points";
+	public static final String OP_UPDATERUMMYSTAT = "Update Rummy Stat";
 
 	GameManagertoDataAccessMapper gametodataaccessmapper;
 	
@@ -54,6 +55,8 @@ public class GameDataLazyWriter implements Runnable {
 			GameDataLazyWriteHelper.finishGameRound(requestObj, gametodataaccessmapper, restTemplate);
 		if(operationName.equals(OP_PERSISTPLAYERPOINTS))
 			GameDataLazyWriteHelper.persistPlayerCashorPoints(requestObj, gametodataaccessmapper, restTemplate);
+		if(operationName.equals(OP_UPDATERUMMYSTAT))
+		   GameDataLazyWriteHelper.updateRummyStat(requestObj, gametodataaccessmapper, restTemplate);
 		
 	}
 

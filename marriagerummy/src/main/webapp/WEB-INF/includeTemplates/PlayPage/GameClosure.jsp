@@ -21,7 +21,7 @@
 <div id="WinnerClosureMask" class="mask" style="display: none">
 	<div class="closurewinmask">
 		<div class="happyemotion"></div>
-		<span> Congratulation !!! You have won the game. </span>
+		<span> Congratulations !!! You have won the game. </span>
 		<div style="clear: both; float: left;margin: auto;padding-left: 100px;">
 			<dl class="dl-horizontal">
                <dt>Money Gained</dt>

@@ -12,12 +12,15 @@ import com.adansoft.great21.dataaccess.entities.GameRound;
 import com.adansoft.great21.dataaccess.entities.GameRoundId;
 import com.adansoft.great21.dataaccess.entities.GameRoundResults;
 import com.adansoft.great21.dataaccess.entities.GameRoundResultsId;
+import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateRummyStat;
 
 public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 
@@ -142,6 +145,20 @@ public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 		round.setStatus("COMPLETED");
 		sessionFactory.getCurrentSession().merge(round);
 
+	}
+	
+	
+	public void updateRummyStat(UpdatePlayerRummyStat request)
+	{
+		for(String nickname : request.getPlayerlist().keySet())
+		{
+			UpdateRummyStat stat = request.getPlayerlist().get(nickname);
+			long userid = authdao.findUserbyNickName(nickname).getId().getUserId();
+			stat.setUserId(userid);
+			RummyStats existingstat = (RummyStats)sessionFactory.getCurrentSession().get(RummyStats.class,userid);
+			existingstat.setCash(existingstat.getCash()+stat.getCash());
+			sessionFactory.getCurrentSession().merge(existingstat);			
+		}
 	}
 
 	public SessionFactory getSessionFactory() {

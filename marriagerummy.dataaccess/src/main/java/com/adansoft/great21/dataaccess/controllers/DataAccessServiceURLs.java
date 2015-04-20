@@ -21,4 +21,5 @@ public class DataAccessServiceURLs {
 	public final static String CREATE_GAME_ROUND = "/CreateRound";
 	public final static String FINISH_GAME_ROUND = "/FinishRound";
 	public final static String UPDATE_PLAYER_STATUS = "/PlayerCashPoints/persist";
+	public final static String UPDATE_PLAYER_RUMMYSTAT = "/Player/RummyStat/Update";
 }

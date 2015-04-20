@@ -13,6 +13,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
@@ -112,6 +113,19 @@ public class DelayedWriteController {
 		return "Success";
 	}
 	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.UPDATE_PLAYER_RUMMYSTAT, method = RequestMethod.POST)
+	public @ResponseBody String persistPlayerCashorPoints(@RequestBody UpdatePlayerRummyStat request)
+	{
+		try
+		{ 
+			gamedataDAO.updateRummyStat(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
 	
 	
 }
