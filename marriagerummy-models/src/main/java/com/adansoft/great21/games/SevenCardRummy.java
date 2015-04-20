@@ -433,7 +433,7 @@ public class SevenCardRummy implements Game,Serializable {
 	
 	public synchronized void startGame()
 	{
-		prizemoney = buyinValue * getPlayers().size();
+		prizemoney = buyinValue * ( getPlayers().size() - 1 );
 		if(status.equals(Game.GAME_STATUS_INPROGRESS))
 		{
 			System.out.println("Launch Game Request suspended for Game instance ID :" + gameInstanceId);

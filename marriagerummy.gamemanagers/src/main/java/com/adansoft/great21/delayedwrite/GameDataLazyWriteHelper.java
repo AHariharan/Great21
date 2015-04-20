@@ -5,7 +5,10 @@ import java.net.URI;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataccess.helpers.DataAccessURLs;
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.models.Game;
@@ -89,12 +92,12 @@ public class GameDataLazyWriteHelper {
 		String result = "Failure";
 		try
 		{
-		if(obj instanceof Game)
+		if(obj instanceof PersistNewRound)
 		{
-			UpdateGameStatus request = convertUpdateGameRequest((Game)obj);
+			PersistNewRound request = (PersistNewRound) obj;
 			URI url = new URI(mapper.getDataAccessURI() + "/"
 					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
-					+ DataAccessURLs.DELETE_GAME);
+					+ DataAccessURLs.CREATE_GAME_ROUND);
 			result = template.postForEntity(url, request, String.class).getBody();
 			System.out.println("Successfully wrote Game Content to DB");
 		}
@@ -104,6 +107,50 @@ public class GameDataLazyWriteHelper {
 		}
 		return result;
 	}
+	
+	public static String finishGameRound(Object obj,GameManagertoDataAccessMapper mapper,RestTemplate template)
+	{
+		String result = "Failure";
+		try
+		{
+		if(obj instanceof PersistNewRound)
+		{
+			PersistNewRound request = (PersistNewRound) obj;
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
+					+ DataAccessURLs.FINISH_GAME_ROUND);
+			result = template.postForEntity(url, request, String.class).getBody();
+			System.out.println("Successfully wrote Game Content to DB");
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	public static String persistPlayerCashorPoints(Object obj,GameManagertoDataAccessMapper mapper,RestTemplate template)
+	{
+		String result = "Failure";
+		try
+		{
+		if(obj instanceof UpdatePlayerStatusPoints)
+		{
+			UpdatePlayerStatusPoints request = (UpdatePlayerStatusPoints) obj;
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
+					+ DataAccessURLs.UPDATE_PLAYER_STATUS);
+			result = template.postForEntity(url, request, String.class).getBody();
+			System.out.println("Successfully wrote Game Content to DB");
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	
 	
 	

@@ -7,6 +7,14 @@ import java.util.ArrayList;
 
 import java.util.HashMap;
 
+import org.springframework.core.task.TaskExecutor;
+import org.springframework.web.client.RestTemplate;
+
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
+import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
+import com.adansoft.great21.delayedwrite.GameDataLazyWriter;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.models.Card;
@@ -35,6 +43,7 @@ import com.adansoft.great21.restschemas.GetPlayerTurnRequest;
 import com.adansoft.great21.restschemas.GetPlayersinGameResponse;
 import com.adansoft.great21.restschemas.GetWinnerDetailsRequest;
 import com.adansoft.great21.restschemas.GetWinnerDetailsResponse;
+import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusRequest;
 import com.adansoft.great21.restschemas.PlayerShowStatusResponse;
 import com.adansoft.great21.restschemas.PlayerStatusinGameRequest;
@@ -197,7 +206,7 @@ public class GamePlayHelper {
 		return "Success";
 	}
 	
-	public static DeclareGameResult declareGame(DeclareGameUIRequest request)
+	public static DeclareGameResult declareGame(GameManagertoDataAccessMapper mapper,RestTemplate template,TaskExecutor executor,DeclareGameUIRequest request)
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
@@ -212,6 +221,10 @@ public class GamePlayHelper {
 		if(result.isValid())
 		{
 			result.setJoker(jokerUICard);
+			PersistNewRound finishRound = new PersistNewRound();
+			finishRound.setGameInstanceID(game.getGameInstanceId());
+			finishRound.setGameRoundID(game.getCurrentRoundNum()+"");
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_FINISHGAMEROUND, finishRound , mapper,template));
 			if(game.isGameCardMoneyBased())
 			{
 				game.getCurrentGameRound().deductCashFromPlayer(player.getNickName(),0.0F,GameRound.PLAYER_STATUS_DECLARED);
@@ -219,6 +232,7 @@ public class GamePlayHelper {
 			if(game.isGamePointsBased())
 			{
 				game.getCurrentGameRound().addPointsToPlayer(player.getNickName(),0,GameRound.PLAYER_STATUS_DECLARED);
+				
 			}
 		}
 		return result;
@@ -274,15 +288,26 @@ public class GamePlayHelper {
 	}
 
 	
-	public static String finishRound(FinishGameRoundRequest request)
+	public static String finishRound(GameManagertoDataAccessMapper mapper,RestTemplate template,TaskExecutor executor,FinishGameRoundRequest request)
 	{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
+		int currentround = game.getCurrentRoundNum();
 		boolean gameOver = game.completeRound();
 		if(!gameOver)
-		     return "Success";
+		{
+			UpdatePlayerStatusPoints points = createUpdatePlayerPoints(game,currentround);		    
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_PERSISTPLAYERPOINTS, points , mapper,template)); 
+			PersistNewRound newround = new PersistNewRound(game.getGameInstanceId(),game.getCurrentRoundNum()+"");
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_CREATEGAMEROUND, newround , mapper,template));
+		    return "Success";
+		}
 		else
+		{
+			UpdatePlayerStatusPoints points = createUpdatePlayerPoints(game,currentround);	
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_PERSISTPLAYERPOINTS, points , mapper,template)); 
 			return "Game Over";
+		}
 	}
 	
 	public static GetPlayerPointsResponse getPointsTable(GetPlayerPointsRequest request)
@@ -373,4 +398,35 @@ public class GamePlayHelper {
 		return response;
 	}
 	
+	
+	private static UpdatePlayerStatusPoints createUpdatePlayerPoints(Game game,int roundnum)
+	{
+		  UpdatePlayerStatusPoints points = new UpdatePlayerStatusPoints();
+		  points.setGameInstanceID(game.getGameInstanceId());
+		  points.setGameRoundID("Round : "+roundnum);
+		  HashMap<String, PersistPointsorCashforRound> pointsMap = new HashMap<String, PersistPointsorCashforRound>();
+		  for(String key : game.getGameContent().getPlayerPointsMap().keySet())
+		  {
+			  if(key.equals("Round : "+roundnum))
+			  {
+				  
+				  for(String nickname : game.getGameContent().getPlayerPointsMap().get(key).keySet())
+				  {
+					  PersistPointsorCashforRound playerinfo = new PersistPointsorCashforRound();
+					  playerinfo.setNickname(nickname);
+					  System.out.println("Nickname : " + nickname + " {Points} : " + game.getGameContent().getPlayerPointsMap().get(key).get(nickname));
+					  playerinfo.setPoints(game.getGameContent().getPlayerPointsMap().get(key).get(nickname));
+					  if(game.getGameContent().getPlayerPointsMap().get(key).get(nickname) == 0)
+					         playerinfo.setWonGame(true);
+					  else
+						    playerinfo.setWonGame(false);
+					  
+					  pointsMap.put(nickname, playerinfo);
+				  }
+			  }
+		  }
+		  
+		  points.setPlayerList(pointsMap);
+		  return points;
+	}
 }

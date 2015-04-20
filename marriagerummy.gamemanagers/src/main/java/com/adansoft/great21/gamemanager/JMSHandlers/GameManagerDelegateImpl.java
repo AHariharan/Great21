@@ -391,7 +391,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 				+ request.getGameInstanceID());
 		Message<DeclareGameResult> reply = null;
 		try {
-			DeclareGameResult response = GamePlayHelper.declareGame(request);
+			DeclareGameResult response = GamePlayHelper.declareGame(gametodataaccessmapper,restTemplate,taskExecutor,request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -471,7 +471,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 				+ request.getGameInstanceID());
 		Message<String> reply = null;
 		try {
-			String response = GamePlayHelper.finishRound(request);
+			String response = GamePlayHelper.finishRound(gametodataaccessmapper,restTemplate,taskExecutor,request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();

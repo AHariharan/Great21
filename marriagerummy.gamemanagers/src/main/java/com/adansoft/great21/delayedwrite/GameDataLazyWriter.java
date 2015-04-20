@@ -10,7 +10,9 @@ public class GameDataLazyWriter implements Runnable {
 	public static final String OP_CREATEGAME = "Create Game";
 	public static final String OP_DELETEGAME = "Delete Game";
 	public static final String OP_LAUNCHGAME = "Launch Game";
-	
+	public static final String OP_CREATEGAMEROUND = "Create Game Round";
+	public static final String OP_FINISHGAMEROUND = "Finish Game Round";
+	public static final String OP_PERSISTPLAYERPOINTS = "Persist Player Points";
 
 	GameManagertoDataAccessMapper gametodataaccessmapper;
 	
@@ -46,6 +48,13 @@ public class GameDataLazyWriter implements Runnable {
 			GameDataLazyWriteHelper.launchGame(requestObj, gametodataaccessmapper, restTemplate);
 		if(operationName.equals(OP_DELETEGAME))
 			GameDataLazyWriteHelper.deleteGame(requestObj, gametodataaccessmapper, restTemplate);
+		if(operationName.equals(OP_CREATEGAMEROUND))
+			GameDataLazyWriteHelper.createNewGameRound(requestObj, gametodataaccessmapper, restTemplate);
+		if(operationName.equals(OP_FINISHGAMEROUND))
+			GameDataLazyWriteHelper.finishGameRound(requestObj, gametodataaccessmapper, restTemplate);
+		if(operationName.equals(OP_PERSISTPLAYERPOINTS))
+			GameDataLazyWriteHelper.persistPlayerCashorPoints(requestObj, gametodataaccessmapper, restTemplate);
+		
 	}
 
 }

@@ -13,7 +13,7 @@
                <dd id="eliGamePlayerPoints" style="color: rgb(212, 25, 25);"></dd>
            </dl>
 			<div style="/* clear: both; */ /* float: left; */">
-				<button class="btn btn-default">Return to Game Lobby</button>
+				<input type="button" value="Return to Game Lobby" class="btn btn-default" onclick="window.location.reload()">
 			</div>
 		</div>
 	</div>
@@ -28,7 +28,7 @@
                <dd id="WinGameMoney"></dd>			   
            </dl>
 			<div style="/* clear: both; */ /* float: left; */">
-				<button class="btn btn-default">Return to Game Lobby</button>
+				<input type="button" value="Return to Game Lobby" class="btn btn-default" onclick="window.location.reload()">
 			</div>
 		</div>
 	</div>

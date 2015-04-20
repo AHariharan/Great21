@@ -5,6 +5,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 
 
 public interface GameDataAccessDAO {
@@ -15,7 +16,7 @@ public interface GameDataAccessDAO {
 	
 	public void cancelGame(UpdateGameStatus request);
 	
-	public void updatePlayerInfoforRound(PersistPointsorCashforRound request);
+	public void updatePlayerInfoforRound(UpdatePlayerStatusPoints request);
 	
 	public void createNewRound(PersistNewRound request);
 	

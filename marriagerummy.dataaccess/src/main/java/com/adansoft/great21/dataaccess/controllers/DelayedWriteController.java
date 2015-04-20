@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.GameDataAccessDAOImpl;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
+import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 
@@ -65,6 +68,50 @@ public class DelayedWriteController {
 		}
 		return "Success";
 	}
+	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.CREATE_GAME_ROUND, method = RequestMethod.POST)
+	public @ResponseBody String createGameRound(@RequestBody PersistNewRound request)
+	{
+		try
+		{ 
+			gamedataDAO.createNewRound(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.FINISH_GAME_ROUND, method = RequestMethod.POST)
+	public @ResponseBody String finishGameRound(@RequestBody PersistNewRound request)
+	{
+		try
+		{ 
+			gamedataDAO.finishRound(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.UPDATE_PLAYER_STATUS, method = RequestMethod.POST)
+	public @ResponseBody String persistPlayerCashorPoints(@RequestBody UpdatePlayerStatusPoints request)
+	{
+		try
+		{ 
+			gamedataDAO.updatePlayerInfoforRound(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
 	
 	
 }
