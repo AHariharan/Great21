@@ -22,6 +22,7 @@ public interface Player extends Serializable {
 	public static final String PLAYER_STATUS_ELIMINATED = "ELIMINATED";
 	public static final String PLAYER_STATUS_INGAMEROUND = "INGAMEROUND";
 	public static final String PLAYER_STATUS_INGAME = "INGAME";
+	public static final String PLAYER_STATUS_WINGAME = "WINNER";
 	
 	public static final String PLAYER_ROLE_HOST = "HOST";
 	public static final String PLAYER_ROLE_GUEST = "GUEST";

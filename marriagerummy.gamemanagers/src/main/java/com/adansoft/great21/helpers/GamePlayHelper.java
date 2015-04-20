@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateRummyStat;
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.delayedwrite.GameDataLazyWriter;
 import com.adansoft.great21.games.GameLobby;
@@ -248,7 +249,7 @@ public class GamePlayHelper {
 		return result;
 	}
 	
-	public static ShowGameResult showGame(ShowGameUIRequest request)
+	public static ShowGameResult showGame(GameManagertoDataAccessMapper mapper,RestTemplate template,TaskExecutor executor,ShowGameUIRequest request)
 	{
 		ShowGameResult result = null;
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
@@ -270,7 +271,15 @@ public class GamePlayHelper {
 		{
 			result = CardUtility.showCards(gamerequest.getMeldlist(), Game.GAME_MODE_POINTS, game.getPerCardMoneyValue(), jokerCard, 80);
 			game.getCurrentGameRound().addPointsToPlayer(player.getNickName(), result.getPoints(),GameRound.PLAYER_STATUS_SHOWNCARDS);
+			if(player.getPlayerStatus().equals(Player.PLAYER_STATUS_ELIMINATED))
+			{
+				HashMap<String,UpdateRummyStat> statinfo = new HashMap<String, UpdateRummyStat>();
+				UpdateRummyStat info = new UpdateRummyStat(0, -1 * game.getBuyinValue(), null, null);
+				statinfo.put(player.getNickName(), info);
+				executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_UPDATERUMMYSTAT, statinfo , mapper,template));
+			}
 		}
+		
 		return result;
 	}
 	
@@ -305,7 +314,17 @@ public class GamePlayHelper {
 		else
 		{
 			UpdatePlayerStatusPoints points = createUpdatePlayerPoints(game,currentround);	
-			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_PERSISTPLAYERPOINTS, points , mapper,template)); 
+			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_PERSISTPLAYERPOINTS, points , mapper,template));
+			for(Player player :  game.getPlayers())
+			{
+				if(player.getPlayerStatus().equals(Player.PLAYER_STATUS_WINGAME))
+				{
+					HashMap<String,UpdateRummyStat> statinfo = new HashMap<String, UpdateRummyStat>();
+					UpdateRummyStat info = new UpdateRummyStat(0, game.getPrizeMoney(), null, null);
+					statinfo.put(player.getNickName(), info);
+					executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_UPDATERUMMYSTAT, statinfo , mapper,template));
+				}
+			}
 			return "Game Over";
 		}
 	}

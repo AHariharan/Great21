@@ -497,6 +497,11 @@ public class SevenCardRummy implements Game,Serializable {
     			System.out.println("******************************************************");
     			System.out.println("************** GAME COMPLETED ************************");
     			System.out.println("******************************************************");
+    			for(Player player : getActivePlayersinGame())
+    			{
+    				player.setPlayerStatus(Player.PLAYER_STATUS_WINGAME);
+    				System.out.println("The Winner of the game is : - " + player.getNickName());
+    			}
     			gameOver = true;
     		}
     	}

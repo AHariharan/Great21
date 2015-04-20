@@ -65,6 +65,7 @@
 		loadpage.initRummyPage();
 		marriageRummy = marriageRummy || {};
 		marriageRummy.loggedinUser = "${loggedinuser}";
+		marriageRummy.Device = "${device}";
 	});
 	$(function () {
 		  $('[data-toggle="tooltip"]').tooltip()

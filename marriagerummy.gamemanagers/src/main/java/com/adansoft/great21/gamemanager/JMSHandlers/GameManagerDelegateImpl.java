@@ -430,7 +430,7 @@ public class GameManagerDelegateImpl implements GameManagerDelegate {
 				+ request.getNickName());
 		Message<ShowGameResult> reply = null;
 		try {
-			ShowGameResult response = GamePlayHelper.showGame(request);
+			ShowGameResult response = GamePlayHelper.showGame(gametodataaccessmapper,restTemplate,taskExecutor,request);
 			reply = MessageBuilder.withPayload(response).build();
 		} catch (Exception e) {
 			e.printStackTrace();

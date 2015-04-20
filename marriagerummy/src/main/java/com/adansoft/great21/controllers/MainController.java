@@ -72,6 +72,7 @@ public class MainController {
 		GetUserBasicDetailsResponse response = RestServiceHelper.getBasicDetails(mapper, restTemplate, request);
 		ModelAndView modelAndView = new ModelAndView("RummyPage");
 		modelAndView.addObject("loggedinuser", response.getNickname());
+		modelAndView.addObject("device", UtilityHelper.detectDevice(device));
 		modelAndView.addObject("BasicDetailResponse", response);
 		return modelAndView;
 	}
