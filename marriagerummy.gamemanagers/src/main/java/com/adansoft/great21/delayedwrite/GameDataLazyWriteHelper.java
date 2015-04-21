@@ -8,6 +8,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
+import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateRummyStat;
 import com.adansoft.great21.dataccess.helpers.DataAccessURLs;
@@ -157,9 +158,9 @@ public class GameDataLazyWriteHelper {
 		String result = "Failure";
 		try
 		{
-		if(obj instanceof UpdateRummyStat)
+		if(obj instanceof UpdatePlayerRummyStat)
 		{
-			UpdateRummyStat request = (UpdateRummyStat) obj;
+			UpdatePlayerRummyStat request = (UpdatePlayerRummyStat) obj;
 			URI url = new URI(mapper.getDataAccessURI() + "/"
 					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
 					+ DataAccessURLs.UPDATE_PLAYER_RUMMYSTAT);

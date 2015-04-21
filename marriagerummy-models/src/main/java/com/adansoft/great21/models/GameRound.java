@@ -596,6 +596,7 @@ public class GameRound implements Serializable{
     {
     	pointsMap.put(nickname, points);
     	showstatusMap.put(nickname, status);
+    
     }
     
     public void deductCashFromPlayer(String nickname,Float money,String status)
