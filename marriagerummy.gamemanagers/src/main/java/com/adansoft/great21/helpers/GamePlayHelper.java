@@ -279,7 +279,7 @@ public class GamePlayHelper {
 				}
 			}
 			
-			UpdatePlayerRummyStat stat = new UpdatePlayerRummyStat(statinfo);
+			UpdatePlayerRummyStat stat = new UpdatePlayerRummyStat(game.getGameInstanceId(),statinfo);
 			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_UPDATERUMMYSTAT, stat , mapper,template));
 		}
 		if(game.isGamePointsBased())
@@ -292,7 +292,7 @@ public class GamePlayHelper {
 				HashMap<String,UpdateRummyStat> statinfo = new HashMap<String, UpdateRummyStat>();
 				UpdateRummyStat info = new UpdateRummyStat(0, -1 * game.getBuyinValue(), null, null);
 				statinfo.put(player.getNickName(), info);
-				UpdatePlayerRummyStat stat = new UpdatePlayerRummyStat(statinfo);
+				UpdatePlayerRummyStat stat = new UpdatePlayerRummyStat(game.getGameInstanceId(),statinfo);
 				executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_UPDATERUMMYSTAT, stat , mapper,template));
 			}
 		}
@@ -339,7 +339,7 @@ public class GamePlayHelper {
 					HashMap<String,UpdateRummyStat> statinfo = new HashMap<String, UpdateRummyStat>();
 					UpdateRummyStat info = new UpdateRummyStat(0, game.getPrizeMoney(), null, null);
 					statinfo.put(player.getNickName(), info);
-					UpdatePlayerRummyStat stats =  new UpdatePlayerRummyStat(statinfo);
+					UpdatePlayerRummyStat stats =  new UpdatePlayerRummyStat(game.getGameInstanceId(),statinfo);
 					executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_UPDATERUMMYSTAT, stats , mapper,template));
 				}
 			}

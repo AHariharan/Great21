@@ -18,6 +18,13 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities ||
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
 	
+	
+	$('#notifier').unbind();
+	$('#notifier').on("click",function(){
+		$('#notificationContainer').slideDown();
+	});
+	
+	
 	$('#rummylogout').unbind();
 	$('#rummylogout').on("click",function(){
 		/*var url = "/marriagerummy/logout";

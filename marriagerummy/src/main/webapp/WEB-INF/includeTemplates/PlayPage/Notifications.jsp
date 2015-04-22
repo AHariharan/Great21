@@ -1,4 +1,4 @@
-<div id="notificationContainer"  style="display: block">
+<div id="notificationContainer"  style="display: none">
     <div class="notification">
 	     <h5><span style="font-weight: bold;">SnakeShit</span> has invited you to game </h5>
 		 <button class="btn btn-primary"> Join now </button>

@@ -46,6 +46,7 @@
 				<value>ORM/Hibernate-GamePlayers.hbm.xml</value>
 				<value>ORM/Hibernate-GameRound.hbm.xml</value>
 				<value>ORM/Hibernate-GameRoundResults.hbm.xml</value>
+				<value>ORM/Hibernate-RummyTransactions.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

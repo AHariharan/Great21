@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 21, 2015 5:06:21 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.entities.RummyTransactions" table="rummy_transactions" catalog="Rummy">
+        <id name="transactionIdn" type="java.lang.Long">
+            <column name="TRANSACTION_IDN" />
+            <generator class="identity" />
+        </id>
+        <property name="gameInstanceId" type="string">
+            <column name="GAME_INSTANCE_ID" length="65" />
+        </property>
+        <property name="userid" type="java.lang.Long">
+            <column name="USERID" />
+        </property>
+        <property name="cash" type="java.lang.Double">
+            <column name="CASH" precision="22" scale="0" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CREATED_DATE" length="19" />
+        </property>
+        <property name="transType" type="string">
+            <column name="TRANS_TYPE" length="15" />
+        </property>
+    </class>
+</hibernate-mapping>

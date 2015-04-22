@@ -29,7 +29,7 @@
 			</ul>
 			<div class="navbar-form navbar-right quicktools" role="form"
 				style="">
-				<i id="logout" class="fa fa-bell-o"></i><span id="rummylogout"> 
+				<i id="notifier" class="fa fa-bell-o"></i><span id="rummylogout"> 
 				    <form:form id="formlogout" action="/marriagerummy/logout" role="form" method="post" ctype="application/x-www-form-urlencoded" style="display:none"> 
 				          <button class="btn btn-success" type="submit"> Logout </button>
 				          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -42,3 +42,5 @@
 		<!--/.nav-collapse -->
 	</div>
 </nav>
+ <%@include file="./Notifications.jsp" %>
+   
