@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 10, 2015 11:09:38 AM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Apr 21, 2015 5:06:21 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.UserRoles" table="user_roles" catalog="Rummy">
         <id name="userId" type="long">

@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Mar 10, 2015 11:08:35 AM by Hibernate Tools 3.4.0.CR1
+// Generated Apr 21, 2015 5:06:09 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class Game implements java.io.Serializable {
 
-	private static final long serialVersionUID = 6199252076471945680L;
 	private String gameInstanceId;
 	private String gameLobby;
 	private String gameType;
