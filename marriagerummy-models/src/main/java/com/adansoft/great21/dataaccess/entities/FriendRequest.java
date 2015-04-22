@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Apr 21, 2015 5:06:09 PM by Hibernate Tools 3.4.0.CR1
+// Generated Apr 22, 2015 3:08:38 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -9,29 +9,34 @@ import java.util.Date;
  */
 public class FriendRequest implements java.io.Serializable {
 
-	private Long requestIdn;
+	private FriendRequestId id;
 	private Long requestorIdn;
-	private Long receiverIdn;
 	private Date requestedDate;
 	private String status;
+	private Date actionedDate;
 
 	public FriendRequest() {
 	}
 
-	public FriendRequest(Long requestorIdn, Long receiverIdn,
-			Date requestedDate, String status) {
+	public FriendRequest(FriendRequestId id) {
+		this.id = id;
+	}
+
+	public FriendRequest(FriendRequestId id, Long requestorIdn,
+			Date requestedDate, String status, Date actionedDate) {
+		this.id = id;
 		this.requestorIdn = requestorIdn;
-		this.receiverIdn = receiverIdn;
 		this.requestedDate = requestedDate;
 		this.status = status;
+		this.actionedDate = actionedDate;
 	}
 
-	public Long getRequestIdn() {
-		return this.requestIdn;
+	public FriendRequestId getId() {
+		return this.id;
 	}
 
-	public void setRequestIdn(Long requestIdn) {
-		this.requestIdn = requestIdn;
+	public void setId(FriendRequestId id) {
+		this.id = id;
 	}
 
 	public Long getRequestorIdn() {
@@ -40,14 +45,6 @@ public class FriendRequest implements java.io.Serializable {
 
 	public void setRequestorIdn(Long requestorIdn) {
 		this.requestorIdn = requestorIdn;
-	}
-
-	public Long getReceiverIdn() {
-		return this.receiverIdn;
-	}
-
-	public void setReceiverIdn(Long receiverIdn) {
-		this.receiverIdn = receiverIdn;
 	}
 
 	public Date getRequestedDate() {
@@ -64,6 +61,14 @@ public class FriendRequest implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Date getActionedDate() {
+		return this.actionedDate;
+	}
+
+	public void setActionedDate(Date actionedDate) {
+		this.actionedDate = actionedDate;
 	}
 
 }

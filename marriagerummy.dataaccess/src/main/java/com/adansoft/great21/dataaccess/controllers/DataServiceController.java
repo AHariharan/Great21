@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
@@ -50,6 +52,13 @@ public class DataServiceController {
 	public @ResponseBody String updateProfileInformation(@RequestBody UpdateProfileInformationRequest request)
 	{
 		return basicdatadao.updateProfileInformation(request);
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_NOTIFICATION_COUNT, method = RequestMethod.POST)
+	public @ResponseBody GetNotificationCountResponse getNotificationCount(@RequestBody GetNotificationCountRequest request)
+	{
+		return basicdatadao.getNotificationCount(request);
 	}
 
 }

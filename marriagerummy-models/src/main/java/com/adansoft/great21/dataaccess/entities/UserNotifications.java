@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Apr 21, 2015 5:06:09 PM by Hibernate Tools 3.4.0.CR1
+// Generated Apr 22, 2015 3:08:38 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -11,7 +11,6 @@ public class UserNotifications implements java.io.Serializable {
 
 	private UserNotificationsId id;
 	private String notificationType;
-	private Long notifierSrcKey;
 	private String notificationDesc;
 	private String notifiedBy;
 	private String notificationStatus;
@@ -25,11 +24,10 @@ public class UserNotifications implements java.io.Serializable {
 	}
 
 	public UserNotifications(UserNotificationsId id, String notificationType,
-			Long notifierSrcKey, String notificationDesc, String notifiedBy,
+			String notificationDesc, String notifiedBy,
 			String notificationStatus, Date createdDate) {
 		this.id = id;
 		this.notificationType = notificationType;
-		this.notifierSrcKey = notifierSrcKey;
 		this.notificationDesc = notificationDesc;
 		this.notifiedBy = notifiedBy;
 		this.notificationStatus = notificationStatus;
@@ -50,14 +48,6 @@ public class UserNotifications implements java.io.Serializable {
 
 	public void setNotificationType(String notificationType) {
 		this.notificationType = notificationType;
-	}
-
-	public Long getNotifierSrcKey() {
-		return this.notifierSrcKey;
-	}
-
-	public void setNotifierSrcKey(Long notifierSrcKey) {
-		this.notifierSrcKey = notifierSrcKey;
 	}
 
 	public String getNotificationDesc() {

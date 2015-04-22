@@ -47,6 +47,9 @@
 				<value>ORM/Hibernate-GameRound.hbm.xml</value>
 				<value>ORM/Hibernate-GameRoundResults.hbm.xml</value>
 				<value>ORM/Hibernate-RummyTransactions.hbm.xml</value>
+				<value>ORM/Hibernate-UserNotifications.hbm.xml</value>
+				<value>ORM/Hibernate-GamejoinRequest.hbm.xml</value>
+				<value>ORM/Hibernate-FriendRequest.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

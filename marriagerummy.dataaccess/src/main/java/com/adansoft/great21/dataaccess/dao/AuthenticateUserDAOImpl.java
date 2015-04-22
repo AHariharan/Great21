@@ -69,7 +69,19 @@ public class AuthenticateUserDAOImpl implements AuthenticateUserDAO {
 
 	}
 
-	
+	@SuppressWarnings("unchecked")
+	public UserAccounts findUserbyID(long userid) {
+		List<UserAccounts> list = sessionFactory.getCurrentSession().
+		createQuery("from UserAccounts where id.userId = :userid").
+		setParameter("userid", userid)
+		.list();
+		
+		if(list.size() > 0)
+		   return list.get(0);
+		else
+		   return null;
+	}
+
 	
 	
 	public SessionFactory getSessionFactory() {

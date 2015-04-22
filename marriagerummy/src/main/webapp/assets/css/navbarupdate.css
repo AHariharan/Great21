@@ -262,6 +262,11 @@ ul.nav-pills {
 	margin-top: 9px !important;
 }
 
+.navbar-form.navbar-right.quicktools i {
+  padding-right: 9px;
+}
+
+
 @media ( max-width : 767px) {
 	.navbar-custom .navbar-nav .open .dropdown-menu>li>a {
 		color: #fcfcfd;

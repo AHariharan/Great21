@@ -54,6 +54,10 @@ public class FacadeControllerURLs {
 	public final static String USER_AUDIT = "/BasicUserDetails/Audit/create";
 	public final static String USER_PROFILE_GET = "/BasicUserDetails/ProfileInfo/get";
 	public final static String USER_PROFILE_UPDATE = "/BasicUserDetails/ProfileInfo/Update";
+	public final static String GET_NOTIFICATION_COUNT = "/BasicUserDetails/GetNotificationCount";
+	public final static String GET_ACTIVE_ADDFRIEND = "/BasicUserDetails/GetActiveFriend";
+	public final static String GET_ACTIVE_GAMEINVITE = "/BasicUserDetails/GetActiveGameInvite";
+	public final static String GET_ACTIVE_NOTIFICATION = "/BasicUserDetails/GetActiveNotifications";
 	
 	
 }

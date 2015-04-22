@@ -73,7 +73,7 @@ public class WebSocketController {
 		template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
 	}
 	
-	
+		
 	@ExceptionHandler
 	public String handleBadRequest(Exception ex,HttpServletRequest request)
 	{
@@ -82,5 +82,10 @@ public class WebSocketController {
 		return ex.getMessage();
 	}
 	
+	public void sendNotificationtoSpecificUser(NotificationEvent event,String nickname)
+	{
+		System.out.println("Send Notification From Backend to specific user");
+		template.convertAndSend("/WebSockets/Notifications/User/"+nickname, event);
+	}
 
 }

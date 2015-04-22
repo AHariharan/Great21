@@ -13,6 +13,8 @@ public interface AuthenticateUserDAO {
 	
 	public UserAccounts findUserbyNickName(String nickname);
 	
+	public UserAccounts findUserbyID(long id);
+	
 	public SignupResponse signupRequest(SignupRequest request);
 
 	public String activateAccount(ActivateAccountRequest request);

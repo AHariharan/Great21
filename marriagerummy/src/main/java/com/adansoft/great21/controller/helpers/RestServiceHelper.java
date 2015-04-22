@@ -5,6 +5,14 @@ import java.net.URI;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controllers.FacadeControllerURLs;
+import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
@@ -83,5 +91,72 @@ public class RestServiceHelper {
 		}
 		return response;
 	}
+	
+	
+	public static GetNotificationCountResponse getNotificationCount(FacadetoDataAccessMapper mapper,RestTemplate template,GetNotificationCountRequest request)
+	{
+		GetNotificationCountResponse response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_NOTIFICATION_COUNT);
+		response = template.postForEntity(url, request, GetNotificationCountResponse.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	public static GetActiveGameInviteList getActiveGameInvite(FacadetoDataAccessMapper mapper,RestTemplate template,GetActiveGameInviteRequest request)
+	{
+		GetActiveGameInviteList response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_ACTIVE_GAMEINVITE);
+		response = template.postForEntity(url, request, GetActiveGameInviteList.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	public static GetActiveAddFriendList getActiveAddFriendList(FacadetoDataAccessMapper mapper,RestTemplate template,GetActiveFriendRequest request)
+	{
+		GetActiveAddFriendList response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_ACTIVE_ADDFRIEND);
+		response = template.postForEntity(url, request, GetActiveAddFriendList.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static GetActiveNotificationList getActiveNotifications(FacadetoDataAccessMapper mapper,RestTemplate template,GetActiveNotificationRequest request)
+	{
+		GetActiveNotificationList response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_ACTIVE_NOTIFICATION);
+		response = template.postForEntity(url, request, GetActiveNotificationList.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
 	
 }

@@ -14,6 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controller.helpers.RestServiceHelper;
+import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
+import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
@@ -77,6 +85,46 @@ public class FacadeDataAccessController {
 		request.setUserid(user.getUserid());request.setCountry(incomingrequest.getCountry());
 		request.setFirstname(incomingrequest.getFirstname());request.setLastname(incomingrequest.getLastname());
 		return RestServiceHelper.updateProfileInformation(mapper, restTemplate, request);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_NOTIFICATION_COUNT, method = RequestMethod.POST)
+	public GetNotificationCountResponse getNotificationCount(@RequestBody GetNotificationCountRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.getNotificationCount(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_ACTIVE_ADDFRIEND, method = RequestMethod.POST)
+	public GetActiveAddFriendList getActiveAddFriends(@RequestBody GetActiveFriendRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.getActiveAddFriendList(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_ACTIVE_GAMEINVITE, method = RequestMethod.POST)
+	public GetActiveGameInviteList getActiveGameInvites(@RequestBody GetActiveGameInviteRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.getActiveGameInvite(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_ACTIVE_NOTIFICATION, method = RequestMethod.POST)
+	public GetActiveNotificationList getActiveNotifications(@RequestBody GetActiveNotificationRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.getActiveNotifications(mapper, restTemplate, incomingrequest);
 	}
 	
 }
