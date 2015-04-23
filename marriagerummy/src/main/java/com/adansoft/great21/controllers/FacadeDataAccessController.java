@@ -20,6 +20,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -125,6 +127,16 @@ public class FacadeDataAccessController {
 		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
 		incomingrequest.setUserid(user.getUserid());
 		return RestServiceHelper.getActiveNotifications(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_FRIEND_LIST, method = RequestMethod.POST)
+	public GetFriendListResponse getFriendList(@RequestBody GetFriendsListRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.getFriendsList(mapper, restTemplate, incomingrequest);
 	}
 	
 }

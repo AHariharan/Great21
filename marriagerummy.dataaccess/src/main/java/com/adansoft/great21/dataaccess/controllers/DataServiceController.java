@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl;
+import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
+import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -59,6 +67,34 @@ public class DataServiceController {
 	public @ResponseBody GetNotificationCountResponse getNotificationCount(@RequestBody GetNotificationCountRequest request)
 	{
 		return basicdatadao.getNotificationCount(request);
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_ACTIVE_ADDFRIEND, method = RequestMethod.POST)
+	public @ResponseBody GetActiveAddFriendList getAddFriendRequest(@RequestBody GetActiveFriendRequest request)
+	{
+		return basicdatadao.getPendingAddFriends(request);
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_ACTIVE_GAMEINVITE, method = RequestMethod.POST)
+	public @ResponseBody GetActiveGameInviteList getGameInvites(@RequestBody GetActiveGameInviteRequest request)
+	{
+		return basicdatadao.getActiveGameInvites(request);
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_ACTIVE_NOTIFICATION, method = RequestMethod.POST)
+	public @ResponseBody GetActiveNotificationList getActiveNotifications(@RequestBody GetActiveNotificationRequest request)
+	{
+		return basicdatadao.getActiveNotifications(request);
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_FRIEND_LIST, method = RequestMethod.POST)
+	public @ResponseBody GetFriendListResponse getUserFriends(@RequestBody GetFriendsListRequest request)
+	{
+		return basicdatadao.getUserFriends(request);
 	}
 
 }

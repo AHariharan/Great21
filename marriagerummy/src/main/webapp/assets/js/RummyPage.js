@@ -11,35 +11,31 @@ MarriageRummy.Utilities = MarriageRummy.Utilities || {};
 MarriageRummy.Utilities.UIUtilities = MarriageRummy.Utilities.UIUtilities || {};
 
 // UIUtilites Namespace
-MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities || {};
-
+MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities
+		|| {};
 
 // @Class LoggedinPage
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
-	
-	
+
 	$('#notifier').unbind();
-	$('#notifier').on("click",function(){
+	$('#notifier').on("click", function() {
 		$('#notificationContainer').slideDown();
 	});
-	
-	
+
 	$('#rummylogout').unbind();
-	$('#rummylogout').on("click",function(){
-		/*var url = "/marriagerummy/logout";
-		var requestObj = {  };
-		var successcall = function(data,textStatus)
-		{
-			            window.location.replace(data);			   
-		};
-		var failurecall = {};
-		var formdata = {};
-		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);*/
-		$( "#formlogout" ).submit();
-		
+	$('#rummylogout').on("click", function() {
+		/*
+		 * var url = "/marriagerummy/logout"; var requestObj = { }; var
+		 * successcall = function(data,textStatus) {
+		 * window.location.replace(data); }; var failurecall = {}; var formdata =
+		 * {}; marriageRummy.httpComm.invokeAsyncRequest(url,
+		 * formdata,successcall,failurecall,requestObj);
+		 */
+		$("#formlogout").submit();
+
 	});
-	
+
 	$(".shrinker").unbind();
 	$(".shrinker").click(function() {
 		var delay = 500;
@@ -68,7 +64,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
 	var self = this;
-	
+
 	self.resetNavigation = function() {
 		$(".sidebar ul>li").removeClass("selected");
 		$(".sidebar ul>li").children().filter("div").css("display", "none");
@@ -92,14 +88,13 @@ MarriageRummy.Utilities.UIUtilities.LoggedinNavigator = function() {
 
 // Class Modal Initializer
 MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
-	
-	var self=this;
+
+	var self = this;
 	var statepreserver = {};
 
 	var gameType = "";
 	var gameLobby = "";
-	var init = function(validation)
-	{
+	var init = function(validation) {
 		$('#optionsRadios1').unbind();
 		$('#optionsRadios1').on("click", function() {
 			if ($(this).prop("checked")) {
@@ -112,49 +107,60 @@ MarriageRummy.Utilities.UIUtilities.ModalInitiator = function() {
 		$('#optionsRadios2').on("click", function() {
 			if ($(this).prop("checked")) {
 				$('#PointsBasedDiv').css("display", "none");
-				$('#PerCardDiv').css("display", "block");			
-				validation.updateMode("PerCard");				
+				$('#PerCardDiv').css("display", "block");
+				validation.updateMode("PerCard");
 			}
 		});
 	};
-	
-	
-	$('#creategamemodal').on('show.bs.modal', function(event) {
-		$('#CreateGameErrorPanel').empty();
-		var button = $(event.relatedTarget);
-		gameType = button.data('gametype');
-		gameLobby = button.data('lobby');
-		var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
-		var modal = $(this);
-		modal.find("#GameType").text(displayText + " ( " + gameLobby + " )");
-	     var validation = new MarriageRummy.Utilities.Validation.CreateGameValidation('CreateGameErrorPanel');
-	        jQuery.data( $("#creategamemodal")[0], "validation",validation);
-		statepreserver = $("#creategamemodal .modal-body").html();
-		init(validation);
-	});
-	
-	$("#creategamemodal").on('hidden.bs.modal', function () {
+
+	$('#creategamemodal')
+			.on(
+					'show.bs.modal',
+					function(event) {
+						$('#CreateGameErrorPanel').empty();
+						var button = $(event.relatedTarget);
+						gameType = button.data('gametype');
+						gameLobby = button.data('lobby');
+						var displayText = marriageRummy.dataConvertor
+								.convertGameTypetoDisplayText(gameType);
+						var modal = $(this);
+						modal.find("#GameType").text(
+								displayText + " ( " + gameLobby + " )");
+						var validation = new MarriageRummy.Utilities.Validation.CreateGameValidation(
+								'CreateGameErrorPanel');
+						jQuery.data($("#creategamemodal")[0], "validation",
+								validation);
+						statepreserver = $("#creategamemodal .modal-body")
+								.html();
+						init(validation);
+					});
+
+	$("#creategamemodal").on('hidden.bs.modal', function() {
 		$("#creategamemodal .modal-body").html(statepreserver);
 	});
-	
-	
 
 	$("#createGameBtn").unbind();
-	$("#createGameBtn")
-			.click(	function() {
-				        var validation = jQuery.data( $("#creategamemodal")[0], "validation");
-				        if(!validation.validate())
-				        	return;
-						var formdata = marriageRummy.request.getGameBrowserRequest().getCreateGameRequest(gameLobby,gameType);
-						var url = marriageRummy.urls.createGame;
-						var requestObj = { "gameLobby" : gameLobby };
-						var successcall = marriageRummy.callbacks.getGameBrowserCallback().onCreateGameSucess;
-						var failurecall = marriageRummy.callbacks.getGameBrowserCallback().onCreateGameFailure;
-						marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);						
-					});
-					
-};
+	$("#createGameBtn").click(
+			function() {
+				var validation = jQuery.data($("#creategamemodal")[0],
+						"validation");
+				if (!validation.validate())
+					return;
+				var formdata = marriageRummy.request.getGameBrowserRequest()
+						.getCreateGameRequest(gameLobby, gameType);
+				var url = marriageRummy.urls.createGame;
+				var requestObj = {
+					"gameLobby" : gameLobby
+				};
+				var successcall = marriageRummy.callbacks
+						.getGameBrowserCallback().onCreateGameSucess;
+				var failurecall = marriageRummy.callbacks
+						.getGameBrowserCallback().onCreateGameFailure;
+				marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+						successcall, failurecall, requestObj);
+			});
 
+};
 
 // @Class dashboard page
 MarriageRummy.Utilities.UIUtilities.charts = function() {
@@ -259,40 +265,40 @@ MarriageRummy.Utilities.UIUtilities.charts = function() {
 };
 
 MarriageRummy.Utilities.DataUtilities.DataConvertor = function() {
-	
+
 	var self = this;
-	
+
 	self.convertGameTypetoDisplayText = function(gameType) {
 		var displayText = "";
-		if(gameType == "SEVENCARD_CLOSED")
+		if (gameType == "SEVENCARD_CLOSED")
 			displayText = "7 Card closed joker rummy";
-		else if(gameType == "SEVENCARD_OPEN")
+		else if (gameType == "SEVENCARD_OPEN")
 			displayText = "7 Card open joker rummy";
-		else if(gameType == "THIRTEEN_CLOSED")
+		else if (gameType == "THIRTEEN_CLOSED")
 			displayText = "13 Card closed joker rummy";
-		else if(gameType == "THIRTEEN_OPEN")
+		else if (gameType == "THIRTEEN_OPEN")
 			displayText = "13 Card open joker rummy";
-		else if(gameType == "TWENTYONE")
-			displayText = "21 Card marriage rummy";		
-		return displayText;		
+		else if (gameType == "TWENTYONE")
+			displayText = "21 Card marriage rummy";
+		return displayText;
 	};
 
 	self.convertDisplayTexttoGameType = function(displayText) {
 		var gameType = "";
-		if(displayText == "7 Card closed joker rummy")
+		if (displayText == "7 Card closed joker rummy")
 			gameType = "SEVENCARD_CLOSED";
-		else if(displayText == "7 Card open joker rummy")
+		else if (displayText == "7 Card open joker rummy")
 			gameType = "SEVENCARD_OPEN";
-		else if(displayText == "13 Card closed joker rummy")
+		else if (displayText == "13 Card closed joker rummy")
 			gameType = "THIRTEEN_CLOSED";
-		else if(displayText == "13 Card open joker rummy")
+		else if (displayText == "13 Card open joker rummy")
 			gameType = "THIRTEEN_OPEN";
-		else if(displayText == "21 Card marriage rummy")
-			gameType = "TWENTYONE";		
-		return gameType;		
+		else if (displayText == "21 Card marriage rummy")
+			gameType = "TWENTYONE";
+		return gameType;
 	};
 
-} ;
+};
 
 var marriageRummy = marriageRummy || {};
 
@@ -308,172 +314,201 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 	});
 
 	self.joinGame = function(lobbyType, gameInstanceID, displayText) {
-		var url = marriageRummy.urls.joinGame; 
-		var gameType = marriageRummy.dataConvertor.convertDisplayTexttoGameType(displayText);
-		var formdata = marriageRummy.request.getGameBrowserRequest().getJoinGameRequest(lobbyType, gameInstanceID, gameType);
-		var requestObj = {"gameLobby" : lobbyType , "formdata" : formdata};
+		var url = marriageRummy.urls.joinGame;
+		var gameType = marriageRummy.dataConvertor
+				.convertDisplayTexttoGameType(displayText);
+		var formdata = marriageRummy.request.getGameBrowserRequest()
+				.getJoinGameRequest(lobbyType, gameInstanceID, gameType);
+		var requestObj = {
+			"gameLobby" : lobbyType,
+			"formdata" : formdata
+		};
 		var successcall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameSuccess;
 		var failurecall = marriageRummy.callbacks.getGameBrowserCallback().onJoinGameFailure;
-		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
-		console.log(url,formdata);
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+		console.log(url, formdata);
 	};
 };
 
-MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function()
-{
-	var init = function()
-	{
+MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function() {
+	var init = function() {
 		toastr.options.closeButton = true;
 		toastr.options.preventDuplicates = true;
 		toastr.options.hideDuration = 1000;
-		toastr.options.timeOut =  5000;
+		toastr.options.timeOut = 5000;
 		toastr.options.extendedTimeOut = 1000;
-		/*toastr.options.timeOut = 40;
-		toastr.options.extendedTimeOut = 60;*/
-		toastr.options.progressBar = true; 
+		/*
+		 * toastr.options.timeOut = 40; toastr.options.extendedTimeOut = 60;
+		 */
+		toastr.options.progressBar = true;
 		toastr.options.positionClass = "toast-top-right";
 	}
-	
-	init();
-	
-	var self = this;
-	var htmlTemplate = '<div id="generalnotifications" class="alert  alert-danger alert-dismissible" role="alert" style="display:block">' +
-                       '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-                       '<strong id="messageshort" style="padding-left:30px;">MESSAGE</strong><span id="messagedesc" style="padding-left:30px;">DESCRIPTION</span></div>';
 
-	
-	/*self.showRedAlert = function(message,description)
-	{
-		var alert = htmlTemplate.replace("MESSAGE",message).replace("DESCRIPTION", description);
-		$('#NotificationArea').append(alert);
-	};*/
-	
-	self.showRedAlert = function(heading,message)
-	{
-		toastr.error(heading,message);
+	init();
+
+	var self = this;
+	var htmlTemplate = '<div id="generalnotifications" class="alert  alert-danger alert-dismissible" role="alert" style="display:block">'
+			+ '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+			+ '<strong id="messageshort" style="padding-left:30px;">MESSAGE</strong><span id="messagedesc" style="padding-left:30px;">DESCRIPTION</span></div>';
+
+	/*
+	 * self.showRedAlert = function(message,description) { var alert =
+	 * htmlTemplate.replace("MESSAGE",message).replace("DESCRIPTION",
+	 * description); $('#NotificationArea').append(alert); };
+	 */
+
+	self.showRedAlert = function(heading, message) {
+		toastr.error(heading, message);
 	};
-	
-	self.showMediumAlert = function(heading,message)
-	{
-		toastr.warning(heading,message);
+
+	self.showMediumAlert = function(heading, message) {
+		toastr.warning(heading, message);
 	};
-	self.showSuccessAlert = function(heading,message)
-	{
-		toastr.success(heading,message);
+	self.showSuccessAlert = function(heading, message) {
+		toastr.success(heading, message);
 	};
-	self.showInfo = function(heading,message)
-	{
-		toastr.info(message,heading);
+	self.showInfo = function(heading, message) {
+		toastr.info(message, heading);
 	};
-	
-	self.setLoadingMask = function(message)
-	{
+
+	self.setLoadingMask = function(message) {
 		$(".mask .loadingmask").html(message);
-		$("#LoadingMask").show();       
+		$("#LoadingMask").show();
 	};
-	
-	
-	self.hideLoadingMask = function(message)
-	{
+
+	self.hideLoadingMask = function(message) {
 		$(".mask .loadingmask").html("");
-		$("#LoadingMask").hide();       
+		$("#LoadingMask").hide();
 	};
-	
-	self.setClosureMask = function(type)
-	{
-		if(type == "Eliminated")
-			{
-			   $("#LoserClosureMask").show();     
-			}
-		else
-			{
-			   $('#WinnerClosureMask').show();
-			}
+
+	self.setClosureMask = function(type) {
+		if (type == "Eliminated") {
+			$("#LoserClosureMask").show();
+		} else {
+			$('#WinnerClosureMask').show();
+		}
 	};
-	
-	self.hideClosureMask = function(message)
-	{	
-		$("#LoserClosureMask").hide();       
+
+	self.hideClosureMask = function(message) {
+		$("#LoserClosureMask").hide();
 	};
-	
 
 };
 
-MarriageRummy.Utilities.UIUtilities.ProfileData = function()
-{
+MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	var self = this;
-	
-	var init = function()
-	{
+
+	var init = function() {
 		$("#ProfileSave").unbind();
-		$("#ProfileSave").on("click",function(){
-			  var firstname = $('#ProfileFirstname').val();
-			  var lastname = $('#ProfileLastname').val();
-			  var country = $('#ProfileCountry').val();
-			  self.updateProfileInformation(firstname, lastname, country);
+		$("#ProfileSave").on("click", function() {
+			var firstname = $('#ProfileFirstname').val();
+			var lastname = $('#ProfileLastname').val();
+			var country = $('#ProfileCountry').val();
+			self.updateProfileInformation(firstname, lastname, country);
 		});
 	};
-	
+
 	init();
-	
-	self.getNotificationCount = function()
-	{
-		var url = marriageRummy.urls.getNotificationCount; 
-		var formdata = marriageRummy.request.getDataRequest().getNotificationCount();
-		var requestObj = {"srcObj":this,"formdata" : formdata};
+
+	self.getNotificationCount = function() {
+		var url = marriageRummy.urls.getNotificationCount;
+		var formdata = marriageRummy.request.getDataRequest()
+				.getNotificationCount();
+		var requestObj = {
+			"srcObj" : this,
+			"formdata" : formdata
+		};
 		var successcall = marriageRummy.callbacks.getDataAccessCallback().onNotificationCountSuccess;
 		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onNotificationCountFailure;
-		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
-		console.log(url,formdata);
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+		console.log(url, formdata);
 	};
-	
-	self.renderNotificationCount = function(data)
-	{
-		console.log("RENDER NOTIFICATION : " + JSON.stringify(data));
-		if(data.friendRequestCount == 0)
+
+	self.renderNotificationCount = function(data) {
+		console.log("RENDER NOTIFICATION COUNT: " + JSON.stringify(data));
+		if (data.friendRequestCount <= 0)
 			$('#friendinvitenotifier').hide();
-		if(data.gameInviteCount == 0)
+		else {
+			$('#friendinvitenotifier').html(data.friendRequestCount);
+			$('#friendinvitenotifier').show();
+		}
+		if (data.gameInviteCount <= 0)
 			$('#gameinvitenotifier').hide();
-		if(data.notificationCount == 0)
+		else {
+			$('#gameinvitenotifier').html(data.gameInviteCount);
+			$('#gameinvitenotifier').hide();
+		}
+		if (data.notificationCount == 0)
 			$('#genericnotifier').hide();
+		else {
+			$('#genericnotifier').html(data.notificationCount);
+			$('#genericnotifier').show();
+		}
 	};
 	
-	self.getProfileInformation = function()
+	self.renderPendingAddFriends = function(data)
 	{
-		var url = marriageRummy.urls.getProfileInformation; 
-		var formdata = marriageRummy.request.getDataRequest().getProfileInformationRequest();
-		var requestObj = {"srcObj":this,"formdata" : formdata};
+		console.log("RENDER Pending add Friends : " + JSON.stringify(data));
+	};
+	
+	self.renderActiveGameInvites = function(data)
+	{
+		console.log("RENDER renderActiveGameInvites : " + JSON.stringify(data));
+	};
+
+	self.renderActiveNotifications = function(data)
+	{
+		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
+	};
+	
+	self.renderFriendsList = function(data)
+	{
+		console.log("RENDER renderFriendsList : " + JSON.stringify(data));
+	};
+	
+	self.getProfileInformation = function() {
+		var url = marriageRummy.urls.getProfileInformation;
+		var formdata = marriageRummy.request.getDataRequest()
+				.getProfileInformationRequest();
+		var requestObj = {
+			"srcObj" : this,
+			"formdata" : formdata
+		};
 		var successcall = marriageRummy.callbacks.getDataAccessCallback().onGetProfileInformationSuccess;
 		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onGetProfileInformationFailure;
-		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
-		console.log(url,formdata);
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+		console.log(url, formdata);
 	};
-	
-	self.renderProfileInformation = function(data)
-	{
-		if(data.firstname != null)
+
+	self.renderProfileInformation = function(data) {
+		if (data.firstname != null)
 			$('#ProfileFirstname').val(data.firstname);
-		if(data.lastname != null)
+		if (data.lastname != null)
 			$('#ProfileLastname').val(data.lastname);
-		if(data.country != null)
+		if (data.country != null)
 			$('#ProfileCountry').val(data.country);
 		$('#ProfileNickName').val(data.nickname);
 		$('#ProfileEmail').html(data.emailaddress);
 	};
-	
-	self.updateProfileInformation = function(firstname,lastname,country)
-	{
-		var url = marriageRummy.urls.updateProfileInformation; 
-		var formdata = marriageRummy.request.getDataRequest().updateProfileInformationRequest(firstname,lastname,country);
-		var requestObj = {"srcObj":this,"formdata" : formdata};
+
+	self.updateProfileInformation = function(firstname, lastname, country) {
+		var url = marriageRummy.urls.updateProfileInformation;
+		var formdata = marriageRummy.request.getDataRequest()
+				.updateProfileInformationRequest(firstname, lastname, country);
+		var requestObj = {
+			"srcObj" : this,
+			"formdata" : formdata
+		};
 		var successcall = marriageRummy.callbacks.getDataAccessCallback().onUpdateProfileInformationSuccess;
 		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onUpdateProfileInformationFailure;
-		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
-		console.log(url,formdata);
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+		console.log(url, formdata);
 	};
 };
-
-
 
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 	this.initRummyPage = function() {
@@ -484,16 +519,11 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
-		var profiledatamanager = new  MarriageRummy.Utilities.UIUtilities.ProfileData();
-		profiledatamanager.getProfileInformation(); 
+		var profiledatamanager = new MarriageRummy.Utilities.UIUtilities.ProfileData();
+		profiledatamanager.getProfileInformation();
 		profiledatamanager.getNotificationCount();
-       
+
 	};
 };
 
 marriageRummy.generalutility = new MarriageRummy.Utilities.UIUtilities.GeneralUtilities();
-
-
-
-
-

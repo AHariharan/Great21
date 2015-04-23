@@ -41,6 +41,10 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/get";
 	self.updateProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/Update";
 	self.getNotificationCount = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetNotificationCount";
+	self.getPendingAddFriends = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveFriend";
+	self.getActiveGameInvites ="/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveGameInvite";
+	self.getActiveNotifications = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveNotifications";
+	self.getFriendList = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friends/Get";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -71,6 +75,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getInfoBlock = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/GamePlay/Info/Get";
 	self.getEliminationDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/EliminationDetails/Get";
 	self.getWinnerDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/WinnerDetails/Get";
+	
 
 };
 
@@ -387,6 +392,31 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 		var formdata = {};
 		return formdata;
 	};
+	
+	self.getPendingAddFriendList = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
+	self.getActiveGameInviteList = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
+	self.getActiveNotificationList = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
+	self.getFriendsList = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
 	
 	self.updateProfileInformationRequest = function(firstname,lastname,country)
 	{
@@ -842,7 +872,75 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	
 	self.onNotificationCountFailure = function(data)
 	{
-		
+		console.log("******Notification Count FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	self.onGetPendingAddFriendsSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   requestObj.srcObj.renderPendingAddFriends(data);
+		}
+	};
+	
+	self.onGetPendingAddFriendsFailure = function(data)
+	{
+		console.log("******onGetPendingAddFriendsFailure Count FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	self.onGetActiveGameInviteSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   requestObj.srcObj.renderActiveGameInvites(data);
+		}
+	};
+	
+	self.onGetActiveGameInviteFailure = function(data)
+	{
+		console.log("******onGetActiveGameInviteFailure Count FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	self.onGetActiveNotificationsSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   requestObj.srcObj.renderActiveNotifications(data);
+		}
+	};
+	
+	self.onGetActiveNotificationsFailure = function(data)
+	{
+		console.log("******onGetActiveNotificationsFailure Count FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	self.onGetFriendsListSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   requestObj.srcObj.renderFriendsList(data);
+		}
+	};
+	
+	self.onGetFriendsListFailure = function(data)
+	{
+		console.log("******onGetFriendsListFailure Count FAILURE ******** " + JSON.stringify(data));
 	};
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)

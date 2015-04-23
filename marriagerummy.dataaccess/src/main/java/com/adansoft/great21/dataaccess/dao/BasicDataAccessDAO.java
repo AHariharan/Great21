@@ -9,6 +9,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -35,4 +37,6 @@ public interface BasicDataAccessDAO {
      public GetActiveGameInviteList getActiveGameInvites(GetActiveGameInviteRequest request);
      
      public GetActiveNotificationList getActiveNotifications(GetActiveNotificationRequest request);
+     
+     public GetFriendListResponse getUserFriends(GetFriendsListRequest request);
 }

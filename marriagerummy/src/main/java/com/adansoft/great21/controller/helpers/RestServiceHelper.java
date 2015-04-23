@@ -11,6 +11,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -158,5 +160,20 @@ public class RestServiceHelper {
 		return response;
 	}
 	
+	public static GetFriendListResponse getFriendsList(FacadetoDataAccessMapper mapper,RestTemplate template,GetFriendsListRequest request)
+	{
+		GetFriendListResponse response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_ACTIVE_NOTIFICATION);
+		response = template.postForEntity(url, request, GetFriendListResponse.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
 	
 }

@@ -14,8 +14,10 @@ import com.adansoft.great21.dataaccess.entities.GamejoinRequest;
 import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAudit;
+import com.adansoft.great21.dataaccess.entities.UserFriends;
 import com.adansoft.great21.dataaccess.entities.UserNotifications;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
+import com.adansoft.great21.dataaccess.schemas.FriendResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendResponse;
@@ -25,6 +27,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
+import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -161,7 +165,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from UserNotifications t where t.id.userid = :userid and t.notificationStatus = :notificationstatus")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("notificationstatus",
 						DatabaseValueConstants.NOTIFICATION_UNREAD).list();
 		if (notificationlist != null)
@@ -171,7 +175,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from FriendRequest t where t.id.userId = :userid and t.status = :status")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("status",
 						DatabaseValueConstants.FRIEND_REQUEST_PENDING).list();
 		if (addfriendlist != null)
@@ -181,7 +185,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from GamejoinRequest t where t.id.userId = :userid and t.status = :status")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("status",
 						DatabaseValueConstants.GAMEJOIN_REQUEST_UNREAD).list();
 		if (gameinvitelist != null)
@@ -204,7 +208,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from FriendRequest t where t.id.userId = :userid and t.status = :status")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("status",
 						DatabaseValueConstants.FRIEND_REQUEST_PENDING).list();
 		if (addfriendlist != null)
@@ -234,7 +238,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from GamejoinRequest t where t.id.userId = :userid and t.status = :status")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("status",
 						DatabaseValueConstants.GAMEJOIN_REQUEST_UNREAD).list();
 		if (gameinvitelist != null)
@@ -264,7 +268,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				.getCurrentSession()
 				.createQuery(
 						"from UserNotifications t where t.id.userid = :userid and t.notificationStatus = :notificationstatus")
-				.setParameter("userid", request.getUserid())
+				.setBigInteger("userid",BigInteger.valueOf(request.getUserid()))
 				.setParameter("notificationstatus",
 						DatabaseValueConstants.NOTIFICATION_UNREAD).list();
 		if (notificationlist != null)
@@ -279,5 +283,36 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		return response;
 
 	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public GetFriendListResponse getUserFriends(GetFriendsListRequest request) {
+		GetFriendListResponse response = new GetFriendListResponse();
+		response.setMynickname(request.getNickname());
+		ArrayList<FriendResponse> friendList = new ArrayList<FriendResponse>();
+		
+		List<UserFriends> listofFriends = sessionFactory.getCurrentSession().createQuery("from UserFriends where id.userId = :var_userId")
+		.setBigInteger("var_userId",BigInteger.valueOf(request.getUserid())).list();
+		
+		if(listofFriends.size() > 0)
+		{
+			for(int i=0;i<listofFriends.size();i++)
+			{
+			   UserFriends friend = listofFriends.get(i);
+			   UserAccounts account = authdao.findUserbyID(friend.getFriendsIdn());
+			   List<RummyStats> list = sessionFactory
+						.getCurrentSession()
+						.createQuery("from RummyStats where userId = :var_userId")
+						.setBigInteger("var_userId",
+								BigInteger.valueOf(friend.getFriendsIdn())).list();
+			   FriendResponse fresponse = new FriendResponse(account.getNickName(), account.getId().getEmailAddr(), list.get(0).getRating());
+			   friendList.add(fresponse);
+			}
+		}
+		response.setFriendlist(friendList);		
+		return response;
+	}
+	
+	
 
 }
