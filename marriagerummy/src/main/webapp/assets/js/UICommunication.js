@@ -40,6 +40,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 
 	self.getProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/get";
 	self.updateProfileInformation = "/marriagerummy/DataAccess/Data/BasicUserDetails/ProfileInfo/Update";
+	self.getNotificationCount = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetNotificationCount";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -376,6 +377,12 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 	var self = this;
 
 	self.getProfileInformationRequest = function()
+	{
+		var formdata = {};
+		return formdata;
+	};
+	
+	self.getNotificationCount = function()
 	{
 		var formdata = {};
 		return formdata;
@@ -819,6 +826,23 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	self.onGetProfileInformationFailure = function(data)
 	{
 		console.log("******GET PROFILE INFORMATION FAILURE********* " + JSON.stringify(data));
+	};
+	
+	self.onNotificationCountSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   requestObj.srcObj.renderNotificationCount(data);
+		}
+	};
+	
+	self.onNotificationCountFailure = function(data)
+	{
+		
 	};
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)

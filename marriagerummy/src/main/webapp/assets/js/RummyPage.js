@@ -416,6 +416,28 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function()
 	
 	init();
 	
+	self.getNotificationCount = function()
+	{
+		var url = marriageRummy.urls.getNotificationCount; 
+		var formdata = marriageRummy.request.getDataRequest().getNotificationCount();
+		var requestObj = {"srcObj":this,"formdata" : formdata};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().onNotificationCountSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onNotificationCountFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,successcall,failurecall,requestObj);
+		console.log(url,formdata);
+	};
+	
+	self.renderNotificationCount = function(data)
+	{
+		console.log("RENDER NOTIFICATION : " + JSON.stringify(data));
+		if(data.friendRequestCount == 0)
+			$('#friendinvitenotifier').hide();
+		if(data.gameInviteCount == 0)
+			$('#gameinvitenotifier').hide();
+		if(data.notificationCount == 0)
+			$('#genericnotifier').hide();
+	};
+	
 	self.getProfileInformation = function()
 	{
 		var url = marriageRummy.urls.getProfileInformation; 
@@ -464,6 +486,7 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
 		var profiledatamanager = new  MarriageRummy.Utilities.UIUtilities.ProfileData();
 		profiledatamanager.getProfileInformation(); 
+		profiledatamanager.getNotificationCount();
        
 	};
 };

@@ -96,7 +96,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		GetProfileInformationResponse response = new GetProfileInformationResponse();
 		List<UserProfile> list = sessionFactory
 				.getCurrentSession()
-				.createQuery("from UserProfile where userid = :userid")
+				.createQuery("from UserProfile where userId = :userid")
 				.setBigInteger("userid",
 						BigInteger.valueOf(request.getUserid())).list();
 		if (list.size() == 1) {
@@ -154,6 +154,8 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 	public GetNotificationCountResponse getNotificationCount(
 			GetNotificationCountRequest request) {
 		GetNotificationCountResponse response = new GetNotificationCountResponse();
+		response.setEmailaddress(request.getEmailaddress());
+		response.setNickname(request.getNickname());
 
 		List<UserNotifications> notificationlist = sessionFactory
 				.getCurrentSession()
