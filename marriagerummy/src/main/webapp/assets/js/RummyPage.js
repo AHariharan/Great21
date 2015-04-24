@@ -19,10 +19,42 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
 
 	$('#notifier').unbind();
-	$('#notifier').on("click", function() {
+	$('#notifier').on("click", function(event) {
 		$('#notificationContainer').slideDown();
+		$('#FriendRequestContainer').hide();
+		$(document).click(function(event) { 
+		    if(!$(event.target).closest('#notificationContainer').length) {
+		        if($('#notificationContainer').is(":visible")) {
+		            $('#notificationContainer').hide();		        
+		        }		       
+		    }        
+		});
+		event.stopPropagation();
+	});
+	
+	$('#useraddnotifier').unbind();
+	$('#useraddnotifier').on("click", function(event) {
+		$('#FriendRequestContainer').slideDown();
+		$('#notificationContainer').hide();
+		$(document).click(function(event) { 
+		    if(!$(event.target).closest('#FriendRequestContainer').length) {
+		        if($('#FriendRequestContainer').is(":visible")) {
+		            $('#FriendRequestContainer').hide();
+		        }	        
+		    }        
+		});
+		event.stopPropagation();
 	});
 
+/*	$(document).click(function(event) { 
+	    if(!$(event.target).closest('#notificationContainer').length) {
+	        if($('#notificationContainer').is(":visible")) {
+	            $('#notificationContainer').hide();
+	        }
+	    }        
+	});
+*/	
+	
 	$('#rummylogout').unbind();
 	$('#rummylogout').on("click", function() {
 		/*

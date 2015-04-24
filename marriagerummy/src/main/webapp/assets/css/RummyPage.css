@@ -654,7 +654,7 @@
 	box-shadow: 0px 0px 10px 2px gray;
 }
 
-#notificationContainer {
+#notificationContainer,#gameInviteContainer,#FriendRequestContainer {
 	background: rgb(250, 250, 250);
 	min-height: 300px;
 	max-height: 600px;
@@ -668,6 +668,17 @@
 	padding: -2px;
 	overflow-y: auto;
 	z-index: 10000;
+}
+
+.notification-container-heading
+{
+    min-height: 45px;
+    background: rgb(190, 4, 60);
+    color: white;
+    padding: 10px;
+    font-weight: 500;
+    font-size: 17px;
+	
 }
 
 .arrow-top {
