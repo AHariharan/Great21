@@ -723,13 +723,14 @@
 
 .notify-indicator {
 	font-size: 12px;
-	background: rgb(231, 92, 166);
-	/* width: 25px; */
-	padding: 3px;
+	background: rgb(217, 83, 79);
+	min-width: 26px;
+	padding: 4px;
+	padding-left: 5px;
 	color: white;
 	position: relative;
-	top: -8px;
-	left: -14px;
+	top: -14px;
+	left: -21px;
 	border-radius: 50px;
 	text-align: center;
 	font-weight: bold;

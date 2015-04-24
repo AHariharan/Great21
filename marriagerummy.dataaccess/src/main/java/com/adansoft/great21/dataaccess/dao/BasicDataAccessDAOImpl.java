@@ -129,7 +129,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		try {
 			List<UserProfile> list = sessionFactory
 					.getCurrentSession()
-					.createQuery("from UserProfile where userid = :userid")
+					.createQuery("from UserProfile where userId = :userid")
 					.setBigInteger("userid",
 							BigInteger.valueOf(request.getUserid())).list();
 			if (list.size() == 1) {

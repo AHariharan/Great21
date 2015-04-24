@@ -945,6 +945,8 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
 	{
+		marriageRummy.generalutility.showSuccessAlert("Profile Information Saved",
+				"Changes are saved successfully !!!");
 		console.log("******UPDATE PROFILE INFORMATION ******** " + JSON.stringify(data));
 	};
 	

@@ -438,7 +438,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			$('#gameinvitenotifier').hide();
 		else {
 			$('#gameinvitenotifier').html(data.gameInviteCount);
-			$('#gameinvitenotifier').hide();
+			$('#gameinvitenotifier').show();
 		}
 		if (data.notificationCount == 0)
 			$('#genericnotifier').hide();
