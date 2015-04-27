@@ -45,6 +45,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getActiveGameInvites ="/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveGameInvite";
 	self.getActiveNotifications = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveNotifications";
 	self.getFriendList = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friends/Get";
+	self.addFriendRequest = "/marriagerummy/DataAccess/Data//BasicUserDetails/Friends/Add";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -75,6 +76,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getInfoBlock = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/GamePlay/Info/Get";
 	self.getEliminationDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/EliminationDetails/Get";
 	self.getWinnerDetails = "/marriagerummy/IndexerServices/GamePlay/CurrentGame/Player/WinnerDetails/Get";
+	
 	
 
 };
@@ -414,6 +416,16 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 	self.getFriendsList = function()
 	{
 		var formdata = {};
+		return formdata;
+	};
+	
+	self.addFriend = function(destNickName)
+	{
+		var formdata = {
+				nickName : "Auto",
+				desinationNickname : destNickName
+		};
+		
 		return formdata;
 	};
 	
@@ -942,6 +954,25 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	{
 		console.log("******onGetFriendsListFailure Count FAILURE ******** " + JSON.stringify(data));
 	};
+	
+	
+	self.onAddFriendSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onAddFriendSuccess   ******** " + JSON.stringify(data));
+		}
+	};
+	
+	self.onAddFriendFailure = function(data)
+	{
+		console.log("******onAddFriendFailure  FAILURE ******** " + JSON.stringify(data));
+	};
+	
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
 	{

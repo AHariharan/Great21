@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controllers.FacadeControllerURLs;
+import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -167,8 +168,25 @@ public class RestServiceHelper {
 		{
 		URI url = new URI(mapper.getDataAccessURI() + "/"
 				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
-				+ FacadeControllerURLs.GET_ACTIVE_NOTIFICATION);
+				+ FacadeControllerURLs.GET_FRIEND_LIST);
 		response = template.postForEntity(url, request, GetFriendListResponse.class).getBody();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static String addFriend(FacadetoDataAccessMapper mapper,RestTemplate template,AddFriendRequest request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.ADD_FRIEND_REQUEST);
+		response = template.postForEntity(url, request, String.class).getBody();
 		}catch(Exception e)
 		{
 			e.printStackTrace();

@@ -315,6 +315,10 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				addMemeberContent = hosttemplate.replace("MEMBERNAME",nickname);
 				
 			$("#gamemembers #playersarea").append(addMemeberContent);
+			$('.addFriend').unbind();
+			$('.addFriend').on("click",function(){
+				 // Do Code Here.
+			});
 		}
 
 		

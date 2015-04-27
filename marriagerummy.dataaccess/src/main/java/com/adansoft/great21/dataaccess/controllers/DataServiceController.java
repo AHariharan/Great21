@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl;
+import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -95,6 +96,14 @@ public class DataServiceController {
 	public @ResponseBody GetFriendListResponse getUserFriends(@RequestBody GetFriendsListRequest request)
 	{
 		return basicdatadao.getUserFriends(request);
+	}
+
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_FRIEND_LIST, method = RequestMethod.POST)
+	public @ResponseBody String addFriend(@RequestBody AddFriendRequest request)
+	{
+		return basicdatadao.addFriend(request);
 	}
 
 }

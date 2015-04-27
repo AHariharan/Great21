@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controller.helpers.RestServiceHelper;
+import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -137,6 +138,16 @@ public class FacadeDataAccessController {
 		incomingrequest.setEmailaddress(user.getEmailaddr());incomingrequest.setNickname(user.getNickname());
 		incomingrequest.setUserid(user.getUserid());
 		return RestServiceHelper.getFriendsList(mapper, restTemplate, incomingrequest);
+	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.ADD_FRIEND_REQUEST, method = RequestMethod.POST)
+	public String addFriend(@RequestBody AddFriendRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setNickName(user.getNickname());
+		return RestServiceHelper.addFriend(mapper, restTemplate, incomingrequest);
 	}
 	
 }

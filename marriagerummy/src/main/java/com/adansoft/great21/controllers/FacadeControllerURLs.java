@@ -59,6 +59,7 @@ public class FacadeControllerURLs {
 	public final static String GET_ACTIVE_GAMEINVITE = "/BasicUserDetails/GetActiveGameInvite";
 	public final static String GET_ACTIVE_NOTIFICATION = "/BasicUserDetails/GetActiveNotifications";
 	public final static String GET_FRIEND_LIST = "/BasicUserDetails/Friends/Get";
+	public final static String ADD_FRIEND_REQUEST = "/BasicUserDetails/Friends/Add";
 	
 	
 }

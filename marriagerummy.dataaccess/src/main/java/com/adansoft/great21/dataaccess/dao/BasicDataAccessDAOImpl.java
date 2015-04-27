@@ -17,6 +17,7 @@ import com.adansoft.great21.dataaccess.entities.UserAudit;
 import com.adansoft.great21.dataaccess.entities.UserFriends;
 import com.adansoft.great21.dataaccess.entities.UserNotifications;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
+import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.FriendResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
@@ -314,5 +315,24 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 	}
 	
 	
-
+    public  String addFriend(AddFriendRequest request)
+    {
+    	String result = "Success";
+    	try
+    	{
+    	FriendRequest frequest = new FriendRequest();    	
+    	frequest.getId().setUserId(authdao.findUserbyNickName(request.getDesinationNickname()).getId().getUserId());
+    	frequest.setRequestorIdn(authdao.findUserbyNickName(request.getNickName()).getId().getUserId());
+    	frequest.setRequestedDate(Calendar.getInstance().getTime());
+    	frequest.setStatus(DatabaseValueConstants.FRIEND_REQUEST_PENDING);
+    	sessionFactory.getCurrentSession().persist(frequest);
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    		result = "Failure";
+    	}
+    	return result;
+    }
+	
+	
 }

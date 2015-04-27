@@ -1,5 +1,6 @@
 package com.adansoft.great21.dataaccess.dao;
 
+import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendResponse;
@@ -39,4 +40,6 @@ public interface BasicDataAccessDAO {
      public GetActiveNotificationList getActiveNotifications(GetActiveNotificationRequest request);
      
      public GetFriendListResponse getUserFriends(GetFriendsListRequest request);
+     
+     public String addFriend(AddFriendRequest request);
 }

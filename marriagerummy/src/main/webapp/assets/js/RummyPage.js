@@ -22,6 +22,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	$('#notifier').on("click", function(event) {
 		$('#notificationContainer').slideDown();
 		$('#FriendRequestContainer').hide();
+		$('#gameInviteContainer').hide();
 		$(document).click(function(event) { 
 		    if(!$(event.target).closest('#notificationContainer').length) {
 		        if($('#notificationContainer').is(":visible")) {
@@ -36,10 +37,26 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	$('#useraddnotifier').on("click", function(event) {
 		$('#FriendRequestContainer').slideDown();
 		$('#notificationContainer').hide();
+		$('#gameInviteContainer').hide();
 		$(document).click(function(event) { 
 		    if(!$(event.target).closest('#FriendRequestContainer').length) {
 		        if($('#FriendRequestContainer').is(":visible")) {
 		            $('#FriendRequestContainer').hide();
+		        }	        
+		    }        
+		});
+		event.stopPropagation();
+	});
+	
+	$('#gamepadnotifier').unbind();
+	$('#gamepadnotifier').on("click", function(event) {
+		$('#gameInviteContainer').slideDown();
+		$('#notificationContainer').hide();
+		$('#FriendRequestContainer').hide();
+		$(document).click(function(event) { 
+		    if(!$(event.target).closest('#gameInviteContainer').length) {
+		        if($('#gameInviteContainer').is(":visible")) {
+		            $('#gameInviteContainer').hide();
 		        }	        
 		    }        
 		});
