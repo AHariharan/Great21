@@ -100,7 +100,7 @@ public class DataServiceController {
 
 	
 	@Transactional
-	@RequestMapping( value = DataAccessServiceURLs.GET_FRIEND_LIST, method = RequestMethod.POST)
+	@RequestMapping( value = DataAccessServiceURLs.ADD_FRIEND_REQUEST, method = RequestMethod.POST)
 	public @ResponseBody String addFriend(@RequestBody AddFriendRequest request)
 	{
 		return basicdatadao.addFriend(request);

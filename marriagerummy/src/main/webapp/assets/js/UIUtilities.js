@@ -281,6 +281,19 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		playerCheckCallback();
 	};
 
+	var createFriendRequest = function(destinationNickName)
+	{
+		var url = marriageRummy.urls.addFriendRequest;
+		var formdata = marriageRummy.request.getDataRequest().addFriend(destinationNickName);
+		var requestObj = {
+			"formdata" : formdata
+		};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().onAddFriendSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().onAddFriendFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,failurecall, requestObj);
+		console.log(url, formdata);
+	};
+	
 	self.updatePlayerList = function(data) {
 	
 
@@ -317,7 +330,9 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			$("#gamemembers #playersarea").append(addMemeberContent);
 			$('.addFriend').unbind();
 			$('.addFriend').on("click",function(){
-				 // Do Code Here.
+				var destNickname = $('.addFriend').parent().text().trim();
+				createFriendRequest(destNickname);
+				$(this).attr("disabled","disabled");
 			});
 		}
 

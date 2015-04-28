@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adansoft.great21.dataaccess.entities.FriendRequest;
+import com.adansoft.great21.dataaccess.entities.FriendRequestId;
 import com.adansoft.great21.dataaccess.entities.GamejoinRequest;
 import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
@@ -320,8 +321,10 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
     	String result = "Success";
     	try
     	{
-    	FriendRequest frequest = new FriendRequest();    	
-    	frequest.getId().setUserId(authdao.findUserbyNickName(request.getDesinationNickname()).getId().getUserId());
+    	FriendRequest frequest = new FriendRequest();
+    	FriendRequestId id = new FriendRequestId();   	
+    	id.setUserId(authdao.findUserbyNickName(request.getDesinationNickname()).getId().getUserId());
+    	frequest.setId(id);
     	frequest.setRequestorIdn(authdao.findUserbyNickName(request.getNickName()).getId().getUserId());
     	frequest.setRequestedDate(Calendar.getInstance().getTime());
     	frequest.setStatus(DatabaseValueConstants.FRIEND_REQUEST_PENDING);
