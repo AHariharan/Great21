@@ -63,9 +63,19 @@ public class WebSocketController {
 		 System.out.println("Web Socket Notification received :" + gameInstanceID);
 	     System.out.println("Web Socket Notification received : " + event.getNotificationSource() + "____ " + event.getNotificationType() + "----" + event.getNotifiedBy() + "------" + authentication.getName());
 	     event.setNotifiedBy(authentication.getName());
-	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);
-	    
+	     template.convertAndSend("/WebSockets/Notifications/"+gameInstanceID, event);	    
 	}
+	
+/*	@MessageMapping("WebSockets/UserNotifications/{nickName}")
+	public void handleAllPlayerNotifications(NotificationEvent event,@DestinationVariable("nickName") String nickname,@AuthenticationPrincipal Authentication authentication )
+	{
+		 System.out.println("Web Socket Notification received :" + event.getNotifiedBy());
+		 System.out.println("Web Socket Notification received :" + nickname);
+	     System.out.println("Web Socket Notification received : " + event.getNotificationSource() + "____ " + event.getNotificationType() + "----" + event.getNotifiedBy() + "------" + authentication.getName());
+	     event.setNotifiedBy(authentication.getName());
+	    // template.convertAndSend("/WebSockets/Notifications/"+nickname, event);	    
+	}
+	*/
 	
 	public void sendNotificationFromBackend(NotificationEvent event,String gameInstanceID)
 	{
@@ -84,8 +94,9 @@ public class WebSocketController {
 	
 	public void sendNotificationtoSpecificUser(NotificationEvent event,String nickname)
 	{
+		String actualNick = nickname.trim().replace(" ","-");
 		System.out.println("Send Notification From Backend to specific user");
-		template.convertAndSend("/WebSockets/Notifications/User/"+nickname, event);
+		template.convertAndSend("/WebSockets/Notifications/User/"+actualNick, event);
 	}
 
 }

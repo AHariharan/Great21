@@ -19,7 +19,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	
 
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/WebSocketChatMessages/Add/*","/WebSocketGameLauncher/Player/Add/*","/WebSockets/Notifications/*").withSockJS();
+		registry.addEndpoint("/WebSocketChatMessages/Add/*","/WebSocketGameLauncher/Player/Add/*","/WebSockets/Notifications/*","/WebSockets/UserNotifications/*").withSockJS();
 	}
 	
 	

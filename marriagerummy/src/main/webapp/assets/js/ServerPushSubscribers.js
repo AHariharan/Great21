@@ -56,6 +56,50 @@ MarriageRummy.Utilities.PushServerSubscriber.ChatSubscriber = function() {
 	};
 };
 
+
+MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager = function(nickname)
+{
+   var playerinstancename = nickname.trim().replace(" ","-");
+   var stompClient = null;
+   var notificationConnectDestination = "/marriagerummy/WebSockets/UserNotifications/";
+   var subscribeNotification = "/WebSockets/UserNotifications/";
+   var connect = function()
+   {
+	   var socket = new SockJS(notificationConnectDestination);
+	   stompClient = Stomp.over(socket);
+	   stompClient.connect({}, function(frame) {
+			console.log('Notification Player Manager Connected: ' + frame);
+			stompClient
+					.subscribe(subscribeNotification + playerinstancename,
+							function(formdata) {
+								console.log("User Notification subscribed "
+										+ formdata.body);
+								var stompBody = formdata.body;
+								handlePlayerNotifications(stompBody);
+							});
+
+		});
+   };
+   
+   var init = function()
+   {
+	   connect();
+   };
+   
+   init();
+   
+   var handlePlayerNotifications = function(data)
+   {
+	    var jsonobj = JSON.parse(data);
+		var type = jsonobj.notificationType;
+		var source = jsonobj.notificationSource;
+		var object = jsonobj.notificationObject;
+		var username = jsonobj.notifiedBy;
+		console.log("Notification Player Manager Handler Invoked :- " + data);
+   };
+};
+
+
 MarriageRummy.Utilities.PushServerSubscriber.NotificationManager = function(gid) {
 	var gameInstanceID = gid;
 	var stompClient = null;
@@ -453,6 +497,7 @@ marriageRummy = marriageRummy || {};
 marriageRummy.chatSubscriber = new MarriageRummy.Utilities.PushServerSubscriber.ChatSubscriber();
 marriageRummy.notificationManager = {};
 marriageRummy.notificationRequest = new MarriageRummy.Utilities.PushServerSubscriber.RequestPreparer();
+marriageRummy.playerNotificationManager = {};
 /*
  * try { marriageRummy.chatSubscriber.connect("GAMEINSTANCE123");
  * marriageRummy.notificationManager = new

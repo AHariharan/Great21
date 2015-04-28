@@ -296,7 +296,8 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	
 	self.updatePlayerList = function(data) {
 	
-
+		
+        var loggedinUser = marriageRummy.loggedinUser; 
 		$("#GameLauncherContainer .well dd#noplayers").html(
 				data.playerlist.length + "/" + stateobject.maxplayers);
 		$("#gamemembers #playersarea").empty();
@@ -305,6 +306,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				+ '<button class="close kickPlayer"><i id="add" class="fa fa-times"></i></button>'
 				+ '<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
 				+ 'MEMBERNAME</div>';
+		
 		var hosttemplate = '<div class="members">'
 			+ '<img src="./assets/images/Cards/ClubCards/A.png">'
 			+ 'MEMBERNAME</div>';
@@ -314,7 +316,6 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				+ '<img src="./assets/images/Cards/ClubCards/A.png">'
 				+'<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
 				+ 'MEMBERNAME</div>';
-			
 			}
 
 		for (var i = 0; i < data.playerlist.length; i++) {
@@ -326,8 +327,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 			if(i == 0)
 				addMemeberContent = hosttemplate.replace("MEMBERNAME",nickname);
+			if(nickname == loggedinUser)
+			{
+				addMemeberContent = hosttemplate.replace("MEMBERNAME",nickname);
+			}
 				
 			$("#gamemembers #playersarea").append(addMemeberContent);
+			
 			$('.addFriend').unbind();
 			$('.addFriend').on("click",function(){
 				var destNickname = $('.addFriend').parent().text().trim();

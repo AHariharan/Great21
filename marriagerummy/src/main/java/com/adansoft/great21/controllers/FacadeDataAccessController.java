@@ -31,6 +31,7 @@ import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
 import com.adansoft.great21.router.FacadetoDataAccessMapper;
 import com.adansoft.great21.security.RummyUser;
+import com.adansoft.great21.uischemas.NotificationEvent;
 import com.adansoft.great21.uischemas.data.UIUpdateProfileInformationRequest;
 
 @RestController
@@ -44,6 +45,9 @@ public class FacadeDataAccessController {
 	
 	@Autowired
 	FacadetoDataAccessMapper mapper;
+	
+	@Autowired
+	WebSocketController notifier;
 	
 	@PostConstruct
 	public void verifyGameIndexerConfig()
@@ -147,6 +151,7 @@ public class FacadeDataAccessController {
 	{
 		RummyUser user = (RummyUser)authentication.getPrincipal();
 		incomingrequest.setNickName(user.getNickname());
+		notifier.sendNotificationtoSpecificUser(new NotificationEvent("addFriend", "Server", null, user.getNickname()), incomingrequest.getDesinationNickname());
 		return RestServiceHelper.addFriend(mapper, restTemplate, incomingrequest);
 	}
 	

@@ -495,6 +495,8 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			$('#genericnotifier').html(data.notificationCount);
 			$('#genericnotifier').show();
 		}
+		//Testing..
+		marriageRummy.playerNotificationManager = new MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager(marriageRummy.loggedinUser);
 	};
 	
 	self.renderPendingAddFriends = function(data)
