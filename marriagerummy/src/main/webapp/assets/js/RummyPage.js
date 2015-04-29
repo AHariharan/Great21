@@ -570,9 +570,9 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		dashboardcharts.startMoneyChart();
 		dashboardcharts.startWinRatioCharts();
 		new MarriageRummy.Utilities.UIUtilities.ModalInitiator();
-		var profiledatamanager = new MarriageRummy.Utilities.UIUtilities.ProfileData();
-		profiledatamanager.getProfileInformation();
-		profiledatamanager.getNotificationCount();
+		marriageRummy.profiledatamanager = new MarriageRummy.Utilities.UIUtilities.ProfileData();
+		marriageRummy.profiledatamanager.getProfileInformation();
+		marriageRummy.profiledatamanager.getNotificationCount();
 
 	};
 };

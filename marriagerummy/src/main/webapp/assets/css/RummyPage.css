@@ -450,8 +450,8 @@
 }
 
 #GameLauncherContainer .members button.addFriend {
-	color: rgb(74, 74, 205);
-	margin-top: 13px;
+	color: rgb(62, 160, 243);
+	margin-top: 3px;
 	font-size: 13px;
 	padding-right: 14px;
 	opacity: 0.8;
@@ -460,7 +460,7 @@
 #GameLauncherContainer .members button.kickPlayer {
 	color: rgb(207, 58, 58);
 	opacity: 0.8;
-	margin-top: 11px;
+	margin-top: 0px;
 	padding-right: 10px;
 	font-size: 15px;
 }

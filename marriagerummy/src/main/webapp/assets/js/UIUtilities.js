@@ -303,8 +303,8 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		$("#gamemembers #playersarea").empty();
 		var membertemplate = '<div class="members">'
 				+ '<img src="./assets/images/Cards/ClubCards/A.png">'
-				+ '<button class="close kickPlayer"><i id="add" class="fa fa-times"></i></button>'
-				+ '<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
+				+ '<button class="close kickPlayer"><i id="add" class="fa fa-times fa-2x"></i></button>'
+				+ '<button class="close addFriend"><i id="add" class="fa fa-user-plus fa-2x"></i></button>'
 				+ 'MEMBERNAME</div>';
 		
 		var hosttemplate = '<div class="members">'
@@ -314,7 +314,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			{
 			membertemplate = '<div class="members">'
 				+ '<img src="./assets/images/Cards/ClubCards/A.png">'
-				+'<button class="close addFriend"><i id="add" class="fa fa-plus"></i></button>'
+				+'<button class="close addFriend"><i id="add" class="fa fa-user-plus fa-2x"></i></button>'
 				+ 'MEMBERNAME</div>';
 			}
 
@@ -325,7 +325,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			var addMemeberContent = membertemplate.replace("MEMBERNAME",
 					nickname);
 
-			if(i == 0)
+			if(i == 0 && LauncherType != "JOINMODE")
 				addMemeberContent = hosttemplate.replace("MEMBERNAME",nickname);
 			if(nickname == loggedinUser)
 			{
@@ -339,6 +339,9 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 				var destNickname = $('.addFriend').parent().text().trim();
 				createFriendRequest(destNickname);
 				$(this).attr("disabled","disabled");
+				$(this).css("color","rgb(172, 177, 180)");
+				marriageRummy.generalutility.showInfo("Friend Request Sent",
+				"Friend Request sent successfully to " + destNickname);
 			});
 		}
 

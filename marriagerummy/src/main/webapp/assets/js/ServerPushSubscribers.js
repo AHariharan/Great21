@@ -96,6 +96,16 @@ MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager = functio
 		var object = jsonobj.notificationObject;
 		var username = jsonobj.notifiedBy;
 		console.log("Notification Player Manager Handler Invoked :- " + data);
+		if(type == "addFriend")
+			handleAddFriendNotification(jsonobj);
+   };
+   
+   
+   var handleAddFriendNotification = function(data)
+   {
+	   marriageRummy.generalutility.showInfo("You received new Friend Request from : " + data.notifiedBy,
+				"Friend Request");
+	   marriageRummy.profiledatamanager.getNotificationCount();
    };
 };
 

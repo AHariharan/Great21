@@ -96,7 +96,7 @@ public class WebSocketController {
 	{
 		String actualNick = nickname.trim().replace(" ","-");
 		System.out.println("Send Notification From Backend to specific user");
-		template.convertAndSend("/WebSockets/Notifications/User/"+actualNick, event);
+		template.convertAndSend("/WebSockets/UserNotifications/"+actualNick, event);
 	}
 
 }

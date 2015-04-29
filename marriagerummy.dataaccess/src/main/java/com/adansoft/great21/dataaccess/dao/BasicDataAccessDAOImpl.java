@@ -315,17 +315,29 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		return response;
 	}
 	
-	
+	@Override
+	@SuppressWarnings("unchecked")
     public  String addFriend(AddFriendRequest request)
     {
     	String result = "Success";
     	try
     	{
+        long useridn = authdao.findUserbyNickName(request.getDesinationNickname()).getId().getUserId();
+        long requestoridn = authdao.findUserbyNickName(request.getNickName()).getId().getUserId();
+    	List<FriendRequest> list = sessionFactory.getCurrentSession().
+    	createQuery("from FriendRequest where id.userId = :varuserid and requestorIdn = :requestoridn")
+    	.setBigInteger("varuserid", BigInteger.valueOf(useridn))
+    	.setBigInteger("requestoridn",BigInteger.valueOf(requestoridn)).list();
+        if(list.size() > 0)
+        {
+        	System.out.println("Friend Request Already exists");
+        	return result;
+        }
     	FriendRequest frequest = new FriendRequest();
     	FriendRequestId id = new FriendRequestId();   	
-    	id.setUserId(authdao.findUserbyNickName(request.getDesinationNickname()).getId().getUserId());
+    	id.setUserId(useridn);
     	frequest.setId(id);
-    	frequest.setRequestorIdn(authdao.findUserbyNickName(request.getNickName()).getId().getUserId());
+    	frequest.setRequestorIdn(requestoridn);
     	frequest.setRequestedDate(Calendar.getInstance().getTime());
     	frequest.setStatus(DatabaseValueConstants.FRIEND_REQUEST_PENDING);
     	sessionFactory.getCurrentSession().persist(frequest);
