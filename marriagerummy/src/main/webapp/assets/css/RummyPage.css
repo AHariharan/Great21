@@ -670,15 +670,13 @@
 	z-index: 10000;
 }
 
-.notification-container-heading
-{
-    min-height: 45px;
-    background: rgb(190, 4, 60);
-    color: white;
-    padding: 10px;
-    font-weight: 500;
-    font-size: 17px;
-	
+.notification-container-heading {
+	min-height: 45px;
+	background: rgb(190, 4, 60);
+	color: white;
+	padding: 10px;
+	font-weight: 500;
+	font-size: 17px;
 }
 
 .arrow-top {
@@ -746,4 +744,55 @@
 	text-align: center;
 	font-weight: bold;
 	height: 20px;
+}
+
+#friendList {
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+#friend {
+	display: flex;
+	border: 4px solid rgb(226, 225, 225);
+	border-left: 0px;
+	border-right: 0px;
+	margin-top: -4px;
+	background: whitesmoke;
+}
+
+.selectcheckbox {
+	padding: 30px;
+}
+
+.selectcheckbox input[type="checkbox"] {
+	transform: scale(1.5);
+	-webkit-transform: scale(1.5);
+}
+
+.friendContent {
+	padding: 6px;
+}
+
+.friendImage {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.friendContent {
+	color:
+}
+
+.friendRating {
+	text-align: center;
+	margin-left: 73px;
+}
+
+.friendRating h4 {
+	font-size: 35px;
+	padding-left: 24px;
+	color: rgb(211, 43, 100);
+	box-shadow: 0px 0px 10px -2px rgb(92, 94, 107);
+	padding-right: 15px;
+	/* margin-left: 85px; */
+	border-radius: 5px;
 }

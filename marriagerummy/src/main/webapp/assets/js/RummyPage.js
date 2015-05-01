@@ -514,10 +514,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
 	};
 	
-	self.renderFriendsList = function(data)
-	{
-		console.log("RENDER renderFriendsList : " + JSON.stringify(data));
-	};
+	
 	
 	self.getProfileInformation = function() {
 		var url = marriageRummy.urls.getProfileInformation;

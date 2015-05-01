@@ -50,6 +50,7 @@
 				<value>ORM/Hibernate-UserNotifications.hbm.xml</value>
 				<value>ORM/Hibernate-GamejoinRequest.hbm.xml</value>
 				<value>ORM/Hibernate-FriendRequest.hbm.xml</value>
+				<value>ORM/Hibernate-UserFriends.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

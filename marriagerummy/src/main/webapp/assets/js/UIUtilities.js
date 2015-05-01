@@ -129,6 +129,18 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			$("#CancelGame").text("Cancel Game");
 			}
 		
+		$('#inviteFriends').unbind();
+		$('#inviteFriends').on("click",function(){
+			var url = marriageRummy.urls.getFriendList;
+			var formdata = marriageRummy.request.getDataRequest().getFriendsList();
+			var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetFriendsListSuccess;
+			var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetFriendsListFailure;
+			var requestObj = {"formdata":formdata,
+					          "srcObj":self};	
+			marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);			
+		});
+		
+		
 		$('#LaunchGame').unbind();
 		$('#LaunchGame').on("click",function(){
 			var gameInstanceID = stateobject.gameInstanceId;
@@ -179,6 +191,35 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 	{
 		$(".sendText textarea").unbind();
 		$("#CancelGame").unbind();
+		
+	};
+	
+	self.renderFriendsList = function(data)
+	{
+		console.log("RENDER renderFriendsList : " + JSON.stringify(data));
+		$("#FriendsListModal").modal('show');
+		if(data.friendlist === undefined || data.friendlist.length == 0)
+			{
+			   $('#friendList').empty();
+			   $('#friendList').html('<h3 style="text-align:center;"> No Friends to Display </h3>');
+			}
+		else
+			{
+			    var friendTemplate = '<div id="friend">	<div class="selectcheckbox"> <input type="checkbox" /></div>'+
+			                         '<div class="friendImage"><span><i class="fa fa-user fa-5x"></i></div><div class="friendContent">'+
+				                     '<h4>NICKNAME</h4><h5>EMAILADDRESS<span style="color: rgb(74, 148, 115); font-size: 11px;">'+ 
+			                         '<i class="fa fa-clock-o"></i> 1 day ago</span></h5></div>'+
+			                         '<div class="friendRating"><h6>Rating</h6><h4>RATING</h4></div></div>';
+			    var htmlcontent = "";
+			    for(var i=0;i<data.friendlist.length;i++)
+			    	{
+			    	   var frienduser = friendTemplate.replace("NICKNAME", data.friendlist[i].nickname).replace("EMAILADDRESS",data.friendlist[i].emailAddress)
+			    	   .replace("RATING",data.friendlist[i].rating);
+			    	   htmlcontent = htmlcontent + frienduser;
+			    	}
+			    $('#friendList').empty();
+			    $('#friendList').html(htmlcontent);
+			}
 		
 	};
 	

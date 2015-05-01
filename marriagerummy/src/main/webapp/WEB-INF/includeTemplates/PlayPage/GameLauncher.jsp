@@ -25,7 +25,7 @@
 							<dt>Buy in value</dt>
 							<dd id="buyindisplay">2/6</dd>
 						</dl>
-						<button class="btn btn-primary col-md-offset-1 col-md-2">
+						<button id="inviteFriends" class="btn btn-primary col-md-offset-1 col-md-2">
 							Invite Friends</button>
 					</div>
 					<div class="panel panel-primary">

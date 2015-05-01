@@ -16,10 +16,10 @@
             <column name="FRIENDS_IDN" />
         </property>
         <property name="establishedDate" type="timestamp">
-            <column name="ESTABLISHED_DATE" length="19" not-null="true" />
+            <column name="ESTABLISHED_DATE" length="19" />
         </property>
         <property name="expirationDate" type="timestamp">
-            <column name="EXPIRATION_DATE" length="19" not-null="true" />
+            <column name="EXPIRATION_DATE" length="19"  />
         </property>
     </class>
 </hibernate-mapping>

@@ -82,6 +82,7 @@
 
 	<%@ include
 		file="../includeTemplates/PlayPage/CreateGameModal.jsp"%>
+	<%@ include file="../includeTemplates/PlayPage/FriendListModal.jsp" %>	
 	<!--  End of Modals -->
 	<div class="maincontent">
 	    <div id="gameToolMain" style="display:none;">

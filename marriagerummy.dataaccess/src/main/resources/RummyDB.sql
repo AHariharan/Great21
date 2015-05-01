@@ -197,7 +197,7 @@ CREATE  TABLE IF NOT EXISTS `Rummy`.`GAMEJOIN_REQUEST` (
   `STATUS` VARCHAR(45) NULL ,
   PRIMARY KEY (`GAMEREQUEST_IDN`, `USER_ID`) )
 ENGINE = InnoDB;
-
+s
 -- -----------------------------------------------------
 -- Table `Rummy`.`USER_FRIENDS`
 -- -----------------------------------------------------
@@ -207,11 +207,10 @@ CREATE  TABLE IF NOT EXISTS `Rummy`.`USER_FRIENDS` (
   `USER_ID` BIGINT NOT NULL ,
   `LINK_ID` BIGINT NOT NULL AUTO_INCREMENT ,
   `FRIENDS_IDN` BIGINT NULL ,
-  `ESTABLISHED_DATE` DATETIME NOT NULL ,
-  `EXPIRATION_DATE` DATETIME NOT NULL ,
+  `ESTABLISHED_DATE` DATETIME NULL ,
+  `EXPIRATION_DATE` DATETIME NULL ,
   PRIMARY KEY (`LINK_ID`, `USER_ID`) )
-ENGINE = InnoDB;
-
+ENGINE = InnoDB
 
 -- -----------------------------------------------------
 -- Table `Rummy`.`GAME_STATS`
