@@ -18,6 +18,7 @@ import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 
@@ -42,4 +43,6 @@ public interface BasicDataAccessDAO {
      public GetFriendListResponse getUserFriends(GetFriendsListRequest request);
      
      public String addFriend(AddFriendRequest request);
+     
+     public String sendGameInvite(SendGameInviteRequest request);
 }

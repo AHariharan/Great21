@@ -17,6 +17,75 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities
 // @Class LoggedinPage
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
+	
+	var getGameInvites = function()
+	{
+		var url = marriageRummy.urls.getActiveGameInvites;
+		var formdata = marriageRummy.request.getDataRequest().getActiveGameInviteList();
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveGameInviteSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveGameInviteFailure;
+		var requestObj = {
+				           "srcObj" : self,
+				           "formdata": formdata
+				         };	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+	};
+	
+	var getFriendRequest = function()
+	{
+		
+	};
+	
+	var getNotificationMessages =  function()
+	{
+		
+	};
+	
+	self.renderPendingAddFriends = function(data)
+	{
+		console.log("RENDER Pending add Friends : " + JSON.stringify(data));
+	};
+	
+	self.renderActiveGameInvites = function(data)
+	{
+		
+		console.log("RENDER renderActiveGameInvites : " + JSON.stringify(data));
+		var template = '<div class="notification"><h5 style="line-height: 20px;"><span style="font-weight: bold;  color: rgb(190, 4, 60);">NICKNAME</span> has invited you to play'+ 
+		               '<span style="font-weight: bold;"> GAMETYPE </span> game in <span style="font-weight: bold;"> LOBBYNAME </span> lobby </h5>'+
+	                   '<div style="text-align: right;"><button class="btn btn-primary" data-gameinstanceid="D_Gameinstanceid" data-lobby="D_Lobbyname" data-gameType="D_GameType">Join now</button>'+
+	                   '<button class="btn btn-danger" style="margin-left: 14px;">Ignore</button>'+
+                       '</div></div>';
+		$('#gameInviteContainer .notification').remove();
+		if(data.gameinviteList !== undefined && data.gameinviteList.length > 0)
+			{
+			
+			   for(var i=0;i<data.gameinviteList.length;i++)
+				   {
+				      var curinvite = data.gameinviteList[i];
+				      var gamdesc = marriageRummy.generaldatautility.getGameDescriptionbyCode(curinvite.gameType);
+				      var htmlcontent = template.replace("NICKNAME",curinvite.requestedBY)
+				              .replace("GAMETYPE", gamdesc)
+				              .replace("LOBBYNAME",curinvite.gameLobby)
+				              .replace("D_Gameinstanceid",curinvite.gameInstanceID)
+				              .replace("D_GameType",curinvite.gameType)
+		                      .replace("D_Lobbyname",curinvite.gameLobby);
+				      $('#gameInviteContainer').append(htmlcontent);
+				      
+				   }
+			}
+		else
+			{
+			   var htmlcontent = '<h2 style="  padding: 44px;"> No Game Invites to show </h2>';
+			   $('#gameInviteContainer').append(htmlcontent);
+			}
+
+	};
+
+	self.renderActiveNotifications = function(data)
+	{
+		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
+	};
+	
 
 	$('#notifier').unbind();
 	$('#notifier').on("click", function(event) {
@@ -51,6 +120,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	$('#gamepadnotifier').unbind();
 	$('#gamepadnotifier').on("click", function(event) {
 		$('#gameInviteContainer').slideDown();
+		getGameInvites();
 		$('#notificationContainer').hide();
 		$('#FriendRequestContainer').hide();
 		$(document).click(function(event) { 
@@ -499,21 +569,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		marriageRummy.playerNotificationManager = new MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager(marriageRummy.loggedinUser);
 	};
 	
-	self.renderPendingAddFriends = function(data)
-	{
-		console.log("RENDER Pending add Friends : " + JSON.stringify(data));
-	};
-	
-	self.renderActiveGameInvites = function(data)
-	{
-		console.log("RENDER renderActiveGameInvites : " + JSON.stringify(data));
-	};
 
-	self.renderActiveNotifications = function(data)
-	{
-		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
-	};
-	
 	
 	
 	self.getProfileInformation = function() {

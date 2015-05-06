@@ -45,7 +45,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getActiveGameInvites ="/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveGameInvite";
 	self.getActiveNotifications = "/marriagerummy/DataAccess/Data/BasicUserDetails/GetActiveNotifications";
 	self.getFriendList = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friends/Get";
-	self.addFriendRequest = "/marriagerummy/DataAccess/Data//BasicUserDetails/Friends/Add";
+	self.addFriendRequest = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friends/Add";
+	self.sendGameInvite = "/marriagerummy/DataAccess/Data/BasicUserDetails/GameInvite/Send";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -424,6 +425,19 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 		var formdata = {
 				nickName : "Auto",
 				desinationNickname : destNickName
+		};
+		
+		return formdata;
+	};
+	
+	self.sendGameInvite = function(gameinstanceid,gametype,lobbyname,nicknamearr)
+	{
+		var formdata = {
+				gameInstanceID : gameinstanceid,
+				gameType : gametype,
+				lobbyName : lobbyname,
+				invitornickname : "Auto",
+				nicknames : nicknamearr				
 		};
 		
 		return formdata;
@@ -946,7 +960,7 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 		}
 	else
 		{
-		   requestObj.srcObj.renderFriendsList(data);
+		   requestObj.srcObj.renderFriendsList(data,requestObj.gameData);
 		}
 	};
 	
@@ -973,6 +987,23 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 		console.log("******onAddFriendFailure  FAILURE ******** " + JSON.stringify(data));
 	};
 	
+	
+	self.onSendGameInviteSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onSendGameInviteSuccess   ******** " + JSON.stringify(data));
+		}
+	};
+	
+	self.onSendGameInviteFailure = function(data)
+	{
+		console.log("******onSendGameInviteFailure  FAILURE ******** " + JSON.stringify(data));
+	};
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
 	{

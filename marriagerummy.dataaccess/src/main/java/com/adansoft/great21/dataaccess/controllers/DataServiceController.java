@@ -24,6 +24,7 @@ import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 
@@ -104,6 +105,14 @@ public class DataServiceController {
 	public @ResponseBody String addFriend(@RequestBody AddFriendRequest request)
 	{
 		return basicdatadao.addFriend(request);
+	}
+	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.SEND_GAME_INVITE, method = RequestMethod.POST)
+	public @ResponseBody String addFriend(@RequestBody SendGameInviteRequest request)
+	{
+		return basicdatadao.sendGameInvite(request);
 	}
 
 }

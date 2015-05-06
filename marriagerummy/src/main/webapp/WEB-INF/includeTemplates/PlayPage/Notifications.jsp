@@ -34,14 +34,8 @@
 </div>
 
 <div id="gameInviteContainer" style="display: none">
-    <div class="notification-container-heading">My GameInvites</div>
-	<div class="notification">
-		<h5>
-			<span style="font-weight: bold;">SnakeShit</span> has invited you to
-			game
-		</h5>
-		<button class="btn btn-primary">Join now</button>
-	</div>
+    <div class="notification-container-heading">My Game Invites</div>
+	
 </div>
 
 

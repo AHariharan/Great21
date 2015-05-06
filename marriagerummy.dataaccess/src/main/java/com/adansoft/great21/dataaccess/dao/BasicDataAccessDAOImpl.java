@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.adansoft.great21.dataaccess.entities.FriendRequest;
 import com.adansoft.great21.dataaccess.entities.FriendRequestId;
 import com.adansoft.great21.dataaccess.entities.GamejoinRequest;
+import com.adansoft.great21.dataaccess.entities.GamejoinRequestId;
 import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAudit;
@@ -37,6 +38,7 @@ import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 import com.adansoft.great21.exceptions.GameIndexerConfigException;
@@ -348,6 +350,28 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
     	}
     	return result;
     }
+
+	@Override
+	public String sendGameInvite(SendGameInviteRequest request) {
+		 String result = "Success";
+		 try
+		 {  
+		    for(String nickname : request.getNicknames())
+		    {
+		    	GamejoinRequestId id = new GamejoinRequestId();		    	
+		    	long userid = authdao.findUserbyNickName(nickname).getId().getUserId();
+		    	long requestorIdn = authdao.findUserbyNickName(request.getInvitornickname()).getId().getUserId();
+		    	id.setUserId(userid);
+		    	GamejoinRequest gjrequest = new GamejoinRequest(id, requestorIdn, request.getGameInstanceID(), request.getGameType(), request.getLobbyName(), DatabaseValueConstants.GAMEJOIN_REQUEST_UNREAD);
+		    	sessionFactory.getCurrentSession().persist(gjrequest);
+		    }
+		 }catch(Exception e)
+		 {
+			 e.printStackTrace();
+			 result = "Failure";
+		 }		
+		 return result;
+	}
 	
-	
+
 }

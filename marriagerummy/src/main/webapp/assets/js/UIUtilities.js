@@ -22,6 +22,41 @@ MarriageRummy.Utilities.RummyUtilities.GameBrowserUtilities = function() {
 
 };
 
+
+MarriageRummy.Utilities.RummyUtilities.GeneralDataUtilities = function()
+{
+   var self = this;
+   
+   self.getGameDescriptionbyCode = function(GameCode)
+   {
+	  if(GameCode == "SEVENCARD_CLOSED")
+		  {
+		    return "7 Card Closed Joker Rummy";
+		  }
+	  if(GameCode == "SEVENCARD_OPEN")
+	  {
+	    return "7 Card Open Joker Rummy";
+	  }
+	  if(GameCode == "THIRTEENCARD_CLOSED")
+	  {
+	    return "13 Card Closed Joker Rummy";
+	  }
+	  if(GameCode == "THIRTEENCARD_OPEN")
+	  {
+	    return "13 Card Closed Joker Rummy";
+	  }
+	  if(GameCode == "TWENTYONECARD")
+	  {
+	    return "21 Card marriage Rummy";
+	  }
+	  
+	  return "UNKNOWN GAME TYPE";
+   };
+   
+};
+
+
+
 MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		createGameResponse, playerpos, LauncherType) {
 	
@@ -136,7 +171,13 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetFriendsListSuccess;
 			var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetFriendsListFailure;
 			var requestObj = {"formdata":formdata,
-					          "srcObj":self};	
+					          "srcObj":self,
+					          "gameData":{
+					        	  "gameInstanceId" :  stateobject.gameInstanceId,
+					        	  "lobbyName" : stateobject.lobbyName,
+					        	  "gameType" : stateobject.gameType
+					           }
+			                 };	
 			marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);			
 		});
 		
@@ -194,9 +235,10 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 		
 	};
 	
-	self.renderFriendsList = function(data)
+	self.renderFriendsList = function(data,gameData)
 	{
 		console.log("RENDER renderFriendsList : " + JSON.stringify(data));
+		$('#FriendsListModal').data('datacontent', gameData);
 		$("#FriendsListModal").modal('show');
 		if(data.friendlist === undefined || data.friendlist.length == 0)
 			{
@@ -205,7 +247,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			}
 		else
 			{
-			    var friendTemplate = '<div id="friend">	<div class="selectcheckbox"> <input type="checkbox" /></div>'+
+			    var friendTemplate = '<div class="friend">	<div class="selectcheckbox"> <input type="checkbox" /></div>'+
 			                         '<div class="friendImage"><span><i class="fa fa-user fa-5x"></i></div><div class="friendContent">'+
 				                     '<h4>NICKNAME</h4><h5>EMAILADDRESS<span style="color: rgb(74, 148, 115); font-size: 11px;">'+ 
 			                         '<i class="fa fa-clock-o"></i> 1 day ago</span></h5></div>'+
@@ -221,6 +263,32 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			    $('#friendList').html(htmlcontent);
 			}
 		
+		$('#InviteNow').unbind();
+		$('#InviteNow').on("click",function(){
+			var gameData = $('#FriendsListModal').data('datacontent');
+			var nicknameArray = new Array();
+			console.log("On Invite Now Game data " + JSON.stringify(gameData));
+			 $('.friend input[type="checkbox"]').filter(':checked').each(
+			            function(){
+			                    var friendnode = $(this).parent().parent();
+			                    var nickname =  friendnode.children().filter('div.friendContent').children().filter('h4').html().trim();
+			                    nicknameArray.push(nickname);
+			 });
+			 sendGameInvite(gameData,nicknameArray);
+			 $("#FriendsListModal").modal('show');
+		});
+		
+	};
+	
+	
+	var sendGameInvite = function(GameData,nicknamearr)
+	{
+		var url = marriageRummy.urls.sendGameInvite;
+		var formdata = marriageRummy.request.getDataRequest().sendGameInvite(GameData.gameInstanceId,GameData.gameType,GameData.lobbyName,nicknamearr);
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onSendGameInviteSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onSendGameInviteFailure;
+		var requestObj = {"formdata":formdata};	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
 	};
 	
 	var kickPlayer = function(nickname)
@@ -422,5 +490,6 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 
 var marriageRummy = marriageRummy || {};
 marriageRummy.gameBrowserUtilities = new MarriageRummy.Utilities.RummyUtilities.GameBrowserUtilities();
+marriageRummy.generaldatautility = new MarriageRummy.Utilities.RummyUtilities.GeneralDataUtilities();
 // marriageRummy.gameLauncherUtilities = new
 // MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities();

@@ -27,6 +27,7 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
 import com.adansoft.great21.router.FacadetoDataAccessMapper;
@@ -150,9 +151,17 @@ public class FacadeDataAccessController {
 	public String addFriend(@RequestBody AddFriendRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
 	{
 		RummyUser user = (RummyUser)authentication.getPrincipal();
-		incomingrequest.setNickName(user.getNickname());
-		notifier.sendNotificationtoSpecificUser(new NotificationEvent("addFriend", "Server", null, user.getNickname()), incomingrequest.getDesinationNickname());
-		return RestServiceHelper.addFriend(mapper, restTemplate, incomingrequest);
+		incomingrequest.setNickName(user.getNickname());	
+		return RestServiceHelper.addFriend(notifier, user.getNickname(), mapper, restTemplate, incomingrequest);
 	}
 	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.SEND_GAME_INVITE, method = RequestMethod.POST)
+	public String sendGameInvite(@RequestBody SendGameInviteRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setInvitornickname(user.getNickname());		
+		return RestServiceHelper.sendGameInvite(notifier,user.getNickname(),mapper, restTemplate, incomingrequest);
+	}
 }

@@ -5,6 +5,7 @@ import java.net.URI;
 import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controllers.FacadeControllerURLs;
+import com.adansoft.great21.controllers.WebSocketController;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
@@ -20,9 +21,11 @@ import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
 import com.adansoft.great21.router.FacadetoDataAccessMapper;
+import com.adansoft.great21.uischemas.NotificationEvent;
 
 public class RestServiceHelper {
 
@@ -178,7 +181,7 @@ public class RestServiceHelper {
 	}
 	
 	
-	public static String addFriend(FacadetoDataAccessMapper mapper,RestTemplate template,AddFriendRequest request)
+	public static String addFriend(WebSocketController notifier,String notifiedBy,FacadetoDataAccessMapper mapper,RestTemplate template,AddFriendRequest request)
 	{
 		String response = null;
 		try
@@ -187,6 +190,25 @@ public class RestServiceHelper {
 				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
 				+ FacadeControllerURLs.ADD_FRIEND_REQUEST);
 		response = template.postForEntity(url, request, String.class).getBody();
+		notifier.sendNotificationtoSpecificUser(new NotificationEvent("addFriend", "Server", null, notifiedBy), request.getDesinationNickname());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	public static String sendGameInvite(WebSocketController notifier,String notifiedBy,FacadetoDataAccessMapper mapper,RestTemplate template,SendGameInviteRequest request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.SEND_GAME_INVITE);
+		response = template.postForEntity(url, request, String.class).getBody();
+		for(String nickname : request.getNicknames())
+		    notifier.sendNotificationtoSpecificUser(new NotificationEvent("gameInvite", "Server", null, notifiedBy), nickname);
 		}catch(Exception e)
 		{
 			e.printStackTrace();
