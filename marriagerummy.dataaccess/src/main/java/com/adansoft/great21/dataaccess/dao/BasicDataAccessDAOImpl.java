@@ -22,6 +22,7 @@ import com.adansoft.great21.dataaccess.entities.UserNotifications;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.FriendResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
@@ -423,6 +424,36 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public String confirmorIgnoreGameInviteRequest(ConfirmIgnoreGameInviteRequest request) {
+		String result = "Success";		
+		try
+		{
+		    long requestoridn = authdao.findUserbyNickName(request.getRequestorNickName()).getId().getUserId();
+			List<GamejoinRequest> list = sessionFactory.getCurrentSession().createQuery("from GamejoinRequest where id.userId = :varuserid and requestorIdn = :varrequestoridn and gameInstanceId = :varGameinstanceid and gameType = :vargameType")
+			                                  .setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+			                                  .setBigInteger("varrequestoridn", BigInteger.valueOf(requestoridn))
+			                                  .setString("varGameinstanceid", request.getGameInstanceID())
+			                                  .setString("vargameType", request.getGameType()).list();
+			if(list != null && list.size() > 0)
+			{
+				for(int i=0;i<list.size();i++)
+				{
+					GamejoinRequest gjrequest = list.get(i);
+					gjrequest.setStatus(DatabaseValueConstants.GAMEJOIN_REQUEST_READ);
+					sessionFactory.getCurrentSession().merge(gjrequest);
+				}
+			}
+			
+		}catch(Exception e)
+		{
+			result = "Failure";
+			e.printStackTrace();
+		}		
 		return result;
 	}
 	

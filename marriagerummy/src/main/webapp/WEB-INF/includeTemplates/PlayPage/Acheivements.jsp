@@ -154,7 +154,7 @@
 				</div>
 			</div>
 		</div>
-	      <div id="rummyIntermediate" class="col-lg-3 col-md-4">
+	    <div id="rummyAverage" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -274,7 +274,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="Got Friends" class="col-lg-3 col-md-4">
+		<div id="GotFriends" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">
@@ -289,7 +289,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="QuickPlayer" class="col-lg-3 col-md-4">
+		<div id="QuickHand" class="col-lg-3 col-md-4">
 			<div class="panel panel-locked">
 				<div class="panel-heading">
 					<div class="row">

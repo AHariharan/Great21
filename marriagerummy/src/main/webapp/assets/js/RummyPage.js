@@ -120,8 +120,8 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 		console.log("RENDER renderActiveGameInvites : " + JSON.stringify(data));
 		var template = '<div class="notification"><h5 style="line-height: 20px;"><span style="font-weight: bold;  color: rgb(190, 4, 60);">NICKNAME</span> has invited you to play'+ 
 		               '<span style="font-weight: bold;"> GAMETYPE </span> game in <span style="font-weight: bold;"> LOBBYNAME </span> lobby </h5>'+
-	                   '<div style="text-align: right;"><button class="btn btn-primary" data-gameinstanceid="D_Gameinstanceid" data-lobby="D_Lobbyname" data-gameType="D_GameType">Join now</button>'+
-	                   '<button class="btn btn-danger" style="margin-left: 14px;">Ignore</button>'+
+	                   '<div style="text-align: right;"><button class="btn btn-primary" data-gameinstanceid="D_Gameinstanceid" data-lobby="D_Lobbyname" data-gameType="D_GameType" data-requestedBy="D_NICKNAME">Join now</button>'+
+	                   '<button class="btn btn-danger" data-gameinstanceid="ID_Gameinstanceid" data-lobby="ID_Lobbyname" data-gameType="ID_GameType" data-requestedBy="ID_NICKNAME" style="margin-left: 14px;">Ignore</button>'+
                        '</div></div>';
 		$('#gameInviteContainer .notification').remove();
 		$('#gameInviteContainer h2').remove();
@@ -137,34 +137,65 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 				              .replace("LOBBYNAME",curinvite.gameLobby)
 				              .replace("D_Gameinstanceid",curinvite.gameInstanceID)
 				              .replace("D_GameType",curinvite.gameType)
-		                      .replace("D_Lobbyname",curinvite.gameLobby);
+		                      .replace("D_Lobbyname",curinvite.gameLobby)
+		                      .replace("ID_Gameinstanceid",curinvite.gameInstanceID)
+				              .replace("ID_GameType",curinvite.gameType)
+		                      .replace("ID_Lobbyname",curinvite.gameLobby)
+		                      .replace("D_NICKNAME",curinvite.requestedBY)
+		                      .replace("ID_NICKNAME",curinvite.requestedBY);
 				      $('#gameInviteContainer').append(htmlcontent);
 				      
 				   }
 			   
 			   $('#gameInviteContainer button').unbind();
 			   $('#gameInviteContainer button').on("click",function(){
+				      var gameInstanceID = $(this).attr("data-gameinstanceid");
+				      var lobbyType = $(this).attr("data-lobby");
+				      var gameType = $(this).attr("data-gameType");
+				      var requestedBy = $(this).attr("data-requestedBy");
 				   if($(this).html().trim() == "Join now")
 					   {
-					      $('.sidebar ul>li[data-divid="GameBrowser"]').trigger( "click" );
-					      var gameInstanceID = $(this).attr("data-gameinstanceid");
-					      var lobbyType = $(this).attr("data-lobby");
-					      var gameType = $(this).attr("data-gameType");
+					      $('.sidebar ul>li[data-divid="GameBrowser"]').trigger( "click" );					      
 					      var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
 					      var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
 						  gameLobbyBrowser.joinGame(lobbyType,gameInstanceID,displayText);
-						 
+						  confirmorIgnoreGameInvites(requestedBy,gameInstanceID,gameType,$(this));				 
 					   }
+				   else
+					   {
+					      confirmorIgnoreGameInvites(requestedBy,gameInstanceID,gameType,$(this));				 
+					    }
 			   });
 			}
 		else
 			{
-			   var htmlcontent = '<h2 style="  padding: 44px;"> No Game Invites to show </h2>';
+			   var htmlcontent = '<h2 style="  padding: 34px;"> No Game Invites to show </h2>';
 			   $('#gameInviteContainer').append(htmlcontent);
 			}
 
 	};
 
+	var confirmorIgnoreGameInvites = function(requestornickname,GameInstanceID,GameType,buttonObj)
+	{
+		var url = marriageRummy.urls.confirmorIgnoreGameInvite;
+		var formdata = marriageRummy.request.getDataRequest().confirmorIgnoreGameInvite(requestornickname,GameInstanceID,GameType);
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreGameInviteSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreGameInviteFailure;
+		var requestObj = {
+				           "srcObj" : self,
+				           "formdata": formdata,
+				           "buttonObj" : buttonObj
+				         };	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+	};
+	
+	self.onGameJoinorIgnore = function(requestObj)
+	{
+		requestObj.buttonObj.parent().parent().remove();
+		marriageRummy.profiledatamanager.getNotificationCount();
+	};
+	
+	
 	self.renderActiveNotifications = function(data)
 	{
 		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));

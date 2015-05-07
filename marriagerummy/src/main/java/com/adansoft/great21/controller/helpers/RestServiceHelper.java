@@ -8,6 +8,7 @@ import com.adansoft.great21.controllers.FacadeControllerURLs;
 import com.adansoft.great21.controllers.WebSocketController;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -229,6 +230,24 @@ public class RestServiceHelper {
 		response = template.postForEntity(url, request, String.class).getBody();
 		for(String nickname : request.getNicknames())
 		    notifier.sendNotificationtoSpecificUser(new NotificationEvent("gameInvite", "Server", null, notifiedBy), nickname);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+
+	public static String confirmorIgnoreGameInviteRequest(FacadetoDataAccessMapper mapper,RestTemplate template,ConfirmIgnoreGameInviteRequest request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.CONFIRM_IGNORE_GAMEJOIN_REQUEST);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
 		}catch(Exception e)
 		{
 			e.printStackTrace();

@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.controller.helpers.RestServiceHelper;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -173,6 +174,15 @@ public class FacadeDataAccessController {
 		RummyUser user = (RummyUser)authentication.getPrincipal();
 		incomingrequest.setMyuserid(user.getUserid());
 		return RestServiceHelper.confirmorIgnoreFriend(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.CONFIRM_IGNORE_GAMEJOIN_REQUEST, method = RequestMethod.POST)
+	public String confirmorIgnoreFriendRequest(@RequestBody ConfirmIgnoreGameInviteRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setUserid(user.getUserid());
+		return RestServiceHelper.confirmorIgnoreGameInviteRequest(mapper, restTemplate, incomingrequest);
 	}
 	
 }
