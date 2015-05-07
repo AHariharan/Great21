@@ -107,7 +107,11 @@ public class GameBrowserHelper {
 		{
 		GameLobby lobby = RummyArena.getInstance().getLobby(request.getLobbyName());
 		Game game = UtilityHelper.getGamefromLobby(lobby, request.getGameInstanceID(), request.getGameType());
-		
+		if(game == null)
+		{
+			System.out.println("Unable to Join Game");
+			return result;
+		}
 		GetUserBasicDetailsRequest basicdetailsrequest = new GetUserBasicDetailsRequest(request.getAuthdata().getUserid(),request.getAuthdata().getEmailadd());
 		
 		GetUserBasicDetailsResponse basicdetailResponse = RestServiceHelper.getBasicDetails(mapper,template,basicdetailsrequest);

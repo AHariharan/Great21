@@ -141,6 +141,21 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 				      $('#gameInviteContainer').append(htmlcontent);
 				      
 				   }
+			   
+			   $('#gameInviteContainer button').unbind();
+			   $('#gameInviteContainer button').on("click",function(){
+				   if($(this).html().trim() == "Join now")
+					   {
+					      $('.sidebar ul>li[data-divid="GameBrowser"]').trigger( "click" );
+					      var gameInstanceID = $(this).attr("data-gameinstanceid");
+					      var lobbyType = $(this).attr("data-lobby");
+					      var gameType = $(this).attr("data-gameType");
+					      var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
+					      var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
+						  gameLobbyBrowser.joinGame(lobbyType,gameInstanceID,displayText);
+						 
+					   }
+			   });
 			}
 		else
 			{
