@@ -19,6 +19,7 @@ public class DataAccessServiceURLs {
 	public final static String GET_ACTIVE_NOTIFICATION = "/BasicUserDetails/GetActiveNotifications";
 	public final static String GET_FRIEND_LIST = "/BasicUserDetails/Friends/Get";
 	public final static String ADD_FRIEND_REQUEST = "/BasicUserDetails/Friends/Add";
+	public final static String CONFIRM_IGNORE_FRIEND_REQUEST = "/BasicUserDetails/Friend/ConfirmorIgnore";
 	public final static String SEND_GAME_INVITE = "/BasicUserDetails/GameInvite/Send";
 	
 	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";

@@ -17,9 +17,11 @@ import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAudit;
 import com.adansoft.great21.dataaccess.entities.UserFriends;
+import com.adansoft.great21.dataaccess.entities.UserFriendsId;
 import com.adansoft.great21.dataaccess.entities.UserNotifications;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.FriendResponse;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
@@ -372,6 +374,59 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		 }		
 		 return result;
 	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public String confirmFriendRequest(ConfirmIgnoreFriendRequest request) {
+		String result = "Success";
+		try
+		{
+			long useridn = request.getMyuserid();
+			long requestoridn = authdao.findUserbyNickName(request.getRequestorNickName()).getId().getUserId();
+			List<FriendRequest> list = sessionFactory.getCurrentSession().createQuery("from FriendRequest where id.userId = :varuserid and requestorIdn = :varrequestoridn and status = :varstatus")
+			                                  .setBigInteger("varuserid", BigInteger.valueOf(useridn))
+			                                  .setBigInteger("varrequestoridn", BigInteger.valueOf(requestoridn))
+			                                  .setString("varstatus", DatabaseValueConstants.FRIEND_REQUEST_PENDING).list();
+			if(list !=null && list.size() > 0)
+			{
+				FriendRequest frequest = list.get(0);
+				if(request.getStatus().equals(DatabaseValueConstants.FRIEND_REQUEST_ACCEPTED))
+				{
+				           frequest.setStatus(DatabaseValueConstants.FRIEND_REQUEST_ACCEPTED);
+				           
+				           UserFriendsId idoneway = new UserFriendsId();
+				           idoneway.setUserId(useridn);
+				           UserFriends friendoneway = new UserFriends(idoneway, Calendar.getInstance().getTime(), null);
+				           friendoneway.setFriendsIdn(requestoridn);
+				           
+				           UserFriendsId idrevereseway = new UserFriendsId();
+				           idrevereseway.setUserId(requestoridn);
+				           UserFriends friendreverseway = new UserFriends(idrevereseway, Calendar.getInstance().getTime(), null);
+				           friendreverseway.setFriendsIdn(useridn);
+				           
+				           sessionFactory.getCurrentSession().persist(friendoneway);
+				           sessionFactory.getCurrentSession().persist(friendreverseway);
+				           
+				}
+				else
+					       frequest.setStatus(DatabaseValueConstants.FRIEND_REQUEST_DENIED);
+				
+				frequest.setActionedDate(Calendar.getInstance().getTime());
+				sessionFactory.getCurrentSession().merge(frequest);
+			}
+			else
+			{
+				result = "Failure : Can't find friend request bad request";
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 	
 
+	
+	
 }

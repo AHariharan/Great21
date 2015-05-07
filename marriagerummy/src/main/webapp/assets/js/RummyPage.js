@@ -33,7 +33,15 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	
 	var getFriendRequest = function()
 	{
-		
+		var url = marriageRummy.urls.getPendingAddFriends;
+		var formdata = marriageRummy.request.getDataRequest().getFriendsList();
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetPendingAddFriendsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetPendingAddFriendsFailure;
+		var requestObj = {
+				           "srcObj" : self,
+				           "formdata": formdata
+				         };	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
 	};
 	
 	var getNotificationMessages =  function()
@@ -44,6 +52,66 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	self.renderPendingAddFriends = function(data)
 	{
 		console.log("RENDER Pending add Friends : " + JSON.stringify(data));
+		var template = '<div class="notification"><h5><span style="font-weight: bold;">NICKNAME</span> has sent you a '+
+			'friend request</h5><div><button class="btn btn-success" data-requestedby="REQUESTEDBY">Confirm</button>'+
+		    '<button class="btn btn-danger" style="margin-left: 14px;" data-requestedby="IREQUESTEDBY" >Ignore</button></div></div>';
+		$('#FriendRequestContainer .notification').remove();
+		$('#FriendRequestContainer h2').remove();
+    	if(data.activeFriendlist !== undefined && data.activeFriendlist.length > 0)
+    		{
+    		   for(var i=0;i<data.activeFriendlist.length;i++)
+    			   {
+    		              var curfriendrequest = data.activeFriendlist[i];
+    		              var htmlcontent = template.replace("NICKNAME",curfriendrequest.requestedBY)
+    			                                    .replace("REQUESTEDBY",curfriendrequest.requestedBY)
+    			                                    .replace("IREQUESTEDBY",curfriendrequest.requestedBY);
+    		              $('#FriendRequestContainer').append(htmlcontent);
+    			   }
+    		   $('#FriendRequestContainer button').unbind();
+    		   $('#FriendRequestContainer button').on("click",function(){
+    			         var requestornick = $(this).attr("data-requestedby");
+    			         if($(this).html() == "Confirm")
+    			        	 {
+    			        	    confirmorIgnoreFriend(requestornick,"ACCEPTED",$(this));
+    			        	 }
+    			         else
+    			        	 {
+    			        	    confirmorIgnoreFriend(requestornick,"DENIED",$(this));
+    			        	 }
+    		   });
+    		   
+    		}
+    	else
+		{
+		   var htmlcontent = '<h2 style="  padding: 44px;"> No Friend request to show </h2>';
+		   $('#FriendRequestContainer').append(htmlcontent);
+		}
+	};
+	
+	
+	var confirmorIgnoreFriend = function(requestornickname,status,buttonObj)
+	{
+		var url = marriageRummy.urls.confirmorIgnoreFriend;
+		var formdata = marriageRummy.request.getDataRequest().confirmorIgnoreFriend(requestornickname,status);
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreFriendSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreFriendFailure;
+		var requestObj = {
+				           "srcObj" : self,
+				           "formdata": formdata,
+				           "buttonObj" : buttonObj
+				         };	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+	};
+	
+	self.renderonConfirmorIgnoreFriendSuccess = function(requestObj)
+	{
+		var requestornick = requestObj.formdata.requestorNickName;
+		
+		var template = '<h5><span style="font-weight: bold;">you</span> and <span style="font-weight: bold;">NICKNAME</span> are now friends</h5>';
+		var htmlcontent = template.replace("NICKNAME",requestornick);
+		requestObj.buttonObj.parent().parent().html(htmlcontent);
+		marriageRummy.profiledatamanager.getNotificationCount();
+		//requestObj.buttonObj.parent().empty();
 	};
 	
 	self.renderActiveGameInvites = function(data)
@@ -56,6 +124,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	                   '<button class="btn btn-danger" style="margin-left: 14px;">Ignore</button>'+
                        '</div></div>';
 		$('#gameInviteContainer .notification').remove();
+		$('#gameInviteContainer h2').remove();
 		if(data.gameinviteList !== undefined && data.gameinviteList.length > 0)
 			{
 			
@@ -105,6 +174,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	$('#useraddnotifier').unbind();
 	$('#useraddnotifier').on("click", function(event) {
 		$('#FriendRequestContainer').slideDown();
+		getFriendRequest();
 		$('#notificationContainer').hide();
 		$('#gameInviteContainer').hide();
 		$(document).click(function(event) { 

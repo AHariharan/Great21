@@ -275,7 +275,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			                    nicknameArray.push(nickname);
 			 });
 			 sendGameInvite(gameData,nicknameArray);
-			 $("#FriendsListModal").modal('show');
+			 $("#FriendsListModal").modal('hide');
 		});
 		
 	};

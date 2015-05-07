@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.controllers.FacadeControllerURLs;
 import com.adansoft.great21.controllers.WebSocketController;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -197,6 +198,25 @@ public class RestServiceHelper {
 		}
 		return response;
 	}
+	
+	public static String confirmorIgnoreFriend(FacadetoDataAccessMapper mapper,RestTemplate template,ConfirmIgnoreFriendRequest request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.CONFIRM_IGNORE_FRIEND_REQUEST);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
 	
 	public static String sendGameInvite(WebSocketController notifier,String notifiedBy,FacadetoDataAccessMapper mapper,RestTemplate template,SendGameInviteRequest request)
 	{
