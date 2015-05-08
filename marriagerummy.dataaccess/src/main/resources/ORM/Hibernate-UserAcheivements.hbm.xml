@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated May 8, 2015 10:59:23 AM by Hibernate Tools 3.4.0.CR1 -->
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 8, 2015 10:26:54 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.adansoft.great21.dataaccess.home.UserAcheivements" table="user_acheivements" catalog="Rummy">
-        <composite-id name="id" class="com.adansoft.great21.dataaccess.home.UserAcheivementsId">
+    <class name="com.adansoft.great21.dataaccess.entities.UserAcheivements" table="user_acheivements" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.entities.UserAcheivementsId">
             <key-property name="userId" type="long">
                 <column name="USER_ID" />
             </key-property>

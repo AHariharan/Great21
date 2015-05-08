@@ -19,6 +19,8 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserAchivementList;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
@@ -55,4 +57,7 @@ public interface BasicDataAccessDAO {
      public String confirmorIgnoreGameInviteRequest(ConfirmIgnoreGameInviteRequest request);
      
      public String addNotification(AddNotificationRequest request);
+     
+     public GetUserAchivementList getUserAcheivements(GetUserAcheivementRequest request);
+     
 }

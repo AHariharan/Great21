@@ -1,8 +1,10 @@
 package com.adansoft.great21.dataaccess.dao;
 
+import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -41,6 +43,9 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAchivementList;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
@@ -399,13 +404,13 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 				           
 				           UserFriendsId idoneway = new UserFriendsId();
 				           idoneway.setUserId(useridn);
-				           UserFriends friendoneway = new UserFriends(idoneway, Calendar.getInstance().getTime(), null);
-				           friendoneway.setFriendsIdn(requestoridn);
+				           UserFriends friendoneway = new UserFriends(idoneway, requestoridn,Calendar.getInstance().getTime(), null);
+				           
 				           
 				           UserFriendsId idrevereseway = new UserFriendsId();
 				           idrevereseway.setUserId(requestoridn);
-				           UserFriends friendreverseway = new UserFriends(idrevereseway, Calendar.getInstance().getTime(), null);
-				           friendreverseway.setFriendsIdn(useridn);
+				           UserFriends friendreverseway = new UserFriends(idrevereseway, useridn,Calendar.getInstance().getTime(), null);
+				           
 				           
 				           sessionFactory.getCurrentSession().persist(friendoneway);
 				           sessionFactory.getCurrentSession().persist(friendreverseway);
@@ -479,5 +484,45 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public GetUserAchivementList getUserAcheivements(GetUserAcheivementRequest request) {
+		GetUserAchivementList resultlist = new GetUserAchivementList();
+		try
+		{
+		ArrayList<GetUserAcheivementResponse> responselist = new ArrayList<GetUserAcheivementResponse>();
+		resultlist.setNickname(request.getNickname());
+		@SuppressWarnings("unchecked")
+		List<Object[]> list = sessionFactory.getCurrentSession().createQuery("select b.uidivid,b.achievementAbbr,b.achivementDesc,a.status,a.unlockedDate " 
+				                                      + "from UserAcheivements a,AchievementConfig b  "
+				                                      + "where a.id.userId = :varuserid and "
+				                                      + " a.id.achivementId = b.acheivementId")
+				                                      .setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+				                                      .list();
+	   
+       if(list !=null && list.size() > 0)
+       {
+    	  for(Object[] row : list)
+    	  {
+    		  String divid = (String)row[0]; String achievementabbr = (String)row[1]; String achivementDesc = (String)row[2];
+    		  String status = (String) row[3]; Date date = (Date) row[4]; 
+    		  System.out.println(row.length+ " ,Div id : " + divid + ", " + achievementabbr + "," + achivementDesc + "," + status + ", " +  date);
+    		  
+    		  GetUserAcheivementResponse response = new GetUserAcheivementResponse(divid, achievementabbr, achivementDesc, date);
+    		  responselist.add(response);
+    	  }
+       }
+		
+		resultlist.setAcheivementlist(responselist);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return resultlist;
+	}
+	
+	
+	
+	
 	
 }

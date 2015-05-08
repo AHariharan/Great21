@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 22, 2015 3:08:51 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated May 8, 2015 10:59:23 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
     <class name="com.adansoft.great21.dataaccess.home.UserFriends" table="user_friends" catalog="Rummy">
         <composite-id name="id" class="com.adansoft.great21.dataaccess.home.UserFriendsId">
@@ -16,10 +16,10 @@
             <column name="FRIENDS_IDN" />
         </property>
         <property name="establishedDate" type="timestamp">
-            <column name="ESTABLISHED_DATE" length="19" not-null="true" />
+            <column name="ESTABLISHED_DATE" length="19" />
         </property>
         <property name="expirationDate" type="timestamp">
-            <column name="EXPIRATION_DATE" length="19" not-null="true" />
+            <column name="EXPIRATION_DATE" length="19" />
         </property>
     </class>
 </hibernate-mapping>

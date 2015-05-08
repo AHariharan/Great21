@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.adansoft.great21.controller.helpers.RestServiceHelper;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
@@ -29,6 +30,8 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserAchivementList;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.exceptions.DataAccessConfigException;
@@ -183,6 +186,26 @@ public class FacadeDataAccessController {
 		RummyUser user = (RummyUser)authentication.getPrincipal();
 		incomingrequest.setUserid(user.getUserid());
 		return RestServiceHelper.confirmorIgnoreGameInviteRequest(mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.ADDNOTIFICATION_FRONTEND, method = RequestMethod.POST)
+	public String addNotification(@RequestBody AddNotificationRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setNotifiedby(user.getNickname());
+		return RestServiceHelper.addNotification(notifier,user.getNickname(),mapper, restTemplate, incomingrequest);
+	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_USER_ACHEIVEMENTS, method = RequestMethod.POST)
+	public GetUserAchivementList getUserAcheivements(@RequestBody GetUserAcheivementRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setUserid(user.getUserid());
+		incomingrequest.setNickname(user.getNickname());
+		incomingrequest.setEmailaddress(user.getEmailaddr());		
+		return RestServiceHelper.getUserAcheivements(mapper, restTemplate, incomingrequest);
 	}
 	
 }

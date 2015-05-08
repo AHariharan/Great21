@@ -63,7 +63,9 @@ public class FacadeControllerURLs {
 	public final static String CONFIRM_IGNORE_FRIEND_REQUEST = "/BasicUserDetails/Friend/ConfirmorIgnore";
 	public final static String SEND_GAME_INVITE = "/BasicUserDetails/GameInvite/Send";
 	public final static String CONFIRM_IGNORE_GAMEJOIN_REQUEST = "/BasicUserDetails/GameInvite/ConfirmorIgnore";
-	public final static String ADDNOTIFICATION_FRONTEND = "/Player/Notification/Add";
+	public final static String ADDNOTIFICATION_FRONTEND = "/BasicUserDetails/Player/Notification/Add";
+	public final static String GET_USER_ACHEIVEMENTS = "/BasicUserDetails/Player/Acheivement/get";
+	
 	
 	
 }

@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated Apr 22, 2015 3:08:38 PM by Hibernate Tools 3.4.0.CR1
+// Generated May 8, 2015 10:59:13 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -17,11 +17,8 @@ public class UserFriends implements java.io.Serializable {
 	public UserFriends() {
 	}
 
-	public UserFriends(UserFriendsId id, Date establishedDate,
-			Date expirationDate) {
+	public UserFriends(UserFriendsId id) {
 		this.id = id;
-		this.establishedDate = establishedDate;
-		this.expirationDate = expirationDate;
 	}
 
 	public UserFriends(UserFriendsId id, Long friendsIdn, Date establishedDate,

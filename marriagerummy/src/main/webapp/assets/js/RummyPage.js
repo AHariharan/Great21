@@ -646,6 +646,22 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 
 	init();
 
+	self.getAcheivements = function()
+	{
+		var url = marriageRummy.urls.getUserAcheivements;
+		var formdata = marriageRummy.request.getDataRequest().getUserAcheivementsRequest();
+		var requestObj = {
+			"srcObj" : this,
+			"formdata" : formdata
+		};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().getUserAcheivementSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().getUserAcheivementFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+		console.log(url, formdata);
+	};
+	
+	
 	self.getNotificationCount = function() {
 		var url = marriageRummy.urls.getNotificationCount;
 		var formdata = marriageRummy.request.getDataRequest()
@@ -728,6 +744,9 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				failurecall, requestObj);
 		console.log(url, formdata);
 	};
+	
+	
+	
 };
 
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
@@ -742,6 +761,7 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		marriageRummy.profiledatamanager = new MarriageRummy.Utilities.UIUtilities.ProfileData();
 		marriageRummy.profiledatamanager.getProfileInformation();
 		marriageRummy.profiledatamanager.getNotificationCount();
+		marriageRummy.profiledatamanager.getAcheivements();
 
 	};
 };

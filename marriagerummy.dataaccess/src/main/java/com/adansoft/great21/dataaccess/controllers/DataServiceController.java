@@ -25,6 +25,8 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserAchivementList;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
@@ -138,6 +140,14 @@ public class DataServiceController {
 	public @ResponseBody String confirmorIgnoreFriend(@RequestBody AddNotificationRequest request)
 	{
 		return basicdatadao.addNotification(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_USER_ACHEIVEMENTS, method = RequestMethod.POST)
+	public @ResponseBody GetUserAchivementList confirmorIgnoreFriend(@RequestBody GetUserAcheivementRequest request)
+	{
+		return basicdatadao.getUserAcheivements(request);
 		
 	}
 	

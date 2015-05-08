@@ -7,6 +7,7 @@ import org.springframework.web.client.RestTemplate;
 import com.adansoft.great21.controllers.FacadeControllerURLs;
 import com.adansoft.great21.controllers.WebSocketController;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
@@ -21,6 +22,8 @@ import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationResponse;
+import com.adansoft.great21.dataaccess.schemas.GetUserAcheivementRequest;
+import com.adansoft.great21.dataaccess.schemas.GetUserAchivementList;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
@@ -247,6 +250,42 @@ public class RestServiceHelper {
 				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
 				+ FacadeControllerURLs.CONFIRM_IGNORE_GAMEJOIN_REQUEST);
 		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static String addNotification(WebSocketController notifier,String notifiedBy,FacadetoDataAccessMapper mapper,RestTemplate template,AddNotificationRequest request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.ADDNOTIFICATION_FRONTEND);
+		response = template.postForEntity(url, request, String.class).getBody();
+		notifier.sendNotificationtoSpecificUser(new NotificationEvent("GenericNotification", "Server", null, notifiedBy), request.getNotificationfor());
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static GetUserAchivementList getUserAcheivements(FacadetoDataAccessMapper mapper,RestTemplate template,GetUserAcheivementRequest request)
+	{
+		GetUserAchivementList response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_USER_ACHEIVEMENTS);
+		response = template.postForEntity(url, request, GetUserAchivementList.class).getBody();
 		
 		}catch(Exception e)
 		{

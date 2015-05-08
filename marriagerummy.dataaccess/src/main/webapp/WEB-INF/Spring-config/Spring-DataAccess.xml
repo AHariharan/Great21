@@ -51,6 +51,8 @@
 				<value>ORM/Hibernate-GamejoinRequest.hbm.xml</value>
 				<value>ORM/Hibernate-FriendRequest.hbm.xml</value>
 				<value>ORM/Hibernate-UserFriends.hbm.xml</value>
+				<value>ORM/Hibernate-AchievementConfig.hbm.xml</value>
+				<value>ORM/Hibernate-UserAcheivements.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

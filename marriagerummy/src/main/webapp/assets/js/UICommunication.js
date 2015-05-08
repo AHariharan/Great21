@@ -50,6 +50,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.confirmorIgnoreFriend = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friend/ConfirmorIgnore";
 	self.confirmorIgnoreGameInvite = "/marriagerummy/DataAccess/Data/BasicUserDetails/GameInvite/ConfirmorIgnore";
 	self.addNotification = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Notification/Add";
+	self.getUserAcheivements = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Acheivement/get";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -462,6 +463,15 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 				 requestorNickName : requestedbyNick,
 				 gameType : GameType
 		 };
+		 return formdata;
+	};
+	
+	self.getUserAcheivementsRequest = function()
+	{
+		 var formdata = {
+				 "nickname":"Auto"				 
+		 };
+		 
 		 return formdata;
 	};
 	
@@ -1049,6 +1059,24 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	{
 		console.log("******onSendGameInviteFailure  FAILURE ******** " + JSON.stringify(data));
 	};
+	
+	self.getUserAcheivementSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******getUserAcheivementSuccess   ******** " + JSON.stringify(data));
+		}
+	};
+	
+	self.getUserAcheivementFailure = function(data)
+	{
+		console.log("******getUserAcheivementFailure  FAILURE ******** " + JSON.stringify(data));
+	};
+	
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
 	{
