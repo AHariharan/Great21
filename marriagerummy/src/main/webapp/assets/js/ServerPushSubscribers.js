@@ -98,6 +98,8 @@ MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager = functio
 		console.log("Notification Player Manager Handler Invoked :- " + data);
 		if(type == "addFriend")
 			handleAddFriendNotification(jsonobj);
+		if(type == "gameInvite")
+			handleGameInviteNotification(jsonobj);
    };
    
    
@@ -106,6 +108,13 @@ MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager = functio
 	   marriageRummy.generalutility.showInfo("You received new Friend Request from : " + data.notifiedBy,
 				"Friend Request");
 	   marriageRummy.profiledatamanager.getNotificationCount();
+   };
+   
+   var handleGameInviteNotification = function(data)
+   {
+	   marriageRummy.generalutility.showInfo("You received new game invitatio from : " + data.notifiedBy,
+		"Game Invite");
+       marriageRummy.profiledatamanager.getNotificationCount();
    };
 };
 

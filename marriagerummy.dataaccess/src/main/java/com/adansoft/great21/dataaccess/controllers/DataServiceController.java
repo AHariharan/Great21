@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adansoft.great21.dataaccess.dao.BasicDataAccessDAOImpl;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
@@ -129,6 +130,14 @@ public class DataServiceController {
 	public @ResponseBody String confirmorIgnoreFriend(@RequestBody ConfirmIgnoreGameInviteRequest request)
 	{
 		return basicdatadao.confirmorIgnoreGameInviteRequest(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.ADDNOTIFICATION_FRONTEND, method = RequestMethod.POST)
+	public @ResponseBody String confirmorIgnoreFriend(@RequestBody AddNotificationRequest request)
+	{
+		return basicdatadao.addNotification(request);
 		
 	}
 	

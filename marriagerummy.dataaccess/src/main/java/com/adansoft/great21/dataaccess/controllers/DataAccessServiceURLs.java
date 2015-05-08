@@ -22,6 +22,7 @@ public class DataAccessServiceURLs {
 	public final static String CONFIRM_IGNORE_FRIEND_REQUEST = "/BasicUserDetails/Friend/ConfirmorIgnore";
 	public final static String SEND_GAME_INVITE = "/BasicUserDetails/GameInvite/Send";
 	public final static String CONFIRM_IGNORE_GAMEJOIN_REQUEST = "/BasicUserDetails/GameInvite/ConfirmorIgnore";
+	public final static String ADDNOTIFICATION_FRONTEND = "/Player/Notification/Add";
 	
 	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";
 	public final static String CREATED_GAME = "/CreateGame";	
@@ -31,4 +32,5 @@ public class DataAccessServiceURLs {
 	public final static String FINISH_GAME_ROUND = "/FinishRound";
 	public final static String UPDATE_PLAYER_STATUS = "/PlayerCashPoints/persist";
 	public final static String UPDATE_PLAYER_RUMMYSTAT = "/Player/RummyStat/Update";
+	public final static String ADDNOTIFICATION_BACKEND = "/Player/Notification/Add";
 }

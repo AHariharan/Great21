@@ -19,8 +19,10 @@ import com.adansoft.great21.dataaccess.entities.UserAudit;
 import com.adansoft.great21.dataaccess.entities.UserFriends;
 import com.adansoft.great21.dataaccess.entities.UserFriendsId;
 import com.adansoft.great21.dataaccess.entities.UserNotifications;
+import com.adansoft.great21.dataaccess.entities.UserNotificationsId;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.FriendResponse;
@@ -458,6 +460,24 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 	}
 	
 
-	
+	@Override
+	public String addNotification(AddNotificationRequest request) {
+		String result = "Success";		
+		try
+		{
+	   UserNotificationsId id = new UserNotificationsId();
+	   id.setUserid(authdao.findUserbyNickName(request.getNotificationfor()).getId().getUserId());
+	   UserNotifications notification = new UserNotifications(id, request.getNotificationType(), 
+			                                                 request.getNotificationDesc(),request.getNotifiedby(), 
+			                                                 DatabaseValueConstants.NOTIFICATION_UNREAD, 
+			                                                 Calendar.getInstance().getTime());
+	   sessionFactory.getCurrentSession().persist(notification);
+		}catch(Exception e)
+		{
+			result = "Failure";
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

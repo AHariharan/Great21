@@ -49,6 +49,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.sendGameInvite = "/marriagerummy/DataAccess/Data/BasicUserDetails/GameInvite/Send";
 	self.confirmorIgnoreFriend = "/marriagerummy/DataAccess/Data/BasicUserDetails/Friend/ConfirmorIgnore";
 	self.confirmorIgnoreGameInvite = "/marriagerummy/DataAccess/Data/BasicUserDetails/GameInvite/ConfirmorIgnore";
+	self.addNotification = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Notification/Add";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -1022,7 +1023,7 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	
 	self.onConfirmorIgnoreGameInviteSuccess = function(data, textstatus, Jhxr, requestObj)
 	{
-		  requestObj.srcObj.onGameJoinorIgnore();
+		  requestObj.srcObj.onGameJoinorIgnore(requestObj);
 		  console.log("******onConfirmorIgnoreFriendSuccess   ******** " + JSON.stringify(data));
 		 
 	};

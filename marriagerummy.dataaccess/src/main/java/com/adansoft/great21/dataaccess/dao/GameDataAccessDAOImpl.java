@@ -15,6 +15,8 @@ import com.adansoft.great21.dataaccess.entities.GameRoundResultsId;
 import com.adansoft.great21.dataaccess.entities.RummyStats;
 import com.adansoft.great21.dataaccess.entities.RummyTransactions;
 import com.adansoft.great21.dataaccess.entities.UserAccounts;
+import com.adansoft.great21.dataaccess.entities.UserNotifications;
+import com.adansoft.great21.dataaccess.entities.UserNotificationsId;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewGame;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistNewRound;
 import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRound;
@@ -22,6 +24,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateRummyStat;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 
 public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 
@@ -167,6 +170,9 @@ public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 			sessionFactory.getCurrentSession().merge(existingstat);			
 		}
 	}
+	
+	
+	
 
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
@@ -174,6 +180,18 @@ public class GameDataAccessDAOImpl implements GameDataAccessDAO {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public void addNotification(AddNotificationRequest request) {
+	   UserNotificationsId id = new UserNotificationsId();
+	   id.setUserid(authdao.findUserbyNickName(request.getNotificationfor()).getId().getUserId());
+	   UserNotifications notification = new UserNotifications(id, request.getNotificationType(), 
+			                                                 request.getNotificationDesc(),request.getNotifiedby(), 
+			                                                 DatabaseValueConstants.NOTIFICATION_UNREAD, 
+			                                                 Calendar.getInstance().getTime());
+	   sessionFactory.getCurrentSession().persist(notification);
+		
 	}
 
 }

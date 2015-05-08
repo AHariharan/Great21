@@ -1,6 +1,7 @@
 package com.adansoft.great21.dataaccess.dao;
 
 import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
@@ -23,6 +24,7 @@ import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 import com.adansoft.great21.dataaccess.schemas.SendGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.UpdateProfileInformationRequest;
 import com.adansoft.great21.dataaccess.schemas.UserAuditRequest;
+import com.adansoft.great21.uischemas.NotificationEvent;
 
 public interface BasicDataAccessDAO {
 	
@@ -51,4 +53,6 @@ public interface BasicDataAccessDAO {
      public String confirmFriendRequest(ConfirmIgnoreFriendRequest request);
      
      public String confirmorIgnoreGameInviteRequest(ConfirmIgnoreGameInviteRequest request);
+     
+     public String addNotification(AddNotificationRequest request);
 }

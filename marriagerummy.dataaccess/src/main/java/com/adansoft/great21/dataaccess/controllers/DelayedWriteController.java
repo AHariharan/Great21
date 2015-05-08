@@ -15,6 +15,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRo
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
 
@@ -120,6 +121,21 @@ public class DelayedWriteController {
 		try
 		{ 
 			gamedataDAO.updateRummyStat(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}
+		return "Success";
+	}
+	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.ADDNOTIFICATION_BACKEND, method = RequestMethod.POST)
+	public @ResponseBody String addNotificationfromBackend(@RequestBody AddNotificationRequest request)
+	{
+		try
+		{ 
+			gamedataDAO.addNotification(request);
 		}catch(Exception e)
 		{
 			e.printStackTrace();return "Failure";

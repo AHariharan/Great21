@@ -7,6 +7,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.PersistPointsorCashforRo
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
+import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 
 
 public interface GameDataAccessDAO {
@@ -25,7 +26,7 @@ public interface GameDataAccessDAO {
 	
 	public void updateRummyStat(UpdatePlayerRummyStat request);
 	
-	
+	public void addNotification(AddNotificationRequest request);
 	
 
 	
