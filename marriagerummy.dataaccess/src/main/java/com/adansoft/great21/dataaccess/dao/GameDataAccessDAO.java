@@ -8,6 +8,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
+import com.adansoft.great21.dataaccess.schemas.UnlockAchievementRequest;
 
 
 public interface GameDataAccessDAO {
@@ -28,6 +29,7 @@ public interface GameDataAccessDAO {
 	
 	public void addNotification(AddNotificationRequest request);
 	
+	public String unlockAchievement(UnlockAchievementRequest request);
 
 	
 }

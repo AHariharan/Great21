@@ -18,6 +18,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.UnlockAchievementRequest;
 
 @RestController
 @RequestMapping(DataAccessServiceURLs.DELAYED_GAMEDATA_BASE)
@@ -141,6 +142,19 @@ public class DelayedWriteController {
 			e.printStackTrace();return "Failure";
 		}
 		return "Success";
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.UNLOCK_ACHIEVEMENT, method = RequestMethod.POST)
+	public @ResponseBody String unlockAchievement(@RequestBody UnlockAchievementRequest request)
+	{
+		try
+		{ 
+			return gamedataDAO.unlockAchievement(request);
+		}catch(Exception e)
+		{
+			e.printStackTrace();return "Failure";
+		}		
 	}
 	
 	

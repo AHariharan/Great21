@@ -11,6 +11,7 @@ import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateGameStatus;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerRummyStat;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdatePlayerStatusPoints;
 import com.adansoft.great21.dataaccess.gamedata.schemas.UpdateRummyStat;
+import com.adansoft.great21.dataaccess.schemas.UnlockAchievementRequest;
 import com.adansoft.great21.dataccess.helpers.DataAccessURLs;
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.models.Game;
@@ -166,6 +167,27 @@ public class GameDataLazyWriteHelper {
 					+ DataAccessURLs.UPDATE_PLAYER_RUMMYSTAT);
 			result = template.postForEntity(url, request, String.class).getBody();
 			System.out.println("Successfully wrote Game Content to DB");
+		}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public static String unlockAchievement(Object obj,GameManagertoDataAccessMapper mapper,RestTemplate template)
+	{
+		String result = "Failure";
+		try
+		{
+		if(obj instanceof UnlockAchievementRequest)
+		{
+			UnlockAchievementRequest request = (UnlockAchievementRequest) obj;
+			URI url = new URI(mapper.getDataAccessURI() + "/"
+					+ DataAccessURLs.DELAYED_GAMEDATA_BASE + "/"
+					+ DataAccessURLs.UNLOCK_ACHIEVEMENT);
+			result = template.postForEntity(url, request, String.class).getBody();
+			System.out.println("Achievement posted :- " + result);
 		}
 		}catch(Exception e)
 		{

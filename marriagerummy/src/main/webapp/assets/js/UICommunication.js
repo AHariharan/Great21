@@ -1069,6 +1069,7 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	else
 		{
 		   console.log("******getUserAcheivementSuccess   ******** " + JSON.stringify(data));
+		   requestObj.srcObj.renderAcheivements(data);
 		}
 	};
 	

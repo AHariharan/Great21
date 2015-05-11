@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
+import com.adansoft.great21.dataaccess.entities.AchievementConfig;
+import com.adansoft.great21.dataaccess.schemas.AchievementType;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsRequest;
 import com.adansoft.great21.dataaccess.schemas.GetUserBasicDetailsResponse;
+import com.adansoft.great21.dataaccess.schemas.UnlockAchievementRequest;
+import com.adansoft.great21.dataccess.helpers.AchievementManager;
 import com.adansoft.great21.dataccess.helpers.GameManagertoDataAccessMapper;
 import com.adansoft.great21.dataccess.helpers.RestServiceHelper;
 import com.adansoft.great21.delayedwrite.GameDataLazyWriter;
@@ -15,18 +19,14 @@ import com.adansoft.great21.games.GameListConstants;
 import com.adansoft.great21.games.GameLobby;
 import com.adansoft.great21.games.RummyArena;
 import com.adansoft.great21.games.SevenCardRummy;
-
 import com.adansoft.great21.models.Game;
-
 import com.adansoft.great21.models.HumanPlayer;
 import com.adansoft.great21.models.Player;
 import com.adansoft.great21.restschemas.AddPlayerRequest;
 import com.adansoft.great21.restschemas.AddPlayerResponse;
 import com.adansoft.great21.restschemas.CreateGameRequest;
 import com.adansoft.great21.restschemas.DeleteGameRequest;
-
 import com.adansoft.great21.restschemas.GetGameListinLobbyRequest;
-
 import com.adansoft.great21.restschemas.GetPlayersinGameRequest;
 import com.adansoft.great21.restschemas.LaunchGameRequest;
 import com.adansoft.great21.restschemas.RemovePlayerRequest;
@@ -200,10 +200,16 @@ public class GameBrowserHelper {
 			System.out.println("Starting Game ...");
 			game.startGame();
 			executor.execute(new GameDataLazyWriter(GameDataLazyWriter.OP_LAUNCHGAME, game , mapper,template));
+			AchievementManager.sendAchievement(mapper, template, executor, AchievementType.ACHIEVEMENT_TYPE_GAMEHOST, game.getOwner());
 		   return "Success"; 
 		}
 		return "Failure : Not enough previleges ";
 	}
+	
+	
+	
+	
+
 	
 	
 }

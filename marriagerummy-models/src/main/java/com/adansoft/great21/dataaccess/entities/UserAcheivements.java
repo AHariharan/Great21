@@ -1,6 +1,6 @@
 package com.adansoft.great21.dataaccess.entities;
 
-// Generated May 8, 2015 10:59:13 AM by Hibernate Tools 3.4.0.CR1
+// Generated May 11, 2015 1:47:12 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 
@@ -12,6 +12,7 @@ public class UserAcheivements implements java.io.Serializable {
 	private UserAcheivementsId id;
 	private String status;
 	private Date unlockedDate;
+	private Integer progress;
 
 	public UserAcheivements() {
 	}
@@ -21,10 +22,11 @@ public class UserAcheivements implements java.io.Serializable {
 	}
 
 	public UserAcheivements(UserAcheivementsId id, String status,
-			Date unlockedDate) {
+			Date unlockedDate, Integer progress) {
 		this.id = id;
 		this.status = status;
 		this.unlockedDate = unlockedDate;
+		this.progress = progress;
 	}
 
 	public UserAcheivementsId getId() {
@@ -49,6 +51,14 @@ public class UserAcheivements implements java.io.Serializable {
 
 	public void setUnlockedDate(Date unlockedDate) {
 		this.unlockedDate = unlockedDate;
+	}
+
+	public Integer getProgress() {
+		return this.progress;
+	}
+
+	public void setProgress(Integer progress) {
+		this.progress = progress;
 	}
 
 }

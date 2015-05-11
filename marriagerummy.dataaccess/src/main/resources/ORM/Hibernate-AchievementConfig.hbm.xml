@@ -17,5 +17,8 @@
         <property name="uidivid" type="string">
             <column name="UIDIVID" length="45" />
         </property>
+        <property name="goal" type="java.lang.Integer">
+            <column name="GOAL" />
+        </property>
     </class>
 </hibernate-mapping>

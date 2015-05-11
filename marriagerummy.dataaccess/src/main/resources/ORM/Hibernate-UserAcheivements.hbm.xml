@@ -18,5 +18,8 @@
         <property name="unlockedDate" type="timestamp">
             <column name="UNLOCKED_DATE" length="19" />
         </property>
+        <property name="progress" type="java.lang.Integer">
+            <column name="PROGRESS" />
+        </property>
     </class>
 </hibernate-mapping>

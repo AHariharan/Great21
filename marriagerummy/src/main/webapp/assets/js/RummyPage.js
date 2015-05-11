@@ -651,7 +651,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		var url = marriageRummy.urls.getUserAcheivements;
 		var formdata = marriageRummy.request.getDataRequest().getUserAcheivementsRequest();
 		var requestObj = {
-			"srcObj" : this,
+			"srcObj" : self,
 			"formdata" : formdata
 		};
 		var successcall = marriageRummy.callbacks.getDataAccessCallback().getUserAcheivementSuccess;
@@ -660,6 +660,23 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				failurecall, requestObj);
 		console.log(url, formdata);
 	};
+	
+	
+	self.renderAcheivements = function(data)
+	{
+		if(data.acheivementlist !== undefined && data.acheivementlist.length > 0)
+			{
+			     for(var i=0;i<data.acheivementlist.length;i++)
+			    	 {
+			    	    var divid = data.acheivementlist[i].divid;
+			    	    $('#'+divid+ ' .panel-locked').addClass("panel-unlocked")
+			    	                                 .removeClass("panel-locked");
+			    	    $('#'+divid+ ' i.fa-lock').addClass("fa-unlock")
+			    	                              .removeClass("fa-lock");
+			    	 }
+			}
+	};
+	
 	
 	
 	self.getNotificationCount = function() {

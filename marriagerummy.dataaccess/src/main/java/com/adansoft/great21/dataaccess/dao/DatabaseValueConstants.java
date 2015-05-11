@@ -23,4 +23,8 @@ public class DatabaseValueConstants {
 	
 	public final static String GAMEJOIN_REQUEST_UNREAD = "UNREAD";
 	public final static String GAMEJOIN_REQUEST_READ = "READ";
+	
+	public final static String ACHIEVEMENT_STATUS_LOCKED = "LOCKED";
+	public final static String ACHIEVEMENT_STATUS_PROGRESS = "INPROGRESS";
+	public final static String ACHIEVEMENT_STATUS_UNLOCKED = "UNLOCKED";
 }

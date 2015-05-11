@@ -13,4 +13,6 @@ public class DataAccessURLs {
 	public final static String FINISH_GAME_ROUND = "/FinishRound";
 	public final static String UPDATE_PLAYER_STATUS = "/PlayerCashPoints/persist";
 	public final static String UPDATE_PLAYER_RUMMYSTAT = "/Player/RummyStat/Update";
+	public final static String ADDNOTIFICATION_BACKEND = "/Player/Notification/Add";
+	public final static String UNLOCK_ACHIEVEMENT = "/Player/Achievement/unlock";
 }
