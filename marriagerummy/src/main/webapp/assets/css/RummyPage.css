@@ -792,3 +792,24 @@
 	/* margin-left: 85px; */
 	border-radius: 5px;
 }
+
+.notification-generic-content {
+	display: flex;
+}
+
+.notification-wording {
+	font-size: 17px;
+	margin-left: 20px;
+	color: rgb(139, 130, 130);
+	line-height: 15px;
+}
+
+.notification-icon-achievement {
+	color: rgb(163, 20, 8);
+	min-width: 35px;
+}
+
+.notification-icon-mail {
+	color: rgb(37, 84, 232);
+	min-width: 35px;
+}

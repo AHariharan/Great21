@@ -46,7 +46,15 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	
 	var getNotificationMessages =  function()
 	{
-		
+		var url = marriageRummy.urls.getActiveNotifications;
+		var formdata = marriageRummy.request.getDataRequest().getActiveNotificationList();
+		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveNotificationsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveNotificationsFailure;
+		var requestObj = {
+				           "srcObj" : self,
+				           "formdata": formdata
+				         };	
+		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
 	};
 	
 	self.renderPendingAddFriends = function(data)
@@ -199,12 +207,41 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	self.renderActiveNotifications = function(data)
 	{
 		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
+		var achievementtemplate = '<div class="notification"><div class="notification-generic-content">'+
+		                          '<div class="notification-icon-achievement"><i class="fa fa-trophy fa-3x"></i></div>'+
+		                          '<div class="notification-wording">You have unlocked new achievement !!! <button class="btn btn-link"> Check out </button>' +
+		                          '</div></div></div>';
+		var messagetemplate = '<div class="notification"><div class="notification-generic-content"><div class="notification-icon-mail"><i class="fa fa-envelope fa-3x"></i></div>'+
+		                      '<div class="notification-wording">You have new message from NICKNAME<button class="btn btn-link"> Read now </button></div>'+
+		                      '</div></div>';
+        $('#notificationContainer .notification').remove();
+        $('#notificationContainer h2').remove();
+        if(data.notificationList !== undefined && data.notificationList.length > 0)
+		{
+        	 for(var i=0;i<data.notificationList.length;i++)
+			   {
+        		   var htmlcontent = "";
+        		   var curnotification = data.notificationList[i];
+        		   if(curnotification.notificationType == "ACHEIVEMENT_UNLOCKED")
+        			   htmlcontent = achievementtemplate;
+        		   if(curnotification.notificationType == "MESSAGE")
+        			   htmlcontent = messagetemplate.replace("NICKNAME",curnotification.notifiedBy);
+        		   $('#notificationContainer').append(htmlcontent);
+			   }
+        	   marriageRummy.profiledatamanager.getNotificationCount();
+		}
+        else
+        {
+        	   var htmlcontent = '<h2 style="  padding: 34px;"> No new notifications to show </h2>';
+			   $('#notificationContainer').append(htmlcontent);
+        }
 	};
 	
 
 	$('#notifier').unbind();
 	$('#notifier').on("click", function(event) {
 		$('#notificationContainer').slideDown();
+		getNotificationMessages();
 		$('#FriendRequestContainer').hide();
 		$('#gameInviteContainer').hide();
 		$(document).click(function(event) { 

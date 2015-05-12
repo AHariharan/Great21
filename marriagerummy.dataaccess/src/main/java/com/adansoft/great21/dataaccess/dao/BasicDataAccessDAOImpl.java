@@ -291,6 +291,8 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		    {
 		    	GetActiveNotificationResponse notifyinfo = new GetActiveNotificationResponse(unrequest.getNotificationType(), unrequest.getNotificationDesc(), unrequest.getNotifiedBy(), unrequest.getCreatedDate());
 		    	activenotificationlist.add(notifyinfo);
+		    	unrequest.setNotificationStatus(DatabaseValueConstants.NOTIFICATION_READ);
+		    	sessionFactory.getCurrentSession().merge(unrequest);
 		    }
 		}
 		response.setNotificationList(activenotificationlist);
@@ -496,8 +498,10 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		List<Object[]> list = sessionFactory.getCurrentSession().createQuery("select b.uidivid,b.achievementAbbr,b.achivementDesc,a.status,a.unlockedDate " 
 				                                      + "from UserAcheivements a,AchievementConfig b  "
 				                                      + "where a.id.userId = :varuserid and "
-				                                      + " a.id.achivementId = b.acheivementId")
+				                                      + " a.id.achivementId = b.acheivementId and "
+				                                      + " a.status = :varstatus")
 				                                      .setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+				                                      .setString("varstatus", DatabaseValueConstants.ACHIEVEMENT_STATUS_UNLOCKED)
 				                                      .list();
 	   
        if(list !=null && list.size() > 0)
