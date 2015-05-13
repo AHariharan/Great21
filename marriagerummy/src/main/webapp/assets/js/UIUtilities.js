@@ -445,7 +445,7 @@ MarriageRummy.Utilities.RummyUtilities.GameLauncherUtilities = function(
 			
 			$('.addFriend').unbind();
 			$('.addFriend').on("click",function(){
-				var destNickname = $('.addFriend').parent().text().trim();
+				var destNickname = $(this).parent().text().trim();
 				createFriendRequest(destNickname);
 				$(this).attr("disabled","disabled");
 				$(this).css("color","rgb(172, 177, 180)");

@@ -1180,6 +1180,53 @@
 	-o-transform: rotate(4deg);
 }
 
+
+.meld-5 .card1 {
+	transform: rotate(-32deg);
+	-webkit-transform: rotate(-32deg);
+	-moz-transform: rotate(-32deg);
+	-o-transform: rotate(-32deg);
+	top: 21px;
+	left: 63px;
+}
+
+.meld-5 .card2 {
+	transform: rotate(-20deg);
+	-webkit-transform: rotate(-20deg);
+	-moz-transform: rotate(-20deg);
+	-o-transform: rotate(-20deg);
+	left: -30px;
+	top: 20px;
+}
+
+.meld-5 .card3 {
+	left: 97px;
+	top: -142px;
+	transform: rotate(-9deg);
+	-webkit-transform: rotate(-9deg);
+	-moz-transform: rotate(-9deg);
+	-o-transform: rotate(-9deg);
+}
+
+.meld-5 .card4 {
+	left: 4px;
+	top: -134px;
+	transform: rotate(4deg);
+	-webkit-transform: rotate(4deg);
+	-moz-transform: rotate(4deg);
+	-o-transform: rotate(4deg);
+}
+
+.meld-5 .card5 {
+  left: 127px;
+  top: -291px;
+  transform: rotate(13deg);
+  -webkit-transform: rotate(13deg);
+  -moz-transform: rotate(13deg);
+  -o-transform: rotate(13deg);
+}
+
+
 .meld-4 .meldmessage {
 	top: -127px;
 }

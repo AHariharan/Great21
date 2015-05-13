@@ -1952,6 +1952,7 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 		$('#declareGame,#declareGamemini').on("click", function() {
 			$('.card').draggable('disable');
 			$('.declareGame').show();
+			setupDeclareGame();
 			$('.declareGame .meldcardarea').empty();
 			var gameObj = jQuery.data($("#GameArena")[0], "GameObj");
 			if (gameObj.isjokerKnownthisRound()) {
@@ -1991,6 +1992,16 @@ MarriageRummy.Utilities.GameUtilities.GameToolInit = function(GameObject) {
 			});
 		}
 	};
+	
+	var setupDeclareGame = function()
+	{
+		if(stateobject.gameType == "SEVENCARD_CLOSED" || stateobject.gameType == "SEVENCARD_OPEN")
+				{
+			          $('.declareGame button#meldpattern-3334').attr("disabled","disabled");
+			          $('.declareGame button#meldpattern-445').attr("disabled","disabled");
+				}
+	};
+	
 
 	var initMeldPattern = function() {
 		var meldfoldpattern = '<div class="meld-foldcard meld-select">Fold Card<div id="FOLD-CARD" class="meldcard card1 "></div><div class="meldmessage"></div></div>';
