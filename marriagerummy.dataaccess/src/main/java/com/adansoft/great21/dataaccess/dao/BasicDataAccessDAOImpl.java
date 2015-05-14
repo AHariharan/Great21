@@ -20,6 +20,8 @@ import com.adansoft.great21.dataaccess.entities.UserAccounts;
 import com.adansoft.great21.dataaccess.entities.UserAudit;
 import com.adansoft.great21.dataaccess.entities.UserFriends;
 import com.adansoft.great21.dataaccess.entities.UserFriendsId;
+import com.adansoft.great21.dataaccess.entities.UserMessages;
+import com.adansoft.great21.dataaccess.entities.UserMessagesId;
 import com.adansoft.great21.dataaccess.entities.UserNotifications;
 import com.adansoft.great21.dataaccess.entities.UserNotificationsId;
 import com.adansoft.great21.dataaccess.entities.UserProfile;
@@ -28,6 +30,7 @@ import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
 import com.adansoft.great21.dataaccess.schemas.FriendResponse;
+import com.adansoft.great21.dataaccess.schemas.GameMessage;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendResponse;
@@ -39,6 +42,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageResponse;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -523,6 +528,75 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 			e.printStackTrace();
 		}
 		return resultlist;
+	}
+
+	@Override
+	public String sendGameMessage(GameMessage message) {
+        String result = "Success";
+        try
+        {
+        	for(long tonickid : message.getTo_userids())
+        	{
+        		UserMessagesId id = new UserMessagesId();
+        		id.setUserId(tonickid);
+        		if(message.getInternal_messageid() != 0)
+        		      id.setMessageId(message.getInternal_messageid());
+        		if(message.getInternal_order() != 0)
+        		      id.setUserId(message.getInternal_order()+1);
+        		
+        		UserMessages umessage = new UserMessages(id, DatabaseValueConstants.MESSAGE_STATUS_UNREAD, 
+        				                                 message.getFrom(),message.getMessageContent().getBytes(), 
+        				                                 message.getSubject(), Calendar.getInstance().getTime());
+        		sessionFactory.getCurrentSession().persist(umessage);
+        	}
+        	
+        }catch(Exception e)
+        {
+        	e.printStackTrace();
+        	result = "Failure";
+        }
+		return result;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public GetGameMessageResponse getUserMessages(GetGameMessageRequest request) {
+		
+		GetGameMessageResponse response = new GetGameMessageResponse();
+		response.setNickname(authdao.findUserbyID(request.getUserid()).getNickName());
+		ArrayList<GameMessage> messagelist = new ArrayList<GameMessage>();
+		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userid = :varuserid order by createdDate desc")
+		.setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+		.setMaxResults(100).list();
+		if(usermessagelist != null && usermessagelist.size() > 0 )
+		{
+			for(UserMessages curmessage : usermessagelist)
+			{
+				GameMessage gmessage = new GameMessage();
+				gmessage.setFrom(curmessage.getMsgFrom());
+				gmessage.setInternal_messageid((int)curmessage.getId().getMessageId());
+				gmessage.setInternal_order((int)curmessage.getId().getMsgOrder());
+				gmessage.setMessageContent(new String(curmessage.getMsgContent()));
+				gmessage.setStatus(curmessage.getMsgStatus());
+				gmessage.setSubject(curmessage.getSubject());
+				messagelist.add(gmessage);
+			}
+		}
+		response.setMessagelist(messagelist);
+		
+		return response;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public int getUnreadMessageCount(GetGameMessageRequest request) {
+		
+		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userid = :varuserid and msgStatus = :varstatus")
+				.setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+				.setString("varstatus",DatabaseValueConstants.MESSAGE_STATUS_UNREAD).list();
+		
+		
+		return usermessagelist.size();
 	}
 	
 	

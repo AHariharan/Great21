@@ -24,6 +24,9 @@ public class DataAccessServiceURLs {
 	public final static String CONFIRM_IGNORE_GAMEJOIN_REQUEST = "/BasicUserDetails/GameInvite/ConfirmorIgnore";
 	public final static String ADDNOTIFICATION_FRONTEND = "/BasicUserDetails/Player/Notification/Add";
 	public final static String GET_USER_ACHEIVEMENTS = "/BasicUserDetails/Player/Acheivement/get";
+	public final static String GET_USER_MESSAGES = "/BasicUserDetails/Player/Messages/get";
+	public final static String GET_USER_MESSAGES_COUNT = "/BasicUserDetails/Player/MessageCount/get";
+	public final static String SEND_USERMESSAGE = "/BasicUserDetails/Player/Message/Send";
 	
 	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";
 	public final static String CREATED_GAME = "/CreateGame";	

@@ -4,6 +4,7 @@ import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GameMessage;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendResponse;
@@ -15,6 +16,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageResponse;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -59,5 +62,11 @@ public interface BasicDataAccessDAO {
      public String addNotification(AddNotificationRequest request);
      
      public GetUserAchivementList getUserAcheivements(GetUserAcheivementRequest request);
+     
+     public int getUnreadMessageCount(GetGameMessageRequest request);
+     
+     public String sendGameMessage(GameMessage message);
+     
+     public GetGameMessageResponse getUserMessages(GetGameMessageRequest request);
      
 }

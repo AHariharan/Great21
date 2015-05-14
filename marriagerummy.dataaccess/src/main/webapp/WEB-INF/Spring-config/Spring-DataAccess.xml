@@ -53,6 +53,7 @@
 				<value>ORM/Hibernate-UserFriends.hbm.xml</value>
 				<value>ORM/Hibernate-AchievementConfig.hbm.xml</value>
 				<value>ORM/Hibernate-UserAcheivements.hbm.xml</value>
+				<value>ORM/Hibernate-UserMessages.hbm.xml</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -27,4 +27,10 @@ public class DatabaseValueConstants {
 	public final static String ACHIEVEMENT_STATUS_LOCKED = "LOCKED";
 	public final static String ACHIEVEMENT_STATUS_PROGRESS = "INPROGRESS";
 	public final static String ACHIEVEMENT_STATUS_UNLOCKED = "UNLOCKED";
+	
+	public final static String MESSAGE_STATUS_UNREAD = "UNREAD";
+	public final static String MESSAGE_STATUS_READ = "READ";
+	public final static String MESSAGE_STATUS_REPLIED = "REPLIED";
+	
+	
 }

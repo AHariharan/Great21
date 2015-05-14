@@ -13,6 +13,7 @@ import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GameMessage;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -21,6 +22,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageResponse;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -137,7 +140,7 @@ public class DataServiceController {
 	
 	@Transactional
 	@RequestMapping( value = DataAccessServiceURLs.ADDNOTIFICATION_FRONTEND, method = RequestMethod.POST)
-	public @ResponseBody String confirmorIgnoreFriend(@RequestBody AddNotificationRequest request)
+	public @ResponseBody String addNotification(@RequestBody AddNotificationRequest request)
 	{
 		return basicdatadao.addNotification(request);
 		
@@ -145,9 +148,33 @@ public class DataServiceController {
 	
 	@Transactional
 	@RequestMapping( value = DataAccessServiceURLs.GET_USER_ACHEIVEMENTS, method = RequestMethod.POST)
-	public @ResponseBody GetUserAchivementList confirmorIgnoreFriend(@RequestBody GetUserAcheivementRequest request)
+	public @ResponseBody GetUserAchivementList getUserAcheivements(@RequestBody GetUserAcheivementRequest request)
 	{
 		return basicdatadao.getUserAcheivements(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_USER_MESSAGES, method = RequestMethod.POST)
+	public @ResponseBody GetGameMessageResponse getUserMessages(@RequestBody GetGameMessageRequest request)
+	{
+		return basicdatadao.getUserMessages(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.SEND_USERMESSAGE, method = RequestMethod.POST)
+	public @ResponseBody String sendGameMessage(@RequestBody GameMessage request)
+	{
+		return basicdatadao.sendGameMessage(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.GET_USER_MESSAGES_COUNT, method = RequestMethod.POST)
+	public @ResponseBody int getUnreadMessages(@RequestBody GetGameMessageRequest request)
+	{
+		return basicdatadao.getUnreadMessageCount(request);
 		
 	}
 	

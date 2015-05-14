@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 13, 2015 3:59:15 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.adansoft.great21.dataaccess.entities.UserMessages" table="user_messages" catalog="Rummy">
+        <composite-id name="id" class="com.adansoft.great21.dataaccess.entities.UserMessagesId">
+            <key-property name="messageId" type="long">
+                <column name="MESSAGE_ID" />
+            </key-property>
+            <key-property name="msgOrder" type="int">
+                <column name="MSG_ORDER" />
+            </key-property>
+            <key-property name="userId" type="long">
+                <column name="USER_ID" />
+            </key-property>
+        </composite-id>
+        <property name="msgStatus" type="string">
+            <column name="MSG_STATUS" length="45" />
+        </property>
+        <property name="msgFrom" type="string">
+            <column name="MSG_FROM" length="45" />
+        </property>
+        <property name="msgContent" type="binary">
+            <column name="MSG_CONTENT" />
+        </property>
+        <property name="subject" type="string">
+            <column name="SUBJECT" length="45" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CREATED_DATE" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

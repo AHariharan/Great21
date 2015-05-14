@@ -813,3 +813,57 @@
 	color: rgb(37, 84, 232);
 	min-width: 35px;
 }
+
+.messages {
+	width: 800px;
+	margin: 0px auto;
+}
+
+.message-item {
+	display: flex;
+	/* border: 1px solid grey; */
+	background: rgb(255, 255, 255);
+	padding: 14px;
+	box-shadow: 0px 0px 10px 5px rgb(228, 225, 225);
+	border-radius: 10px;
+	margin-top: 6px;
+}
+
+.message-status-unread {
+	padding-top: 37px;
+	padding-right: 33px;
+	color: rgb(0, 192, 141);
+}
+
+.message-status-read {
+	padding-top: 37px;
+	padding-right: 33px;
+	color: rgb(186, 197, 194);
+}
+
+
+.message-from-user {
+	text-align: center;
+	min-width:90px;
+}
+
+.message-content {
+	margin-left: 40px;
+	width: 606px;
+}
+
+.message-subject {
+	font-weight: bold;
+	color: rgb(113, 113, 223);
+}
+
+.message-body {
+	height: 44px;
+	overflow: hidden;
+}
+
+.message-body p {
+	word-wrap: break-word;
+	color: rgb(89, 89, 89);
+	padding-left: 10px;
+}
