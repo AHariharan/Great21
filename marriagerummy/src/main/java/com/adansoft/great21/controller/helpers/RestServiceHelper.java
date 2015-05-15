@@ -18,6 +18,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageResponse;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -286,6 +288,24 @@ public class RestServiceHelper {
 				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
 				+ FacadeControllerURLs.GET_USER_ACHEIVEMENTS);
 		response = template.postForEntity(url, request, GetUserAchivementList.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static GetGameMessageResponse getUserMessages(FacadetoDataAccessMapper mapper,RestTemplate template,GetGameMessageRequest request)
+	{
+		GetGameMessageResponse response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.GET_USER_MESSAGES);
+		response = template.postForEntity(url, request, GetGameMessageResponse.class).getBody();
 		
 		}catch(Exception e)
 		{

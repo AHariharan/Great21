@@ -26,6 +26,8 @@ import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.GetFriendListResponse;
 import com.adansoft.great21.dataaccess.schemas.GetFriendsListRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageRequest;
+import com.adansoft.great21.dataaccess.schemas.GetGameMessageResponse;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountRequest;
 import com.adansoft.great21.dataaccess.schemas.GetNotificationCountResponse;
 import com.adansoft.great21.dataaccess.schemas.GetProfileInformationRequest;
@@ -207,5 +209,19 @@ public class FacadeDataAccessController {
 		incomingrequest.setEmailaddress(user.getEmailaddr());		
 		return RestServiceHelper.getUserAcheivements(mapper, restTemplate, incomingrequest);
 	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.GET_USER_MESSAGES , method = RequestMethod.POST)
+	public GetGameMessageResponse getUserMessages(@RequestBody GetGameMessageRequest incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setUserid(user.getUserid());
+		if(incomingrequest.getNoofrecentmessages() > 100)
+			incomingrequest.setNoofrecentmessages(100);
+		return RestServiceHelper.getUserMessages(mapper, restTemplate, incomingrequest);
+	}
+	
+	
 	
 }

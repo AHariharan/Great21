@@ -755,6 +755,85 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		marriageRummy.playerNotificationManager = new MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager(marriageRummy.loggedinUser);
 	};
 	
+	self.getUserMessages = function()
+	{
+		var url = marriageRummy.urls.getUserMessages;
+		var formdata = marriageRummy.request.getDataRequest().getUserMessagesRequest();
+		var requestObj = {
+			"srcObj" : self,
+			"formdata" : formdata
+		};
+		var successcall = marriageRummy.callbacks.getDataAccessCallback().getUserMessageSuccess;
+		var failurecall = marriageRummy.callbacks.getDataAccessCallback().getUserMessageFailure;
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
+				failurecall, requestObj);
+	};
+	
+	self.renderUserMessages = function(data)
+	{
+		var noofunread = 0;
+		console.log("renderUserMessages : " + JSON.stringify(data));
+		var messageTemplate = '<div class="message-item" data-messageid="MESSAGEID" data-order="ORDER"><div class="message-status-STATUS"><i class="fa fa-circle fa-2x"></i></div>'+
+		'<div class="message-from-user"><i class="fa fa-user fa-4x"></i><h4>FROM</h4></div><div class="message-content">'+
+		'<button class="btn btn-link subjectbtn">SUBJECT</button><div class="message-body"><p class="previewcontent">PREVIEWCONTENT<button class="btn btn-link morebtn"> show more</button>' +
+		'</p><p class="actualcontent">ACTUALCONTENT<button class="btn btn-link hidebtn"> hide </button></p></div><button class="btn btn-link replybtn"><i class="fa fa-reply"></i> Reply</button><button class="btn btn-link deletebtn">' +
+		'<i class="fa fa-times"></i> Delete</button></div></div>' ;
+		if(data.messagelist !== undefined && data.messagelist.length > 0)
+			{
+			     $('.messages .message-item').remove();
+			     for(var i=0;i<data.messagelist.length;i++)
+			    	 {
+			    	    var curmessage = data.messagelist[i];
+			    	    if(curmessage.status == "UNREAD")
+			    	    	noofunread++;
+			    	    var previewcontent = curmessage.messageContent.slice(0,150)+" ... ";
+			    	    var htmlcontent = messageTemplate.replace("STATUS",curmessage.status.toLowerCase())
+			    	                   .replace("FROM",curmessage.from)
+			    	                   .replace("SUBJECT",curmessage.subject)
+			    	                   .replace("PREVIEWCONTENT",previewcontent)
+			    	                   .replace("ACTUALCONTENT",curmessage.messageContent)
+			    	                   .replace("MESSAGEID",curmessage.internal_messageid)
+			    	                   .replace("ORDER",curmessage.internal_order);
+			    	    $('.messages').append(htmlcontent);
+			    	    
+			    	 }
+			     if(noofunread > 0)
+			    	 {
+			    	 $('.noofgamemessages').html(noofunread);
+			    	 }
+			     else
+			    	 {
+			    	 $('.noofgamemessages').hide();
+			    	 }
+			     $('.subjectbtn').unbind();
+			     $('.subjectbtn').on("click",function(){
+			    	 $(this).next().css("height","auto");
+			    	 $(this).next().children().filter(".previewcontent").hide();
+			    	 $(this).parent()
+			    	        .prev().prev().removeClass("message-status-unread")
+			    	        .addClass("message-status-read")
+			    	        .children().filter('i')
+			    	        .removeClass("fa-circle").addClass("fa-circle-o");
+			     });
+			     
+			     $('.morebtn').unbind();
+			     $('.morebtn').on("click",function(){
+			    	 $(this).parent().parent().css("height","auto");
+			    	 $(this).parent().hide();
+			    	 $(this).parent().parent().parent()
+			    	        .prev().prev().removeClass("message-status-unread")
+			    	        .addClass("message-status-read")
+			    	        .children().filter('i')
+			    	        .removeClass("fa-circle").addClass("fa-circle-o");
+			     });
+			     
+			     $('.hidebtn').unbind();
+			     $('.hidebtn').on("click",function(){
+			    	 $(this).parent().prev().show();
+			    	 $(this).parent().parent().css("height","44px");
+			     });
+			}
+	};
 
 	
 	
@@ -816,6 +895,7 @@ MarriageRummy.Utilities.UIUtilities.onLoad = function() {
 		marriageRummy.profiledatamanager.getProfileInformation();
 		marriageRummy.profiledatamanager.getNotificationCount();
 		marriageRummy.profiledatamanager.getAcheivements();
+		marriageRummy.profiledatamanager.getUserMessages();
 
 	};
 };

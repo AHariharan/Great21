@@ -124,7 +124,7 @@
 				<li id="mygame" data-divid="GameArena" style="display:none"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-cubes"></i> My Game</li>
 				<li data-divid="MyMessages"><div class="sidebar-arrow-left"></div>
-					<i class="fa fa-inbox"></i> Messages</li>
+					<i class="fa fa-inbox"></i> Messages<span class="noofgamemessages">0</span></li>
 				<li data-divid="MyAchievements"><div class="sidebar-arrow-left"></div>
 					<i class="fa fa-trophy"></i> Achievements</li>
 				<li data-divid="Friends"><div class="sidebar-arrow-left"></div>
@@ -155,6 +155,7 @@
 			<%@ include file="../includeTemplates/PlayPage/GameLobby.jsp"%>
 			<%@ include file="../includeTemplates/PlayPage/GameArena.jsp"%>
 			<%@ include file="../includeTemplates/PlayPage/Acheivements.jsp"%>
+			<%@ include file="../includeTemplates/PlayPage/GameMessages.jsp"%>
 		</div>
 	</div>
 	<!-- /.container -->

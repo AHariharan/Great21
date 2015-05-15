@@ -565,7 +565,7 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		GetGameMessageResponse response = new GetGameMessageResponse();
 		response.setNickname(authdao.findUserbyID(request.getUserid()).getNickName());
 		ArrayList<GameMessage> messagelist = new ArrayList<GameMessage>();
-		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userid = :varuserid order by createdDate desc")
+		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid order by createdDate desc")
 		.setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
 		.setMaxResults(100).list();
 		if(usermessagelist != null && usermessagelist.size() > 0 )
