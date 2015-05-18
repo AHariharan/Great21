@@ -1,6 +1,6 @@
 <div class="messages">
 	<div id="message-toolbar">
-		<button class="btn btn-primary">New Message</button>
+		<button id="newmessage" class="btn btn-primary">New Message</button>
 	</div>
 	<!-- <div class="message-item">
 		<div class="message-status-unread">

@@ -17,226 +17,233 @@ MarriageRummy.Utilities.DataUtilities = MarriageRummy.Utilities.DataUtilities
 // @Class LoggedinPage
 MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 	var self = this;
-	
-	var getGameInvites = function()
-	{
+
+	var getGameInvites = function() {
 		var url = marriageRummy.urls.getActiveGameInvites;
-		var formdata = marriageRummy.request.getDataRequest().getActiveGameInviteList();
-		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveGameInviteSuccess;
-		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveGameInviteFailure;
+		var formdata = marriageRummy.request.getDataRequest()
+				.getActiveGameInviteList();
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetActiveGameInviteSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetActiveGameInviteFailure;
 		var requestObj = {
-				           "srcObj" : self,
-				           "formdata": formdata
-				         };	
-		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+			"srcObj" : self,
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	var getFriendRequest = function()
-	{
+
+	var getFriendRequest = function() {
 		var url = marriageRummy.urls.getPendingAddFriends;
 		var formdata = marriageRummy.request.getDataRequest().getFriendsList();
-		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetPendingAddFriendsSuccess;
-		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetPendingAddFriendsFailure;
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetPendingAddFriendsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetPendingAddFriendsFailure;
 		var requestObj = {
-				           "srcObj" : self,
-				           "formdata": formdata
-				         };	
-		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+			"srcObj" : self,
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	var getNotificationMessages =  function()
-	{
+
+	var getNotificationMessages = function() {
 		var url = marriageRummy.urls.getActiveNotifications;
-		var formdata = marriageRummy.request.getDataRequest().getActiveNotificationList();
-		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveNotificationsSuccess;
-		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onGetActiveNotificationsFailure;
+		var formdata = marriageRummy.request.getDataRequest()
+				.getActiveNotificationList();
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetActiveNotificationsSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetActiveNotificationsFailure;
 		var requestObj = {
-				           "srcObj" : self,
-				           "formdata": formdata
-				         };	
-		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+			"srcObj" : self,
+			"formdata" : formdata
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	self.renderPendingAddFriends = function(data)
-	{
+
+	self.renderPendingAddFriends = function(data) {
 		console.log("RENDER Pending add Friends : " + JSON.stringify(data));
-		var template = '<div class="notification"><h5><span style="font-weight: bold;">NICKNAME</span> has sent you a '+
-			'friend request</h5><div><button class="btn btn-success" data-requestedby="REQUESTEDBY">Confirm</button>'+
-		    '<button class="btn btn-danger" style="margin-left: 14px;" data-requestedby="IREQUESTEDBY" >Ignore</button></div></div>';
+		var template = '<div class="notification"><h5><span style="font-weight: bold;">NICKNAME</span> has sent you a '
+				+ 'friend request</h5><div><button class="btn btn-success" data-requestedby="REQUESTEDBY">Confirm</button>'
+				+ '<button class="btn btn-danger" style="margin-left: 14px;" data-requestedby="IREQUESTEDBY" >Ignore</button></div></div>';
 		$('#FriendRequestContainer .notification').remove();
 		$('#FriendRequestContainer h2').remove();
-    	if(data.activeFriendlist !== undefined && data.activeFriendlist.length > 0)
-    		{
-    		   for(var i=0;i<data.activeFriendlist.length;i++)
-    			   {
-    		              var curfriendrequest = data.activeFriendlist[i];
-    		              var htmlcontent = template.replace("NICKNAME",curfriendrequest.requestedBY)
-    			                                    .replace("REQUESTEDBY",curfriendrequest.requestedBY)
-    			                                    .replace("IREQUESTEDBY",curfriendrequest.requestedBY);
-    		              $('#FriendRequestContainer').append(htmlcontent);
-    			   }
-    		   $('#FriendRequestContainer button').unbind();
-    		   $('#FriendRequestContainer button').on("click",function(){
-    			         var requestornick = $(this).attr("data-requestedby");
-    			         if($(this).html() == "Confirm")
-    			        	 {
-    			        	    confirmorIgnoreFriend(requestornick,"ACCEPTED",$(this));
-    			        	 }
-    			         else
-    			        	 {
-    			        	    confirmorIgnoreFriend(requestornick,"DENIED",$(this));
-    			        	 }
-    		   });
-    		   
-    		}
-    	else
-		{
-		   var htmlcontent = '<h2 style="  padding: 24px;  text-align: center;"> No Friend request to show </h2>';
-		   $('#FriendRequestContainer').append(htmlcontent);
+		if (data.activeFriendlist !== undefined
+				&& data.activeFriendlist.length > 0) {
+			for (var i = 0; i < data.activeFriendlist.length; i++) {
+				var curfriendrequest = data.activeFriendlist[i];
+				var htmlcontent = template.replace("NICKNAME",
+						curfriendrequest.requestedBY).replace("REQUESTEDBY",
+						curfriendrequest.requestedBY).replace("IREQUESTEDBY",
+						curfriendrequest.requestedBY);
+				$('#FriendRequestContainer').append(htmlcontent);
+			}
+			$('#FriendRequestContainer button').unbind();
+			$('#FriendRequestContainer button').on("click", function() {
+				var requestornick = $(this).attr("data-requestedby");
+				if ($(this).html() == "Confirm") {
+					confirmorIgnoreFriend(requestornick, "ACCEPTED", $(this));
+				} else {
+					confirmorIgnoreFriend(requestornick, "DENIED", $(this));
+				}
+			});
+
+		} else {
+			var htmlcontent = '<h2 style="  padding: 24px;  text-align: center;"> No Friend request to show </h2>';
+			$('#FriendRequestContainer').append(htmlcontent);
 		}
 	};
-	
-	
-	var confirmorIgnoreFriend = function(requestornickname,status,buttonObj)
-	{
+
+	var confirmorIgnoreFriend = function(requestornickname, status, buttonObj) {
 		var url = marriageRummy.urls.confirmorIgnoreFriend;
-		var formdata = marriageRummy.request.getDataRequest().confirmorIgnoreFriend(requestornickname,status);
-		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreFriendSuccess;
-		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreFriendFailure;
+		var formdata = marriageRummy.request.getDataRequest()
+				.confirmorIgnoreFriend(requestornickname, status);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onConfirmorIgnoreFriendSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onConfirmorIgnoreFriendFailure;
 		var requestObj = {
-				           "srcObj" : self,
-				           "formdata": formdata,
-				           "buttonObj" : buttonObj
-				         };	
-		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+			"srcObj" : self,
+			"formdata" : formdata,
+			"buttonObj" : buttonObj
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	self.renderonConfirmorIgnoreFriendSuccess = function(requestObj)
-	{
+
+	self.renderonConfirmorIgnoreFriendSuccess = function(requestObj) {
 		var requestornick = requestObj.formdata.requestorNickName;
-		
+
 		var template = '<h5><span style="font-weight: bold;">you</span> and <span style="font-weight: bold;">NICKNAME</span> are now friends</h5>';
-		var htmlcontent = template.replace("NICKNAME",requestornick);
+		var htmlcontent = template.replace("NICKNAME", requestornick);
 		requestObj.buttonObj.parent().parent().html(htmlcontent);
 		marriageRummy.profiledatamanager.getNotificationCount();
-		//requestObj.buttonObj.parent().empty();
+		// requestObj.buttonObj.parent().empty();
 	};
-	
-	self.renderActiveGameInvites = function(data)
-	{
-		
+
+	self.renderActiveGameInvites = function(data) {
+
 		console.log("RENDER renderActiveGameInvites : " + JSON.stringify(data));
-		var template = '<div class="notification"><h5 style="line-height: 20px;"><span style="font-weight: bold;  color: rgb(190, 4, 60);">NICKNAME</span> has invited you to play'+ 
-		               '<span style="font-weight: bold;"> GAMETYPE </span> game in <span style="font-weight: bold;"> LOBBYNAME </span> lobby </h5>'+
-	                   '<div style="text-align: right;"><button class="btn btn-primary" data-gameinstanceid="D_Gameinstanceid" data-lobby="D_Lobbyname" data-gameType="D_GameType" data-requestedBy="D_NICKNAME">Join now</button>'+
-	                   '<button class="btn btn-danger" data-gameinstanceid="ID_Gameinstanceid" data-lobby="ID_Lobbyname" data-gameType="ID_GameType" data-requestedBy="ID_NICKNAME" style="margin-left: 14px;">Ignore</button>'+
-                       '</div></div>';
+		var template = '<div class="notification"><h5 style="line-height: 20px;"><span style="font-weight: bold;  color: rgb(190, 4, 60);">NICKNAME</span> has invited you to play'
+				+ '<span style="font-weight: bold;"> GAMETYPE </span> game in <span style="font-weight: bold;"> LOBBYNAME </span> lobby </h5>'
+				+ '<div style="text-align: right;"><button class="btn btn-primary" data-gameinstanceid="D_Gameinstanceid" data-lobby="D_Lobbyname" data-gameType="D_GameType" data-requestedBy="D_NICKNAME">Join now</button>'
+				+ '<button class="btn btn-danger" data-gameinstanceid="ID_Gameinstanceid" data-lobby="ID_Lobbyname" data-gameType="ID_GameType" data-requestedBy="ID_NICKNAME" style="margin-left: 14px;">Ignore</button>'
+				+ '</div></div>';
 		$('#gameInviteContainer .notification').remove();
 		$('#gameInviteContainer h2').remove();
-		if(data.gameinviteList !== undefined && data.gameinviteList.length > 0)
-			{
-			
-			   for(var i=0;i<data.gameinviteList.length;i++)
-				   {
-				      var curinvite = data.gameinviteList[i];
-				      var gamdesc = marriageRummy.generaldatautility.getGameDescriptionbyCode(curinvite.gameType);
-				      var htmlcontent = template.replace("NICKNAME",curinvite.requestedBY)
-				              .replace("GAMETYPE", gamdesc)
-				              .replace("LOBBYNAME",curinvite.gameLobby)
-				              .replace("D_Gameinstanceid",curinvite.gameInstanceID)
-				              .replace("D_GameType",curinvite.gameType)
-		                      .replace("D_Lobbyname",curinvite.gameLobby)
-		                      .replace("ID_Gameinstanceid",curinvite.gameInstanceID)
-				              .replace("ID_GameType",curinvite.gameType)
-		                      .replace("ID_Lobbyname",curinvite.gameLobby)
-		                      .replace("D_NICKNAME",curinvite.requestedBY)
-		                      .replace("ID_NICKNAME",curinvite.requestedBY);
-				      $('#gameInviteContainer').append(htmlcontent);
-				      
-				   }
-			   
-			   $('#gameInviteContainer button').unbind();
-			   $('#gameInviteContainer button').on("click",function(){
-				      var gameInstanceID = $(this).attr("data-gameinstanceid");
-				      var lobbyType = $(this).attr("data-lobby");
-				      var gameType = $(this).attr("data-gameType");
-				      var requestedBy = $(this).attr("data-requestedBy");
-				   if($(this).html().trim() == "Join now")
-					   {
-					      $('.sidebar ul>li[data-divid="GameBrowser"]').trigger( "click" );					      
-					      var displayText = marriageRummy.dataConvertor.convertGameTypetoDisplayText(gameType);
-					      var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
-						  gameLobbyBrowser.joinGame(lobbyType,gameInstanceID,displayText);
-						  confirmorIgnoreGameInvites(requestedBy,gameInstanceID,gameType,$(this));				 
-					   }
-				   else
-					   {
-					      confirmorIgnoreGameInvites(requestedBy,gameInstanceID,gameType,$(this));				 
-					    }
-			   });
+		if (data.gameinviteList !== undefined && data.gameinviteList.length > 0) {
+
+			for (var i = 0; i < data.gameinviteList.length; i++) {
+				var curinvite = data.gameinviteList[i];
+				var gamdesc = marriageRummy.generaldatautility
+						.getGameDescriptionbyCode(curinvite.gameType);
+				var htmlcontent = template.replace("NICKNAME",
+						curinvite.requestedBY).replace("GAMETYPE", gamdesc)
+						.replace("LOBBYNAME", curinvite.gameLobby).replace(
+								"D_Gameinstanceid", curinvite.gameInstanceID)
+						.replace("D_GameType", curinvite.gameType).replace(
+								"D_Lobbyname", curinvite.gameLobby).replace(
+								"ID_Gameinstanceid", curinvite.gameInstanceID)
+						.replace("ID_GameType", curinvite.gameType).replace(
+								"ID_Lobbyname", curinvite.gameLobby).replace(
+								"D_NICKNAME", curinvite.requestedBY).replace(
+								"ID_NICKNAME", curinvite.requestedBY);
+				$('#gameInviteContainer').append(htmlcontent);
+
 			}
-		else
-			{
-			   var htmlcontent = '<h2 style="  padding: 34px;"> No Game Invites to show </h2>';
-			   $('#gameInviteContainer').append(htmlcontent);
-			}
+
+			$('#gameInviteContainer button').unbind();
+			$('#gameInviteContainer button')
+					.on(
+							"click",
+							function() {
+								var gameInstanceID = $(this).attr(
+										"data-gameinstanceid");
+								var lobbyType = $(this).attr("data-lobby");
+								var gameType = $(this).attr("data-gameType");
+								var requestedBy = $(this).attr(
+										"data-requestedBy");
+								if ($(this).html().trim() == "Join now") {
+									$(
+											'.sidebar ul>li[data-divid="GameBrowser"]')
+											.trigger("click");
+									var displayText = marriageRummy.dataConvertor
+											.convertGameTypetoDisplayText(gameType);
+									var gameLobbyBrowser = new MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser();
+									gameLobbyBrowser.joinGame(lobbyType,
+											gameInstanceID, displayText);
+									confirmorIgnoreGameInvites(requestedBy,
+											gameInstanceID, gameType, $(this));
+								} else {
+									confirmorIgnoreGameInvites(requestedBy,
+											gameInstanceID, gameType, $(this));
+								}
+							});
+		} else {
+			var htmlcontent = '<h2 style="  padding: 34px;"> No Game Invites to show </h2>';
+			$('#gameInviteContainer').append(htmlcontent);
+		}
 
 	};
 
-	var confirmorIgnoreGameInvites = function(requestornickname,GameInstanceID,GameType,buttonObj)
-	{
+	var confirmorIgnoreGameInvites = function(requestornickname,
+			GameInstanceID, GameType, buttonObj) {
 		var url = marriageRummy.urls.confirmorIgnoreGameInvite;
-		var formdata = marriageRummy.request.getDataRequest().confirmorIgnoreGameInvite(requestornickname,GameInstanceID,GameType);
-		var onSuccessCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreGameInviteSuccess;
-		var onFailureCallbackfn = marriageRummy.callbacks.getDataAccessCallback().onConfirmorIgnoreGameInviteFailure;
+		var formdata = marriageRummy.request.getDataRequest()
+				.confirmorIgnoreGameInvite(requestornickname, GameInstanceID,
+						GameType);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onConfirmorIgnoreGameInviteSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onConfirmorIgnoreGameInviteFailure;
 		var requestObj = {
-				           "srcObj" : self,
-				           "formdata": formdata,
-				           "buttonObj" : buttonObj
-				         };	
-		marriageRummy.httpComm.invokeAsyncRequest(url,formdata, onSuccessCallbackfn,onFailureCallbackfn, requestObj);
+			"srcObj" : self,
+			"formdata" : formdata,
+			"buttonObj" : buttonObj
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
-	
-	self.onGameJoinorIgnore = function(requestObj)
-	{
+
+	self.onGameJoinorIgnore = function(requestObj) {
 		requestObj.buttonObj.parent().parent().remove();
 		marriageRummy.profiledatamanager.getNotificationCount();
 	};
-	
-	
-	self.renderActiveNotifications = function(data)
-	{
-		console.log("RENDER renderActiveNotifications : " + JSON.stringify(data));
-		var achievementtemplate = '<div class="notification"><div class="notification-generic-content">'+
-		                          '<div class="notification-icon-achievement"><i class="fa fa-trophy fa-3x"></i></div>'+
-		                          '<div class="notification-wording">You have unlocked new achievement !!! <button class="btn btn-link"> Check out </button>' +
-		                          '</div></div></div>';
-		var messagetemplate = '<div class="notification"><div class="notification-generic-content"><div class="notification-icon-mail"><i class="fa fa-envelope fa-3x"></i></div>'+
-		                      '<div class="notification-wording">You have new message from NICKNAME<button class="btn btn-link"> Read now </button></div>'+
-		                      '</div></div>';
-        $('#notificationContainer .notification').remove();
-        $('#notificationContainer h2').remove();
-        if(data.notificationList !== undefined && data.notificationList.length > 0)
-		{
-        	 for(var i=0;i<data.notificationList.length;i++)
-			   {
-        		   var htmlcontent = "";
-        		   var curnotification = data.notificationList[i];
-        		   if(curnotification.notificationType == "ACHEIVEMENT_UNLOCKED")
-        			   htmlcontent = achievementtemplate;
-        		   if(curnotification.notificationType == "MESSAGE")
-        			   htmlcontent = messagetemplate.replace("NICKNAME",curnotification.notifiedBy);
-        		   $('#notificationContainer').append(htmlcontent);
-			   }
-        	   marriageRummy.profiledatamanager.getNotificationCount();
+
+	self.renderActiveNotifications = function(data) {
+		console.log("RENDER renderActiveNotifications : "
+				+ JSON.stringify(data));
+		var achievementtemplate = '<div class="notification"><div class="notification-generic-content">'
+				+ '<div class="notification-icon-achievement"><i class="fa fa-trophy fa-3x"></i></div>'
+				+ '<div class="notification-wording">You have unlocked new achievement !!! <button class="btn btn-link"> Check out </button>'
+				+ '</div></div></div>';
+		var messagetemplate = '<div class="notification"><div class="notification-generic-content"><div class="notification-icon-mail"><i class="fa fa-envelope fa-3x"></i></div>'
+				+ '<div class="notification-wording">You have new message from NICKNAME<button class="btn btn-link"> Read now </button></div>'
+				+ '</div></div>';
+		$('#notificationContainer .notification').remove();
+		$('#notificationContainer h2').remove();
+		if (data.notificationList !== undefined
+				&& data.notificationList.length > 0) {
+			for (var i = 0; i < data.notificationList.length; i++) {
+				var htmlcontent = "";
+				var curnotification = data.notificationList[i];
+				if (curnotification.notificationType == "ACHEIVEMENT_UNLOCKED")
+					htmlcontent = achievementtemplate;
+				if (curnotification.notificationType == "MESSAGE")
+					htmlcontent = messagetemplate.replace("NICKNAME",
+							curnotification.notifiedBy);
+				$('#notificationContainer').append(htmlcontent);
+			}
+			marriageRummy.profiledatamanager.getNotificationCount();
+		} else {
+			var htmlcontent = '<h2 style="  padding: 34px;"> No new notifications to show </h2>';
+			$('#notificationContainer').append(htmlcontent);
 		}
-        else
-        {
-        	   var htmlcontent = '<h2 style="  padding: 34px;"> No new notifications to show </h2>';
-			   $('#notificationContainer').append(htmlcontent);
-        }
 	};
-	
 
 	$('#notifier').unbind();
 	$('#notifier').on("click", function(event) {
@@ -244,57 +251,55 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
 		getNotificationMessages();
 		$('#FriendRequestContainer').hide();
 		$('#gameInviteContainer').hide();
-		$(document).click(function(event) { 
-		    if(!$(event.target).closest('#notificationContainer').length) {
-		        if($('#notificationContainer').is(":visible")) {
-		            $('#notificationContainer').hide();		        
-		        }		       
-		    }        
+		$(document).click(function(event) {
+			if (!$(event.target).closest('#notificationContainer').length) {
+				if ($('#notificationContainer').is(":visible")) {
+					$('#notificationContainer').hide();
+				}
+			}
 		});
 		event.stopPropagation();
 	});
-	
+
 	$('#useraddnotifier').unbind();
 	$('#useraddnotifier').on("click", function(event) {
 		$('#FriendRequestContainer').slideDown();
 		getFriendRequest();
 		$('#notificationContainer').hide();
 		$('#gameInviteContainer').hide();
-		$(document).click(function(event) { 
-		    if(!$(event.target).closest('#FriendRequestContainer').length) {
-		        if($('#FriendRequestContainer').is(":visible")) {
-		            $('#FriendRequestContainer').hide();
-		        }	        
-		    }        
+		$(document).click(function(event) {
+			if (!$(event.target).closest('#FriendRequestContainer').length) {
+				if ($('#FriendRequestContainer').is(":visible")) {
+					$('#FriendRequestContainer').hide();
+				}
+			}
 		});
 		event.stopPropagation();
 	});
-	
+
 	$('#gamepadnotifier').unbind();
 	$('#gamepadnotifier').on("click", function(event) {
 		$('#gameInviteContainer').slideDown();
 		getGameInvites();
 		$('#notificationContainer').hide();
 		$('#FriendRequestContainer').hide();
-		$(document).click(function(event) { 
-		    if(!$(event.target).closest('#gameInviteContainer').length) {
-		        if($('#gameInviteContainer').is(":visible")) {
-		            $('#gameInviteContainer').hide();
-		        }	        
-		    }        
+		$(document).click(function(event) {
+			if (!$(event.target).closest('#gameInviteContainer').length) {
+				if ($('#gameInviteContainer').is(":visible")) {
+					$('#gameInviteContainer').hide();
+				}
+			}
 		});
 		event.stopPropagation();
 	});
 
-/*	$(document).click(function(event) { 
-	    if(!$(event.target).closest('#notificationContainer').length) {
-	        if($('#notificationContainer').is(":visible")) {
-	            $('#notificationContainer').hide();
-	        }
-	    }        
-	});
-*/	
-	
+	/*
+	 * $(document).click(function(event) {
+	 * if(!$(event.target).closest('#notificationContainer').length) {
+	 * if($('#notificationContainer').is(":visible")) {
+	 * $('#notificationContainer').hide(); } } });
+	 */
+
 	$('#rummylogout').unbind();
 	$('#rummylogout').on("click", function() {
 		/*
@@ -679,14 +684,65 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			var country = $('#ProfileCountry').val();
 			self.updateProfileInformation(firstname, lastname, country);
 		});
+
+		$('#newmessage').on("click", function() {
+			$('#NewMessageModal').modal('show');
+		});
+
+		$('#getFriends').on("click", function() {
+			getFriendList();
+		});
 	};
 
 	init();
 
-	self.getAcheivements = function()
-	{
+	var getFriendList = function() {
+		var url = marriageRummy.urls.getFriendList;
+		var formdata = marriageRummy.request.getDataRequest().getFriendsList();
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetFriendsListSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onGetFriendsListFailure;
+		var requestObj = {
+			"formdata" : formdata,
+			"srcObj" : self			
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+
+	self.renderFriendsList = function(data, gameData) {
+		console.log("RENDER renderFriendsList : " + JSON.stringify(data));
+		$('#SelectFriendsListModal').data('datacontent', gameData);
+		$("#SelectFriendsListModal").modal('show');
+		if (data.friendlist === undefined || data.friendlist.length == 0) {
+			$('#selectfriendList').empty();
+			$('#selectfriendList')
+					.html(
+							'<h3 style="text-align:center;"> No Friends to Display </h3>');
+		} else {
+			var friendTemplate = '<div class="friend">	<div class="selectcheckbox"> <input type="checkbox" /></div>'
+					+ '<div class="friendImage"><span><i class="fa fa-user fa-5x"></i></div><div class="friendContent">'
+					+ '<h4>NICKNAME</h4><h5>EMAILADDRESS<span style="color: rgb(74, 148, 115); font-size: 11px;">'
+					+ '<i class="fa fa-clock-o"></i> 1 day ago</span></h5></div>'
+					+ '<div class="friendRating"><h6>Rating</h6><h4>RATING</h4></div></div>';
+			var htmlcontent = "";
+			for (var i = 0; i < data.friendlist.length; i++) {
+				var frienduser = friendTemplate.replace("NICKNAME",
+						data.friendlist[i].nickname).replace("EMAILADDRESS",
+						data.friendlist[i].emailAddress).replace("RATING",
+						data.friendlist[i].rating);
+				htmlcontent = htmlcontent + frienduser;
+			}
+			$('#selectfriendList').empty();
+			$('#selectfriendList').html(htmlcontent);
+		}
+	};
+
+	self.getAcheivements = function() {
 		var url = marriageRummy.urls.getUserAcheivements;
-		var formdata = marriageRummy.request.getDataRequest().getUserAcheivementsRequest();
+		var formdata = marriageRummy.request.getDataRequest()
+				.getUserAcheivementsRequest();
 		var requestObj = {
 			"srcObj" : self,
 			"formdata" : formdata
@@ -697,25 +753,20 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				failurecall, requestObj);
 		console.log(url, formdata);
 	};
-	
-	
-	self.renderAcheivements = function(data)
-	{
-		if(data.acheivementlist !== undefined && data.acheivementlist.length > 0)
-			{
-			     for(var i=0;i<data.acheivementlist.length;i++)
-			    	 {
-			    	    var divid = data.acheivementlist[i].divid;
-			    	    $('#'+divid+ ' .panel-locked').addClass("panel-unlocked")
-			    	                                 .removeClass("panel-locked");
-			    	    $('#'+divid+ ' i.fa-lock').addClass("fa-unlock")
-			    	                              .removeClass("fa-lock");
-			    	 }
+
+	self.renderAcheivements = function(data) {
+		if (data.acheivementlist !== undefined
+				&& data.acheivementlist.length > 0) {
+			for (var i = 0; i < data.acheivementlist.length; i++) {
+				var divid = data.acheivementlist[i].divid;
+				$('#' + divid + ' .panel-locked').addClass("panel-unlocked")
+						.removeClass("panel-locked");
+				$('#' + divid + ' i.fa-lock').addClass("fa-unlock")
+						.removeClass("fa-lock");
 			}
+		}
 	};
-	
-	
-	
+
 	self.getNotificationCount = function() {
 		var url = marriageRummy.urls.getNotificationCount;
 		var formdata = marriageRummy.request.getDataRequest()
@@ -751,14 +802,15 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			$('#genericnotifier').html(data.notificationCount);
 			$('#genericnotifier').show();
 		}
-		//Testing..
-		marriageRummy.playerNotificationManager = new MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager(marriageRummy.loggedinUser);
+		// Testing..
+		marriageRummy.playerNotificationManager = new MarriageRummy.Utilities.PushServerSubscriber.PlayerNotificationManager(
+				marriageRummy.loggedinUser);
 	};
-	
-	self.getUserMessages = function()
-	{
+
+	self.getUserMessages = function() {
 		var url = marriageRummy.urls.getUserMessages;
-		var formdata = marriageRummy.request.getDataRequest().getUserMessagesRequest();
+		var formdata = marriageRummy.request.getDataRequest()
+				.getUserMessagesRequest();
 		var requestObj = {
 			"srcObj" : self,
 			"formdata" : formdata
@@ -768,81 +820,77 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata, successcall,
 				failurecall, requestObj);
 	};
-	
-	self.renderUserMessages = function(data)
-	{
+
+	self.renderUserMessages = function(data) {
 		var noofunread = 0;
 		console.log("renderUserMessages : " + JSON.stringify(data));
-		var messageTemplate = '<div class="message-item" data-messageid="MESSAGEID" data-order="ORDER"><div class="message-status-STATUS"><i class="fa fa-circle fa-2x"></i></div>'+
-		'<div class="message-from-user"><i class="fa fa-user fa-4x"></i><h4>FROM</h4></div><div class="message-content">'+
-		'<button class="btn btn-link subjectbtn">SUBJECT</button><div class="message-body"><p class="previewcontent">PREVIEWCONTENT<button class="btn btn-link morebtn"> show more</button>' +
-		'</p><p class="actualcontent">ACTUALCONTENT<button class="btn btn-link hidebtn"> hide </button></p></div><button class="btn btn-link replybtn"><i class="fa fa-reply"></i> Reply</button><button class="btn btn-link deletebtn">' +
-		'<i class="fa fa-times"></i> Delete</button></div></div>' ;
-		if(data.messagelist !== undefined && data.messagelist.length > 0)
-			{
-			     $('.messages .message-item').remove();
-			     for(var i=0;i<data.messagelist.length;i++)
-			    	 {
-			    	    var curmessage = data.messagelist[i];
-			    	    if(curmessage.status == "UNREAD")
-			    	    	noofunread++;
-			    	    var previewcontent = curmessage.messageContent.slice(0,150)+" ... ";
-			    	    var htmlcontent = messageTemplate.replace("STATUS",curmessage.status.toLowerCase())
-			    	                   .replace("FROM",curmessage.from)
-			    	                   .replace("SUBJECT",curmessage.subject)
-			    	                   .replace("PREVIEWCONTENT",previewcontent)
-			    	                   .replace("ACTUALCONTENT",curmessage.messageContent)
-			    	                   .replace("MESSAGEID",curmessage.internal_messageid)
-			    	                   .replace("ORDER",curmessage.internal_order);
-			    	    $('.messages').append(htmlcontent);
-			    	    
-			    	 }
-			     if(noofunread > 0)
-			    	 {
-			    	 $('.noofgamemessages').html(noofunread);
-			    	 }
-			     else
-			    	 {
-			    	 $('.noofgamemessages').hide();
-			    	 }
-			     $('.subjectbtn').unbind();
-			     $('.subjectbtn').on("click",function(){
-			    	 $(this).next().css("height","auto");
-			    	 $(this).next().children().filter(".previewcontent").hide();
-			    	 $(this).parent()
-			    	        .prev().prev().removeClass("message-status-unread")
-			    	        .addClass("message-status-read")
-			    	        .children().filter('i')
-			    	        .removeClass("fa-circle").addClass("fa-circle-o");
-			     });
-			     
-			     $('.morebtn').unbind();
-			     $('.morebtn').on("click",function(){
-			    	 $(this).parent().parent().css("height","auto");
-			    	 $(this).parent().hide();
-			    	 $(this).parent().parent().parent()
-			    	        .prev().prev().removeClass("message-status-unread")
-			    	        .addClass("message-status-read")
-			    	        .children().filter('i')
-			    	        .removeClass("fa-circle").addClass("fa-circle-o");
-			     });
-			     
-			     $('.hidebtn').unbind();
-			     $('.hidebtn').on("click",function(){
-			    	 $(this).parent().prev().show();
-			    	 $(this).parent().parent().css("height","44px");
-			     });
+		var messageTemplate = '<div class="message-item" data-messageid="MESSAGEID" data-order="ORDER"><div class="message-status-STATUS"><i class="fa fa-circle fa-2x"></i></div>'
+				+ '<div class="message-from-user"><i class="fa fa-user fa-4x"></i><h4>FROM</h4></div><div class="message-content">'
+				+ '<button class="btn btn-link subjectbtn">SUBJECT</button><div class="message-body"><p class="previewcontent">PREVIEWCONTENT<button class="btn btn-link morebtn"> show more</button>'
+				+ '</p><p class="actualcontent">ACTUALCONTENT<button class="btn btn-link hidebtn"> hide </button></p></div><button class="btn btn-link replybtn"><i class="fa fa-reply"></i> Reply</button><button class="btn btn-link deletebtn">'
+				+ '<i class="fa fa-times"></i> Delete</button></div></div>';
+		if (data.messagelist !== undefined && data.messagelist.length > 0) {
+			$('.messages .message-item').remove();
+			for (var i = 0; i < data.messagelist.length; i++) {
+				var curmessage = data.messagelist[i];
+				if (curmessage.status == "UNREAD")
+					noofunread++;
+				var previewcontent = curmessage.messageContent.slice(0, 150)
+						+ " ... ";
+				var htmlcontent = messageTemplate.replace("STATUS",
+						curmessage.status.toLowerCase()).replace("FROM",
+						curmessage.from).replace("SUBJECT", curmessage.subject)
+						.replace("PREVIEWCONTENT", previewcontent).replace(
+								"ACTUALCONTENT", curmessage.messageContent)
+						.replace("MESSAGEID", curmessage.internal_messageid)
+						.replace("ORDER", curmessage.internal_order);
+				$('.messages').append(htmlcontent);
+
 			}
-		else
-   	     {
-			 var htmlcontent = '<h2 class="nonewmessage"> There is no new messages to show </h2>';
-			 $('.messages').append(htmlcontent);
-			 $('.noofgamemessages').hide();
-   	     }
+			if (noofunread > 0) {
+				$('.noofgamemessages').html(noofunread);
+			} else {
+				$('.noofgamemessages').hide();
+			}
+			$('.subjectbtn').unbind();
+			$('.subjectbtn').on(
+					"click",
+					function() {
+						$(this).next().css("height", "auto");
+						$(this).next().children().filter(".previewcontent")
+								.hide();
+						$(this).parent().prev().prev().removeClass(
+								"message-status-unread").addClass(
+								"message-status-read").children().filter('i')
+								.removeClass("fa-circle").addClass(
+										"fa-circle-o");
+					});
+
+			$('.morebtn').unbind();
+			$('.morebtn').on(
+					"click",
+					function() {
+						$(this).parent().parent().css("height", "auto");
+						$(this).parent().hide();
+						$(this).parent().parent().parent().prev().prev()
+								.removeClass("message-status-unread").addClass(
+										"message-status-read").children()
+								.filter('i').removeClass("fa-circle").addClass(
+										"fa-circle-o");
+					});
+
+			$('.hidebtn').unbind();
+			$('.hidebtn').on("click", function() {
+				$(this).parent().prev().show();
+				$(this).parent().parent().css("height", "44px");
+			});
+		} else {
+			var htmlcontent = '<h2 class="nonewmessage"> There is no new messages to show </h2>';
+			$('.messages').append(htmlcontent);
+			$('.noofgamemessages').hide();
+		}
 	};
 
-	
-	
 	self.getProfileInformation = function() {
 		var url = marriageRummy.urls.getProfileInformation;
 		var formdata = marriageRummy.request.getDataRequest()
@@ -883,9 +931,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				failurecall, requestObj);
 		console.log(url, formdata);
 	};
-	
-	
-	
+
 };
 
 MarriageRummy.Utilities.UIUtilities.onLoad = function() {
