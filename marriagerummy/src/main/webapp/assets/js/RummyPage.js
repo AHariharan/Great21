@@ -91,7 +91,7 @@ MarriageRummy.Utilities.UIUtilities.LoggedinPageonLoad = function() {
     		}
     	else
 		{
-		   var htmlcontent = '<h2 style="  padding: 44px;"> No Friend request to show </h2>';
+		   var htmlcontent = '<h2 style="  padding: 24px;  text-align: center;"> No Friend request to show </h2>';
 		   $('#FriendRequestContainer').append(htmlcontent);
 		}
 	};
@@ -833,6 +833,12 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			    	 $(this).parent().parent().css("height","44px");
 			     });
 			}
+		else
+   	     {
+			 var htmlcontent = '<h2 class="nonewmessage"> There is no new messages to show </h2>';
+			 $('.messages').append(htmlcontent);
+			 $('.noofgamemessages').hide();
+   	     }
 	};
 
 	
