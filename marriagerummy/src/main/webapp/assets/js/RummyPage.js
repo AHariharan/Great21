@@ -609,6 +609,9 @@ MarriageRummy.Utilities.UIUtilities.GameLobbyBrowser = function() {
 };
 
 MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function() {
+	
+
+	
 	var init = function() {
 		toastr.options.closeButton = true;
 		toastr.options.preventDuplicates = true;
@@ -675,7 +678,7 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function() {
 
 MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	var self = this;
-
+	var selectedFriendList = new Array();
 	var init = function() {
 		$("#ProfileSave").unbind();
 		$("#ProfileSave").on("click", function() {
@@ -687,6 +690,8 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 
 		$('#newmessage').on("click", function() {
 			$('#NewMessageModal').modal('show');
+			selectedFriendList = new Array();
+			$('.newmessage-selectednickname').empty();
 		});
 
 		$('#getFriends').on("click", function() {
@@ -695,6 +700,11 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	};
 
 	init();
+	
+	self.sendMessageNow = function(data)
+	{
+		
+	};
 
 	var getFriendList = function() {
 		var url = marriageRummy.urls.getFriendList;
@@ -737,6 +747,48 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			$('#selectfriendList').empty();
 			$('#selectfriendList').html(htmlcontent);
 		}
+		
+		$('#SelectedFriends').unbind();
+		$('#SelectedFriends').on("click",function(){
+			
+			  selectedFriendList = new Array();
+	          $('#SelectFriendsListModal').modal('hide');  
+	          $('#SelectFriendsListModal .friend input[type="checkbox"]').filter(':checked').each(
+				            function(){
+				                    var friendnode = $(this).parent().parent();
+				                    var nickname =  friendnode.children().filter('div.friendContent').children().filter('h4').html().trim();
+				                    if($('.newmessage-selectednickname div').length > 0 )
+				                    	{ 
+				                    	var caninsert = true;
+				                    $('.newmessage-selectednickname div').each(function(){
+				                    	
+				                    	if($(this).html().indexOf(nickname) != -1)
+				                    		{
+				                    		caninsert = false;
+				                    		}
+				                    	
+				                    });
+				                    if(caninsert)
+				                    	{
+				                    	selectedFriendList.push(nickname);
+					                    var childcontent = '<div> ' + nickname + '<span> x </span></div>';
+					                    $('.newmessage-selectednickname').append(childcontent);
+				                    	}
+				                    }
+				                    else
+				                    	{
+				                    	selectedFriendList.push(nickname);
+					                    var childcontent = '<div> ' + nickname + '<span> x </span></div>';
+					                    $('.newmessage-selectednickname').append(childcontent);
+				                    	}
+				                    $('.newmessage-selectednickname div span').unbind();
+				                    $('.newmessage-selectednickname div span').on("click",function(){
+				                    	$(this).parent().remove();
+				                    });
+				                    
+				                    
+				 });
+				 });
 	};
 
 	self.getAcheivements = function() {

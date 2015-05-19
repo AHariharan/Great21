@@ -52,6 +52,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.addNotification = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Notification/Add";
 	self.getUserAcheivements = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Acheivement/get";
 	self.getUserMessages = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Messages/get";
+	self.sendUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Send";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
