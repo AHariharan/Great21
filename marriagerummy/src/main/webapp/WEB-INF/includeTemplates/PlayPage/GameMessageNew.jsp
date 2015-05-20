@@ -8,24 +8,29 @@
 				<h4 class="modal-title">New Message</h4>
 			</div>
 			<div class="modal-body">
-				<div class="newmessage" >
-				        <div class="NewMessageTO">
-						<label style="/* margin: 0px auto; */padding-top: 7px;"> To : </label>
+				<div class="newmessage">
+					<div class="NewMessageTO">
+						<label style="padding-top: 7px;"> To : </label>
 						<div class="newmessage-selectednickname">
-						   <!-- <div> Hariharan <span> x </span></div>
+							<!-- <div> Hariharan <span> x </span></div>
 						   <div> Rathika <span> x </span></div> -->
 						</div>
 						<label id="getFriends" class="btn btn-link">Select Friends</label>
-						</div>
-						<div class="NewMessageContent">
-						  <label> Message : </label>
-						  <textarea class="form-control" rows="5"></textarea>
-						</div> 
+					</div>
+					<div class="newmessage-subject">
+					<label style="padding-top: 7px;"> Subject : </label>
+					<input id="newmessagesubject" type="text" class="form-control"></input>
+					</div>
+					<div class="NewMessageContent">
+						<label> Message : </label>
+						<textarea class="form-control" rows="5"></textarea>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button id="SendMessageNow" type="button" class="btn btn-primary">Send Message</button>
+				<button id="SendMessageNow" type="button" class="btn btn-primary">Send
+					Message</button>
 			</div>
 		</div>
 	</div>

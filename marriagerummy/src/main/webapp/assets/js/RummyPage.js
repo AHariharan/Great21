@@ -701,9 +701,20 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 
 	init();
 	
-	self.sendMessageNow = function(data)
+	self.sendMessageNow = function(from,toArray,subject,messageContent)
 	{
-		
+		var url = marriageRummy.urls.sendUserMessage;
+		var formdata = marriageRummy.request.getDataRequest().getSendMessageRequest(from,toArray,subject,messageContent);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onSendMessageSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onSendMessageFailure;
+		var requestObj = {
+			"formdata" : formdata,
+			"srcObj" : self			
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
 
 	var getFriendList = function() {

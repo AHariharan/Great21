@@ -487,6 +487,19 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 	};
 	
 	
+	self.getSendMessageRequest = function(from,toArray,Subject,messageContent)
+	{
+		var formdata = {
+				from:from,
+				to:toArray,
+				subject:Subject,
+				messageContent:messageContent
+		};
+		
+		return formdata;
+	};
+	
+	
 	self.updateProfileInformationRequest = function(firstname,lastname,country)
 	{
 		var formdata = {
@@ -1106,6 +1119,28 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	{
 		console.log("******getUserMessageFailure  FAILURE ******** " + JSON.stringify(data));
 	};
+	
+	
+	self.onSendMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onSendMessageSuccess   ******** " + JSON.stringify(data));
+		  // requestObj.srcObj.renderUserMessages(data);
+		}
+	};
+	
+	self.onSendMessageFailure = function(data)
+	{
+		console.log("******onSendMessageFailure  FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	
+	
 	
 	
 	self.onUpdateProfileInformationSuccess = function(data, textstatus, Jhxr, requestObj)
