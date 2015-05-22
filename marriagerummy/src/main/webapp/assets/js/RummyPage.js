@@ -679,6 +679,7 @@ MarriageRummy.Utilities.UIUtilities.GeneralUtilities = function() {
 MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	var self = this;
 	var selectedFriendList = new Array();
+	var preseveStateofNewMessageModal = $('#NewMessageModal').html();
 	var init = function() {
 		$("#ProfileSave").unbind();
 		$("#ProfileSave").on("click", function() {
@@ -688,18 +689,71 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			self.updateProfileInformation(firstname, lastname, country);
 		});
 
+		$('#newmessage').unbind();
 		$('#newmessage').on("click", function() {
-			$('#NewMessageModal').modal('show');
+			
 			selectedFriendList = new Array();
-			$('.newmessage-selectednickname').empty();
+			$('#NewMessageModal').html(preseveStateofNewMessageModal);
+			$('#NewMessageModal').modal('show');
+			$('#SendMessageNow').unbind();
+			$('#SendMessageNow').on("click",function(){
+				self.onClickSendMessage($(this));
+			});
+			$('#getFriends').unbind();
+			$('#getFriends').on("click", function() {
+				getFriendList();
+			});
 		});
 
-		$('#getFriends').on("click", function() {
-			getFriendList();
-		});
+			
 	};
 
 	init();
+	
+	self.onClickSendMessage = function(src)
+	{
+		if($('.newmessage-selectednickname div').length == 0)
+			{
+			var errorid = "NOTOSELECTED";
+			var errorMessage = "Must select TO list from friends";
+			var template = '<p id="' + errorid + '" ><a href="' + '#'
+			+ '"><i class="fa fa-exclamation-triangle"></i> &nbsp;&nbsp;'
+			+ errorMessage + '</a></p>';
+			 $('#NewMessageErrorPanel').append(template);
+			 $('.NewMessageTO>label').css("color","rgb(169, 68, 66);");
+			 return;
+			}
+		else
+			{
+			   $('#NewMessageErrorPanel').empty();
+			}
+		var validation = new MarriageRummy.Utilities.Validation.NewMessageValidation('NewMessageErrorPanel');
+		if(validation.validate())
+			{
+			   sendMessageNow("Auto",newMessage_getSelectedFriends(),newMessage_getSubject(),newMessage_getMessage());
+			}
+		
+	};
+	
+	var newMessage_getSelectedFriends = function()
+	{
+		var toArray = new Array();
+		$('.newmessage-selectednickname div').each(function(){
+			toArray.push($(this).html());
+		});
+	};
+	
+	var newMessage_getSubject = function()
+	{
+		return $('#newmessagesubject').val();
+	};
+	
+	var newMessage_getMessage = function()
+	{
+		return $('#NewMessageContentText').val();
+	};
+	
+	
 	
 	self.sendMessageNow = function(from,toArray,subject,messageContent)
 	{

@@ -264,6 +264,9 @@ MarriageRummy.Utilities.Validators.DateValidator = function() {
 	// Not required as of now will be implementing this later
 };
 
+
+
+
 MarriageRummy.Utilities.Validators.Validator = function() {
 	var self = this;
 	var stringValidator = new MarriageRummy.Utilities.Validators.StringValidator();
@@ -281,6 +284,8 @@ MarriageRummy.Utilities.Validators.Validator = function() {
 	self.getDateValidator = function() {
 		return dateValidator;
 	};
+	
+	
 
 };
 
@@ -477,6 +482,8 @@ MarriageRummy.Utilities.Validation.CreateSignupValidation = function(panel) {
 };
 
 
+
+
 MarriageRummy.Utilities.Validation.CreateSignInValidation = function(panel) {
 	var uiErrorHandler = new MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler(panel);
 	var self = this;
@@ -507,3 +514,24 @@ MarriageRummy.Utilities.Validation.CreateSignInValidation = function(panel) {
 };
 
 marriageRummy.signinValidation = new MarriageRummy.Utilities.Validation.CreateSignInValidation('SignInErrorPanel');
+
+
+MarriageRummy.Utilities.Validation.NewMessageValidation = function(panel) {
+	var uiErrorHandler = new MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler(panel);
+	var self = this;
+	
+	self.validate = function() {
+		var result = true;
+		uiErrorHandler.cleanUpAllErrors();
+		var validation1 = uiErrorHandler.validateField('#newmessagesubject',marriageRummy.ErrorMessages.newMessage.SUBJECT,
+				uiErrorHandler.string_isEmptyFn, 1, 'BLUR', []);
+		var mininumlength = 8;
+		var validation2 = uiErrorHandler.validateField('#NewMessageContentText',marriageRummy.ErrorMessages.newMessage.MESSAGE,
+				uiErrorHandler.string_isEmptyFn, 1, 'BLUR',[ mininumlength ], undefined);
+		/*var validation3 = uiErrorHandler.validateField('#SignupPassword',marriageRummy.ErrorMessages.signup.PASSWORDEMPTY,
+				uiErrorHandler.string_isEmptyFn, 1, 'BLUR', []);*/
+		result = validation1 && validation2;
+		return result;
+	};
+	
+};

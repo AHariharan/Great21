@@ -39,7 +39,7 @@
 <script src="./assets/ThirdPartyLibs/jquery-ui-1.11.2/jquery-ui.min.js"
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/JQueryTouchPlugin/jquery.ui.touch-punch.min.js" type="text/javascript"></script> 	
-<script src="./assets/ThirdPartyLibs/Chart/Chart.min.js"
+<script src="./assets/ThirdPartyLibs/Chart/Chart.js"
 	type="text/javascript"></script>
 <script src="./assets/ThirdPartyLibs/bootstrap-dist/js/bootstrap.min.js"
 	type="text/javascript"></script>

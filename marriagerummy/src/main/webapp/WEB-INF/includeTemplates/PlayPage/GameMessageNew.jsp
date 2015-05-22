@@ -8,7 +8,9 @@
 				<h4 class="modal-title">New Message</h4>
 			</div>
 			<div class="modal-body">
+			    <div id="NewMessageErrorPanel" class="ErrorPanel"></div>
 				<div class="newmessage">
+				 
 					<div class="NewMessageTO">
 						<label style="padding-top: 7px;"> To : </label>
 						<div class="newmessage-selectednickname">
@@ -23,7 +25,7 @@
 					</div>
 					<div class="NewMessageContent">
 						<label> Message : </label>
-						<textarea class="form-control" rows="5"></textarea>
+						<textarea id="NewMessageContentText" class="form-control" rows="5"></textarea>
 					</div>
 				</div>
 			</div>

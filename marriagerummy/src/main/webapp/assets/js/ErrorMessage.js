@@ -16,5 +16,12 @@ marriageRummy.ErrorMessages = {
         	 "NICKNAMEGT8" : "Nickname must contain atleast 8 characters",
         	 "PASSWORDEMPTY" : "Password cannot be empty"
         	 
+         },
+         
+         "newMessage" : {
+        	 
+        	 "SUBJECT" : "Subject of the message cant be empty",
+        	 "MESSAGE" : "Message cant be empty",
+        	 "TOLIST"  : "ToList cant be empty"       	 
          }
 };
