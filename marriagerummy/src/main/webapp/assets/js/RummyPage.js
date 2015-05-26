@@ -730,7 +730,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		var validation = new MarriageRummy.Utilities.Validation.NewMessageValidation('NewMessageErrorPanel');
 		if(validation.validate())
 			{
-			   sendMessageNow("Auto",newMessage_getSelectedFriends(),newMessage_getSubject(),newMessage_getMessage());
+			   self.sendMessageNow("Auto",newMessage_getSelectedFriends(),newMessage_getSubject(),newMessage_getMessage());
 			}
 		
 	};

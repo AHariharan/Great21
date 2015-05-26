@@ -10,6 +10,7 @@ import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GameMessage;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -313,5 +314,23 @@ public class RestServiceHelper {
 		}
 		return response;
 	}
+	
+	public static String sendUserMessage(FacadetoDataAccessMapper mapper,RestTemplate template,GameMessage request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.SEND_USERMESSAGE);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
 	
 }

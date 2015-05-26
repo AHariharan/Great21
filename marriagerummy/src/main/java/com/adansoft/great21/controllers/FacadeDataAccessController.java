@@ -18,6 +18,7 @@ import com.adansoft.great21.dataaccess.schemas.AddFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.AddNotificationRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.ConfirmIgnoreGameInviteRequest;
+import com.adansoft.great21.dataaccess.schemas.GameMessage;
 import com.adansoft.great21.dataaccess.schemas.GetActiveAddFriendList;
 import com.adansoft.great21.dataaccess.schemas.GetActiveFriendRequest;
 import com.adansoft.great21.dataaccess.schemas.GetActiveGameInviteList;
@@ -220,6 +221,16 @@ public class FacadeDataAccessController {
 		if(incomingrequest.getNoofrecentmessages() > 100)
 			incomingrequest.setNoofrecentmessages(100);
 		return RestServiceHelper.getUserMessages(mapper, restTemplate, incomingrequest);
+	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.SEND_USERMESSAGE , method = RequestMethod.POST)
+	public String getUserMessages(@RequestBody GameMessage incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setFrom(user.getNickname());
+		return RestServiceHelper.sendUserMessage(mapper, restTemplate, incomingrequest);
 	}
 	
 	
