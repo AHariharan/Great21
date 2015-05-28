@@ -334,7 +334,7 @@ MarriageRummy.Utilities.ErrorHandlers.UIErrorHandler = function(panel) {
 	self.validateField = function(refid, errorMessage, validationfn, level,
 			eventType, arrayvalidationfnargs, errorcode) {
 
-		var content = "'" + $(refid).val() + "'";
+		var content = "'" + $(refid).val().replace(/\r\n|\n/g, "<br />") + "'";
 		var methodinvoke = "";
 		if (arrayvalidationfnargs == undefined
 				|| arrayvalidationfnargs.length == 0)

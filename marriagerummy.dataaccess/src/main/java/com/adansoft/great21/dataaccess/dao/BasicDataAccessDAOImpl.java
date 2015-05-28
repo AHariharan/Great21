@@ -535,8 +535,9 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
         String result = "Success";
         try
         {
-        	for(long tonickid : message.getTo_userids())
+        	for(String toNickName : message.getTo())
         	{
+        		long tonickid = authdao.findUserbyNickName(toNickName).getId().getUserId();
         		UserMessagesId id = new UserMessagesId();
         		id.setUserId(tonickid);
         		if(message.getInternal_messageid() != 0)

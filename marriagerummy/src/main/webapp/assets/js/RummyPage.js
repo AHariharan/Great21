@@ -719,6 +719,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 			var template = '<p id="' + errorid + '" ><a href="' + '#'
 			+ '"><i class="fa fa-exclamation-triangle"></i> &nbsp;&nbsp;'
 			+ errorMessage + '</a></p>';
+			$('#NewMessageErrorPanel').empty();
 			 $('#NewMessageErrorPanel').append(template);
 			 $('.NewMessageTO>label').css("color","rgb(169, 68, 66);");
 			 return;
@@ -726,6 +727,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		else
 			{
 			   $('#NewMessageErrorPanel').empty();
+			   $('.NewMessageTO>label').css("color","");
 			}
 		var validation = new MarriageRummy.Utilities.Validation.NewMessageValidation('NewMessageErrorPanel');
 		if(validation.validate())
@@ -739,8 +741,9 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	{
 		var toArray = new Array();
 		$('.newmessage-selectednickname div').each(function(){
-			toArray.push($(this).html());
+			toArray.push($(this).html().replace('<span> x </span>','').trim());			
 		});
+		return toArray;
 	};
 	
 	var newMessage_getSubject = function()
@@ -838,6 +841,8 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				                    	selectedFriendList.push(nickname);
 					                    var childcontent = '<div> ' + nickname + '<span> x </span></div>';
 					                    $('.newmessage-selectednickname').append(childcontent);
+					                    $('#NewMessageErrorPanel').empty();
+					                    $('.NewMessageTO>label').css("color","");
 				                    	}
 				                    }
 				                    else
@@ -845,6 +850,8 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 				                    	selectedFriendList.push(nickname);
 					                    var childcontent = '<div> ' + nickname + '<span> x </span></div>';
 					                    $('.newmessage-selectednickname').append(childcontent);
+					                    $('#NewMessageErrorPanel').empty();
+					                    $('.NewMessageTO>label').css("color","");
 				                    	}
 				                    $('.newmessage-selectednickname div span').unbind();
 				                    $('.newmessage-selectednickname div span').on("click",function(){
@@ -958,7 +965,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 						curmessage.status.toLowerCase()).replace("FROM",
 						curmessage.from).replace("SUBJECT", curmessage.subject)
 						.replace("PREVIEWCONTENT", previewcontent).replace(
-								"ACTUALCONTENT", curmessage.messageContent)
+								"ACTUALCONTENT", curmessage.messageContent.replace(/\r\n|\n/g, "<br />"))
 						.replace("MESSAGEID", curmessage.internal_messageid)
 						.replace("ORDER", curmessage.internal_order);
 				$('.messages').append(htmlcontent);

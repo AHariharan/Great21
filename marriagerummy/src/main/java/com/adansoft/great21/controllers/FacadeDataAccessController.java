@@ -226,7 +226,7 @@ public class FacadeDataAccessController {
 	
 	@Secured("ROLE_USER")
 	@RequestMapping( value = FacadeControllerURLs.SEND_USERMESSAGE , method = RequestMethod.POST)
-	public String getUserMessages(@RequestBody GameMessage incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	public String sendUserMessage(@RequestBody GameMessage incomingrequest,@AuthenticationPrincipal Authentication authentication)
 	{
 		RummyUser user = (RummyUser)authentication.getPrincipal();
 		incomingrequest.setFrom(user.getNickname());
