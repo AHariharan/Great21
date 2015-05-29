@@ -566,8 +566,9 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		GetGameMessageResponse response = new GetGameMessageResponse();
 		response.setNickname(authdao.findUserbyID(request.getUserid()).getNickName());
 		ArrayList<GameMessage> messagelist = new ArrayList<GameMessage>();
-		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid order by createdDate desc")
+		List<UserMessages> usermessagelist = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid and msgStatus != :varmsgstatus order by createdDate desc")
 		.setBigInteger("varuserid", BigInteger.valueOf(request.getUserid()))
+		.setString("varmsgstatus", DatabaseValueConstants.MESSAGE_STATUS_DELETE)
 		.setMaxResults(100).list();
 		if(usermessagelist != null && usermessagelist.size() > 0 )
 		{
@@ -600,8 +601,68 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 		return usermessagelist.size();
 	}
 	
+	@Override
+	@SuppressWarnings("unchecked")
+	public String deleteGameMessage(GameMessage request)
+	{
+		 String result = "Success";
+		 try
+		 {
+			 long userid = authdao.findUserbyNickName(request.getFrom()).getId().getUserId();
+			 List<UserMessages> list = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid "
+			 		                                        + "and messageId = :varmsgid and msgOrder= :varmsgOrder")
+			 		                                        .setBigInteger("varuserid", BigInteger.valueOf(userid))
+			 		                                        .setInteger("varmsgid", request.getInternal_messageid())
+			 		                                        .setInteger("varmsgOrder", request.getInternal_order())
+			 		                                        .list();
+			 
+			if(list.size() > 0)
+			{
+				UserMessages message = list.get(0);
+				GameMessage gmessage = new GameMessage();
+				gmessage.setFrom(request.getFrom());
+				gmessage.setInternal_messageid((int)message.getId().getMessageId());
+				gmessage.setInternal_order((int)message.getId().getMsgOrder()+1);
+				gmessage.setMessageContent(new String(message.getMsgContent()));
+				gmessage.setStatus(DatabaseValueConstants.MESSAGE_STATUS_UNREAD);
+				gmessage.setSubject("Re : " + message.getSubject());				
+				sessionFactory.getCurrentSession().persist(gmessage);
+			}
+		 }catch(Exception e)
+		 {
+			 result = "Failure";
+			 e.printStackTrace();
+		 }
+		 return result;
+	}
 	
-	
-	
+	@Override
+	@SuppressWarnings("unchecked")
+	public String replyToGameMessage(GameMessage request)
+	{
+		 String result = "Success";
+		 try
+		 {
+			 long userid = authdao.findUserbyNickName(request.getFrom()).getId().getUserId();
+			 List<UserMessages> list = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid "
+			 		                                        + "and messageId = :varmsgid and msgOrder= :varmsgOrder")
+			 		                                        .setBigInteger("varuserid", BigInteger.valueOf(userid))
+			 		                                        .setInteger("varmsgid", request.getInternal_messageid())
+			 		                                        .setInteger("varmsgOrder", request.getInternal_order())
+			 		                                        .list();
+			 
+			if(list.size() > 0)
+			{
+				UserMessages message = list.get(0);
+				message.setMsgStatus(DatabaseValueConstants.MESSAGE_STATUS_DELETE);
+				sessionFactory.getCurrentSession().merge(message);
+			}
+		 }catch(Exception e)
+		 {
+			 result = "Failure";
+			 e.printStackTrace();
+		 }
+		 return result;
+	}
 	
 }

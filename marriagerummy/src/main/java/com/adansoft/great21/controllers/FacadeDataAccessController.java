@@ -234,5 +234,24 @@ public class FacadeDataAccessController {
 	}
 	
 	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.DELETE_USERMESSAGE , method = RequestMethod.POST)
+	public String deleteUserMessage(@RequestBody GameMessage incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setFrom(user.getNickname());
+		return RestServiceHelper.deleteUserMessage(mapper, restTemplate, incomingrequest);
+	}
+	
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = FacadeControllerURLs.REPLY_USERMESSAGE , method = RequestMethod.POST)
+	public String replyToUserMessage(@RequestBody GameMessage incomingrequest,@AuthenticationPrincipal Authentication authentication)
+	{
+		RummyUser user = (RummyUser)authentication.getPrincipal();
+		incomingrequest.setFrom(user.getNickname());
+		return RestServiceHelper.replyToUserMessage(mapper, restTemplate, incomingrequest);
+	}
+	
 	
 }

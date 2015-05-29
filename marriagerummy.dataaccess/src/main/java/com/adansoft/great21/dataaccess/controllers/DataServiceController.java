@@ -178,4 +178,21 @@ public class DataServiceController {
 		
 	}
 	
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.DELETE_USERMESSAGE, method = RequestMethod.POST)
+	public @ResponseBody String deleteMessages(@RequestBody GameMessage request)
+	{
+		return basicdatadao.deleteGameMessage(request);
+		
+	}
+	
+	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.REPLY_USERMESSAGE, method = RequestMethod.POST)
+	public @ResponseBody String replyToMessages(@RequestBody GameMessage request)
+	{
+		return basicdatadao.replyToGameMessage(request);
+		
+	}
+	
 }

@@ -53,6 +53,8 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getUserAcheivements = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Acheivement/get";
 	self.getUserMessages = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Messages/get";
 	self.sendUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Send";
+	self.deleteUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Delete";
+	self.replyToUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Reply";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
 	self.joinGame = "/marriagerummy/IndexerServices/GameBrowser/Player/Add";
@@ -499,6 +501,30 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 		return formdata;
 	};
 	
+	self.getDeleteMessageRequest = function(from,mid,Subject,order)
+	{
+		var formdata = {
+				from:from,
+				internal_messageid:mid,
+				subject:Subject,
+				internal_order:order
+		};
+		
+		return formdata;
+	};
+	
+	
+	self.getReplyMessageRequest = function(from,mid,Subject,order)
+	{
+		var formdata = {
+				from:from,
+				internal_messageid:mid,
+				subject:Subject,
+				internal_order:order
+		};
+		
+		return formdata;
+	};
 	
 	self.updateProfileInformationRequest = function(firstname,lastname,country)
 	{
@@ -1139,7 +1165,41 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 		console.log("******onSendMessageFailure  FAILURE ******** " + JSON.stringify(data));
 	};
 	
+	self.onDeleteMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onDeleteMessageSuccess   ******** " + JSON.stringify(data));
+		  // requestObj.srcObj.renderUserMessages(data);
+		}
+	};
 	
+	self.onDeleteMessageFailure = function(data)
+	{
+		console.log("******onDeleteMessageFailure  FAILURE ******** " + JSON.stringify(data));
+	};
+	
+	self.onReplytoMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onReplytoMessageSuccess   ******** " + JSON.stringify(data));
+		  // requestObj.srcObj.renderUserMessages(data);
+		}
+	};
+	
+	self.onReplytoMessageFailure = function(data)
+	{
+		console.log("******onReplytoMessageFailure  FAILURE ******** " + JSON.stringify(data));
+	};
 	
 	
 	

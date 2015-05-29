@@ -27,6 +27,8 @@ public class DataAccessServiceURLs {
 	public final static String GET_USER_MESSAGES = "/BasicUserDetails/Player/Messages/get";
 	public final static String GET_USER_MESSAGES_COUNT = "/BasicUserDetails/Player/MessageCount/get";
 	public final static String SEND_USERMESSAGE = "/BasicUserDetails/Player/Message/Send";
+	public final static String DELETE_USERMESSAGE = "/BasicUserDetails/Player/Message/Delete";
+	public final static String REPLY_USERMESSAGE = "/BasicUserDetails/Player/Message/Reply";
 	
 	public final static String DELAYED_GAMEDATA_BASE = "/DelayedWrite/GameData";
 	public final static String CREATED_GAME = "/CreateGame";	

@@ -333,4 +333,40 @@ public class RestServiceHelper {
 	}
 	
 	
+	public static String deleteUserMessage(FacadetoDataAccessMapper mapper,RestTemplate template,GameMessage request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.DELETE_USERMESSAGE);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	public static String replyToUserMessage(FacadetoDataAccessMapper mapper,RestTemplate template,GameMessage request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.REPLY_USERMESSAGE);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
 }

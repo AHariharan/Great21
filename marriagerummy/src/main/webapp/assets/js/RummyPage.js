@@ -773,6 +773,40 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
 				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
 	};
+	
+	self.deleteMessage = function(from,mid,subject,order)
+	{
+		var url = marriageRummy.urls.deleteUserMessage;
+		var formdata = marriageRummy.request.getDataRequest().getDeleteMessageRequest(from,mid,subject,order);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onDeleteMessageSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onDeleteMessageFailure;
+		var requestObj = {
+			"formdata" : formdata,
+			"srcObj" : self			
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	
+	self.replyToGameMessage = function(from,mid,subject,order)
+	{
+		var url = marriageRummy.urls.replyToUserMessage;
+		var formdata = marriageRummy.request.getDataRequest().getReplyMessageRequest(from,mid,subject,order);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onReplytoMessageSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onReplytoMessageFailure;
+		var requestObj = {
+			"formdata" : formdata,
+			"srcObj" : self			
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
 
 	var getFriendList = function() {
 		var url = marriageRummy.urls.getFriendList;

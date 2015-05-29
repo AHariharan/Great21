@@ -31,6 +31,7 @@ public class DatabaseValueConstants {
 	public final static String MESSAGE_STATUS_UNREAD = "UNREAD";
 	public final static String MESSAGE_STATUS_READ = "READ";
 	public final static String MESSAGE_STATUS_REPLIED = "REPLIED";
+	public final static String MESSAGE_STATUS_DELETE = "DELETED";
 	
 	
 }
