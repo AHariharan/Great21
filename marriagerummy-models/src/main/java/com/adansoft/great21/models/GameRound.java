@@ -303,6 +303,10 @@ public class GameRound implements Serializable{
     	
     	System.out.println("Joker " + Joker);
     	System.out.println("OpenCard " + OpenCard);
+    	if(playerlist.get(currenturn - 1).getPlayerType().equals(Player.PLAYER_TYPE_AI))
+    	{
+    		AIPlayer aiplayer = (AIPlayer) playerlist.get(currenturn - 1);
+    	}
     }
     
     
