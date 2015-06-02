@@ -23,13 +23,15 @@ private static final long serialVersionUID = -83813341695789602L;
     private String playerrole;
     private double cashInHand;
     private long myuserid;
+    private GameStrategy botStrategy;
 	
 
-	public AIPlayer(String nickname,int playerpos)
+	public AIPlayer(String nickname,int playerpos,GameStrategy gameStrategy)
 	{
 		this.nickName = nickname;
 		this.playerpos = playerpos;
 		status = PLAYER_STATUS_INGAME;
+		botStrategy = gameStrategy;
 		cards = new ArrayList<Card>();
 	}
 
