@@ -351,6 +351,25 @@ public class RestServiceHelper {
 	}
 	
 	
+	public static String readUserMessage(FacadetoDataAccessMapper mapper,RestTemplate template,GameMessage request)
+	{
+		String response = null;
+		try
+		{
+		URI url = new URI(mapper.getDataAccessURI() + "/"
+				+ FacadeControllerURLs.DATAACCESS_BASE + "/"
+				+ FacadeControllerURLs.READ_USERMESSAGE);
+		response = template.postForEntity(url, request, String.class).getBody();
+		
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return response;
+	}
+	
+	
+	
 	public static String replyToUserMessage(FacadetoDataAccessMapper mapper,RestTemplate template,GameMessage request)
 	{
 		String response = null;

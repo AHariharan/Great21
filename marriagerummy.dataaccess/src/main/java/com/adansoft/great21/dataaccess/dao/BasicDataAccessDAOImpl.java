@@ -603,14 +603,14 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public String deleteGameMessage(GameMessage request)
+	public String replyToGameMessage(GameMessage request)
 	{
 		 String result = "Success";
 		 try
 		 {
 			 long userid = authdao.findUserbyNickName(request.getFrom()).getId().getUserId();
 			 List<UserMessages> list = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid "
-			 		                                        + "and messageId = :varmsgid and msgOrder= :varmsgOrder")
+			 		                                        + "and id.messageId = :varmsgid and id.msgOrder= :varmsgOrder")
 			 		                                        .setBigInteger("varuserid", BigInteger.valueOf(userid))
 			 		                                        .setInteger("varmsgid", request.getInternal_messageid())
 			 		                                        .setInteger("varmsgOrder", request.getInternal_order())
@@ -638,14 +638,14 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public String replyToGameMessage(GameMessage request)
+	public String deleteGameMessage(GameMessage request)
 	{
 		 String result = "Success";
 		 try
 		 {
 			 long userid = authdao.findUserbyNickName(request.getFrom()).getId().getUserId();
 			 List<UserMessages> list = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid "
-			 		                                        + "and messageId = :varmsgid and msgOrder= :varmsgOrder")
+			 		                                        + "and id.messageId = :varmsgid and id.msgOrder= :varmsgOrder")
 			 		                                        .setBigInteger("varuserid", BigInteger.valueOf(userid))
 			 		                                        .setInteger("varmsgid", request.getInternal_messageid())
 			 		                                        .setInteger("varmsgOrder", request.getInternal_order())
@@ -655,6 +655,36 @@ public class BasicDataAccessDAOImpl implements BasicDataAccessDAO {
 			{
 				UserMessages message = list.get(0);
 				message.setMsgStatus(DatabaseValueConstants.MESSAGE_STATUS_DELETE);
+				sessionFactory.getCurrentSession().merge(message);
+			}
+		 }catch(Exception e)
+		 {
+			 result = "Failure";
+			 e.printStackTrace();
+		 }
+		 return result;
+	}
+	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public String readMessage(GameMessage request)
+	{
+		 String result = "Success";
+		 try
+		 {
+			 long userid = authdao.findUserbyNickName(request.getFrom()).getId().getUserId();
+			 List<UserMessages> list = sessionFactory.getCurrentSession().createQuery("from UserMessages where id.userId = :varuserid "
+			 		                                        + "and id.messageId = :varmsgid and id.msgOrder= :varmsgOrder")
+			 		                                        .setBigInteger("varuserid", BigInteger.valueOf(userid))
+			 		                                        .setInteger("varmsgid", request.getInternal_messageid())
+			 		                                        .setInteger("varmsgOrder", request.getInternal_order())
+			 		                                        .list();
+			 
+			if(list.size() > 0)
+			{
+				UserMessages message = list.get(0);
+				message.setMsgStatus(DatabaseValueConstants.MESSAGE_STATUS_READ);
 				sessionFactory.getCurrentSession().merge(message);
 			}
 		 }catch(Exception e)

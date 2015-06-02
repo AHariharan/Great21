@@ -188,6 +188,14 @@ public class DataServiceController {
 	}
 	
 	@Transactional
+	@RequestMapping( value = DataAccessServiceURLs.READ_USERMESSAGE, method = RequestMethod.POST)
+	public @ResponseBody String readMessage(@RequestBody GameMessage request)
+	{
+		return basicdatadao.readMessage(request);
+		
+	}
+	
+	@Transactional
 	@RequestMapping( value = DataAccessServiceURLs.REPLY_USERMESSAGE, method = RequestMethod.POST)
 	public @ResponseBody String replyToMessages(@RequestBody GameMessage request)
 	{

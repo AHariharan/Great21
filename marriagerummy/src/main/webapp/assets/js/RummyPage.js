@@ -791,6 +791,23 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	};
 	
 	
+	self.readMessage = function(from,mid,subject,order)
+	{
+		var url = marriageRummy.urls.readUserMessage;
+		var formdata = marriageRummy.request.getDataRequest().getReadMessageRequest(from,mid,subject,order);
+		var onSuccessCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onReadMessageSuccess;
+		var onFailureCallbackfn = marriageRummy.callbacks
+				.getDataAccessCallback().onReadMessageFailure;
+		var requestObj = {
+			"formdata" : formdata,
+			"srcObj" : self			
+		};
+		marriageRummy.httpComm.invokeAsyncRequest(url, formdata,
+				onSuccessCallbackfn, onFailureCallbackfn, requestObj);
+	};
+	
+	
 	self.replyToGameMessage = function(from,mid,subject,order)
 	{
 		var url = marriageRummy.urls.replyToUserMessage;
@@ -982,7 +999,7 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 	self.renderUserMessages = function(data) {
 		var noofunread = 0;
 		console.log("renderUserMessages : " + JSON.stringify(data));
-		var messageTemplate = '<div class="message-item" data-messageid="MESSAGEID" data-order="ORDER"><div class="message-status-STATUS"><i class="fa fa-circle fa-2x"></i></div>'
+		var messageTemplate = '<div class="message-item" data-messageid="MESSAGEID" data-order="ORDER" data-messagestatus="MSGTUS"><div class="message-status-STATUS"><i class="fa fa-circle fa-2x"></i></div>'
 				+ '<div class="message-from-user"><i class="fa fa-user fa-4x"></i><h4>FROM</h4></div><div class="message-content">'
 				+ '<button class="btn btn-link subjectbtn">SUBJECT</button><div class="message-body"><p class="previewcontent">PREVIEWCONTENT<button class="btn btn-link morebtn"> show more</button>'
 				+ '</p><p class="actualcontent">ACTUALCONTENT<button class="btn btn-link hidebtn"> hide </button></p></div><button class="btn btn-link replybtn"><i class="fa fa-reply"></i> Reply</button><button class="btn btn-link deletebtn">'
@@ -1001,7 +1018,8 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 						.replace("PREVIEWCONTENT", previewcontent).replace(
 								"ACTUALCONTENT", curmessage.messageContent.replace(/\r\n|\n/g, "<br />"))
 						.replace("MESSAGEID", curmessage.internal_messageid)
-						.replace("ORDER", curmessage.internal_order);
+						.replace("ORDER", curmessage.internal_order)
+						.replace("MSGTUS",curmessage.status);
 				$('.messages').append(htmlcontent);
 
 			}
@@ -1030,6 +1048,14 @@ MarriageRummy.Utilities.UIUtilities.ProfileData = function() {
 					function() {
 						$(this).parent().parent().css("height", "auto");
 						$(this).parent().hide();
+						if($(this).parent().parent().parent().prev().prev().parent().attr("data-messagestatus") == "UNREAD")
+							{
+							    var mid = $(this).parent().parent().parent().prev().prev().parent().attr("data-messageid");
+							    var order = $(this).parent().parent().parent().prev().prev().parent().attr("data-order");
+							    self.readMessage("Auto", mid, null, order);
+							}
+						$(this).parent().parent().parent().prev().prev().parent().attr("data-messagestatus","READ");
+						
 						$(this).parent().parent().parent().prev().prev()
 								.removeClass("message-status-unread").addClass(
 										"message-status-read").children()

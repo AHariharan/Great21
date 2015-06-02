@@ -54,6 +54,7 @@ MarriageRummy.Utilities.CommunicationUtilities.URLS = function() {
 	self.getUserMessages = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Messages/get";
 	self.sendUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Send";
 	self.deleteUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Delete";
+	self.readUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Read";
 	self.replyToUserMessage = "/marriagerummy/DataAccess/Data/BasicUserDetails/Player/Message/Reply";
 
 	self.createGame = "/marriagerummy/IndexerServices/GameBrowser/createGame";
@@ -502,6 +503,18 @@ MarriageRummy.Utilities.CommunicationUtilities.DataRequestPreparer = function() 
 	};
 	
 	self.getDeleteMessageRequest = function(from,mid,Subject,order)
+	{
+		var formdata = {
+				from:from,
+				internal_messageid:mid,
+				subject:Subject,
+				internal_order:order
+		};
+		
+		return formdata;
+	};
+	
+	self.getReadMessageRequest = function(from,mid,Subject,order)
 	{
 		var formdata = {
 				from:from,
@@ -1182,6 +1195,26 @@ MarriageRummy.Utilities.CommunicationUtilities.DataAccessCallback = function()
 	{
 		console.log("******onDeleteMessageFailure  FAILURE ******** " + JSON.stringify(data));
 	};
+	
+	
+	self.onReadMessageSuccess = function(data, textstatus, Jhxr, requestObj)
+	{
+		if(data === undefined || data == null)
+		{
+		   return;
+		}
+	else
+		{
+		   console.log("******onReadMessageSuccess   ******** " + JSON.stringify(data));
+		  // requestObj.srcObj.renderUserMessages(data);
+		}
+	};
+	
+	self.onReadMessageFailure = function(data)
+	{
+		console.log("******onReadMessageFailure  FAILURE ******** " + JSON.stringify(data));
+	};
+	
 	
 	self.onReplytoMessageSuccess = function(data, textstatus, Jhxr, requestObj)
 	{

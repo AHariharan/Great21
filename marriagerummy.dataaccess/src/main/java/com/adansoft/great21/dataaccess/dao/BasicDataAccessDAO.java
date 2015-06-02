@@ -67,6 +67,8 @@ public interface BasicDataAccessDAO {
      
      public String sendGameMessage(GameMessage message);
      
+     public String readMessage(GameMessage message);
+     
      public GetGameMessageResponse getUserMessages(GetGameMessageRequest request);
      
      public String deleteGameMessage(GameMessage message);
