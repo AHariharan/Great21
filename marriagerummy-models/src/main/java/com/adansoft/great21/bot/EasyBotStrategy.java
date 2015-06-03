@@ -72,6 +72,7 @@ public class EasyBotStrategy implements GameStrategy {
 		Card cardinHand[] = CardUtility.sortCards(cardsinHand.toArray(new Card[cardsinHand.size()]));
 		splitCardsup(cardinHand);
 		checkForSequences();
+		checkForTriplets();
 		printAllPossibleHashMaps();
 		//attemptSealinginLooseCards();
 		postAnalysis();
@@ -107,6 +108,42 @@ public class EasyBotStrategy implements GameStrategy {
 		noOfWildCards = jokerlist.size();
 	}
 	
+	
+	private void checkForTriplets()
+	{
+		if(looseCards.size() >= 3 )
+		{
+			
+			Card[] sortedCards = looseCards.toArray(new Card[looseCards.size()]);
+			Arrays.sort(sortedCards);			
+			ArrayList<Card> distinctCards = getDistinctCardsFromListbyDisplayValue(looseCards);
+			for(Card card : distinctCards)
+			{
+				int similarcardcount = 0;
+				ArrayList<Card> similarCards = new ArrayList<Card>();
+				for(Card loopCard : sortedCards)
+				{
+					if(card.getDisplayValue().equals(loopCard.getDisplayValue()))
+					{
+						similarCards.add(loopCard);
+						similarcardcount++;
+					}
+				}
+				if( similarcardcount >=3 )
+				{
+					boolean isTriplet = CardUtility.checkTripletorQuadraplets(similarCards.toArray(new Card[similarCards.size()]));
+					if(isTriplet)
+					{
+						sealedCardMap.put("TRIP"+"-"+card.getInstanceID(), similarCards);
+					}
+						
+				}
+			}
+			
+		}
+		compileSealedandLooseCards();
+	}
+	
 	private void checkForSequences()
 	{
 		boolean isSealedSequnce = false;
@@ -123,6 +160,12 @@ public class EasyBotStrategy implements GameStrategy {
 		if(isSealedSequnce)
 			canSeeJoker = true;	
 		detectBestPossibleCardSet();
+		compileSealedandLooseCards();
+	}
+	
+	
+	private void compileSealedandLooseCards()
+	{
 		if( sealedCardMap.size() > 0 )
 		{
 			ArrayList<Card> sealedCardList = new ArrayList<Card>();
@@ -134,7 +177,6 @@ public class EasyBotStrategy implements GameStrategy {
 			
 		}
 	}
-	
 	
 	private void postAnalysis()
 	{
@@ -150,8 +192,29 @@ public class EasyBotStrategy implements GameStrategy {
 				System.out.println("Sealed % = " + percent + "% , Ready to Play");
 			}
 		}
+		printCardSetup();
 	}
 	
+	
+	private void printCardSetup()
+	{
+		System.out.println("Sealed Cards :- ");
+		for(String key : sealedCardMap.keySet())
+		{
+			System.out.print("{");
+		    for(Card card : sealedCardMap.get(key))
+		    {
+		    	System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
+		    }
+		    System.out.print("}");
+		}
+		System.out.println("\nLoose Cards :- ");
+		for(Card card : looseCards)
+	    {
+	    	System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
+	    }
+		System.out.println();
+	}
 	
 	private int getDeclarableCount()
 	{
@@ -200,11 +263,11 @@ public class EasyBotStrategy implements GameStrategy {
 			
 			possiblesealedCardMap.put("ORIGIN-"+origin, pcardsetarr);
 		}
-		else
+		/*else
 		{
 			    looseCards.addAll(cardlist);
 		}
-		
+		*/
 		return result;
 	}
 	
@@ -227,10 +290,13 @@ public class EasyBotStrategy implements GameStrategy {
 					bestprobableset = pcardset;
 				}
 			}
-			System.out.println("-------------------------- BEST PROBABLE --------------------------------------------------");
-			getCardsinList(bestprobableset.getCardList());
-			sealedCardMap.put(key, bestprobableset.getCardList());
-			System.out.println("-------------------------- END OF BEST PROBABLE --------------------------------------------------");
+			//System.out.println("-------------------------- BEST PROBABLE --------------------------------------------------");
+			if(bestprobableset != null)
+			{
+	      // 		getCardsinList(bestprobableset.getCardList());
+			   sealedCardMap.put(key, bestprobableset.getCardList());
+			}
+		//	System.out.println("-------------------------- END OF BEST PROBABLE --------------------------------------------------");
 			
 		}
 		
@@ -247,6 +313,10 @@ public class EasyBotStrategy implements GameStrategy {
 			 if(sequencePresent)
 			 {
 				    PossibleSetCards pcardset = new PossibleSetCards(streamlength, PossibleSetCards.SETTYPE_SEQUENCE, cardset, 0, flower, origin);
+				    System.out.println("-------------------------------------------------------------");
+				    System.out.print("Input Current Set : ");
+				    getCardsinList(pcardset.getCardList());
+				    System.out.println("-------------------------------------------------------------");
 				    AnalyzedCardResult result = analyzeRemainingCards(getRemainingCards(pcardset.getCardList()));
 				    pcardset.setHowmanySeq(result.getHowmanysequencescanbemade());
 				    pcardset.setHowmanytrip(result.getHowmanytripletscanbemade());
@@ -257,7 +327,7 @@ public class EasyBotStrategy implements GameStrategy {
 		}
 	}
 	
-	private void attemptSealinginLooseCards()
+	/*private void attemptSealinginLooseCards()
 	{
 		Card[] looseCardArray = looseCards.toArray(new Card[looseCards.size()]);
 		Arrays.sort(looseCardArray);
@@ -284,7 +354,9 @@ public class EasyBotStrategy implements GameStrategy {
 		}
 		//isTriple = CardUtility.checkTripletorQuadraplets(looseCards.toArray(new Card[looseCards.size()]));
 	}
-
+*/
+	
+	
 	private HashMap<String,ArrayList<Card>> getCardsByStreaming(Card[] cardlist,int streamlength)
 	{
 		HashMap<String,ArrayList<Card>> cardStream = new HashMap<String, ArrayList<Card>>();
@@ -334,19 +406,26 @@ public class EasyBotStrategy implements GameStrategy {
 	//Display function for all cards
 	public void getCardsinHand()
 	{
+		System.out.println("InputCards :-");
+		System.out.print("{");
 		for(Card card : cardsinHand)
 		{
-			System.out.println("Card : " + card.getInstanceID());
+			System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
 		}
+		System.out.print("}\n");
 	}
 	
 	//Display function for all cards in the provided list
 	public void getCardsinList(ArrayList<Card> cards)
 	{
-		for(Card card : cards)
+		Card[] sortedArray = cards.toArray(new Card[cards.size()]);
+		Arrays.sort(sortedArray);
+		System.out.print("{");
+		for(Card card : sortedArray)
 		{
-			System.out.println("Card : " + card.getInstanceID());
+			System.out.print("Card : " + card.getFlower()+"-"+card.getDisplayValue()+", ");
 		}
+		System.out.print("}\n");
 	}
 	
 	private void printAllPossibleHashMaps()
@@ -364,10 +443,10 @@ public class EasyBotStrategy implements GameStrategy {
 			       }
 			       System.out.println("------------------- Remaining Cards  ----------------------------------------------------------------------------");
 			       System.out.println(" SEQ : " + cardset.getHowmanySeq() + " Trip : " + cardset.getHowmanytrip());
-			      /* AnalyzedCardResult result = analyzeRemainingCards(getRemainingCards(cardset.getCardList()));
-			       cardset.setHowmanySeq(result.getHowmanysequencescanbemade());
-			       cardset.setHowmanytrip(result.getHowmanytripletscanbemade());*/
-			       System.out.println("-------------------------------------------------------------------------------------------------------");
+			       //AnalyzedCardResult result = analyzeRemainingCards(getRemainingCards(cardset.getCardList()));
+			       //cardset.setHowmanySeq(result.getHowmanysequencescanbemade());
+			      // cardset.setHowmanytrip(result.getHowmanytripletscanbemade());
+			      // System.out.println("-------------------------------------------------------------------------------------------------------");
 			}
 			
 			
@@ -479,6 +558,21 @@ public class EasyBotStrategy implements GameStrategy {
 		Card[] cardarray = cardlist.toArray(new Card[cardlist.size()]);
 		if(cardlist.size() >= 3)
 		{
+			
+			if(cardlist.size() >= 5)
+			{
+				HashMap<String,ArrayList<Card>> streamedCards = getCardsByStreaming(cardarray, 5);
+				for(String key : streamedCards.keySet())
+				{
+					ArrayList<Card> cardset = streamedCards.get(key);
+					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
+					{
+						  getCardsinList(cardset);
+						  count++;
+					}
+						
+				}
+			}
 			if(cardlist.size() >= 4)
 			{
 				HashMap<String,ArrayList<Card>> streamedCards = getCardsByStreaming(cardarray, 4);
@@ -486,7 +580,10 @@ public class EasyBotStrategy implements GameStrategy {
 				{
 					ArrayList<Card> cardset = streamedCards.get(key);
 					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
+					{
+						  getCardsinList(cardset);
 						  count++;
+					}
 						
 				}
 			}
@@ -497,8 +594,10 @@ public class EasyBotStrategy implements GameStrategy {
 				{
 					ArrayList<Card> cardset = streamedCards.get(key);
 					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
+					{
+						  getCardsinList(cardset);
 						  count++;
-						
+					}
 				}
 			}
 		}
