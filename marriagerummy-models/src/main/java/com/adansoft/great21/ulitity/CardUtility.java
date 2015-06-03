@@ -400,7 +400,7 @@ public class CardUtility {
 		return result;
 	}
 
-	private static boolean checkCardwithSameFlower(Card[] cardlist) {
+	public static boolean checkCardwithSameFlower(Card[] cardlist) {
 		if (cardlist[0] instanceof ClubCard)
 			return checkAllClubs(cardlist);
 		else if (cardlist[0] instanceof DiamondCard)
@@ -588,7 +588,7 @@ public class CardUtility {
 		return false;
 	}
 
-	private static boolean checkCardwithSameValue(Card[] cardlist) {
+	public static boolean checkCardwithSameValue(Card[] cardlist) {
 		if (cardlist == null || cardlist.length == 0)
 			return false;
 		String firstcardValue = cardlist[0].getDisplayValue();
