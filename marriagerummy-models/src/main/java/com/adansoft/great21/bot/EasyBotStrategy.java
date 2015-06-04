@@ -40,6 +40,7 @@ public class EasyBotStrategy implements GameStrategy {
 	private boolean jokerKnown;
 	private Card roundJokerCard;
 	private String gameType;
+	//private GroupCardSet set = null;
 	
 	
 	public EasyBotStrategy(ArrayList<Card> cardinhand,boolean jokerknown,Card jokercard,String gameType)
@@ -52,7 +53,7 @@ public class EasyBotStrategy implements GameStrategy {
 		init();
 		getCardsinHand();
 		treeroot = new CardSetNode(false); 
-		analyzeCards(cardsinHand,0,treeroot);
+		analyzeCards(cardsinHand,0,treeroot,null);
 		printGroupedCards();
 	}
 	
@@ -94,7 +95,7 @@ public class EasyBotStrategy implements GameStrategy {
 		postAnalysis();
 	}*/
 	
-	private void analyzeCards(ArrayList<Card> cardlist,int round,CardSetNode node)
+	private void analyzeCards(ArrayList<Card> cardlist,int round,CardSetNode node,GroupCardSet set)
 	{
 		ArrayList<SpadeCard> newSpadeList = new ArrayList<SpadeCard>();
 		ArrayList<HeartCard> newHeartList = new ArrayList<HeartCard>();
@@ -102,11 +103,11 @@ public class EasyBotStrategy implements GameStrategy {
 		ArrayList<ClubCard> newClubList = new ArrayList<ClubCard>();
 		splitCardsup(cardlist.toArray(new Card[cardlist.size()]),newSpadeList,newHeartList,newDiamondList,newClubList);
 		HashMap<String, ArrayList<PossibleSetCards>> mymap = checkForSequences(newSpadeList,newHeartList,newDiamondList,newClubList);
-		createGroupofCards(mymap,cardlist,round,node);
+		set = createGroupofCards(mymap,cardlist,round,node,set);
 		
 	}
 	
-	private GroupCardSet createGroupofCards(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode)
+	private GroupCardSet createGroupofCards(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,GroupCardSet set)
 	{
 		boolean isRoot = false;
 		round++;
@@ -129,12 +130,13 @@ public class EasyBotStrategy implements GameStrategy {
 				if(remainingCards.size() != countofRemainingCards)
 				{
 					countofRemainingCards = remainingCards.size();				
-					analyzeCards(remainingCards,round,node);
-					
+					analyzeCards(remainingCards,round,node,set);
+					if(set != null)
+						set.getGroupedCardMap().put(UUID.randomUUID().toString(), cardset.getCardList());
 				}
 				else
 				{
-				    GroupCardSet set = new GroupCardSet();
+				    set = new GroupCardSet();
 				    set.getGroupedCardMap().put(UUID.randomUUID().toString(),cardset.getCardList());
 					return set;
 				}
