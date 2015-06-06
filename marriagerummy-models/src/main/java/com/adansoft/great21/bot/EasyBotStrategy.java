@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 
 
+import java.util.Random;
 import java.util.UUID;
 
 import com.adansoft.great21.games.GameListConstants;
@@ -18,22 +19,25 @@ import com.adansoft.great21.models.HeartCard;
 import com.adansoft.great21.models.JokerCard;
 import com.adansoft.great21.models.SpadeCard;
 import com.adansoft.great21.ulitity.CardUtility;
+import com.adansoft.great21.ulitity.NumberUtility;
 
 public class EasyBotStrategy implements GameStrategy {
 	
 	private ArrayList<Card> cardsinHand;
-	
-	private ArrayList<SpadeCard> spadelist;
-	private ArrayList<DiamondCard> diamondlist;
-	private ArrayList<HeartCard> heartlist;
-	private ArrayList<ClubCard> clublist;
+	private Card[] totalCards;
+	private int currentIndicator;
 	private ArrayList<Card> jokerlist;
-	private HashMap<String,ArrayList<PossibleSetCards>> possiblesealedCardMap;
+	//private HashMap<String,ArrayList<PossibleSetCards>> possiblesealedCardMap;
 	private HashMap<String,ArrayList<Card>> sealedCardMap;
 	private ArrayList<Card> looseCards;
 	private int noOfWildCards;
 	private int countofRemainingCards = 0,instanceid = 0;
 	private CardSetNode treeroot = new CardSetNode(false); 
+	private ArrayList<CardSetNode> allNodes;
+	private ArrayList<GroupCardSet> allGroups;
+	private ArrayList<GroupCardSet> uniqueGroups;
+	private GroupCardSet activeGroup;
+	private ArrayList<CardAttribute> cardAttrList;
 
 	
 	private boolean canSeeJoker;
@@ -43,59 +47,258 @@ public class EasyBotStrategy implements GameStrategy {
 	//private GroupCardSet set = null;
 	
 	
-	public EasyBotStrategy(ArrayList<Card> cardinhand,boolean jokerknown,Card jokercard,String gameType)
+	public EasyBotStrategy(ArrayList<Card> cardinhand,boolean jokerknown,Card jokercard,String gameType,Card[] cards,int initIndicator)
 	{
 		this.cardsinHand = cardinhand;
 		this.jokerKnown = jokerknown;
 		this.roundJokerCard = jokercard;
 		this.gameType = gameType;
+		this.totalCards = cards;
+		this.currentIndicator = initIndicator;
 		
 		init();
 		getCardsinHand();
-		treeroot = new CardSetNode(false); 
-		analyzeCards(cardsinHand,0,treeroot,null);
-		printGroupedCards();
+		/*treeroot = new CardSetNode(false); 
+		allNodes = new ArrayList<CardSetNode>();
+		analyzeCards(cardsinHand,0,treeroot);
+		collectAllGroupedCards();
+		performUniqueGroupedCards();
+		decideActiveGroup();
+		assignScoreForLooseCards();
+	    System.out.println(" \n\nMost likely to Drop : "  );
+		getCardsinList(getAllDesiredDroppedCards()); System.out.println(" \n\n");*/
+		playGame();
 	}
 	
 	
-	private void printGroupedCards()
+	private void playGame()
 	{
-		for(CardSetNode node : treeroot.getChildren())
-		{
-			if(node.isRootNode() == true)
+	 int count = 0;	
+	  while(true)
+	  {
+		    count++;
+		  
+		    countofRemainingCards = 0;instanceid = 0;
+			Card card = getNextCardFromDeck();
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("Picked Card :- " + card.getFlower() +"-" + card.getDisplayValue());		
+			cardsinHand.add(card);
+			//  System.out.println("CARDS IN HAND SIZE : " + cardsinHand.size());
+			treeroot = new CardSetNode(false); 
+			allNodes = new ArrayList<CardSetNode>();
+			analyzeCards(cardsinHand,0,treeroot);
+			collectAllGroupedCards();
+			performUniqueGroupedCards();
+			decideActiveGroup();
+			assignScoreForLooseCards();
+			
+		  //  System.out.println("Cards in Hand : " + cardsinHand.size() + "  , " + getLooseCardListfromGroup(activeGroup).size() );
+			ArrayList<Card> desiredDropList = getAllDesiredDroppedCards();
+			if(cardsinHand.size() == 14 && getLooseCardListfromGroup(activeGroup).size() <= 1)
 			{
-				System.out.println("Root Node");
-				getCardsinList(node.getCardList());
+				System.out.println("\nGame Ends ....." + count);
+			    
+				break;
+			}
+			
+			if(desiredDropList.size() != 0)
+			{
+				int dropcard  = NumberUtility.generateRandomNumber(0,desiredDropList.size()-1);
+				System.out.println("\nDropped Card : " + desiredDropList.get(dropcard).getFlower() + "-" + desiredDropList.get(dropcard).getDisplayValue());
+				System.out.println("--------------------------------------------------------------");
+				cardsinHand.remove(desiredDropList.get(dropcard));
+			}
+	  }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	private ArrayList<Card> getAllDesiredDroppedCards()
+	{
+		ArrayList<Card> desiredDropList = new ArrayList<Card>();
+		double minimumScore = CardGroupScoreCalculator.getMinimumScore(cardAttrList);
+		for(CardAttribute cardAttr : cardAttrList)
+		{
+			 double currentScore = CardGroupScoreCalculator.calculateDropCardScore(cardAttr);
+			 if(currentScore == minimumScore)
+			 {
+				 desiredDropList.add(cardAttr.getCard());
+			 }
+		}
+		
+		return desiredDropList;
+	}
+	
+	
+	private void decideActiveGroup()
+	{
+		double maxscore = -100;
+		for(GroupCardSet set : uniqueGroups)
+		{
+			if(set.getScore() > maxscore)
+			{
+				maxscore = set.getScore();
+				activeGroup = set;
 			}
 		}
+		//System.out.println("Active Group :- \n\n");
+		for(String key : activeGroup.getGroupedCardMap().keySet())
+		{
+			 getCardsinList(activeGroup.getGroupedCardMap().get(key).getCardList());
+		}
+		//System.out.println("\n\nActive Group END:- \n\n");
+	}
+	
+	
+	private void performUniqueGroupedCards()
+	{
+		uniqueGroups = new ArrayList<GroupCardSet>();
+		int i = 0;
+		for(GroupCardSet cardset : allGroups)
+		{
+			if(i == 0)
+			{
+				uniqueGroups.add(cardset);
+				i++;
+				continue;
+			}			
+			else
+			{
+				ArrayList<Card> inputCardlist1 = getLooseCardListfromGroup(cardset);
+				boolean isSame = false;
+				for(GroupCardSet loopset : uniqueGroups)
+				{
+					ArrayList<Card> inputCardlist2 = getLooseCardListfromGroup(loopset);
+					isSame = compareArrayListofCardifSame(inputCardlist1, inputCardlist2);
+					if(isSame)
+						break;
+				}
+				if(!isSame)
+				{
+					uniqueGroups.add(cardset);
+				}
+				
+			}
+			
+		}
+		//System.out.println("Unique Group no :- " + uniqueGroups.size());
+		for(GroupCardSet set : uniqueGroups)
+		{
+			double score = CardGroupScoreCalculator.calculateScore(set);
+			set.setScore(score);
+			//System.out.print("{{Score :- " + score + "}},");
+			for(String key : set.getGroupedCardMap().keySet())
+			{
+				
+			//	getCardsinList(set.getGroupedCardMap().get(key).getCardList());
+			}
+			//System.out.println("----------------------------------------------\n\n");
+		}
+		
+	}
+	
+	
+	
+	private  boolean compareArrayListofCardifSame(ArrayList<Card> inputset1,ArrayList<Card> inputset2)
+	{
+		if(inputset1.size() != inputset2.size())
+			return false;
+		for(Card card : inputset1)
+		{
+			boolean cardFoundFlag = false;
+			for(Card loopedCard : inputset2)
+			{
+				if(card.getInstanceID().equals(loopedCard.getInstanceID()))
+					cardFoundFlag = true;
+			}
+			if(!cardFoundFlag)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private ArrayList<Card> getLooseCardListfromGroup(GroupCardSet set)
+	{
+		for(String key : set.getGroupedCardMap().keySet())
+		{
+			if(key.contains("LOOSE"))
+			{
+				return set.getGroupedCardMap().get(key).getCardList();
+			}
+		}
+		return null;
+	}
+	
+	private void collectAllGroupedCards()
+	{
+		int count = 0;
+		allGroups = new ArrayList<GroupCardSet>();
+		//System.out.println("\n____________________________PATTERNS___________________________");
+		for(CardSetNode node : allNodes)
+		{
+			
+			if(node.isLeafNode())
+			{
+				GroupCardSet currentGroup = new GroupCardSet();
+				int seqcount = 0,tripcount = 0,loosecount = 0;
+				count++;
+				while(node.getParent() != null)
+				{
+					  if(node.getType().equals(CardSetNode.TYPE_SEQUENCE))
+					  {
+						  seqcount++;
+					      currentGroup.getGroupedCardMap().put("SEQUENCE-"+seqcount, node);
+					  }
+					  if(node.getType().equals(CardSetNode.TYPE_TRIPLET))
+					  {
+						  tripcount++;
+					      currentGroup.getGroupedCardMap().put("TRIPLET-"+tripcount, node);
+					  }
+					  if(node.getType().equals(CardSetNode.TYPE_LOOSE))
+					  {
+						  loosecount++;
+					      currentGroup.getGroupedCardMap().put("LOOSE-"+loosecount, node);
+					  }
+					//  System.out.print(" " + node.getType());
+					 // getCardsinList(node.getCardList());
+					  node = node.getParent();
+				}
+				if(!currentGroup.verifyGroup())
+				{
+					System.out.println("\n\nMessed up group ... Exiting...");
+					for(String key : currentGroup.getGroupedCardMap().keySet())
+					{
+						getCardsinList(currentGroup.getGroupedCardMap().get(key).getCardList());
+					}
+					System.exit(1);
+				}
+				allGroups.add(currentGroup);
+				//System.out.println("____________________________PATTERN___END________________________");
+				//System.out.println("");
+			}
+			
+		}
+		//System.out.println("\n\n Total possible Combinations : " + allGroups.size() + " -- " + count);
 	}
 	
 	
 	private void init()
 	{
-		spadelist = new ArrayList<SpadeCard>();
-		diamondlist = new ArrayList<DiamondCard>();
-		heartlist = new ArrayList<HeartCard>();
-		clublist = new ArrayList<ClubCard>();
 		jokerlist = new ArrayList<Card>();
 		looseCards = new ArrayList<Card>();
 		sealedCardMap = new HashMap<String, ArrayList<Card>>();
-		possiblesealedCardMap = new HashMap<String, ArrayList<PossibleSetCards>>();
+		//possiblesealedCardMap = new HashMap<String, ArrayList<PossibleSetCards>>();
 		
 	}
 	
-	/*private void analyzeCardsinHand()
-	{
-		Card cardinHand[] = CardUtility.sortCards(cardsinHand.toArray(new Card[cardsinHand.size()]));
-		splitCardsup(cardinHand);
-		checkForSequences();
-		checkForTriplets();
-		printAllPossibleHashMaps();
-		//attemptSealinginLooseCards();
-		postAnalysis();
-	}*/
-	
-	private void analyzeCards(ArrayList<Card> cardlist,int round,CardSetNode node,GroupCardSet set)
+	// Main method
+	private void analyzeCards(ArrayList<Card> cardlist,int round,CardSetNode node)
 	{
 		ArrayList<SpadeCard> newSpadeList = new ArrayList<SpadeCard>();
 		ArrayList<HeartCard> newHeartList = new ArrayList<HeartCard>();
@@ -103,48 +306,96 @@ public class EasyBotStrategy implements GameStrategy {
 		ArrayList<ClubCard> newClubList = new ArrayList<ClubCard>();
 		splitCardsup(cardlist.toArray(new Card[cardlist.size()]),newSpadeList,newHeartList,newDiamondList,newClubList);
 		HashMap<String, ArrayList<PossibleSetCards>> mymap = checkForSequences(newSpadeList,newHeartList,newDiamondList,newClubList);
-		set = createGroupofCards(mymap,cardlist,round,node,set);
+		createGroupofCards(mymap,cardlist,round,node);
+		//System.out.println("Group Created");
 		
 	}
 	
-	private GroupCardSet createGroupofCards(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,GroupCardSet set)
+	private void createGroupofCards(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode)
 	{
 		boolean isRoot = false;
 		round++;
 		if(round == 1)
 			isRoot = true;	
 		
-	
+	    if(mymap.size() == 0)
+	    {
+	    	mymap = checkForTripletsQuadreplets(inputcardlist);
+	    	if(mymap.size() == 0)
+	    	{
+	    	        CardSetNode node = new CardSetNode(isRoot);
+					node.setCardList(inputcardlist);
+					node.setType(CardSetNode.TYPE_LOOSE);
+					node.setParent(parentNode);
+					parentNode.setHasChild(false);
+					parentNode.setChildren(null);
+					node.setLeafNode(true);
+					allNodes.add(node);
+					return;
+	    	}
+	    	for(String key : mymap.keySet())
+	    	{
+	    		for(PossibleSetCards cardset : mymap.get(key))
+				{
+	    		      // System.out.println("\n\nTrip Kwy :" + key);	
+	    		       parentNode.setHasChild(true);
+				       CardSetNode node = new CardSetNode(isRoot);
+				       node.setCardList(cardset.getCardList());
+				       node.setType(CardSetNode.TYPE_TRIPLET);
+				       node.setParent(parentNode);
+				       parentNode.addChild(node);
+				       ArrayList<Card> remainingCards = getRemainingCards(cardset.getCardList(),inputcardlist);
+					  // getCardsinList(cardset.getCardList());getCardsinList(remainingCards);
+					   allNodes.add(node);
+					   if(remainingCards.size() != countofRemainingCards)
+						{
+							countofRemainingCards = remainingCards.size();				
+							analyzeCards(remainingCards,round,node);
+							
+						}
+						else
+						{
+						    return;
+						}						
+				}
+	    	}
+	    }
+	    else
+	    {
+		
 		for(String key : mymap.keySet())
 		{
-		    System.out.println("Kwy :" + key);	
+			if(mymap.get(key).size() == 0)
+    			continue;
+		   // System.out.println("Kwy :" + key);	
 			for(PossibleSetCards cardset : mymap.get(key))
 			{
 				parentNode.setHasChild(true);
 				CardSetNode node = new CardSetNode(isRoot);
 				node.setCardList(cardset.getCardList());
 				node.setType(CardSetNode.TYPE_SEQUENCE);
+				node.setParent(parentNode);
 				parentNode.addChild(node);			
 				ArrayList<Card> remainingCards = getRemainingCards(cardset.getCardList(),inputcardlist);
-				getCardsinList(cardset.getCardList());getCardsinList(remainingCards);
+				//getCardsinList(cardset.getCardList());getCardsinList(remainingCards);
+				allNodes.add(node);
 				if(remainingCards.size() != countofRemainingCards)
 				{
 					countofRemainingCards = remainingCards.size();				
-					analyzeCards(remainingCards,round,node,set);
-					if(set != null)
-						set.getGroupedCardMap().put(UUID.randomUUID().toString(), cardset.getCardList());
+					analyzeCards(remainingCards,round,node);
+					
 				}
 				else
 				{
-				    set = new GroupCardSet();
-				    set.getGroupedCardMap().put(UUID.randomUUID().toString(),cardset.getCardList());
-					return set;
+					//node.setLeafNode(true);
+				    return;
 				}
 				
 				
 			} 
 		}
-		return null;
+	}
+		return;
 	}
 	
 	private void splitCardsup(Card[] cardlist,ArrayList<SpadeCard> splist,ArrayList<HeartCard> htlist,ArrayList<DiamondCard> ddlist,ArrayList<ClubCard> cblist)
@@ -174,15 +425,16 @@ public class EasyBotStrategy implements GameStrategy {
 		noOfWildCards = jokerlist.size();
 	}
 	
-	
-	private void checkForTriplets()
+	private HashMap<String, ArrayList<PossibleSetCards>> checkForTripletsQuadreplets(ArrayList<Card> cardlist)
 	{
-		if(looseCards.size() >= 3 )
+		HashMap<String, ArrayList<PossibleSetCards>> myMap = new HashMap<String, ArrayList<PossibleSetCards>>();
+		ArrayList<PossibleSetCards> pcardset = new ArrayList<PossibleSetCards>();
+		cardlist = getDistinctCardsFromListbyDisplayValue(cardlist);
+		if(cardlist.size() >= 3 )
 		{
-			
-			Card[] sortedCards = looseCards.toArray(new Card[looseCards.size()]);
-			Arrays.sort(sortedCards);			
-			ArrayList<Card> distinctCards = getDistinctCardsFromListbyDisplayValue(looseCards);
+			Card[] sortedCards = cardlist.toArray(new Card[cardlist.size()]);
+			Arrays.sort(sortedCards);
+			ArrayList<Card> distinctCards = getDistinctCardsFromListbyDisplayValue(cardlist);
 			for(Card card : distinctCards)
 			{
 				int similarcardcount = 0;
@@ -200,15 +452,24 @@ public class EasyBotStrategy implements GameStrategy {
 					boolean isTriplet = CardUtility.checkTripletorQuadraplets(similarCards.toArray(new Card[similarCards.size()]));
 					if(isTriplet)
 					{
-						sealedCardMap.put("TRIP"+"-"+card.getInstanceID(), similarCards);
+						PossibleSetCards cardset = new PossibleSetCards();
+						cardset.setSetType(PossibleSetCards.SETTYPE_TRIPLET);
+						cardset.setCardList(similarCards);
+						pcardset.add(cardset);
+						
 					}
 						
 				}
 			}
-			
+			if(pcardset.size() > 0 )
+			   myMap.put("ALL_TRIPLETS", pcardset);
 		}
-		//compileSealedandLooseCards();
+		
+		return myMap;
 	}
+	
+	
+	
 	
 	private HashMap<String, ArrayList<PossibleSetCards>> checkForSequences(ArrayList<SpadeCard> splist,ArrayList<HeartCard> htlist,ArrayList<DiamondCard> ddlist,ArrayList<ClubCard> cblist)
 	{
@@ -232,58 +493,81 @@ public class EasyBotStrategy implements GameStrategy {
 	}
 	
 	
-	/*private void compileSealedandLooseCards()
-	{
-		if( sealedCardMap.size() > 0 )
-		{
-			ArrayList<Card> sealedCardList = new ArrayList<Card>();
-			for(String key : sealedCardMap.keySet())
-				sealedCardList.addAll(sealedCardMap.get(key));
-			
-			looseCards = new ArrayList<Card>();
-			looseCards.addAll(getRemainingCards(sealedCardList));
-			
-		}
-	}*/
+    private void assignScoreForLooseCards()
+    {
+    	cardAttrList = new ArrayList<CardAttribute>();
+    	ArrayList<SpadeCard> splist = new ArrayList<SpadeCard>();
+    	ArrayList<DiamondCard> htlist = new ArrayList<DiamondCard>();
+    	ArrayList<HeartCard> ddlist = new ArrayList<HeartCard>();
+    	ArrayList<ClubCard> cblist = new ArrayList<ClubCard>();
+    	ArrayList<Card> currentLooseCards = getLooseCardListfromGroup(activeGroup);
+    	Card[] cardlist = currentLooseCards.toArray(new Card[currentLooseCards.size()]);
+    	splitCardsup(cardlist, splist, ddlist,htlist, cblist);
+    	analyzeLooseCards(currentLooseCards, splist, ddlist,htlist, cblist);
+    	return;
+    }
+    
+    
+    
+    private void analyzeLooseCards(ArrayList<Card> looseCardList,ArrayList<SpadeCard> splist,ArrayList<HeartCard> htlist,ArrayList<DiamondCard> ddlist,ArrayList<ClubCard> cblist)
+    {
+    	analyzeLooseCardsforSeq(new ArrayList<Card>(splist));
+    	analyzeLooseCardsforSeq(new ArrayList<Card>(htlist));
+    	analyzeLooseCardsforSeq(new ArrayList<Card>(ddlist));
+    	analyzeLooseCardsforSeq(new ArrayList<Card>(cblist));
+    	analyzeLooseCardsforTrip(looseCardList);
+    }
 	
-	private void postAnalysis()
-	{
-		if(sealedCardMap.size() == 0)
-			System.out.println("Nothing has been sealed.");
-		else
-		{
-			if( getSealedCardCount() == getDeclarableCount())
-				System.out.println("Ready to Declare");
-			else
-			{
-				float percent = ((float)getSealedCardCount()/getDeclarableCount()) * 100;
-				System.out.println("Sealed % = " + percent + "% , Ready to Play");
-			}
-		}
-		printCardSetup();
-	}
+    private void analyzeLooseCardsforSeq(ArrayList<Card> cardlist)
+    {
+    	 
+    	 Card sortedCards[] = cardlist.toArray(new Card[cardlist.size()]);
+    	 Arrays.sort(sortedCards);
+    	 for(int i=0;i<sortedCards.length;i++)
+    	 {
+    		 CardAttribute cardattr = new CardAttribute();
+    		 cardattr.setCard(sortedCards[i]);
+  			 cardattr.setDuplicate(isDuplicateCardinList(sortedCards, sortedCards[i]));
+  			 cardattr.setSeqProximityScore(CardGroupScoreCalculator.findProxmityforSequence(sortedCards, i));
+  			 cardAttrList.add(cardattr);
+  			
+    	 }
+    	return;
+    }
+    
+    private void analyzeLooseCardsforTrip(ArrayList<Card> cardlist)
+    {
+    	 Card[] listofCards = cardlist.toArray(new Card[cardlist.size()]);
+    	 Arrays.sort(listofCards);
+    	
+    	 for(CardAttribute cardAttr : cardAttrList)
+    	 {
+    		  cardAttr.setTripProximityScore(CardGroupScoreCalculator.findTripPossibilityScore(listofCards, cardAttr.getCard()));
+    	 }
+    	return;
+    }
 	
-	
-	private void printCardSetup()
-	{
-		System.out.println("Sealed Cards :- ");
-		for(String key : sealedCardMap.keySet())
-		{
-			System.out.print("{");
-		    for(Card card : sealedCardMap.get(key))
-		    {
-		    	System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
-		    }
-		    System.out.print("}");
-		}
-		System.out.println("\nLoose Cards :- ");
-		for(Card card : looseCards)
-	    {
-	    	System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
-	    }
-		System.out.println();
-	}
-	
+    
+    private boolean isDuplicateCardinList(Card[] listofCard,Card card)
+    {
+    	int count = 0;
+    	for(int i=0;i<listofCard.length;i++)
+    	{
+        	if(card.getDisplayValue().equals(listofCard[i].getDisplayValue()))
+    				{
+    			      count++;     
+    				}
+    	}
+    	if(count > 1)
+    		 return true;
+    	else
+    		 return false;
+    }
+
+
+   
+    
+    
 	private int getDeclarableCount()
 	{
 		if( gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || 
@@ -315,6 +599,8 @@ public class EasyBotStrategy implements GameStrategy {
 	
 	public boolean attemptToSealviaSequences(ArrayList<Card> cardlist,String flower,String origin,HashMap<String,ArrayList<PossibleSetCards>> myMap)
 	{
+		
+		cardlist = getDistinctCardsFromListbyDisplayValue(cardlist);
 		ArrayList<PossibleSetCards> pcardsetarr = new ArrayList<PossibleSetCards>();
 		boolean result = false;
 		if(cardlist.size() >= 3)
@@ -329,7 +615,8 @@ public class EasyBotStrategy implements GameStrategy {
 			if(cardlist.size() >= 3)
 				  addPossibleSealing(cardlist, 3, flower,origin,pcardsetarr);
 			
-			myMap.put("ORIGIN-"+origin+instanceid, pcardsetarr);
+			if(pcardsetarr.size()>0)
+			    myMap.put("ORIGIN-"+origin+instanceid, pcardsetarr);
 			instanceid++;
 		}
 		/*else
@@ -342,35 +629,6 @@ public class EasyBotStrategy implements GameStrategy {
 	
 	
 	
-	private void detectBestPossibleCardSet()
-	{
-		PossibleSetCards bestprobableset = null;
-		for(String key : possiblesealedCardMap.keySet())
-		{
-			
-			int weight = 0;
-			ArrayList<PossibleSetCards> pcardsets = possiblesealedCardMap.get(key);
-			for(PossibleSetCards pcardset : pcardsets)
-			{
-				int currentweight = pcardset.getHowmanySeq() + pcardset.getHowmanytrip();
-				if(currentweight > weight)
-				{
-					weight = currentweight;
-					bestprobableset = pcardset;
-				}
-			}
-			//System.out.println("-------------------------- BEST PROBABLE --------------------------------------------------");
-			if(bestprobableset != null)
-			{
-	      // 		getCardsinList(bestprobableset.getCardList());
-			   sealedCardMap.put(key, bestprobableset.getCardList());
-			}
-		//	System.out.println("-------------------------- END OF BEST PROBABLE --------------------------------------------------");
-			
-		}
-		
-	
-	}
 	
 	private void addPossibleSealing(ArrayList<Card> cardlist,int streamlength,String flower,String origin,ArrayList<PossibleSetCards> pcardsetarr)
 	{
@@ -477,9 +735,18 @@ public class EasyBotStrategy implements GameStrategy {
 	//Display function for all cards
 	public void getCardsinHand()
 	{
+	    ArrayList<SpadeCard> splist = new ArrayList<SpadeCard>();
+	    ArrayList<HeartCard> htlist = new ArrayList<HeartCard>();
+	    ArrayList<DiamondCard> ddlist = new ArrayList<DiamondCard>();
+	    ArrayList<ClubCard> cblist = new ArrayList<ClubCard>();
+	    Card[] listedCards = cardsinHand.toArray(new Card[cardsinHand.size()]);
+	    splitCardsup(listedCards, splist, htlist, ddlist, cblist);
+	    
+		Card[] sortedArray = cardsinHand.toArray(new Card[cardsinHand.size()]);
+		Arrays.sort(sortedArray);
 		System.out.println("InputCards :-");
 		System.out.print("{");
-		for(Card card : cardsinHand)
+		for(Card card : sortedArray)
 		{
 			System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
 		}
@@ -491,51 +758,17 @@ public class EasyBotStrategy implements GameStrategy {
 	{
 		Card[] sortedArray = cards.toArray(new Card[cards.size()]);
 		Arrays.sort(sortedArray);
-		System.out.print("{");
+		System.out.print("{{");
 		for(Card card : sortedArray)
 		{
-			System.out.print(card.getFlower()+"-"+card.getDisplayValue()+", ");
+			System.out.print(card.getFlower()+"-"+card.getDisplayValue()+",");
 		}
-		System.out.print("}\n");
-	}
-	
-	private void printAllPossibleHashMaps()
-	{
-		for(String key : possiblesealedCardMap.keySet())
-		{
-			ArrayList<PossibleSetCards> cardsetarr = possiblesealedCardMap.get(key);
-			for(PossibleSetCards cardset : cardsetarr)
-			{
-			       System.out.println(cardset.getNoofCards() +"-"+ cardset.getFlower() + "-"+ cardset.getSetType() +"-"+ cardset.getOrigin());
-			       System.out.println("-------------------------------------------------------------------------------------------------------");
-			       for(Card card : cardset.getCardList())
-			       {
-			                  	System.out.println("Card :- " + card.getInstanceID());
-			       }
-			       System.out.println("------------------- Remaining Cards  ----------------------------------------------------------------------------");
-			       System.out.println(" SEQ : " + cardset.getHowmanySeq() + " Trip : " + cardset.getHowmanytrip());
-			       //AnalyzedCardResult result = analyzeRemainingCards(getRemainingCards(cardset.getCardList()));
-			       //cardset.setHowmanySeq(result.getHowmanysequencescanbemade());
-			      // cardset.setHowmanytrip(result.getHowmanytripletscanbemade());
-			      // System.out.println("-------------------------------------------------------------------------------------------------------");
-			}
-			
-			
-		}
+		System.out.print("}},");
 	}
 	
 	
-	private AnalyzedCardResult analyzeRemainingCards(ArrayList<Card> cardlist)
-	{
-		AnalyzedCardResult result = new AnalyzedCardResult();
-		int howmanysequencescanbemade = getHowManySequencescanbeMade(cardlist);
-		int howmanytripcanbemade = getHowManyTripletscanbeMade(cardlist);
-		result.setHowmanysequencescanbemade(howmanysequencescanbemade);
-		result.setHowmanytripletscanbemade(howmanytripcanbemade);
-		//System.out.println("How many triplets :-  " + howmanytripcanbemade + " , How many Seq :" + howmanysequencescanbemade);
-		return result;
-	}
 	
+
 	
 	//Helper function to get unique cards used in getHowManyTripletscanbeMade
 	private ArrayList<Card> getDistinctCardsFromListbyDisplayValue(ArrayList<Card> cardlist)
@@ -696,4 +929,15 @@ public class EasyBotStrategy implements GameStrategy {
 		return remainingCards;
 	}
 
+
+
+// Not need in actuals but used for testing.
+
+private Card getNextCardFromDeck()
+{
+	currentIndicator++;
+	return totalCards[currentIndicator];
 }
+
+
+} // End of Class

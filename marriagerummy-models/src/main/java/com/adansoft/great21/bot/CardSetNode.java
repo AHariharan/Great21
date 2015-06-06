@@ -16,6 +16,10 @@ public class CardSetNode {
 	private String type;
 	private boolean hasChild;
 	private ArrayList<CardSetNode> children;
+	private boolean leafNode;
+	private CardSetNode parent;
+	
+	
 	
 	public CardSetNode(boolean isRoot)
 	{
@@ -68,5 +72,22 @@ public class CardSetNode {
 		this.children.add(node);
 		
 	}
+
+	public boolean isLeafNode() {
+		return leafNode;
+	}
+
+	public void setLeafNode(boolean leafNode) {
+		this.leafNode = leafNode;
+	}
+
+	public CardSetNode getParent() {
+		return parent;
+	}
+
+	public void setParent(CardSetNode parent) {
+		this.parent = parent;
+	}
+	
 	
 }

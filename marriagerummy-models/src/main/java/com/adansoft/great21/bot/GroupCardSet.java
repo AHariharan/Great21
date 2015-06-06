@@ -7,26 +7,47 @@ import com.adansoft.great21.models.Card;
 
 public class GroupCardSet {
 
-	private HashMap<String,ArrayList<Card>> groupedCardMap;
+	private HashMap<String,CardSetNode> groupedCardMap;
+	private double score;
 
 	public GroupCardSet() {
 		super();
-		groupedCardMap = new HashMap<String, ArrayList<Card>>();
+		groupedCardMap = new HashMap<String, CardSetNode>();
 	}
 
-	public GroupCardSet(HashMap<String, ArrayList<Card>> groupedCardMap) {
+	public GroupCardSet(HashMap<String, CardSetNode> groupedCardMap) {
 		super();
 		this.groupedCardMap = groupedCardMap;
 	}
 
-	public HashMap<String, ArrayList<Card>> getGroupedCardMap() {
+	public HashMap<String, CardSetNode> getGroupedCardMap() {
 		return groupedCardMap;
 	}
 
-	public void setGroupedCardMap(HashMap<String, ArrayList<Card>> groupedCardMap) {
+	public void setGroupedCardMap(HashMap<String, CardSetNode> groupedCardMap) {
 		this.groupedCardMap = groupedCardMap;
 	}
+
+	public double getScore() {
+		return score;
+	}
+
+	public void setScore(double score) {
+		this.score = score;
+	}
 	
+	public boolean verifyGroup()
+	{
+		ArrayList<Card> totalCardsinGroup = new ArrayList<Card>();
+		for(String key : this.getGroupedCardMap().keySet())
+		{
+			totalCardsinGroup.addAll(this.getGroupedCardMap().get(key).getCardList());
+		}
+		if(totalCardsinGroup.size() < 14)
+			return false;
+		else
+			return true;
+	}
 	
 	
 	
