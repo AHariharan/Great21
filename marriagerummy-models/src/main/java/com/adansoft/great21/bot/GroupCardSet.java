@@ -9,6 +9,7 @@ public class GroupCardSet {
 
 	private HashMap<String,CardSetNode> groupedCardMap;
 	private double score;
+	private boolean realSequencePresent;
 
 	public GroupCardSet() {
 		super();
@@ -47,6 +48,14 @@ public class GroupCardSet {
 			return false;
 		else
 			return true;
+	}
+
+	public boolean isRealSequencePresent() {
+		return realSequencePresent;
+	}
+
+	public void setRealSequencePresent(boolean realSequencePresent) {
+		this.realSequencePresent = realSequencePresent;
 	}
 	
 	

@@ -218,7 +218,7 @@ public class CardUtility {
 				}
 					
 				jokerposarr[i] = jokpos;
-				System.out.println(" Joker Pos : " + jokerposarr[i]);
+				//System.out.println(" Joker Pos : " + jokerposarr[i]);
 			}
 		
 			
@@ -906,6 +906,19 @@ public class CardUtility {
 
 	}
 	
+	
+	public static ArrayList<Card> excludeJokers(ArrayList<Card> cardlist,
+			String jokerValue) {
+		ArrayList<Card> excludedCardList = new ArrayList<Card>();
+		for (Card card : cardlist) {
+			if(card.getFlower().equals(Card.FLOWER_WILD))
+					continue;
+			if (!card.getDisplayValue().equals(jokerValue)) {
+				excludedCardList.add(card);
+			}
+		}
+		return excludedCardList;
+	}
 	
 
 }
