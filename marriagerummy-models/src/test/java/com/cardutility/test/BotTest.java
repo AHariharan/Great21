@@ -82,6 +82,7 @@ public class BotTest {
 		Card jokerCard = deckCards[13];*/
 		//System.out.println("DateStarted :- " + Calendar.getInstance().getTime());
 		EasyBotStrategy strategy = new EasyBotStrategy(cardsinHand, true, jokerCard, GameListConstants.GAMELIST_THIRTEENCARD_CLOSED_TYPE,deckCards,13);
+		strategy.playGame();
 		//System.out.println("DateEnded :- " + Calendar.getInstance().getTime());
 		
 

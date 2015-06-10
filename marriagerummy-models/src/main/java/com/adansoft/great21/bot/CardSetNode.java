@@ -9,6 +9,14 @@ public class CardSetNode {
 	public final static String TYPE_SEQUENCE = "Sequence";
 	public final static String TYPE_TRIPLET = "Triplet";
 	public final static String TYPE_LOOSE = "Loose";
+	public final static String TYPE_SEQUENCE_JOKER_1 = "JOKER1_Sequence";
+	public final static String TYPE_SEQUENCE_JOKER_2 = "JOKER2_Sequence";
+	public final static String TYPE_SEQUENCE_JOKER_3 = "JOKER3_Sequence";
+	public final static String TYPE_TRIPLET_JOKER_1 = "JOKER1_Triplet";
+	public final static String TYPE_TRIPLET_JOKER_2 = "JOKER2_Triplet";
+	public final static String TYPE_TRIPLET_JOKER_3 = "JOKER3_Triplet";
+	public final static String TYPE_TRIPLET_JOKER_4 = "JOKER4_Triplet";
+	
 	
 	
 	private boolean rootNode;	

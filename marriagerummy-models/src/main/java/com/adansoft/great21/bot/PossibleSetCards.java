@@ -8,6 +8,8 @@ public class PossibleSetCards {
 
 	public static final String SETTYPE_SEQUENCE = "Sequence";
 	public static final String SETTYPE_TRIPLET = "Triplet";
+	public static final String SETTYPE_SEQUENCE_JOKER = "Sequence_JOKER";
+	public static final String SETTYPE_TRIPLET_JOKER = "Triplet_JOKER";
 	
 	
 	private int noofCards;
@@ -18,6 +20,7 @@ public class PossibleSetCards {
 	private String origin;
 	private int howmanySeq;
 	private int howmanytrip;
+	private int noofjokerused;
 
 	public PossibleSetCards() {
 		super();
@@ -81,6 +84,12 @@ public class PossibleSetCards {
 	}
 	public void setHowmanytrip(int howmanytrip) {
 		this.howmanytrip = howmanytrip;
+	}
+	public int getNoofjokerused() {
+		return noofjokerused;
+	}
+	public void setNoofjokerused(int noofjokerused) {
+		this.noofjokerused = noofjokerused;
 	}
 	
 	

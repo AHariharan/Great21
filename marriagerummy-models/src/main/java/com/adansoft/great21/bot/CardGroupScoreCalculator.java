@@ -3,6 +3,7 @@ package com.adansoft.great21.bot;
 import java.util.ArrayList;
 
 import com.adansoft.great21.models.Card;
+import com.adansoft.great21.models.JokerCard;
 
 public class CardGroupScoreCalculator {
 
@@ -162,10 +163,14 @@ public class CardGroupScoreCalculator {
 		
 	}
 
-    public static double calculateDropCardScore(CardAttribute cardAttr)
+    public static double calculateDropCardScore(CardAttribute cardAttr,String jokerValue)
     {
     	double score = 0;
-    	if(cardAttr.isDuplicate())
+    	if(cardAttr.getCard().getDisplayValue().equals(jokerValue) || cardAttr.getCard() instanceof JokerCard)
+    	{
+    		score = 100; // Because its a joker card never discard
+    	}
+    	else if(cardAttr.isDuplicate())
     	{
     		score = -20;
     	}
@@ -176,12 +181,12 @@ public class CardGroupScoreCalculator {
     	return score;
     }
  
-    public static double getMinimumScore(ArrayList<CardAttribute> cardAttrList)
+    public static double getMinimumScore(ArrayList<CardAttribute> cardAttrList,String jokerValue)
     {
     	double minimumScore = 100;
     	for(CardAttribute cardAttr : cardAttrList)
     	{
-    		double currentScore = CardGroupScoreCalculator.calculateDropCardScore(cardAttr);
+    		double currentScore = CardGroupScoreCalculator.calculateDropCardScore(cardAttr,jokerValue);
     		if(currentScore < minimumScore)
     		{
     			minimumScore = currentScore;
@@ -190,4 +195,100 @@ public class CardGroupScoreCalculator {
     	return minimumScore;
     }
 
+    
+    public static ProximityResult findSequenceDistance(Card[] listofCards,int currentCardPos)
+	{
+    	ArrayList<Card> comparedCardsList;
+	
+		int distance;
+		if(listofCards.length == 1)
+		{
+			comparedCardsList = new ArrayList<Card>();
+			comparedCardsList.add(listofCards[0]);
+			distance = 1000;
+		}
+		else if(currentCardPos == listofCards.length - 1) // If its Last Card
+		{
+			distance = listofCards[currentCardPos].getInstrinsicValue() - listofCards[currentCardPos-1].getInstrinsicValue();
+			comparedCardsList = new ArrayList<Card>();
+			comparedCardsList.add(listofCards[currentCardPos]);comparedCardsList.add(listofCards[currentCardPos-1]);
+			if(listofCards[0].getDisplayValue().equals("A")) // This wont occur
+			{
+				int distanceA = 14 - listofCards[currentCardPos].getInstrinsicValue();
+				if(distanceA < distance)
+				{
+					comparedCardsList = new ArrayList<Card>();
+					comparedCardsList.add(listofCards[currentCardPos]);comparedCardsList.add(listofCards[0]);
+					distance = distanceA;
+				}
+			}
+		}
+		else if(currentCardPos == 0) // If its First Card
+		{
+			distance = listofCards[currentCardPos+1].getInstrinsicValue() - listofCards[currentCardPos].getInstrinsicValue();
+			comparedCardsList = new ArrayList<Card>();
+			comparedCardsList.add(listofCards[currentCardPos+1]);comparedCardsList.add(listofCards[currentCardPos]);
+			if(listofCards[currentCardPos].getDisplayValue().equals("A"))
+			{
+				if(listofCards[listofCards.length-1].getDisplayValue().equals("J") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("Q") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("K") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("10"))
+				{
+					int distanceA = 14 - listofCards[listofCards.length-1].getInstrinsicValue();
+					if(distanceA < distance)
+					{
+						comparedCardsList = new ArrayList<Card>();
+						comparedCardsList.add(listofCards[currentCardPos]);comparedCardsList.add(listofCards[listofCards.length-1]);
+						distance = distanceA;
+					}
+					 
+				}
+			}
+		}
+		else
+		{
+		    int distance1 = listofCards[currentCardPos+1].getInstrinsicValue() - listofCards[currentCardPos].getInstrinsicValue();
+		    int distance2 = listofCards[currentCardPos].getInstrinsicValue() - listofCards[currentCardPos-1].getInstrinsicValue();
+		    if(distance1<=distance2)
+		    {
+		    	comparedCardsList = new ArrayList<Card>();
+		    	comparedCardsList.add(listofCards[currentCardPos+1]);comparedCardsList.add(listofCards[currentCardPos]);
+		    	distance = distance1;
+		    }
+		    else
+		    {
+		    	comparedCardsList = new ArrayList<Card>();
+		    	comparedCardsList.add(listofCards[currentCardPos-1]);comparedCardsList.add(listofCards[currentCardPos]);
+		    	distance = distance2;
+		    }
+		    
+		    if(listofCards[currentCardPos].getDisplayValue().equals("A"))
+			{
+				if(listofCards[listofCards.length-1].getDisplayValue().equals("J") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("Q") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("K") ||
+				   listofCards[listofCards.length-1].getDisplayValue().equals("10"))
+				{
+					int distanceA = 14 - listofCards[listofCards.length-1].getInstrinsicValue();
+					if(distanceA < distance)
+					{
+						comparedCardsList = new ArrayList<Card>();
+						comparedCardsList.add(listofCards[currentCardPos]);comparedCardsList.add(listofCards[listofCards.length-1]);
+						distance = distanceA;
+					}
+					 
+				}
+			}
+		    
+		}
+		if(distance < 0 )
+		{
+			System.out.println( " Error !!!! This should never happen");
+		}
+		
+		ProximityResult result = new ProximityResult(comparedCardsList, distance);
+		
+		return result;
+	}
 }
