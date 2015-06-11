@@ -7,12 +7,26 @@ import com.adansoft.great21.models.JokerCard;
 
 public class CardGroupScoreCalculator {
 
-	private static double threecard_sequence_weight = 2.0;
-	private static double fourcard_sequence_weight = 2.5;
-	private static double fivecard_sequence_weight = 3.0;
-	private static double threecard_triplet_weight = 1.0;
-	private static double fourcard_triplet_weight = 1.5;
-	private static double loosecard_weight = -2.0;
+	private static double threecard_sequence_weight = 5.0;
+	private static double fourcard_sequence_weight = 6.5;
+	private static double fivecard_sequence_weight = 7.0;
+	private static double threecard_triplet_weight = 4.0;
+	private static double fourcard_triplet_weight = 4.5;
+	private static double loosecard_weight = -4.0;
+	
+	private static double threecard_sequence_weight_with_joker1 = 3.5;
+	private static double threecard_sequence_weight_with_joker2 = 1.5;
+	private static double fourcard_sequence_weight_with_joker1 = 4.0;
+	private static double fourcard_sequence_weight_with_joker2 = 2.5;
+	private static double fourcard_sequence_weight_with_joker3 = 1.5;
+	private static double fivecard_sequence_weight_with_joker3 = 1.5;
+	
+	private static double threecard_triplet_with_joker1 = 2.5;
+	private static double threecard_triplet_with_joker2 = 1.0;
+	//private static double fivecard_sequence_weight = 3.0;
+	
+	
+	
 	
 	private static double seq_distance_one = 5.0;
 	private static double seq_distance_two = 3.0;
@@ -52,6 +66,40 @@ public class CardGroupScoreCalculator {
 			{
 				int currentSize = node.getCardList().size();
 					score = score + currentSize * loosecard_weight;				
+			}
+			if(node.getType().equals(CardSetNode.TYPE_SEQUENCE_JOKER_1))
+			{
+				int currentSize = node.getCardList().size();
+				if(currentSize == 3)
+				       score = score + currentSize * threecard_sequence_weight_with_joker1;
+				if(currentSize == 4 )
+					   score = score + currentSize * fourcard_sequence_weight_with_joker1;
+			}
+			if(node.getType().equals(CardSetNode.TYPE_SEQUENCE_JOKER_2))
+			{
+				int currentSize = node.getCardList().size();
+				if(currentSize == 3)
+				       score = score + currentSize * threecard_sequence_weight_with_joker2;
+				if(currentSize == 4 )
+					   score = score + currentSize * fourcard_sequence_weight_with_joker2;	
+			}
+			if(node.getType().equals(CardSetNode.TYPE_SEQUENCE_JOKER_3))
+			{
+				int currentSize = node.getCardList().size();
+				if(currentSize == 4)
+				     score = score + currentSize * fourcard_sequence_weight_with_joker3;
+				if(currentSize == 5)
+				     score = score + currentSize * fivecard_sequence_weight_with_joker3;
+			}
+			if(node.getType().equals(CardSetNode.TYPE_TRIPLET_JOKER_1))
+			{
+				int currentSize = node.getCardList().size();
+				score = score + currentSize * threecard_triplet_with_joker1;		
+			}
+			if(node.getType().equals(CardSetNode.TYPE_TRIPLET_JOKER_2))
+			{
+				int currentSize = node.getCardList().size();
+				score = score + currentSize * threecard_triplet_with_joker2;		
 			}
 		}
 		
