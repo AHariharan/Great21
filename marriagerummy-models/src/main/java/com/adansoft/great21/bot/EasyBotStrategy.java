@@ -77,15 +77,16 @@ public class EasyBotStrategy implements GameStrategy {
 	public void playTurn()
 	{
 		Card cardPicked = getNextCardFromDeck();
+		//System.out.println("--------------------------------------------------------------");
 		cardsinHand.add(cardPicked);
 		System.out.println("Picked Card :- " + cardPicked.getFlower()+"-"+cardPicked.getDisplayValue());
-		getCardsinHand();
+		//getCardsinHand();
 		detectJokers(cardsinHand);
 		if(jokerKnown)
 		{
 			cardsinHandWithoutJokers = CardUtility.excludeJokers(cardsinHand, roundJokerCard.getDisplayValue());
 			noOfWildCards = cardsinHand.size() - cardsinHandWithoutJokers.size();
-			System.out.println("No of Joker : " + noOfWildCards);
+		//	System.out.println("No of Joker : " + noOfWildCards);
 		}
 		treeroot = new CardSetNode(false); 
 		allNodes = new ArrayList<CardSetNode>();
@@ -96,7 +97,7 @@ public class EasyBotStrategy implements GameStrategy {
 		}
 		else
 		{
-		   cardsinHand.add(getNextCardFromDeck());
+		  
 		   analyzeCards(cardsinHand,0,treeroot,false,false,0,0);
 		}
 		collectAllGroupedCards();
@@ -111,6 +112,7 @@ public class EasyBotStrategy implements GameStrategy {
 	public void playGame()
 	{
 	 int count = 0;	
+	 getCardsinHand();
 	  while(true)
 	  {
 		    count++;
@@ -119,8 +121,8 @@ public class EasyBotStrategy implements GameStrategy {
 			ArrayList<Card> desiredDropList = getAllDesiredDroppedCards();
 			if(cardsinHand.size() == 14 && getLooseCardListfromGroup(activeGroup).size() <= 1)
 			{
+				printActiveGroup();
 				System.out.println("\nGame Ends ....." + count);
-			    
 				break;
 			}
 			
@@ -129,8 +131,10 @@ public class EasyBotStrategy implements GameStrategy {
 				int dropcard  = NumberUtility.generateRandomNumber(0,desiredDropList.size()-1);
 				//int dropcard  = 1;
 				System.out.println("\nDropped Card : " + desiredDropList.get(dropcard).getFlower() + "-" + desiredDropList.get(dropcard).getDisplayValue());
-				System.out.println("--------------------------------------------------------------");
-				cardsinHand.remove(desiredDropList.get(dropcard));
+				//System.out.println("--------------------------------------------------------------");
+				//getCardsinHand();
+				boolean result = cardsinHand.remove(desiredDropList.get(dropcard));
+		//		System.out.println("Card Really Dropped : " + result);
 			}
 	  }
 	}
@@ -213,17 +217,23 @@ public class EasyBotStrategy implements GameStrategy {
 			}
 			
 		}
-		//System.out.println("Unique Group no :- " + uniqueGroups.size());
+		//System.out.println("Unique Group no :- " + uniqueGroups.size() + " ,AllGroup size : " + allGroups.size());
+		if(allGroups.size() == 0)
+		{
+			System.out.println("NO PATTERNS SEVERE MESS UP");
+			System.exit(1);
+		}
 		for(GroupCardSet set : uniqueGroups)
 		{
 			double score = CardGroupScoreCalculator.calculateScore(set);
 			set.setScore(score);
-			//System.out.print("{{Score :- " + score + "}},");
+			/*System.out.print("{{Score :- " + score + "}},");
 			for(String key : set.getGroupedCardMap().keySet())
 			{
 				
-			//	getCardsinList(set.getGroupedCardMap().get(key).getCardList());
+				getCardsinList(set.getGroupedCardMap().get(key).getCardList());
 			}
+			System.out.println("");*/
 			//System.out.println("----------------------------------------------\n\n");
 		}
 		
@@ -266,7 +276,7 @@ public class EasyBotStrategy implements GameStrategy {
 	{
 		int count = 0;
 		allGroups = new ArrayList<GroupCardSet>();
-		System.out.println("\n____________________________PATTERNS___________________________");
+		//System.out.println("\n____________________________PATTERNS___________________________");
 		for(CardSetNode node : allNodes)
 		{
 			
@@ -306,12 +316,13 @@ public class EasyBotStrategy implements GameStrategy {
 								 )
 							  {
 						  tripcount++;
-								  currentGroup.getGroupedCardMap().put("TRIP_JOKER-"+seqcount, node);
+								  currentGroup.getGroupedCardMap().put("TRIP_JOKER-"+tripcount, node);
 							  }
-					//  System.out.print(" " + node.getType());
-					//  getCardsinList(node.getCardList());
+					  System.out.print(" " + node.getType());
+					  getCardsinList(node.getCardList());
 					  node = node.getParent();
 				}
+				System.out.println("\n");
 				if(!currentGroup.verifyGroup())
 				{
 					System.out.println("\n\nMessed up group ... Exiting...");
@@ -322,13 +333,13 @@ public class EasyBotStrategy implements GameStrategy {
 					System.exit(1);
 				}
 				allGroups.add(currentGroup);
-				System.out.println("");
+				//System.out.println("");
 				
 				
 			}
 			
 		}
-		System.out.println("____________________________PATTERN___END________________________");
+		//System.out.println("____________________________PATTERN___END________________________");
 		//System.out.println("\n\n Total possible Combinations : " + allGroups.size() + " -- " + count);
 	}
 	
@@ -364,9 +375,12 @@ public class EasyBotStrategy implements GameStrategy {
 			isRoot = true;	
 		if(mymap.size() == 0 && !isOneRealSequencePresent && !attemptedAtleastOnce) // Attempt to form analyze with only unreal jokers
 		{
-	          inputcardlist.addAll(getUnrealJokers());
+			  ArrayList<Card> extractedJokerList = getUnrealJokers();
+	          inputcardlist.addAll(extractedJokerList);
+	          int localnumofWildCards = numofWildCards - extractedJokerList.size();
+	          jokerlist.removeAll(extractedJokerList);
 	          attemptedAtleastOnce = true;
-	          analyzeCards(inputcardlist,1,parentNode,false,jokerKnown,numofWildCards-getUnrealJokers().size(),jListIndicator);	          
+	          analyzeCards(inputcardlist,1,parentNode,false,jokerKnown,localnumofWildCards,jListIndicator);	          
 		}
 		else if(mymap.size() == 0)
 	    {
@@ -383,10 +397,7 @@ public class EasyBotStrategy implements GameStrategy {
 	
 	private void analyzeLooseCardswithJokers(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
 	{
-		
-			
-		
-		int numofjokersleft = jokerlist.size() - jListIndicator;
+	int numofjokersleft = jokerlist.size() - jListIndicator;
 		if(numofjokersleft <= 1 || inputcardlist.size() == 0)
 		{
 			CardSetNode node = new CardSetNode(isRoot);
@@ -396,7 +407,13 @@ public class EasyBotStrategy implements GameStrategy {
 			parentNode.setHasChild(false);
 			parentNode.setChildren(null);
 			if(numofjokersleft == 1)
-			     node.getCardList().add(jokerlist.get(jListIndicator));
+			{
+				if(parentNode.getCardList() != null)
+			        parentNode.getCardList().add(jokerlist.get(jListIndicator));
+				else
+					node.getCardList().add(jokerlist.get(jListIndicator));
+			} 
+			
 			node.setLeafNode(true);
 			allNodes.add(node);
 			return;
@@ -459,6 +476,14 @@ public class EasyBotStrategy implements GameStrategy {
 		{							
 		    analyzeLooseCardswithJokers(mymap, inputcardlist, round, parentNode, isOneRealSequencePresent, isJokerKnown, numofWildCards, isRoot, jListIndicator);
 		}
+		else
+		{
+			ArrayList<Card> excludedJokerlist = CardUtility.excludeJokers(inputcardlist, roundJokerCard.getDisplayValue());
+			numofWildCards = numofWildCards + inputcardlist.size() - excludedJokerlist.size();			
+			jokerlist.addAll(getRemainingCards(excludedJokerlist, inputcardlist));
+			inputcardlist = excludedJokerlist; 
+			analyzeLooseCardswithJokers(mymap, inputcardlist, round, parentNode, isOneRealSequencePresent, isJokerKnown, numofWildCards, isRoot, jListIndicator);
+		}
 		/*else
 			node.getCardList().addAll(getRemainingCards(getUnrealJokers(), jokerlist));
 		*///System.out.println("\nLoose cards before with Joker Interpretation ");
@@ -469,10 +494,12 @@ public class EasyBotStrategy implements GameStrategy {
 	private void checkRegularTriplets(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
 	{
 		ArrayList<Card> newCardList = CardUtility.excludeJokers(inputcardlist, roundJokerCard.getDisplayValue());
+		int localnumofwildcards = numofWildCards + (inputcardlist.size() - newCardList.size());
+		jokerlist.addAll(getRemainingCards(newCardList,inputcardlist));
 		mymap = checkForTripletsQuadreplets(newCardList);
     	if(mymap.size() == 0)
     	{
-    		   leafNodeWithoutJokers(mymap, newCardList,round,parentNode,isOneRealSequencePresent,isJokerKnown,numofWildCards,isRoot,jListIndicator);
+    		   leafNodeWithoutJokers(mymap, newCardList,round,parentNode,isOneRealSequencePresent,isJokerKnown,localnumofwildcards,isRoot,jListIndicator);
 			   return;
     	}
     	for(String key : mymap.keySet())
@@ -493,7 +520,7 @@ public class EasyBotStrategy implements GameStrategy {
 				   if(remainingCards.size() != countofRemainingCards)
 					{
 						countofRemainingCards = remainingCards.size();				
-						analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,numofWildCards,jListIndicator);
+						analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,localnumofwildcards,jListIndicator);
 						
 					}
 					else
@@ -543,11 +570,16 @@ public class EasyBotStrategy implements GameStrategy {
 	}
 	
 	
-	private void checkJokerSequences(ArrayList<PossibleSetCards> seqSetWithJokers,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
+	private boolean checkJokerSequences(ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
 	{
+		ArrayList<PossibleSetCards> seqSetWithJokers = getTotalListofAllPossibleSequencesWithJoker(inputcardlist, round, parentNode, isOneRealSequencePresent, isJokerKnown, numofWildCards, isRoot, jListIndicator);
+		if(seqSetWithJokers.size() == 0)
+			return true;
 		//System.out.println("InputCard List:- " ); getCardsinList(inputcardlist);System.out.println();
 		for(PossibleSetCards cardset : seqSetWithJokers)
 		{
+		//	System.out.println("Round :- " + round  + " , seqSetWithJokers : " + seqSetWithJokers.size());
+		//	getCardsinList(inputcardlist);
 			int localIndicator = jListIndicator;
 			CardSetNode node = new CardSetNode(isRoot);
 			for(int i=0;i<cardset.getNoofjokerused();i++)
@@ -568,21 +600,25 @@ public class EasyBotStrategy implements GameStrategy {
 			}
 			node.setParent(parentNode);
 			parentNode.addChild(node);			
-			ArrayList<Card> remainingCards = getRemainingCards(cardset.getCardList(),inputcardlist);				
-			//getCardsinList(cardset.getCardList());getCardsinList(remainingCards);System.out.println(" {{ JLISTIND : " + jListIndicator + " , Round : " + round + " , NumofWildCards : " + numofWildCards + " }}\n");
+			ArrayList<Card> remainingCards = getRemainingCards(cardset.getCardList(),inputcardlist);
+			int localnumofWildCards = numofWildCards - cardset.getNoofjokerused();
 			allNodes.add(node);
-			if(remainingCards.size() != countofRemainingCards)
+			analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,localnumofWildCards,localIndicator);
+			//getCardsinList(cardset.getCardList());getCardsinList(remainingCards);System.out.println(" {{ JLISTIND : " + jListIndicator + " , Round : " + round + " , NumofWildCards : " + numofWildCards + " }}\n");
+			
+			/*if(remainingCards.size() != countofRemainingCards)
 			{
-				numofWildCards = numofWildCards - cardset.getNoofjokerused();
+				int localnumofWildCards = numofWildCards - cardset.getNoofjokerused();
 				countofRemainingCards = remainingCards.size();				
-				analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,numofWildCards,localIndicator);					
+				analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,localnumofWildCards,localIndicator);					
 			}
 			else
 			{
 				//node.setLeafNode(true);
-			    return;
-			}
+			    return false;
+			}*/
 		}
+		return false;
 	}
 	
 	
@@ -609,19 +645,21 @@ public class EasyBotStrategy implements GameStrategy {
 				node.setParent(parentNode);
 				parentNode.addChild(node);			
 				ArrayList<Card> remainingCards = getRemainingCards(cardset.getCardList(),inputcardlist);
+				int localnumofWildCards = numofWildCards - cardset.getNoofjokerused();
 				//getCardsinList(cardset.getCardList());getCardsinList(remainingCards);System.out.println(" {{ JLISTIND : " + jListIndicator + " , Round : " + round + " , NumofWildCards : " + numofWildCards + " }}\n");
 				allNodes.add(node);
-				if(remainingCards.size() != countofRemainingCards)
+				analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,localnumofWildCards,localIndicator);
+				/*if(remainingCards.size() != countofRemainingCards)
 				{
-					numofWildCards = numofWildCards - cardset.getNoofjokerused();
+					int localnumofWildCards = numofWildCards - cardset.getNoofjokerused();
 					countofRemainingCards = remainingCards.size();				
-					analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,numofWildCards,localIndicator);					
+					analyzeCards(remainingCards,round,node,isOneRealSequencePresent,jokerKnown,localnumofWildCards,localIndicator);					
 				}
 				else
 				{
 					//node.setLeafNode(true);
 				    return;
-				}
+				}*/
 			}
 			
 		}
@@ -632,7 +670,22 @@ public class EasyBotStrategy implements GameStrategy {
 	}
 	
 	
+	
+	
 	private void checkPossibilitywithJokers(HashMap<String, ArrayList<PossibleSetCards>> mymap,ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
+	{
+		
+			boolean result = checkJokerSequences(inputcardlist,round,parentNode,isOneRealSequencePresent,isJokerKnown,numofWildCards,isRoot,jListIndicator);
+		    if(result)
+		    {
+		         checkJokerTriplets(inputcardlist, round, parentNode, isOneRealSequencePresent, isJokerKnown, numofWildCards, isRoot,jListIndicator);
+		    }
+		
+		
+	}
+	
+	
+	private ArrayList<PossibleSetCards> getTotalListofAllPossibleSequencesWithJoker(ArrayList<Card> inputcardlist,int round,CardSetNode parentNode,boolean isOneRealSequencePresent,boolean isJokerKnown,int numofWildCards,boolean isRoot,int jListIndicator)
 	{
 		ArrayList<PossibleSetCards> seqSetWithJokers = new ArrayList<PossibleSetCards>();
 		ArrayList<Card> CardWithoutJoker = CardUtility.excludeJokers(inputcardlist, roundJokerCard.getDisplayValue());
@@ -646,28 +699,21 @@ public class EasyBotStrategy implements GameStrategy {
 		getAllPossibleSequenceswithJoker(new ArrayList<Card>(ddlist),seqSetWithJokers,numofWildCards,jListIndicator);
 		getAllPossibleSequenceswithJoker(new ArrayList<Card>(htlist),seqSetWithJokers,numofWildCards,jListIndicator);
 		getAllPossibleSequenceswithJoker(new ArrayList<Card>(cblist),seqSetWithJokers,numofWildCards,jListIndicator);
-		if(seqSetWithJokers.size() > 0)
-		{
-			checkJokerSequences(seqSetWithJokers,inputcardlist,round,parentNode,isOneRealSequencePresent,isJokerKnown,numofWildCards,isRoot,jListIndicator);
-		}
-		else
-		{
-			checkJokerTriplets(inputcardlist, round, parentNode, isOneRealSequencePresent, isJokerKnown, numofWildCards, isRoot,jListIndicator);
-		}
-		
+		return seqSetWithJokers;
 	}
-	
 	
 	private void getAllPossibleTripletswithJoker(ArrayList<Card> cardlist,ArrayList<PossibleSetCards> setWithJoker,int numofJokers,int jListIndicator)
 	{
 		if(numofJokers == 0)
 			return;
 		ArrayList<Card> uniqueCardList = getDistinctCardsFromListbyDisplayValue(cardlist);
+		ArrayList<Card> distinctCardList = getDistinctCardsFromListbyFlowerandDisplayValue(cardlist);
 		for(Card card : uniqueCardList)
 		{
 			int count = 1;
 			ArrayList<Card> setCardList = new ArrayList<Card>();
-			for(Card loopCard : cardlist)
+			setCardList.add(card);
+			for(Card loopCard : distinctCardList)
 			{
 				if( loopCard.getDisplayValue().equals(card.getDisplayValue()) &&
 				   !(loopCard.getFlower().equals(card.getFlower())))
@@ -766,12 +812,16 @@ public class EasyBotStrategy implements GameStrategy {
 		jokerlist = new ArrayList<Card>();
 		for(Card card : cardlist)
 		{
+			//System.out.println( " Current Card " + card.getInstanceID());
 			if(jokerKnown)
 			{
-				if( card.getDisplayValue().equals(roundJokerCard.getDisplayValue()))
+				if(roundJokerCard.getDisplayValue().equals("Joker") && card.getDisplayValue().equals("A"))
+					jokerlist.add(card);					
+				else if(card.getDisplayValue().equals(roundJokerCard.getDisplayValue()))
 				   jokerlist.add(card);
-				if(card instanceof JokerCard)
+				else if(card instanceof JokerCard)
 				   jokerlist.add((JokerCard) card);
+				
 			}
 		}
 	}
@@ -1221,118 +1271,7 @@ public class EasyBotStrategy implements GameStrategy {
 	
 	
 	
-	//Get How many possible Triplets from remaining cards
-	private int getHowManyTripletscanbeMade(ArrayList<Card> cardlist)
-	{
-		int count = 0;
-		Card[] sortedCards = cardlist.toArray(new Card[cardlist.size()]);
-		Arrays.sort(sortedCards);
-		
-		ArrayList<Card> distinctCards = getDistinctCardsFromListbyDisplayValue(cardlist);
-		for(Card card : distinctCards)
-		{
-			int similarcardcount = 0;
-			ArrayList<Card> similarCards = new ArrayList<Card>();
-			for(Card loopCard : sortedCards)
-			{
-				if(card.getDisplayValue().equals(loopCard.getDisplayValue()))
-				{
-					similarCards.add(loopCard);
-					similarcardcount++;
-				}
-			}
-			if( similarcardcount >=3 )
-			{
-				boolean isTriplet = CardUtility.checkTripletorQuadraplets(similarCards.toArray(new Card[similarCards.size()]));
-				if(isTriplet)
-					count++;
-			}
-		}
-		
-		return count;
-	}
 	
-	//Get How many possible sequences from remaining cards
-	private int getHowManySequencescanbeMade(ArrayList<Card> cardlist)
-	{
-		int count = 0;
-		ArrayList<SpadeCard> splist = new ArrayList<SpadeCard>();
-		ArrayList<HeartCard> htlist = new ArrayList<HeartCard>();
-		ArrayList<DiamondCard> ddlist = new ArrayList<DiamondCard>();
-		ArrayList<ClubCard> cblist = new ArrayList<ClubCard>();
-		for(Card card:cardlist)
-		{
-			if(card instanceof SpadeCard)
-				splist.add((SpadeCard)card);
-			if(card instanceof HeartCard)
-				htlist.add((HeartCard)card);
-			if(card instanceof DiamondCard)
-				ddlist.add((DiamondCard)card);
-			if(card instanceof ClubCard)
-				cblist.add((ClubCard)card);
-		}
-        count = count + getCountsofSequenceinList(new ArrayList<Card>(splist));
-        count = count + getCountsofSequenceinList(new ArrayList<Card>(htlist));
-        count = count + getCountsofSequenceinList(new ArrayList<Card>(ddlist));
-        count = count + getCountsofSequenceinList(new ArrayList<Card>(cblist));
-		
-	  return count;	
-	}
-	
-	// Helper function to get count inside a same flower list of cards used in getHowManySequencescanbeMade
-	private int getCountsofSequenceinList(ArrayList<Card> cardlist)
-	{
-		int count = 0;
-		Card[] cardarray = cardlist.toArray(new Card[cardlist.size()]);
-		if(cardlist.size() >= 3)
-		{
-			
-			if(cardlist.size() >= 5)
-			{
-				HashMap<String,ArrayList<Card>> streamedCards = getCardsByStreaming(cardarray, 5);
-				for(String key : streamedCards.keySet())
-				{
-					ArrayList<Card> cardset = streamedCards.get(key);
-					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
-					{
-						  getCardsinList(cardset);
-						  count++;
-					}
-						
-				}
-			}
-			if(cardlist.size() >= 4)
-			{
-				HashMap<String,ArrayList<Card>> streamedCards = getCardsByStreaming(cardarray, 4);
-				for(String key : streamedCards.keySet())
-				{
-					ArrayList<Card> cardset = streamedCards.get(key);
-					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
-					{
-						  getCardsinList(cardset);
-						  count++;
-					}
-						
-				}
-			}
-			if(cardlist.size() >= 3)
-			{
-				HashMap<String,ArrayList<Card>> streamedCards = getCardsByStreaming(cardarray, 3);
-				for(String key : streamedCards.keySet())
-				{
-					ArrayList<Card> cardset = streamedCards.get(key);
-					if(CardUtility.checkSequence(cardset.toArray(new Card[cardset.size()])))
-					{
-						  getCardsinList(cardset);
-						  count++;
-					}
-				}
-			}
-		}
-		
-		
-	    return count;
-	}
 	
 	// Get remaining cards from hand other than list of cards provided as input
 	private ArrayList<Card> getRemainingCards(ArrayList<Card> cardlist,ArrayList<Card> fromCardList)
@@ -1363,6 +1302,7 @@ public class EasyBotStrategy implements GameStrategy {
 		{
 			getCardsinList(activeGroup.getGroupedCardMap().get(key).getCardList());
 		}
+		System.out.print("{{ ROUND Joker : " + roundJokerCard.getFlower()+"-"+roundJokerCard.getCountValue()+ " }}");
 		System.out.println("");
 	}
 	
@@ -1406,8 +1346,10 @@ private void initPickableCard()
 	pickableCards.add(new DiamondCard("10", 10,7, Card.STATUS_ASSIGNED));
 	pickableCards.add(new DiamondCard("9", 9,7, Card.STATUS_ASSIGNED));
 	pickableCards.add(new ClubCard("A", 1,7, Card.STATUS_ASSIGNED));*/
+	//pickableCards.add(new ClubCard("5", 5,7, Card.STATUS_ASSIGNED));
+	//pickableCards.add(new DiamondCard("Q", 10, 100, Card.STATUS_ASSIGNED));
 	pickableCards.add(new ClubCard("5", 5,7, Card.STATUS_ASSIGNED));
-	pickableCards.add(new HeartCard("4", 4,7, Card.STATUS_ASSIGNED));
+	//pickableCards.add(new DiamondCard("A", 1,7, Card.STATUS_ASSIGNED));
 }
 	
 	

@@ -44,7 +44,7 @@ public class GroupCardSet {
 		{
 			totalCardsinGroup.addAll(this.getGroupedCardMap().get(key).getCardList());
 		}
-		if(totalCardsinGroup.size() < 14)
+		if(totalCardsinGroup.size() != 14)
 			return false;
 		else
 			return true;

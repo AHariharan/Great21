@@ -909,6 +909,8 @@ public class CardUtility {
 	
 	public static ArrayList<Card> excludeJokers(ArrayList<Card> cardlist,
 			String jokerValue) {
+		if(jokerValue.equals("Joker"))
+			jokerValue = "A";
 		ArrayList<Card> excludedCardList = new ArrayList<Card>();
 		for (Card card : cardlist) {
 			if(card.getFlower().equals(Card.FLOWER_WILD))
