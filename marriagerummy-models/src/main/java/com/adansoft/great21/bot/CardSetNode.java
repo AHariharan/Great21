@@ -6,6 +6,8 @@ import com.adansoft.great21.models.Card;
 
 public class CardSetNode {
 
+	public final static String TYPE_FOLD= "Fold";
+	public final static String TYPE_JOKERONLY = "JokerOnly";
 	public final static String TYPE_SEQUENCE = "Sequence";
 	public final static String TYPE_TRIPLET = "Triplet";
 	public final static String TYPE_LOOSE = "Loose";

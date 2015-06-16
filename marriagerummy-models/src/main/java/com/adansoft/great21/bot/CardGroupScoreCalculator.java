@@ -7,6 +7,7 @@ import com.adansoft.great21.models.JokerCard;
 
 public class CardGroupScoreCalculator {
 
+	private static double joker_only_weight = 5.0;
 	private static double threecard_sequence_weight = 5.0;
 	private static double fourcard_sequence_weight = 6.5;
 	private static double fivecard_sequence_weight = 7.0;
@@ -44,6 +45,11 @@ public class CardGroupScoreCalculator {
 		for(String keys : set.getGroupedCardMap().keySet())
 		{
 			CardSetNode node =  set.getGroupedCardMap().get(keys);
+			if(node.getType().equals(CardSetNode.TYPE_JOKERONLY))
+			{
+				int currentSize = node.getCardList().size();
+				score = score + currentSize * joker_only_weight;
+			}
 			if(node.getType().equals(CardSetNode.TYPE_SEQUENCE))
 			{
 				int currentSize = node.getCardList().size();
@@ -182,6 +188,12 @@ public class CardGroupScoreCalculator {
 		else
 			score = seq_distance_greater_than_four;
 		
+		//final override
+		if(listofCards[currentCardPos] instanceof JokerCard)
+		{
+		   score = 20;
+		   
+		}
 		return score;
 	}
 	
@@ -207,6 +219,9 @@ public class CardGroupScoreCalculator {
 		else
 			score = tripcount_score_greater_zero;
 	
+		if(currentCard instanceof JokerCard)
+			   score = 20;
+		
 		return score;
 		
 	}

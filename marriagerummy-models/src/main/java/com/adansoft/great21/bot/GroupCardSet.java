@@ -10,9 +10,11 @@ public class GroupCardSet {
 	private HashMap<String,CardSetNode> groupedCardMap;
 	private double score;
 	private boolean realSequencePresent;
+	private int threshold;
 
-	public GroupCardSet() {
+	public GroupCardSet(int threshold) {
 		super();
+		this.threshold = threshold;
 		groupedCardMap = new HashMap<String, CardSetNode>();
 	}
 
@@ -44,11 +46,12 @@ public class GroupCardSet {
 		{
 			totalCardsinGroup.addAll(this.getGroupedCardMap().get(key).getCardList());
 		}
-		if(totalCardsinGroup.size() != 14)
+		if(totalCardsinGroup.size() != threshold)
 			return false;
 		else
 			return true;
 	}
+	
 
 	public boolean isRealSequencePresent() {
 		return realSequencePresent;
