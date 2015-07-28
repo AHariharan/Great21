@@ -155,6 +155,20 @@ MarriageRummy.Utilities.UIUtilities.onMainPageLoad = function() {
 };
 
 MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
+	
+	var howtoPlayModal = function()
+	{
+		$('#howtoPlayImagesContainer img').unbind();
+		$('#howtoPlayImagesContainer img').on("click",function(){
+			var title = $(this).next().html();
+			var imgsrc = $(this).data("imgattr");
+			var htmlcontent = '<div class="'+imgsrc+   ' modalimg" >';
+			$('#modalhowtoPlay .modal-title').html(title);
+			$('#modalhowtoPlay .modal-body').html(htmlcontent);
+			$('#modalhowtoPlay').modal();
+		});
+		
+	};
 
 	var init = function() {
 		$('#signupSubmit').unbind();
@@ -177,10 +191,21 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 			$('form #rummysignin,form #troubleSignin').removeAttr("clicked");
 			$(this).attr("clicked","true");			
 		});
+		howtoPlayModal();
+		 $('[data-toggle="tooltip"]').tooltip({trigger:"hover focus click"});
+		 $("#MainSignup").unbind(); 
+		 $("#MainSignup").on("click",function(){
+			 $('#signupsignin li:eq(1) a').tab('show');
+			 navigationHandler.setupNavigation(this);scrollUtility.scrollTo('home',event);
+		 }); 
 	};
 	
 	
 	init();
+	
+	
+	
+	
 
 	var signup = function(emailaddress, nickname, password) // onShowCardGame
 	{

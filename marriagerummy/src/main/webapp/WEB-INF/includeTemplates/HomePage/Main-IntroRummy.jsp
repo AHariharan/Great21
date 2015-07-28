@@ -1,4 +1,4 @@
-<div class="row">
+<div id="home" class="row">
 	<div class="col-md-7" style="border-right:1px dashed gray; ">
 		<div id="carouselmainpage" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->

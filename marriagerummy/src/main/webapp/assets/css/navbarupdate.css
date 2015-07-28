@@ -98,7 +98,7 @@
 }
 
 .navbar-collapse>form {
-	padding-top: 16px;
+	/* padding-top: 16px; */
 }
 
 .carousel a {
@@ -280,4 +280,18 @@ ul.nav-pills {
 		color: #fdfcfd;
 		background-color: #76777a;
 	}
+}
+
+.btn-blend
+{
+	color: #fff;
+    background-color: #036AAC;
+    border-color: #EFEDEB;
+}
+
+.btn-blend:hover
+{
+	color: #036AAC;
+    background-color: #fff;
+    border-color: #fff;
 }

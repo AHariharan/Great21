@@ -20,6 +20,8 @@
 	rel="stylesheet">
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
+<link href="./assets/css/GamePlay.css" rel="stylesheet">
+<link href="./assets/css/LoadCards.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
 <meta name="description" content="">
 
@@ -39,9 +41,14 @@
 		</div>
 		<div class="verticalSpacer-large"></div>
 
-		<div id="howto" class="section2"></div>
-		<div class="container">
+		<div id="howto" class="section2">
+		   <%@ include file="./WEB-INF/includeTemplates/HomePage/HowToPlay.jsp" %>
+		</div>
+		<div id="basics" class="container">
 			<%@ include file="./WEB-INF/includeTemplates/HomePage/Rules.jsp"%>
+		</div>
+		<div id="points" class="container">
+			<%@ include file="./WEB-INF/includeTemplates/HomePage/Points.jsp"%>
 		</div>
 		<div id="footer" class="section4"></div>
 	</div>

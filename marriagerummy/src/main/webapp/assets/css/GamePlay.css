@@ -1102,7 +1102,8 @@
 	text-align: center;
 }
 
-.meld-3:hover,.meld-4:hover,.meld-select,.meld-foldcard:hover {
+.meld-3:hover,.meld-4:hover,.meld-5:hover,.meld-select,.meld-foldcard:hover
+	{
 	border-radius: 11px;
 	box-shadow: 0px 0px 18px 2px rgb(172, 3, 3) inset;
 }
@@ -1180,6 +1181,15 @@
 	-o-transform: rotate(4deg);
 }
 
+.meld-5 {
+	width: 360px;
+	margin-top: 23px;
+	float: left;
+	height: 225px;
+	border: 1px dashed rgb(237, 237, 237);
+	border-radius: 10px;
+	cursor: pointer;
+}
 
 .meld-5 .card1 {
 	transform: rotate(-32deg);
@@ -1187,7 +1197,7 @@
 	-moz-transform: rotate(-32deg);
 	-o-transform: rotate(-32deg);
 	top: 21px;
-	left: 63px;
+	left: 68px;
 }
 
 .meld-5 .card2 {
@@ -1196,12 +1206,12 @@
 	-moz-transform: rotate(-20deg);
 	-o-transform: rotate(-20deg);
 	left: -30px;
-	top: 20px;
+	top: 22px;
 }
 
 .meld-5 .card3 {
-	left: 97px;
-	top: -142px;
+	left: -127px;
+	top: 25px;
 	transform: rotate(-9deg);
 	-webkit-transform: rotate(-9deg);
 	-moz-transform: rotate(-9deg);
@@ -1209,8 +1219,8 @@
 }
 
 .meld-5 .card4 {
-	left: 4px;
-	top: -134px;
+	left: 116px;
+	top: -133px;
 	transform: rotate(4deg);
 	-webkit-transform: rotate(4deg);
 	-moz-transform: rotate(4deg);
@@ -1218,14 +1228,13 @@
 }
 
 .meld-5 .card5 {
-  left: 127px;
-  top: -291px;
-  transform: rotate(13deg);
-  -webkit-transform: rotate(13deg);
-  -moz-transform: rotate(13deg);
-  -o-transform: rotate(13deg);
+	left: 16px;
+	top: -123px;
+	transform: rotate(13deg);
+	-webkit-transform: rotate(13deg);
+	-moz-transform: rotate(13deg);
+	-o-transform: rotate(13deg);
 }
-
 
 .meld-4 .meldmessage {
 	top: -127px;

@@ -339,7 +339,7 @@
 
 .block-info-warn {
 	min-height: 20px;
-/* 	padding: 19px; */
+	/* 	padding: 19px; */
 	margin-bottom: 20px;
 	background-color: rgba(247, 250, 231, 1);
 	border: 2px solid #ECEA25;
@@ -373,4 +373,56 @@
 .block-info-error a {
 	color: rgb(197, 1, 68);
 	font-weight: 600;
+}
+
+.simpleImage {
+	width: 459px;
+	height: 200px;
+	cursor: pointer;
+}
+
+.simpleImage-ext {
+	width: 450px;
+	height: 225px;
+	cursor: pointer;
+}
+
+.modal-ex-lg
+{
+	width:1250px;
+}
+
+.modalimg
+{
+	width:1200px;
+	height:500px;
+}
+
+.screenshot1
+{
+	 background: url("../images/HowtoPlay/GameLobby.png");
+	 background-size: 1200px 500px;
+}
+
+.screenshot2
+{
+	 background: url("../images/HowtoPlay/CreateGame.png");
+	 background-size: 1200px 500px;
+}
+
+.screenshot3
+{
+	 background: url("../images/HowtoPlay/LaunchGame.png");
+	 background-size: 1200px 500px;
+}
+.screenshot4
+{
+	 background: url("../images/HowtoPlay/Playgame.png");
+	 background-size: 1200px 500px;
+}
+
+.bs-callout-info .meld-3:hover,.bs-callout-info .meld-4:hover,.bs-callout-info .meld-5:hover,.bs-callout-info .meld-foldcard:hover
+{
+	box-shadow:none;
+	border:2px dashed #036AAC !important;
 }

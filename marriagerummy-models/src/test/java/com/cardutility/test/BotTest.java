@@ -19,8 +19,8 @@ public class BotTest {
 	public static void main(String[] args) {
 		int testrun = 0;
 		//oneGameSevenRun();
-		//regularrun(testrun, 500,GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE);
-		regularrun(testrun, 15000,GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE);
+		regularrun(testrun, 1500,GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE);
+		//regularrun(testrun, 15000,GameListConstants.GAMELIST_THIRTEENCARD_OPEN_TYPE);
 		//oneGameThirteenRun();
 	}
 	
@@ -54,6 +54,7 @@ public class BotTest {
 	private static void regularrun(int testrun,int nooftesttoRun,String gameType)
 	{
 		int noofcards = 0, noofdecks = 3;
+		Date ProgramStartDate = Calendar.getInstance().getTime();
 		if(gameType.equals(GameListConstants.GAMELIST_SEVENCARD_CLOSED_TYPE) || 
 		   gameType.equals(GameListConstants.GAMELIST_SEVENCARD_OPEN_TYPE))
 		{
@@ -79,23 +80,23 @@ public class BotTest {
 			cardsinHand.add(deckCards[i]);
 		}
 		Card jokerCard = deckCards[noofcards];
-		Date dateStarted = Calendar.getInstance().getTime();
+	//	Date dateStarted = Calendar.getInstance().getTime();
 		EasyBotStrategy strategy = new EasyBotStrategy(cardsinHand, true, jokerCard, gameType,deckCards,noofcards);
 		int turnstoFinishGame = strategy.playGame();
-		System.out.println("Test Run : " + testrun + "  , DataStarted : " + dateStarted + " , DateEnded :- " + Calendar.getInstance().getTime() + " ,numofTurns : " + turnstoFinishGame);
+		System.out.println("Test Run : " + testrun +" ,numofTurns : " + turnstoFinishGame);
 		testrun++;
-		if(turnstoFinishGame > 0 && turnfrom0_10 < 10)
+		if(turnstoFinishGame > 0 && turnstoFinishGame < 10)
 			turnfrom0_10++;
-		if(turnstoFinishGame >= 10 && turnfrom0_10 < 15)
+		if(turnstoFinishGame >= 10 && turnstoFinishGame < 15)
 			turnfrom10_15++;
-		if(turnstoFinishGame >= 15 && turnfrom0_10 < 20)
+		if(turnstoFinishGame >= 15 && turnstoFinishGame < 20)
 			turnfrom15_20++;
 		if(turnstoFinishGame >= 20)
 			turnfromgt20++;
 		sum = sum +turnstoFinishGame;
 		}
 		
-		System.out.println("Total Runs : " + nooftesttoRun + " , Avg no of turns : " + (float)sum/nooftesttoRun + " ,Turn Distributions :" + turnfrom0_10 + " , " + turnfrom10_15 + " , " + turnfrom15_20 + " , " + turnfromgt20);
+		System.out.println(" Program Start : " + ProgramStartDate + " , Program Ends : " + Calendar.getInstance().getTime()+ " , Total Runs : " + nooftesttoRun + " , Avg no of turns : " + (float)sum/nooftesttoRun + " ,Turn Distributions :" + turnfrom0_10 + " , " + turnfrom10_15 + " , " + turnfrom15_20 + " , " + turnfromgt20);
 	}
 
 	private static void createCards(String cardlistsepbycommas,ArrayList<Card> cardlist)
