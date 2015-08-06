@@ -15,25 +15,25 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="../#home"
-					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('home',event);">Home</a>
+				<li><a href="/marriagerummy/#home"
+					>Home</a>
 
 				</li>
-				<li><a href="../#games"
-					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('games',event);">
+				<li><a href="/marriagerummy/#games"
+					>
 						Game Modes</a></li>
 				<li><a href="../#howto"
-					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('howto',event);">How
+					>How
 						to Play</a></li>
-				<li><a href="../#basics"
-					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('basics',event);">Game
+				<li><a href="/marriagerummy/#basics"
+					>Game
 						Basics</a></li>
-				<li><a href="../#rules"
-					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('rules',event);">Game
+				<li><a href="/marriagerummy/#rules"
+					>Game
 						Rules</a></li>
 				<!-- <li><a href="#points"
 					onClick="navigationHandler.setupNavigation(this);scrollUtility.scrollTo('points',event);">Points</a></li> -->
-				<li><a href="LearntoPlay"
+				<li><a href="/marriagerummy/LearntoPlay"
 					>Learn to Play</a></li>	
 			</ul>
 			<div class="navbar-form navbar-right">

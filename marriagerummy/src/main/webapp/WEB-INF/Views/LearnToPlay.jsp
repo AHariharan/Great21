@@ -20,15 +20,19 @@
 <link href="./assets/css/Common.css" rel="stylesheet">
 <link href="./assets/css/main.css" rel="stylesheet">
 <link href="./assets/css/navbarupdate.css" rel="stylesheet">
+<link href="./assets/css/GamePlay.css" rel="stylesheet">
+<link href="./assets/css/LoadCards.css" rel="stylesheet">
+<link href="./assets/ThirdPartyLibs/Animate/animate.css" rel="stylesheet">
 <meta name="description" content="">
 
 </head>
 <body>
 	<div id="profile"></div>
-	<%@ include file="../includeTemplates/HomePage/Main-NavigationFromOthers.jsp" %>
+	<%@ include
+		file="../includeTemplates/HomePage/Main-NavigationFromOthers.jsp"%>
 	<div class="container-fluid maincontent">
-	    <%@ include file="../includeTemplates/TroubleSignin/troublesignin.jsp" %>
-		<div id="footer" class="section4"></div>
+	    <%@ include file="../includeTemplates/TrainingPage/Training.jsp" %>
+		<!-- <div id="footer" class="section4"></div> -->
 	</div>
 	<!-- /.container -->
 	<script src="./assets/ThirdPartyLibs/JQuery/jquery-2.1.1.min.js"
@@ -40,6 +44,7 @@
 	<script src="./assets/js/ErrorMessage.js" type="text/javascript"></script>
 	<script src="./assets/js/UIHomeComm.js" type="text/javascript"></script>
 	<script src="./assets/js/Validator.js" type="text/javascript"></script>	
+	<script src="./assets/js/rummytraining.js" type="text/javascript"></script>
 	<script>
 		$(document)
 				.ready(

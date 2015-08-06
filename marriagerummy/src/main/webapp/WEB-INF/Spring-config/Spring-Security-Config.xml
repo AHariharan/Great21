@@ -22,6 +22,7 @@
 		</headers>
 	
 		<intercept-url pattern="/index.jsp*" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/LearntoPlay" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 		<intercept-url pattern="/rummy" access="ROLE_USER" />
 		<intercept-url pattern="/IndexerServices/" access="ROLE_USER" />
 		<intercept-url pattern="/WebSocketGameLauncher/" access="ROLE_USER" />

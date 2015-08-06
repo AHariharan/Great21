@@ -25,8 +25,9 @@
 </head>
 <body>
 	<div id="profile"></div>
-	<%@ include
-		file="../includeTemplates/ActivateSuccessPage/Main-Navigation.jsp"%>
+	<%-- <%@ include
+		file="../includeTemplates/ActivateSuccessPage/Main-Navigation.jsp"%> --%>
+	<%@ include file="../includeTemplates/HomePage/Main-NavigationFromOthers.jsp" %>	
 	<div class="container-fluid maincontent">
 	    <%@ include file="../includeTemplates/ActivateSuccessPage/activate.jsp" %>
 		<div id="footer" class="section4"></div>

@@ -123,5 +123,14 @@ public class MainController {
 
 		return modelAndView;
 	}
+	
+	@Secured("ROLE_USER")
+	@RequestMapping( value = "/LearntoPlay", method = {RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView traintoPlay()
+	{
+		ModelAndView modelAndView = new ModelAndView("LearnToPlay");
+		return modelAndView;
+	}
+
 
 }

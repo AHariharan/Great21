@@ -387,42 +387,139 @@
 	cursor: pointer;
 }
 
-.modal-ex-lg
-{
-	width:1250px;
+.modal-ex-lg {
+	width: 1250px;
 }
 
-.modalimg
-{
-	width:1200px;
-	height:500px;
+.modalimg {
+	width: 1200px;
+	height: 500px;
 }
 
-.screenshot1
-{
-	 background: url("../images/HowtoPlay/GameLobby.png");
-	 background-size: 1200px 500px;
+.screenshot1 {
+	background: url("../images/HowtoPlay/GameLobby.png");
+	background-size: 1200px 500px;
 }
 
-.screenshot2
-{
-	 background: url("../images/HowtoPlay/CreateGame.png");
-	 background-size: 1200px 500px;
+.screenshot2 {
+	background: url("../images/HowtoPlay/CreateGame.png");
+	background-size: 1200px 500px;
 }
 
-.screenshot3
-{
-	 background: url("../images/HowtoPlay/LaunchGame.png");
-	 background-size: 1200px 500px;
+.screenshot3 {
+	background: url("../images/HowtoPlay/LaunchGame.png");
+	background-size: 1200px 500px;
 }
-.screenshot4
-{
-	 background: url("../images/HowtoPlay/Playgame.png");
-	 background-size: 1200px 500px;
+
+.screenshot4 {
+	background: url("../images/HowtoPlay/Playgame.png");
+	background-size: 1200px 500px;
 }
 
 .bs-callout-info .meld-3:hover,.bs-callout-info .meld-4:hover,.bs-callout-info .meld-5:hover,.bs-callout-info .meld-foldcard:hover
-{
-	box-shadow:none;
-	border:2px dashed #036AAC !important;
+	{
+	box-shadow: none;
+	border: 2px dashed #036AAC !important;
+}
+
+.basictrainingroom .meld-3:hover,.basictrainingroom .meld-4:hover,.basictrainingroom .meld-5:hover,.basictrainingroom .meld-foldcard:hover
+	{
+	box-shadow: none;
+	/* border: 2px dashed #036AAC !important; */
+}
+
+.traincontent {
+	/* padding: 10px; */
+	border: 2px solid #036AAC;
+	text-align: center;
+	border-radius: 10px;
+	box-shadow: 0px 0px 9px 0px #036AAC;
+	cursor: pointer;
+	width: 200px;
+	margin-left: 50px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background: #F4F4F5;
+	color: #036AAC;
+}
+
+.traincontent span {
+	font-size: 34px;
+}
+
+.traincontent:hover,.traincontent-selected {
+	background: #036AAC;
+	color: white;
+	border: 2px solid white;
+}
+
+.trainroom {
+	padding: 10px;
+	border: 2px solid #036AAC;
+}
+
+.unanswered,.answered {
+	text-align: center;
+	width: 200px;
+}
+
+.answeredsuccess {
+	color: green;
+}
+
+.answeredfailure {
+	color: #D9534F;
+}
+
+.trainanswer {
+	font-size: 22px;
+}
+
+.locked {
+	width: 196px;
+	/* height: 100%; */
+	position: absolute;
+	/* top: 24px; */
+	/* left: 65px; */
+	/* border: 1px solid gray; */
+	background: rgba(2, 1, 19, 0.84);
+	color: white;
+	opacity: 1.4;
+	z-index: 100;
+	padding: 5px;
+}
+
+/* #SeqTest h1 {
+	width: 250px;
+	margin: 0px auto;
+	margin-top: 30px;
+	box-shadow: 0px 0px 1px 1px #9D9696;
+	padding: 10px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	color: #ffffff;
+	background: #036AAC;
+	border: 1px solid white;
+} */
+#SeqTest h4 {
+	color: #036AAC;
+}
+
+#SeqTest h4 span {
+	color: #2D03AC;
+	font-weight: bolder;
+	text-shadow: 0px 0px gray;
+}
+
+#SeqTest .meld-4 {
+	margin-left: -48px;
+}
+
+.levelunlocked {
+	color: green;
+	background: #F4FFF2;
+	padding: 10px;
+	border-radius: 10px;
+	border: 1px solid;
+	box-shadow: 0px 0px 10px 2px;
 }
