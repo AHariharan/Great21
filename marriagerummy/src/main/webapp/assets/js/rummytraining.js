@@ -451,8 +451,10 @@ MarriageRummy.Utilities.TrainingUtilities.BasicTraining = function() {
 	
 	var resetState = function()
 	{
-		$('.basictrainingroom').hide();
+		//$('.basictrainingroom').hide();
 		$('.traincontent').removeClass("traincontent-selected");
+		$('#SeqTest').css("display","none");
+		
 	};
 	
 	var cleanupSequence = function(divid)
@@ -1179,6 +1181,7 @@ MarriageRummy.Utilities.TrainingUtilities.BasicTraining = function() {
 						  $('#SeqTest').empty();
 						  $('#SeqTest').html(seqtestStatePreserver);
 						  resetState();
+						  marriageRummy.advancedTraining = new MarriageRummy.Utilities.TrainingUtilities.AdvancedTraining();
 					  });
 				  });
 				}
@@ -1203,5 +1206,153 @@ MarriageRummy.Utilities.TrainingUtilities.BasicTraining = function() {
 	};
 };
 
+
+
+MarriageRummy.Utilities.TrainingUtilities.AdvancedTraining = function() {
+	var self = this;
+	
+	var MODE_RUN_3CARD_VALID = 1;
+	var MODE_RUN_INVALID = 2;
+	var MODE_RUN_4CARD_VALID = 3;
+	var MODE_TRIPLET_VALID = 4;
+	var MODE_QUADRAPLET_VALID = 5;
+	var MODE_TRIPLET_INVALID = 6;
+	var MODE_RUN_4CARD_INVALID = 7;
+	var MODE_4CARD_TRIPLET_INVALID = 8;
+	var MODE_RUN_WITH_JOKER = 9;
+	var MODE_INVALIDRUN_WITH_JOKER = 10;
+	var MODE_4CARD_RUN_WITH_JOKER = 11;
+	var MODE_4CARD_INVALIDRUN_WITH_JOKER = 12;
+	var MODE_3CARD_TRIPLET_WITH_JOKER = 13;
+	var MODE_3CARD_INVALID_TRIPLET_WITH_JOKER = 14;
+	var MODE_4CARD_TRIPLET_WITH_JOKER = 15;
+	var MODE_4CARD_INVALID_TRIPLET_WITH_JOKER = 16;
+	
+	var suites = [ "Spade", "Club", "Diamond", "Heart" ];
+	var cardval = [ "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J","Q", "K", "A" ];
+	var basicTrainObj =  new MarriageRummy.Utilities.TrainingUtilities.BasicTraining();
+	
+	var cardDistributionTemaplate = '<div id="CARD$NUM$" class="basecard jokershowcard $CARD$" data-CardValue="$CARDVALUE$"></div>'
+
+	
+	var shuffleCards = function(cardList)
+	{
+		var finalListCards = new Array();
+		var indexArray = new Array();
+		var len = cardList.length;
+		while(true)
+			{
+			      var selectedIndex = Math.floor(Math.random() * (len - 0)) + 0;
+			      if(indexArray.length == 0)
+			    	 {
+			    	    indexArray.push(selectedIndex);
+			    	    finalListCards.push(cardList[selectedIndex]);
+			    	 }
+			      else
+			    	  {
+			    	      if(indexArray.indexOf(selectedIndex) == -1)
+			    	    	  {
+			    	    	     indexArray.push(selectedIndex);
+			    	    	     finalListCards.push(cardList[selectedIndex]);
+			    	    	  }
+			    	      else
+			    	    	  {
+			    	    	      if(cardList.length == finalListCards.length)
+			    	    	    	  break;
+			    	    	      else
+			    	    	    	  continue;
+			    	    	  }
+			    	  }
+			}
+		
+		return finalListCards;
+	};
+	
+	var generateRestofCards = function(numberofCards)
+	{
+		var cardList = new Array();
+		for(var i=0;i<numberofCards;i++)
+			{
+			    startcardindex = Math.floor(Math.random() * (12 - 0)) + 0;
+			    suiteindex = Math.floor(Math.random() * (3 - 0)) + 0;
+			    cardList.push(suites[suiteindex] + "-" + cardval[startcardindex]);
+			}
+		return cardList;
+	};
+	
+	var generate10RandomCardsWithAtleastoneSequence = function()
+	{
+		var restofCards = generateRestofCards(7);
+		var resultCards = basicTrainObj.getCards(MODE_RUN_3CARD_VALID);
+		var finalCardList = restofCards.concat(resultCards);
+		return shuffleCards(finalCardList);
+		
+	};
+	
+	var init = function()
+	{
+		$('.traincontent[data-traintype="advanced"]').unbind();
+		$('.traincontent[data-traintype="advanced"]').on("click", function() {
+			$('.advancedtraining').css("display","block");
+			self.createAdvanceRound1();
+		});
+	};
+	
+	init();
+	
+	self.createAdvanceRound1 = function()
+	{
+		var cardList = generate10RandomCardsWithAtleastoneSequence();
+		$('.carddistribution').empty();
+		for(var i=0;i<cardList.length;i++)
+			{
+			   var Card = cardDistributionTemaplate.replace("$NUM$",i).replace('$CARD$',cardList[i]).replace("$CARDVALUE$",cardList[i]);
+			   $('.carddistribution').append(Card);
+			}
+		
+		$('.carddistribution div.jokershowcard').draggable({revert: true,containment: ".advancedtraining"});
+		$('.cardformation>div>div').droppable({
+			"activate" : function(event, ui) {
+				if($(this).option != "disabled")
+					{
+				         $(this).css("border", "1px solid");
+				         $(this).css("box-shadow", "0px 0px 10px 2px red");
+					}
+			},
+			"deactivate" : function(event, ui) {
+				$(this).css("border", "1px solid rgb(180, 175, 175);");
+				$(this).css("box-shadow", "");
+			},
+			"drop" : function(event, ui) {
+				event.preventDefault();
+				var draggedobject = ui.draggable;
+				var classname = draggedobject.attr("data-cardValue");
+				$(this).addClass("basecard " +classname);
+				$(this).attr("data-cardValue",classname);
+				draggedobject.removeClass("basecard").removeClass(classname).addClass("makeitBlankCard");
+				
+				draggedobject.draggable( 'disable' );
+				var srcObj = draggedobject.attr("id");
+				$(this).attr("data-sourceObj",srcObj);
+				$(this).unbind();
+				$(this).on("click",function(){
+					var cardvalue = $(this).attr("data-cardValue");
+					$(this).removeClass("basecard "+cardvalue);
+					$(this).attr("data-cardValue","");
+					var sourceObj = $(this).attr("data-sourceObj");
+					$('.carddistribution #'+sourceObj).addClass("basecard " +cardvalue ).removeClass("makeitBlankCard");
+					$('.carddistribution #'+sourceObj).draggable("enable");
+					$( this ).droppable( "option", "disabled", false );
+					$(this).unbind();
+				});
+				$( this ).droppable( "option", "disabled", true );
+				$(this).css("box-shadow", "");
+				
+			}
+		});
+	};
+};
+
 var marriageRummy = marriageRummy || {};
 marriageRummy.basicTraining = new MarriageRummy.Utilities.TrainingUtilities.BasicTraining();
+marriageRummy.advancedTraining = new MarriageRummy.Utilities.TrainingUtilities.AdvancedTraining();

@@ -192,7 +192,7 @@ MarriageRummy.Utilities.UIUtilities.InitMainPage = function() {
 			$(this).attr("clicked","true");			
 		});
 		howtoPlayModal();
-		 $('[data-toggle="tooltip"]').tooltip({trigger:"hover focus click"});
+		 $('[data-toggle="tooltip"]').tooltip({trigger:"hover focus "});
 		 $("#MainSignup").unbind(); 
 		 $("#MainSignup").on("click",function(){
 			 $('#signupsignin li:eq(1) a').tab('show');

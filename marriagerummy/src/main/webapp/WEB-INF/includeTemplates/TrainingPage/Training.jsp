@@ -40,26 +40,47 @@
 <div class="basictrainingroom container" style="disply: none">
 
 	<div class="row" id="SeqTest" style="display: none; text-align: center">
-		
-			<h1>Round 1</h1>
-			<h4 style="padding-bottom: 30px;">Original Sequences Test :
-				Please answer to cardsets to test your skills</h4>
-		
-	</div>
-	<div class="row" id="TripTest" style="display: none;">
-		<h3 style="text-align: center">Triplet Sequences Test : Please
-			answer to cardsets to test your skills</h3>
+
+		<h1>Round 1</h1>
+		<h4 style="padding-bottom: 30px;">Original Sequences Test :
+			Please answer to cardsets to test your skills</h4>
 
 	</div>
-	<div class="row" id="SeqwithJokerTest" style="display: none;">
-		<h3 style="text-align: center">Sequence with Joker Test : Please
-			answer to cardsets to test your skills</h3>
 
+
+</div>
+
+<div class="advancedtraining container-fluid" style="display: none">
+
+	<div class="row" id="AdvTest" style="text-align: center">
+
+		<h3>Round 1</h3>
+		<h5 style="padding-bottom: 10px;">Create a Sequence : Form a
+			Sequence from the cards by dragging them to your right</h5>
 	</div>
-	<div class="row" id="TripwithJokerTest" style="display: none;">
-		<h3 style="text-align: center">Triplets with Joker Test : Please
-			answer to cardsets to test your skills</h3>
-
+	<div class="row">
+		<div class="col-md-9 carddistribution">
+			<!-- <div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div>
+			<div class="basecard jokershowcard"></div> -->
+		</div>
+		<div class="col-md-3 cardformation">
+		    <div> Please select on cards selected to send them back to left.
+		    </div>
+			<div>
+				<div id="showcard1" class="jokershowcard "></div>
+				<div id="showcard2" class="jokershowcard "></div>
+				<div id="showcard3" class="jokershowcard "></div>
+			</div>
+			<button class="btn btn-default" disabled="disabled">Confirm</button>
+		</div>
 	</div>
 
 
