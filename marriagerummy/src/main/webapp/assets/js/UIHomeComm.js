@@ -39,6 +39,7 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessURLS = function() {
 	self.signUp = "/marriagerummy/UserAccess/User/Signup";
 	self.resendActivation = "/marriagerummy/UserAccess/User/activation/resend";
 	self.forgotPassword = "/marriagerummy/UserAccess/User/ResetPassword";
+	self.advanceTrainingResultCheck = "/marriagerummy/TrainingServices/AdvancedTraining/Validate";
 };
 
 MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = function() {
@@ -61,6 +62,15 @@ MarriageRummy.Utilities.CommunicationUtilities.UserAccessRequestPreparer = funct
 			};
 		return formdata;
 	};
+	
+	self.sendAdvancedTrainingValidationRequest = function(validationType,cardlist)
+	{
+		var formdata = {
+				"validationTypes" : validationType,
+				"cardInstanceID" : cardlist
+				};
+			return formdata;
+	}
 
 };
 

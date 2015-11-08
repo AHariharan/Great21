@@ -974,6 +974,19 @@
 	position: relative;
 }
 
+.jokershowcard-alt
+{
+	width: 76px;
+	height: 120px;
+	border: 1px solid rgb(180, 175, 175);
+	cursor: pointer;
+	box-shadow: 0px 0px 14px 0px rgb(125, 131, 141);
+	border-radius: 9px;
+	display: inline-block;
+	position: relative;
+	margin:10px;
+}
+
 .declareGame {
 	width: 1200px;
 	/* min-height: 336px;

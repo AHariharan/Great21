@@ -11,6 +11,7 @@ public class EncryptResolverDataSource extends BasicDataSource {
 		textEncryptor.setPassword("Letmein@123");
 		String result = textEncryptor.decrypt(password);
 		super.setPassword(result);
+		System.out.println("****** PASS  : " + result);
 	}
 	
 }

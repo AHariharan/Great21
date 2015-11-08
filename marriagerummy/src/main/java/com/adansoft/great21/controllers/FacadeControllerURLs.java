@@ -73,5 +73,10 @@ public class FacadeControllerURLs {
 	public final static String REPLY_USERMESSAGE = "/BasicUserDetails/Player/Message/Reply";
 	
 	
+	/* URLs for training */
+	
+	public final static String TRAINING_BASE = "/TrainingServices";
+	public final static String ADVANCE_TRAINING_VALID = "/AdvancedTraining/Validate";
+	
 	
 }
